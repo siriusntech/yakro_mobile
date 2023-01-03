@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+import 'package:mon_plateau/app/widgets/text_widget.dart';
+
+import '../../../Utils/app_constantes.dart';
+import '../../../widgets/image_widget.dart';
+import '../../../widgets/loading_widget.dart';
+import '../controllers/apropos_controller.dart';
+
+class AproposView extends GetView<AproposController> {
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: TextWidget(text:'Apropos de nous', fontSize: 20, fontWeight: FontWeight.bold,),
+        centerTitle: true,
+        elevation: 0.0,
+      ),
+      body: Center(
+        child: Obx((){
+          if(controller.isDataProcessing.value == true){
+            return LoadingWidget();
+          } else {
+            return ListView(
+              padding: EdgeInsets.all(8),
+              children: [
+                Container(
+                  child: ImageWidget(isNetWork: true, url: controller.entrepriseInfo.value.logo, fit: BoxFit.contain),
+                ),
+                TextWidget(text: controller.entrepriseInfo.value.presentation.toString().trim(),
+                fontSize: 20,)
+              ],
+            );
+          }
+        })
+      ),
+    );
+  }
+}

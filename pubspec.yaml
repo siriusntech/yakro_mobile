@@ -1,0 +1,143 @@
+name: mon_plateau
+version: 1.0.0+3
+publish_to: none
+description: App commune.
+environment: 
+  sdk: '>=2.16.2 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  http: ^0.13.4
+  provider: ^6.0.2
+  carousel_slider: ^4.0.0
+  intl: ^0.17.0
+  i18n_extension: ^4.2.0
+  image_picker: ^0.8.4+9
+  flutter_spinkit: ^5.1.0
+  flutter_easyloading: ^3.0.3
+  flutter_datetime_picker: ^1.5.1
+  shared_preferences: ^2.0.13
+  pin_code_fields: ^7.3.0
+  email_validator: ^2.0.1
+  maps_launcher: ^2.0.1
+  badges: ^2.0.2
+  url_launcher: ^6.0.20
+  clipboard: ^0.1.3
+  file_picker: ^4.5.1
+  share_plus: ^4.0.10
+  video_player: ^2.4.2
+  connectivity_plus: ^2.3.0
+  top_snackbar_flutter: ^1.1.1
+  cached_network_image: ^3.0.0
+  photo_view: ^0.14.0
+  image_picker_android: 0.8.4+13
+  pusher_client: ^2.0.0
+  path_provider: ^2.0.11
+  firebase_messaging: ^14.2.0
+  firebase_core: ^2.4.0
+  firebase_analytics: ^10.0.8
+#  persistent_bottom_nav_bar: any
+#  laravel_echo: ^0.2.9
+  get: 4.6.5
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^1.0.0
+  flutter_test: 
+    sdk: flutter
+
+  flutter_launcher_icons: "^0.9.2"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
+
+flutter: 
+  uses-material-design: true
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/actualite.jpg
+    - assets/images/alerte.jpg
+    - assets/images/agenda.jpg
+    - assets/images/annuaire.png
+    - assets/images/diffusion.png
+    - assets/images/message.jpg
+    - assets/images/commerce.jpg
+    - assets/images/msg_bg.png
+    - assets/images/alerte_bg.png
+    - assets/images/bg0.jpg
+    - assets/images/bg_one.jpg
+    - assets/images/bg_two.jpg
+    - assets/images/bg_top.jpg
+    - assets/images/logo/logo.png
+    - assets/images/logo/logoblanc.png
+    - assets/images/logo/logo_sirius.png
+    - assets/images/group1.jpg
+    - assets/images/sms.jpg
+    - assets/images/sms1.jpg
+    - assets/images/avvvv.png
+    - assets/images/securite.png
+    - assets/images/alerte.png
+    - assets/images/poubelle.png
+    - assets/images/route.png
+    - assets/images/localisateur.png
+    - assets/images/calendar.png
+    - assets/images/menu-alerte.png
+    - assets/images/menu-message.png
+    - assets/images/menu-commerce.png
+    - assets/images/menu-notification.png
+    - assets/images/menu-agenda.png
+    - assets/images/menu-actualite.png
+    - assets/images/menu-discussion.png
+    - assets/images/menu-historique.png
+    - assets/images/menu-pharmacie.png
+    - assets/images/menu-information.png
+    - assets/images/telephone.png
+    - assets/images/copie.png
+    - assets/images/store.png
+    - assets/images/job.png
+    - assets/images/name.png
+    - assets/images/default-file.png
+    - assets/images/presentation/store.png
+    - assets/images/presentation/news.png
+    - assets/images/presentation/alerte.png
+    - assets/images/presentation/known.png
+    - assets/images/presentation/chat.png
+    - assets/images/presentation/pharmacie.png
+    - assets/images/bg/bg.png
+    - assets/images/bg/bg.jpg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
+    - family: nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito-Bold.ttf
+        - asset: assets/fonts/Nunito-Italic.ttf
+          weight: 700
+    - family: opensans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-Bold.ttf
+        - asset: assets/fonts/OpenSans-Italic.ttf
+          weight: 700
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+

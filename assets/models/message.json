@@ -1,0 +1,21 @@
+{
+  "id": 0,
+  "sender_id": 0,
+  "type_id": 0,
+  "like_count":  0,
+  "un_like_count": 0,
+  "liked":  0,
+  "type": "",
+  "sender_pseudo":  "",
+  "libelle":  "",
+  "description": "",
+  "date":  "",
+  "fileUrl": "",
+  "fileType":  "",
+  "reponse": {
+     "id" : 0,
+     "date": "",
+     "contenu": "",
+     "fileUrl": ""
+  }
+}

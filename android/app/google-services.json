@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "37020883447",
+    "project_id": "app-mon-plateau",
+    "storage_bucket": "app-mon-plateau.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37020883447:android:389b0893ee5ffde4bd76f2",
+        "android_client_info": {
+          "package_name": "com.sirius.mon_plateau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37020883447-qg98caddc9ln8r93f35groj1gko9rs0r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sirius.mon_plateau",
+            "certificate_hash": "bd1d7491d2947f3cd62129a29eb03173edfe90cb"
+          }
+        },
+        {
+          "client_id": "37020883447-t6jti8kpnm4cb30r4aedm34bpo5u1dmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa_gT-CML6c6fSMoXQBiLLNM3Q7JE9DqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37020883447-t6jti8kpnm4cb30r4aedm34bpo5u1dmm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

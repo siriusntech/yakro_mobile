@@ -1,0 +1,11 @@
+{
+  "id": 0,
+  "code": 0,
+  "is_actif":  0,
+  "token":  "",
+  "nom": "",
+  "prenom":  "",
+  "pseudo": "",
+  "email":  "",
+  "contact": ""
+}
