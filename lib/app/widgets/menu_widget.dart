@@ -64,8 +64,9 @@ class MenuDeuxWidget extends StatelessWidget {
   final double height;
   final bool? enabled;
   final int? itemCount;
+  final VoidCallback? action;
 
-  MenuDeuxWidget({this.page, this.icon, this.title, this.subtitle, required this.width, required this.height, this.enabled, this.itemCount});
+  MenuDeuxWidget({this.page, this.action, this.icon, this.title, this.subtitle, required this.width, required this.height, this.enabled, this.itemCount});
 
   @override
   Widget build(BuildContext context) {

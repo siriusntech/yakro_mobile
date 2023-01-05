@@ -1,11 +1,13 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mon_plateau/app/models/zone_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/pharmacie_services.dart';
+import '../../../data/repository/zone_services.dart';
 import '../../../models/pharmacie_model.dart';
 import '../../../widgets/text_widget.dart';
 
@@ -14,12 +16,33 @@ class PharmacieController extends GetxController {
   var pharmacieList = List<Pharmacie>.empty(growable: true).obs;
   var contactList = List<Contact>.empty(growable: true).obs;
   var selectedPharmacie = Pharmacie().obs;
+  var zoneList = List<ZoneModel>.empty(growable: true).obs;
+  var selectedZoneName = ''.obs;
   // var selectedPharmacieContactList = List<Contact>.empty(growable: true).obs;
   var page = 1;
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
   var periode = ''.obs;
 
+  // GET ALL ZONES
+  void getZones() async{
+    try{
+      isDataProcessing(true);
+      final response = await ZoneServices.getZones();
+      if(response is Success){
+        isDataProcessing(false);
+        zoneList.clear();
+        zoneList.addAll(response.response as List<ZoneModel>);
+      }
+      if(response is Failure){
+        isDataProcessing(false);
+        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      isDataProcessing(false);
+      showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
 
   // GET ALL PHARMACIE
   getPharmacies(var page) async{
@@ -61,6 +84,25 @@ class PharmacieController extends GetxController {
       showSnackBar("Exception", ex.toString(), Colors.red);
     }
   }
+  // GET ALL PHARMACIE BY Zone
+  getPharmaciesByZone(zone_id) async{
+    try{
+      isDataProcessing(true);
+      final response = await PharmacieServices.getPharmaciesByZone(zone_id);
+      if(response is Success){
+        pharmacieList.clear();
+        isDataProcessing(false);
+        pharmacieList.addAll(response.response as List<Pharmacie>);
+      }
+      if(response is Failure){
+        isDataProcessing(false);
+        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      isDataProcessing(false);
+      showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
   // SET SELECTED PHARMACIE
   void setSelectedPharmacie(Pharmacie pharmacie){
     selectedPharmacie.value = pharmacie;
@@ -70,12 +112,14 @@ class PharmacieController extends GetxController {
     contactList.clear();
     contactList.addAll(list);
   }
-  // SET SELECTED TYPE
-  void setSelectedType(var type){
-    selectedType.value = type;
+  // SET SELECTED ZONE
+  void setSelectedZone(zoneId, zoneName){
+    selectedZoneName.value = zoneName;
   }
   // REFRESH PAGE
   void refresh(){
+    setSelectedZone(null, '');
+    getZones();
     pharmacieList.clear();
     getPharmacies(page);
   }
@@ -147,6 +191,7 @@ class PharmacieController extends GetxController {
   @override
   void onInit(){
     super.onInit();
+    getZones();
     getPharmacies(page);
   }
   @override

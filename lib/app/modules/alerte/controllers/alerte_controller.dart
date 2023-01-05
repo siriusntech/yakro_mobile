@@ -14,11 +14,13 @@ import '../../../data/repository/alerte_services.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/reponse_services.dart';
 import '../../../widgets/alerte_widgets.dart';
+import '../../home/controllers/home_controller.dart';
 import '../alerte_type_model.dart';
 
 class AlerteController extends GetxController {
 
   var user_id = 0.obs;
+  final HomeController homeCtrl = Get.find();
 
   var type_alertes_list = List<AlerteType>.empty(growable: true).obs;
   var alerteList = List<Alerte>.empty(growable: true).obs;
@@ -56,6 +58,8 @@ class AlerteController extends GetxController {
   var imageFile = File('').obs;
   var videoFile = File('').obs;
   final picker = ImagePicker();
+
+
 
 
   Future pickImage(ImageSource source) async {
@@ -608,6 +612,7 @@ class AlerteController extends GetxController {
     initFields();
 
     makeAlertesAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
 
   @override
@@ -621,6 +626,7 @@ class AlerteController extends GetxController {
     disposeFields();
 
     makeAlertesAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
 
   selectDateTime(BuildContext context) async{

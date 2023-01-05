@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../data/repository/agenda_services.dart';
 import '../../../data/repository/data/api_status.dart';
+import '../../home/controllers/home_controller.dart';
 import '../agenda_model.dart';
 import '../agenda_type_model.dart';
 
@@ -14,6 +15,8 @@ class AgendaController extends GetxController {
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
   var agendaTypes = ['Tout', 'Semaine'].obs;
+
+  final HomeController homeCtrl = Get.find();
 
 
   // GET ALL COMMERCE
@@ -88,5 +91,7 @@ class AgendaController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+
+  }
 }

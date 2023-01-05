@@ -7,7 +7,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/annuaire_services.dart';
 import '../../../data/repository/data/api_status.dart';
+import '../../../data/repository/type_annuaire_services.dart';
 import '../../../models/annuaire.dart';
+import '../../../models/type_annuaire_model.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/text_widget.dart';
 
@@ -16,7 +18,8 @@ class AnnuaireController extends GetxController {
   var user_id = 0.obs;
 
   var annuaireList = List<Annuaire>.empty(growable: true).obs;
-
+  var typeAnnuaireList = List<TypeAnnuaireModel>.empty(growable: true).obs;
+  var selectedTypeAnnuaireName = ''.obs;
   var selectedAnnuaire = Annuaire().obs;
 
   var isDataProcessing = false.obs;
@@ -29,8 +32,53 @@ class AnnuaireController extends GetxController {
       isDataProcessing(true);
       final response = await AnnuaireServices.getAnnuaires();
       if(response is Success){
+        annuaireList.clear();
         isDataProcessing(false);
         annuaireList.addAll(response.response as List<Annuaire>);
+      }
+      if(response is Failure){
+        isDataProcessing(false);
+        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      isDataProcessing(false);
+      showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+
+  getAnnuairesByType(type_id) async {
+    try{
+      isDataProcessing(true);
+      final response = await AnnuaireServices.getAnnuairesByType(type_id);
+      if(response is Success){
+        annuaireList.clear();
+        isDataProcessing(false);
+        annuaireList.addAll(response.response as List<Annuaire>);
+      }
+      if(response is Failure){
+        isDataProcessing(false);
+        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      isDataProcessing(false);
+      showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+
+  // SET SELECTED TYPE
+  void setSelectedTypeAnnuaire(zoneId, zoneName){
+    selectedTypeAnnuaireName.value = zoneName;
+  }
+
+  // GET ALL TYPES ANNUAIRES
+  void getTypesAnnuaire() async{
+    try{
+      isDataProcessing(true);
+      final response = await TypeAnnuaireServices.getTypesAnnuaire();
+      if(response is Success){
+        isDataProcessing(false);
+        typeAnnuaireList.clear();
+        typeAnnuaireList.addAll(response.response as List<TypeAnnuaireModel>);
       }
       if(response is Failure){
         isDataProcessing(false);
@@ -48,6 +96,8 @@ class AnnuaireController extends GetxController {
 
   // REFRESH PAGE
   void refresh(){
+    setSelectedTypeAnnuaire(null, '');
+    getTypesAnnuaire();
     annuaireList.clear();
     getAnnuaires();
   }
@@ -123,5 +173,7 @@ final ButtonStyle buttonStyle = ButtonStyle(
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+
+  }
 }

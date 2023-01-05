@@ -64,6 +64,30 @@ class PharmacieServices {
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
     }
   }
+  static getPharmaciesByZone(zone_id) async {
+    try{
+      var headers = await AuthService.getLoggedHeaders();
+      var url = Uri.parse(baseUrl+"pharmacies_by_zone/$zone_id");
+      var response =  await http.get(url, headers: headers);
+      // print('response phm type '+response.body.toString());
+      if(response.statusCode == 200){
+        return Success(response: pharmacieFromJson(response.body));
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on SocketException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
+    }
+    catch(e){
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
+  }
   static getPharmacieById(String id) async {
     try{
       var headers = await AuthService.getLoggedHeaders();

@@ -1,19 +1,12 @@
-import 'dart:io';
 
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mon_plateau/app/models/media.dart';
-import 'package:mon_plateau/app/models/media.dart';
 
-import '../../../Utils/app_routes.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/historique_services.dart';
 import '../../../widgets/alerte_widgets.dart';
-import '../../../widgets/text_widget.dart';
+import '../../home/controllers/home_controller.dart';
 import '../historique_model.dart';
 import '../information_model.dart';
 
@@ -23,8 +16,6 @@ class HistoriqueController extends GetxController {
 
   var historiqueList = List<Historique>.empty(growable: true).obs;
   var infosList = List<Information>.empty(growable: true).obs;
-  var allHistoriqueList = List<Historique>.empty(growable: true).obs;
-
 
   var selectedHistorique = Historique().obs;
   var selectedInformation = Information().obs;
@@ -33,6 +24,7 @@ class HistoriqueController extends GetxController {
   var isAllDataProcessing = false.obs;
   var isProcessing = false.obs;
 
+  final HomeController homeCtrl = Get.find();
 
   getHistoriques() async {
     try{
@@ -43,6 +35,7 @@ class HistoriqueController extends GetxController {
       final response = await HistoriqueServices.getHistoriques(user_id.value);
       if(response is Success){
         isDataProcessing(false);
+        historiqueList.clear();
         historiqueList.addAll(response.response as List<Historique>);
       }
       if(response is Failure){
@@ -55,25 +48,6 @@ class HistoriqueController extends GetxController {
     }
   }
 
-
-  getAllHistoriques() async {
-    try{
-      isAllDataProcessing(true);
-      final response = await HistoriqueServices.getAllHistoriques(user_id.value);
-      if(response is Success){
-        isAllDataProcessing(false);
-        allHistoriqueList.clear();
-        allHistoriqueList.addAll(response.response as List<Historique>);
-      }
-      if(response is Failure){
-        isAllDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      isAllDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
 
 
   setSelectedHistorique(Historique historique){
@@ -90,14 +64,13 @@ class HistoriqueController extends GetxController {
     try{
       final response = await HistoriqueServices.makeHistoriqueIsRead(historique_id, user_id.value);
       if(response is Success){
-        var index = historiqueList.indexWhere((element) => element.id == historique_id);
-        historiqueList[index].is_read = 1;
+        getRefreshHistoriques();
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception "+ex.toString());
     }
   }
 
@@ -117,66 +90,6 @@ class HistoriqueController extends GetxController {
   }
 
 
-  likeHistorique(historique_id) async {
-    try{
-      final response = await HistoriqueServices.likeHistorique(historique_id, user_id.value);
-      if(response is Success){
-        final historique_index = allHistoriqueList.indexWhere((element) => element.id == historique_id);
-        final _historique = allHistoriqueList[historique_index];
-        manageLike(_historique, historique_index);
-      }
-      if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-
-  manageLike(Historique historique, index) async{
-    if(historique.id != null){
-      if(historique.liked == 2){
-        historique.unLikeCount! > 0 ? historique.unLikeCount = historique.unLikeCount! - 1 : historique.unLikeCount = 0;
-      }
-      historique.liked = 1;
-      historique.likeCount = historique.likeCount! + 1;
-
-      allHistoriqueList.replaceRange(index, index+1, [historique]);
-      historiqueList.replaceRange(index, index+1, [historique]);
-      selectedHistorique.value = Historique();
-      selectedHistorique.value = allHistoriqueList[index] == historique ? allHistoriqueList[index] : historiqueList[index];
-
-    }
-  }
-
-  unLikeHistorique(historique_id) async {
-    try{
-      final response = await HistoriqueServices.unLikeHistorique(historique_id, user_id.value);
-      if(response is Success){
-        final historique_index = allHistoriqueList.indexWhere((element) => element.id == historique_id);
-        final _historique = allHistoriqueList[historique_index];
-        manageUnlike(_historique, historique_index);
-      }
-      if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-
-  manageUnlike(Historique historique, index) async{
-    if(historique.liked == 1){
-      historique.likeCount! > 0 ? historique.likeCount = historique.likeCount! - 1 : historique.likeCount = 0;
-    }
-    historique.liked = 2;
-    historique.unLikeCount = historique.unLikeCount! + 1;
-
-    allHistoriqueList.replaceRange(index, index+1, [historique]);
-    historiqueList.replaceRange(index, index+1, [historique]);
-    selectedHistorique.value = Historique();
-    selectedHistorique.value = allHistoriqueList[index] == historique ? allHistoriqueList[index] : historiqueList[index];
-  }
 
   // MAKE ALL AS READS
   makeHistoriquesAsRead() async{
@@ -192,6 +105,21 @@ class HistoriqueController extends GetxController {
     }catch(ex){
       // isDataProcessing(false);
       // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+
+  getRefreshHistoriques() async {
+    try{
+      final response = await HistoriqueServices.getHistoriques(user_id.value);
+      if(response is Success){
+        historiqueList.clear();
+        historiqueList.addAll(response.response as List<Historique>);
+      }
+      if(response is Failure){
+        print("Erreur "+response.errorResponse.toString());
+      }
+    }catch(ex){
+      print("Exception "+ex.toString());
     }
   }
 
@@ -211,7 +139,8 @@ class HistoriqueController extends GetxController {
     super.onInit();
     refresh();
 
-    // makeHistoriquesAsRead();
+    makeHistoriquesAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
 
   @override
@@ -221,7 +150,8 @@ class HistoriqueController extends GetxController {
 
   @override
   void onClose() {
-    // makeHistoriquesAsRead();
+    makeHistoriquesAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
 
 

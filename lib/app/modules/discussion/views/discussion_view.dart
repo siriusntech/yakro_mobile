@@ -22,6 +22,14 @@ class DiscussionView extends GetView<DiscussionController> {
         title: TextWidget(text: 'Discussions', fontSize: 20, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
+        actions: [
+          IconButton(
+              onPressed: (){
+                controller.refresh();
+              },
+              icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
+          )
+        ],
       ),
       body: GestureDetector(
          onTap: (){

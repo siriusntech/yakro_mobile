@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mon_plateau/app/modules/home/controllers/home_controller.dart';
 
 import '../../../data/repository/actualite_services.dart';
 import '../../../data/repository/data/api_status.dart';
@@ -16,6 +17,7 @@ class ActualiteController extends GetxController {
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
 
+   final HomeController homeCtrl = Get.find();
 
   // GET ALL COMMERCE TYPES
   void getActualiteTypes() async{
@@ -120,6 +122,7 @@ class ActualiteController extends GetxController {
     refresh();
 
     makeActualitesAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
 
   @override
@@ -130,5 +133,6 @@ class ActualiteController extends GetxController {
   @override
   void onClose() {
     makeActualitesAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
 }

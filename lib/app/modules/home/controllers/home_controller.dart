@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mon_plateau/app/data/repository/consultation_services.dart';
 import 'package:mon_plateau/app/models/consultation.dart';
 import 'package:mon_plateau/app/modules/auth/controllers/auth_controller.dart';
 import 'package:mon_plateau/app/modules/commerce/commerce_model.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,6 +39,11 @@ class HomeController extends GetxController {
   var  auth_user = User();
 
   final AuthController auth_ctrl = Get.put(AuthController());
+  // final ActualiteController actualite_ctrl = Get.put(ActualiteController());
+  // final CommerceController commerce_ctrl = Get.put(CommerceController());
+  // final HistoriqueController auth_ctrl = Get.put(AuthController());
+  // final AuthController auth_ctrl = Get.put(AuthController());
+
 
 
 
@@ -80,12 +82,12 @@ class HomeController extends GetxController {
   }
 
   // GET UNREAD ITEMS COUNTS
-  void getUnReadItemsCounts() async{
+  getUnReadItemsCounts() async{
     try{
       final response = await ConsultationServices.getAllUnreadsCounts();
       if(response is Success){
-        unReadItemsCountsList.addAll(response.response as List<Consultation>);
-        selectedItemsCounts.value = unReadItemsCountsList[0];
+        selectedItemsCounts.value = Consultation();
+        selectedItemsCounts.value = response.response as Consultation;
       }
       if(response is Failure){
         selectedItemsCounts.value.un_read_agenda_count = 0;
@@ -96,7 +98,7 @@ class HomeController extends GetxController {
         selectedItemsCounts.value.un_read_sujet_count = 0;
       }
     }catch(ex){
-
+       print("getUnReadItemsCounts Error "+ex.toString());
     }
   }
 
@@ -120,6 +122,7 @@ class HomeController extends GetxController {
     try{
       final response = await DiffusionServices.getUnReadDiffusions();
       if(response is Success){
+        unReadDiffusionCount.value = 0;
         final comList = response.response as List<Diffusion>;
         unReadDiffusionCount.value = comList.length;
       }

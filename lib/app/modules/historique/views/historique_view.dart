@@ -6,11 +6,13 @@ import 'package:mon_plateau/app/widgets/text_widget.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
+import '../../home/controllers/home_controller.dart';
 import '../controllers/historique_controller.dart';
 import '../widgets/historique_card_widget.dart';
 
 class HistoriqueView extends GetView<HistoriqueController> {
 
+  final HomeController homeCtrl = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class HistoriqueView extends GetView<HistoriqueController> {
                         action: () async{
                           controller.setSelectedHistorique(historique);
                           await controller.makeHistoriqueIsRead(historique.id);
+                          await homeCtrl.getUnReadItemsCounts();
                           Get.toNamed(AppRoutes.SHOW_HISTORIQUE);
                         },
                       );

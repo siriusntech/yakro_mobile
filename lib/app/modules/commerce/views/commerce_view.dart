@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mon_plateau/app/Utils/app_routes.dart';
-import 'package:mon_plateau/app/Utils/app_string.dart';
 import 'package:mon_plateau/app/modules/commerce/widgets/commerce_card_widget.dart';
 import 'package:mon_plateau/app/widgets/no_data_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../widgets/loading_widget.dart';
@@ -54,13 +52,19 @@ class CommerceView extends GetView<CommerceController> {
                       ),
                       child: Card(
                         color: Colors.white,
-                        elevation: 5,
+                        elevation: 0,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                         child: TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                             prefixIcon: Icon(Icons.search, color: Colors.black, size: 30,),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(width: 1, color: Colors.grey),
+                                borderRadius: BorderRadius.circular(15)
+                            ),
+                            hintText: "Ex: Sococe, Pizza, Charwama",
+                            contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                            // contentPadding: EdgeInsets.all(8)
                           ),
                           style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold,),
                           onChanged: (val){
@@ -94,7 +98,7 @@ class CommerceView extends GetView<CommerceController> {
                                   }
                                 },
                                 child: Chip(
-                                  elevation: 5.0,
+                                  elevation: 0.0,
                                   backgroundColor: type.nom.toString() == controller.selectedType.value ? Colors.amber : Colors.black26,
                                   label: TextWidget(text: type.nom.toString().toLowerCase(),
                                     fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,

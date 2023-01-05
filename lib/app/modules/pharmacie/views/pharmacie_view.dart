@@ -41,7 +41,7 @@ class PharmacieView extends GetView<PharmacieController> {
               Obx(() => TextWidget(text: controller.periode.value, color: mainColor,
                 fontSize: 18, fontWeight: FontWeight.bold, alignement: TextAlign.center,
               )),
-              SizedBox(height: 10,),
+              SizedBox(height: 5,),
               Expanded(
                 flex: context.isLandscape ? 5 : 2,
                 child: Column(
@@ -57,7 +57,7 @@ class PharmacieView extends GetView<PharmacieController> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                             prefixIcon: Icon(Icons.search, color: Colors.black, size: 30,),
-                            // focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                            hintText: "Ex: Pharmacie du Commerce",
                           ),
                           style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold,),
                           onChanged: (val){
@@ -70,9 +70,52 @@ class PharmacieView extends GetView<PharmacieController> {
                         ),
                       ),
                     ),
+                    Visibility(
+                      visible: controller.zoneList.length > 1,
+                      child: SizedBox(height: 3,)
+                    ),
+                    Visibility(
+                      visible: controller.zoneList.length > 1,
+                        child: Expanded(
+                          child: ListView(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Obx(() => Row(
+                                children: [
+                                  for(var zone in controller.zoneList) Card(
+                                    elevation: 0.0,
+                                    child: InkWell(
+                                      onTap: () {
+                                        if(controller.selectedZoneName.value == '' || controller.selectedZoneName.value != zone.nom!.toString()){
+                                          controller.setSelectedZone(zone.id, zone.nom);
+                                          controller.getPharmaciesByZone(zone.id);
+                                        }else{
+                                          controller.setSelectedZone(null, '');
+                                          controller.refresh();
+                                        }
+                                      },
+                                      child: Chip(
+                                        elevation: 4.0,
+                                        backgroundColor: zone.nom.toString() == controller.selectedZoneName.value ? Colors.amber : Colors.black26,
+                                        label: TextWidget(text: zone.nom.toString(),
+                                          fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
+                                        ),
+                                      ),
+                                    ),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                                    color: Colors.transparent,
+                                  )
+                                ],
+                              )),
+                            ],
+                          ),
+                        ),
+                    )
                   ],
                 ),
               ),
+              SizedBox(height: 10,),
               Expanded(
                 flex: context.isLandscape ? 12 : 15,
                 child: Column(

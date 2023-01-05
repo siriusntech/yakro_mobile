@@ -15,6 +15,7 @@ import '../../../data/repository/discussion_services.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
+import '../../home/controllers/home_controller.dart';
 import '../commentaire_model.dart';
 import '../discussion_model.dart';
 
@@ -28,6 +29,8 @@ class DiscussionController extends GetxController {
   var selectedDiscussion = Discussion().obs;
   var selectedCommentaire = Commentaire().obs;
   var selectedReponse = Commentaire().obs;
+
+  final HomeController homeCtrl = Get.find();
 
   var isDataProcessing = false.obs;
   var isAllDataProcessing = false.obs;
@@ -810,6 +813,7 @@ class DiscussionController extends GetxController {
       final response = await DiscussionServices.getDiscussions(user_id.value);
       if(response is Success){
         isDataProcessing(false);
+        discussionList.clear();
         discussionList.addAll(response.response as List<Discussion>);
 
         if(selectedDiscussion.value.id != null){
@@ -951,9 +955,7 @@ class DiscussionController extends GetxController {
     try{
       final response = await DiscussionServices.likeDiscussion(discussion_id, user_id.value);
       if(response is Success){
-        final discussion_index = discussionList.indexWhere((element) => element.id == discussion_id);
-        final _discussion = discussionList[discussion_index];
-        manageLike(_discussion, discussion_index);
+        getRefreshDiscussions();
       }
       if(response is Failure){
         showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
@@ -983,9 +985,7 @@ class DiscussionController extends GetxController {
     try{
       final response = await DiscussionServices.unLikeDiscussion(discussion_id, user_id.value);
       if(response is Success){
-        final discussion_index = discussionList.indexWhere((element) => element.id == discussion_id);
-        final _discussion = discussionList[discussion_index];
-        manageUnlike(_discussion, discussion_index);
+        getRefreshDiscussions();
       }
       if(response is Failure){
         showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
@@ -1879,6 +1879,29 @@ class DiscussionController extends GetxController {
     });
   }
 
+  getRefreshDiscussions() async {
+    try{
+      final response = await DiscussionServices.getDiscussions(user_id.value);
+      if(response is Success){
+        discussionList.clear();
+        discussionList.addAll(response.response as List<Discussion>);
+
+        if(selectedDiscussion.value.id != null){
+          selectedDiscussion.value = discussionList.firstWhere((element) => element.id == selectedDiscussion.value.id);
+          setSelectedDiscussion(selectedDiscussion.value);
+        }
+      }
+      if(response is Failure){
+        print("Erreur "+response.errorResponse.toString());
+      }
+    }catch(ex){
+      isDataProcessing(false);
+      print("Exception "+ex.toString());
+    }
+
+    // getDiscussionsInRealTime();
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -1887,6 +1910,7 @@ class DiscussionController extends GetxController {
     initFields();
     refresh();
     makeDiscussionsAsRead();
+    homeCtrl.getUnReadItemsCounts();
     // getDiscussionsInRealTime();
   }
 
@@ -1901,6 +1925,7 @@ class DiscussionController extends GetxController {
     timer?.cancel();
 
     makeDiscussionsAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
 
 }

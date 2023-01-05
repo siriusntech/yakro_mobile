@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/diffusion_services.dart';
+import '../../home/controllers/home_controller.dart';
 import '../diffusion_model.dart';
 
 class DiffusionController extends GetxController {
@@ -11,6 +12,8 @@ class DiffusionController extends GetxController {
   var selectedDiffusion = Diffusion().obs;
   var page = 1;
   var isDataProcessing = false.obs;
+
+  final HomeController homeCtrl = Get.find();
 
 
   // GET ALL DIFFUSION

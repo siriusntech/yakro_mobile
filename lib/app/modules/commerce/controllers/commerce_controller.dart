@@ -2,13 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mon_plateau/app/modules/commerce/commerce_model.dart';
-import 'package:mon_plateau/app/modules/commerce/providers/commerce_provider.dart';
-import 'package:mon_plateau/app/modules/commerce/providers/commerce_type_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:clipboard/clipboard.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../widgets/text_widget.dart';
+import '../../home/controllers/home_controller.dart';
 import '../commerce_services.dart';
 import '../commerce_type_model.dart';
 
@@ -20,6 +19,8 @@ class CommerceController extends GetxController {
   var page = 1;
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
+
+  final HomeController homeCtrl = Get.find();
 
 
   // GET ALL COMMERCE TYPES
@@ -197,6 +198,7 @@ class CommerceController extends GetxController {
     getCommerceTypes();
 
     makeCommercesAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
   @override
   void onReady() {
@@ -205,5 +207,6 @@ class CommerceController extends GetxController {
   @override
   void onClose() {
     makeCommercesAsRead();
+    homeCtrl.getUnReadItemsCounts();
   }
 }

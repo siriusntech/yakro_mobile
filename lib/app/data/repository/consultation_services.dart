@@ -24,7 +24,7 @@ class ConsultationServices {
       // print('unread response '+ response.body.toString());
       // print('code response '+ response.statusCode.toString());
       if(response.statusCode == 200){
-        return Success(response: consultationFromJson(response.body));
+        return Success(response: Consultation.fromJson(json.decode(response.body)['data']));
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
     }

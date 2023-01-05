@@ -24,7 +24,7 @@ class PharmacieCardWidget extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 8),
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: mainColor))
+          border: Border(bottom: BorderSide(color: Colors.grey))
         ),
         child: Row(
           children: [

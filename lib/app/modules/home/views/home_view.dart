@@ -108,119 +108,6 @@ class HomeView extends GetView<HomeController> {
   }
 
 
-  MenuView(){
-    return ListView(
-      // mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.only(left: 5, right: 5, bottom: 15),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20))
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 50,
-                    child: Image(
-                      image: AssetImage(LOGO),
-                      alignment: Alignment.topCenter,
-                    ),
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-              ),
-              Center(
-                child: TextWidget(text: "Bienvenue sur l'application mobile de la commune",
-                  fontSize: 14, fontWeight: FontWeight.w600,alignement: TextAlign.center,
-                ),
-              )
-            ],
-          ),
-        ),
-        Obx(() => Column(
-          children: [
-            SizedBox(height: 6,),
-            _menu(page: AppRoutes.MESSAGE, icon: MENU_MESSAGE, title: 'Le maire vous écoute', subtitle: 'Ecrire au maire à tout moment'),
-            Stack(
-              children: [
-                _menu(page: AppRoutes.AGENDA, icon: MENU_AGENDA, title: 'Agenda de la mairie', subtitle: 'Consulter le programme de la mairie'),
-                Positioned(
-                  left: 240,
-                  top: 8,
-                  child: Badge(
-                    badgeContent: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: TextWidget(text: controller.unReadAgendaCount.value.toString(),
-                        fontWeight: FontWeight.bold,color: Colors.white,fontSize: 14,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Stack(
-              children: [
-                _menu(page: AppRoutes.ACTUALITE, icon: MENU_ACTUALITE, title: 'Actualités et Evènements', subtitle: 'Les différents événements de la commune'),
-                Positioned(
-                  left: 280 ,
-                  top: 8,
-                  child: Badge(
-                    badgeContent: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: TextWidget(text: controller.unReadActualiteCount.value.toString(),
-                        fontWeight: FontWeight.bold,color: Colors.white,fontSize: 14,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Stack(
-              children: [
-                _menu(page: AppRoutes.COMMERCE, icon: MENU_COMMERCE, title: 'Commerces et autres', subtitle: 'Liste des commerces et autres'),
-                Positioned(
-                  left: 250 ,
-                  top: 8,
-                  child: Badge(
-                    badgeContent: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: TextWidget(text: controller.unReadCommerceCount.value.toString(),
-                        fontWeight: FontWeight.bold,color: Colors.white,fontSize: 14,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            _menu(page: AppRoutes.ALERTE, icon: MENU_ALERTE, title: 'Signaler un incident', subtitle: 'Signaler les incidents de la commune'),
-            Stack(
-              children: [
-                _menu(page: AppRoutes.DIFFUSION, icon: MENU_NOTIFICATION, title: 'Diffusions', subtitle: 'Recevez les notifications'),
-                Positioned(
-                  left: 170 ,
-                  top: 8,
-                  child: Badge(
-                    badgeContent: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: TextWidget(text: controller.unReadDiffusionCount.value.toString(),
-                        fontWeight: FontWeight.bold,color: Colors.white,fontSize: 14,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ],
-        )),
-      ],
-    );
-  }
-
-
   MenuViewDeux(){
     return ListView(
       padding: EdgeInsets.only(bottom: 20),
@@ -259,7 +146,10 @@ class HomeView extends GetView<HomeController> {
             Flexible(
                 child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
                     title: 'Bon à savoir',icon: MENU_HISTORIQUE, page: AppRoutes.HISTORIQUE,
-                    enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_sujet_count
+                    enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_sujet_count,
+                    action: (){
+
+                    },
                 )
             ),
             Flexible(
