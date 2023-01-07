@@ -84,12 +84,16 @@ showNotificationSnackBar(String title, String body, String action_url){
     // forwardAnimationCurve: Curves.elasticInOut,
     // reverseAnimationCurve: Curves.easeOut,
     borderRadius: 10,
-    // duration: Duration(days: 1),
+    duration: Duration(seconds: 45),
     padding: EdgeInsets.all(8),
     onTap: (val){
-        Get.back();
+      Get.back();
+      if(action_url == '/mise_a_jour'){
+        launch('https://play.google.com/store/apps/details?id=com.sirius.mon_plateau');
+      }else{
         Get.toNamed(action_url);
-      },
+      }
+    },
   );
 }
 // SHOW NOTICATION BOTTOM SHEET

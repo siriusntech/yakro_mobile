@@ -24,7 +24,7 @@ class DiscussionServices {
       var url = Uri.parse(apiUrl+'/$user_id');
       var response = await http.get(url, headers: headers);
       // print('response discussions code: '+response.statusCode.toString());
-      // print('response discussions: '+response.body.toString());
+      // print('response discussions: '+jsonDecode(response.body)['data'].toString());
       if(response.statusCode == 200){
           return Success(response: discussionFromJson(response.body));
       }

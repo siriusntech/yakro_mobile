@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mon_plateau/app/data/repository/consultation_services.dart';
 import 'package:mon_plateau/app/models/consultation.dart';
@@ -47,16 +49,6 @@ class HomeController extends GetxController {
 
 
 
-  // CHECK USER ACCOUNT
-  checkIfAccountIsActif() async{
-    await auth_ctrl.loadAuthInfo();
-    await getAuthUserInfo(auth_ctrl.getUserId);
-
-    if(auth_user.id == null || auth_user.id == 0 || auth_user.isActif == 0 || auth_user.isActif == null){
-      await resetUserInfo();
-      Get.offNamed(AppRoutes.AUTH);
-    }
-  }
 
   // SET USER ACCOUNT INFO
   resetUserInfo() async{
@@ -74,10 +66,10 @@ class HomeController extends GetxController {
         auth_user = response.response as User;
       }
       if(response is Failure){
-        print("Erreur: "+response.errorResponse.toString());
+        print("Erreur get user info: "+response.errorResponse.toString());
       }
     }catch(ex){
-      print("Exception: "+ex.toString());
+      print("Exception get user info: "+ex.toString());
     }
   }
 
@@ -118,7 +110,7 @@ class HomeController extends GetxController {
       }
   }
   // GET UNREAD DIFFUSION COUNT
-  void getUnReadDiffusionCount() async{
+  getUnReadDiffusionCount() async{
     try{
       final response = await DiffusionServices.getUnReadDiffusions();
       if(response is Success){
@@ -167,10 +159,11 @@ class HomeController extends GetxController {
 
   var timer;
 
-  getUnReadItemsCountsInRealTime(){
-    timer = Timer.periodic(Duration(seconds: 1), (timer) async {
+  getUnReadItemsCountsInRealTime()  async{
+    timer = Timer.periodic(Duration(seconds: 5), (timer) async {
       // print('hello');
-      getUnReadItemsCounts();
+     await getUnReadItemsCounts();
+     await getUnReadDiffusionCount();
     });
   }
 
@@ -186,13 +179,70 @@ class HomeController extends GetxController {
   void onMessageOpenedAppListen(){
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       // print("msg "+message.toString());
-      showNotificationBox(message.notification!.title!, message.notification!.body!, message.data['click_action']);
+      showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
     });
+  }
+   refreshData() async {
+    await checkIfAccountIsActif();
+
+    await getUnReadItemsCounts();
+    await getUnReadDiffusionCount();
+  }
+
+  var connectivityResult;
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+  checkConnexion() async{
+    connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+      print('Connected');
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+      print('Connected');
+    }else{
+      showSnackBar("Erreur de connexion", "Aucune connexion internet", Colors.red);
+    }
+  }
+
+  observeConnexion(ConnectivityResult result){
+    connectivityResult = result;
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+      print('obs Connected');
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+      print('obs Connected');
+    }else{
+      showSnackBar("Erreur de connexion", "Aucune connexion internet", Colors.red);
+    }
+  }
+
+  // CHECK USER ACCOUNT
+  checkIfAccountIsActif() async{
+    await auth_ctrl.loadAuthInfo();
+    connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      // print('check account');
+      await getAuthUserInfo(auth_ctrl.getUserId);
+
+      if(auth_user.id == null || auth_user.id == 0 || auth_user.isActif == 0 || auth_user.isActif == null){
+        await resetUserInfo();
+        Get.offNamed(AppRoutes.AUTH);
+      }
+    }
   }
 
   @override
   void onInit() {
     super.onInit();
+    // GetConnectionType();
+    // _streamSubscription = _connectivity.onConnectivityChanged.listen(_updateState);
+    checkConnexion();
+    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      observeConnexion(result);
+    });
+
     checkIfAccountIsActif();
 
     getUnReadItemsCounts();
@@ -206,15 +256,17 @@ class HomeController extends GetxController {
   void onReady() {
     super.onReady();
     // IN REAL TIME
-    // getUnReadItemsCountsInRealTime();
+    getUnReadItemsCountsInRealTime();
   }
 
   @override
   void onClose() {
     timer?.cancel();
     checkIfAccountIsActif();
+
     getUnReadItemsCounts();
     getUnReadDiffusionCount();
+    _connectivitySubscription.cancel();
   }
 
   // // Share app

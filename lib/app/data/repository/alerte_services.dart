@@ -23,7 +23,7 @@ class AlerteServices {
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(apiUrl+'/$user_id');
       var response = await http.get(url, headers: headers);
-      print('response alertes: '+response.body.toString());
+      // print('response alertes: '+response.body.toString());
       if(response.statusCode == 200){
           return Success(response: alerteFromJson(response.body));
       }
@@ -76,7 +76,7 @@ class AlerteServices {
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(baseUrl+'alertes_all/$user_id');
       var response = await http.get(url, headers: headers);
-      print('response all alertes: '+jsonDecode(response.body).toString());
+      // print('response all alertes: '+jsonDecode(response.body).toString());
       if(response.statusCode == 200){
         return Success(response: alerteFromJson(response.body));
       }

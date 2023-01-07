@@ -27,8 +27,8 @@ class DiscussionController extends GetxController {
   var allDiscussionList = List<Discussion>.empty(growable: true).obs;
 
   var selectedDiscussion = Discussion().obs;
-  var selectedCommentaire = Commentaire().obs;
-  var selectedReponse = Commentaire().obs;
+  var selectedCommentaire = Commentaire(reponses: []).obs;
+  var selectedReponse = Commentaire(reponses: []).obs;
 
   final HomeController homeCtrl = Get.find();
 
@@ -803,6 +803,23 @@ class DiscussionController extends GetxController {
     );
   }
 
+  getReponses(comment_id) async{
+    try{
+      final response = await CommentaireServices.getReponses(comment_id, user_id.value);
+      if(response is Success){
+        reponseList.clear();
+        reponseList.addAll(response.response as List<Commentaire>);
+      }
+      if(response is Failure){
+        // return Commentaire(reponses: []);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // return Commentaire(reponses: []);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+
   getDiscussions() async {
     // timer?.cancel();
     try{
@@ -833,23 +850,27 @@ class DiscussionController extends GetxController {
     // getDiscussionsInRealTime();
   }
 
-  getAllDiscussions() async {
+  getRefreshDiscussions() async {
+    // timer?.cancel();
     try{
-      isAllDataProcessing(true);
-      final response = await DiscussionServices.getAllDiscussions(user_id.value);
+      final response = await DiscussionServices.getDiscussions(user_id.value);
       if(response is Success){
-        isAllDataProcessing(false);
-        allDiscussionList.clear();
-        allDiscussionList.addAll(response.response as List<Discussion>);
+        discussionList.clear();
+        discussionList.addAll(response.response as List<Discussion>);
+
+        if(selectedDiscussion.value.id != null){
+          selectedDiscussion.value = discussionList.firstWhere((element) => element.id == selectedDiscussion.value.id);
+          setSelectedDiscussion(selectedDiscussion.value);
+        }
       }
       if(response is Failure){
-        isAllDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+
       }
     }catch(ex){
-      isAllDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+
     }
+
+    // getDiscussionsInRealTime();
   }
 
   createDiscussion(data) async {
@@ -888,9 +909,9 @@ class DiscussionController extends GetxController {
 
   setReponseList(){
     for(var com in commentaireList){
-      reponseList.addAll(com.reponses as List<Commentaire>);
+      getReponses(com.id);
+      com.reponses.addAll(reponseList);
     }
-    // print(reponseList.length.toString());
   }
 
   updateDiscussion(disc_id, data) async {
@@ -952,10 +973,16 @@ class DiscussionController extends GetxController {
   }
 
   likeDiscussion(discussion_id) async {
+    var disc = discussionList[discussionList.indexWhere((element) => element.id == discussion_id)];
+    if(disc.liked == 1){
+      return;
+    }
     try{
       final response = await DiscussionServices.likeDiscussion(discussion_id, user_id.value);
       if(response is Success){
-        getRefreshDiscussions();
+        final discussion_index = discussionList.indexWhere((element) => element.id == discussion_id);
+        final _discussion = discussionList[discussion_index];
+        manageLike(_discussion, discussion_index);
       }
       if(response is Failure){
         showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
@@ -982,10 +1009,16 @@ class DiscussionController extends GetxController {
   }
 
   unLikeDiscussion(discussion_id) async {
+    var disc = discussionList[discussionList.indexWhere((element) => element.id == discussion_id)];
+    if(disc.liked == 2){
+      return;
+    }
     try{
       final response = await DiscussionServices.unLikeDiscussion(discussion_id, user_id.value);
       if(response is Success){
-        getRefreshDiscussions();
+        final discussion_index = discussionList.indexWhere((element) => element.id == discussion_id);
+        final _discussion = discussionList[discussion_index];
+        manageUnlike(_discussion, discussion_index);
       }
       if(response is Failure){
         showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
@@ -1309,6 +1342,10 @@ class DiscussionController extends GetxController {
   }
 
   likeCommentaire(commentaire_id) async {
+    var comment = commentaireList[commentaireList.indexWhere((element) => element.id == commentaire_id)];
+    if(comment.liked == 1){
+      return;
+    }
     try{
       final response = await CommentaireServices.likeCommentaire(commentaire_id, user_id.value);
       if(response is Success){
@@ -1325,6 +1362,7 @@ class DiscussionController extends GetxController {
   }
 
   manageComLike(Commentaire commentaire, index) async{
+
     if(commentaire.id != null){
       if(commentaire.liked == 2){
         commentaire.unLikeCount! > 0 ? commentaire.unLikeCount = commentaire.unLikeCount! - 1 : commentaire.unLikeCount = 0;
@@ -1334,12 +1372,16 @@ class DiscussionController extends GetxController {
 
       commentaireList.replaceRange(index, index+1, [commentaire]);
       // commentaireList.replaceRange(index, index+1, [commentaire]);
-      selectedCommentaire.value = Commentaire();
+      selectedCommentaire.value = Commentaire(reponses: []);
       selectedCommentaire.value = commentaireList[index];
     }
   }
 
   unLikeCommentaire(commentaire_id) async {
+    var comment = commentaireList[commentaireList.indexWhere((element) => element.id == commentaire_id)];
+    if(comment.liked == 2){
+      return;
+    }
     try{
       final response = await CommentaireServices.unLikeCommentaire(commentaire_id, user_id.value);
       if(response is Success){
@@ -1363,7 +1405,7 @@ class DiscussionController extends GetxController {
     commentaire.unLikeCount = commentaire.unLikeCount! + 1;
 
     commentaireList.replaceRange(index, index+1, [commentaire]);
-    selectedCommentaire.value = Commentaire();
+    selectedCommentaire.value = Commentaire(reponses: []);
     selectedCommentaire.value = commentaireList[index];
   }
 
@@ -1835,7 +1877,7 @@ class DiscussionController extends GetxController {
         currentList.addAll(response.response as List<Discussion>);
 
         if(currentList.length > discussionList.length){
-          print("new discussion");
+          // print("new discussion");
           discussionList.clear();
           discussionList.addAll(response.response as List<Discussion>);
         }
@@ -1877,29 +1919,6 @@ class DiscussionController extends GetxController {
       // print('hello');
       getDiscussionsInTime();
     });
-  }
-
-  getRefreshDiscussions() async {
-    try{
-      final response = await DiscussionServices.getDiscussions(user_id.value);
-      if(response is Success){
-        discussionList.clear();
-        discussionList.addAll(response.response as List<Discussion>);
-
-        if(selectedDiscussion.value.id != null){
-          selectedDiscussion.value = discussionList.firstWhere((element) => element.id == selectedDiscussion.value.id);
-          setSelectedDiscussion(selectedDiscussion.value);
-        }
-      }
-      if(response is Failure){
-        print("Erreur "+response.errorResponse.toString());
-      }
-    }catch(ex){
-      isDataProcessing(false);
-      print("Exception "+ex.toString());
-    }
-
-    // getDiscussionsInRealTime();
   }
 
   @override

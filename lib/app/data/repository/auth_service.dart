@@ -76,7 +76,7 @@ class AuthService {
            'Content-type': 'application/json; charset=UTF-8',
          };
          var response = await http.post(endPoint, body: body, headers: headers);
-         // print('response ' + response.body.toString());
+         // print('response register' + response.body.toString());
          // print('response ' + response.statusCode.toString());
          if (response.statusCode == 200) {
            var info = jsonDecode(response.body)['data'];
@@ -100,7 +100,7 @@ class AuthService {
    }
    static confirm(data) async{
      try{
-       print(data);
+       // print(data);
        var url = Uri.parse(baseUrl+'confirm');
        var body = json.encode(data);
        Map <String, String> headers = {
@@ -124,7 +124,7 @@ class AuthService {
        return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
      }
      catch(e){
-       print('Erreur inconnue '+e.toString());
+       print('Erreur inconnue Auth service confirm'+e.toString());
        return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue '+e.toString());
      }
    }

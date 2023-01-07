@@ -12,7 +12,7 @@ import 'app/widgets/alerte_widgets.dart';
 // ECOUTE DES MESSAGES EN ARRIERE PLAN
 Future<void> _messageHandler(RemoteMessage message) async {
   // print("msg "+message.toString());
-  showNotificationBox(message.notification!.title!, message.notification!.body!, message.data['click_action']);
+  showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
 }
 
 Future<void> main() async {

@@ -9,6 +9,7 @@ class User {
   int? id;
   int? code;
   int? isActif;
+  int? account_exist;
   String? token;
   String? nom;
   String? prenom;
@@ -20,6 +21,7 @@ class User {
       {this.id,
       this.code,
       this.isActif,
+      this.account_exist,
       this.token,
       this.nom,
       this.prenom,
@@ -31,6 +33,7 @@ class User {
     id = json['id'] ?? null;
     code = json['code'] ?? null;
     isActif = json['is_actif'] ?? 0;
+    isActif = json['account_exist'] ?? null;
     token = json['token'] ?? null;
     nom = json['nom'] ?? null;
     prenom = json['prenom'] ?? null;

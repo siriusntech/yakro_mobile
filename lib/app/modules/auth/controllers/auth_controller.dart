@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -288,12 +290,18 @@ class AuthController extends GetxController {
       if(response is Success){
         isProcessing(false);
         setUser(response.response as User);
+        print("user existe "+ jsonEncode(user));
         setPseudo(user.value.pseudo);
         setUserId(user.value.id);
         setContact(user.value.contact);
         setCode(user.value.code);
         setIsActif(user.value.isActif);
-        setStep(2);
+        if(user.value.account_exist == 1){
+          iniAuthInfo();
+          Get.offNamed(AppRoutes.HOME);
+        }else{
+          setStep(2);
+        }
       }
       if(response is Failure){
         isProcessing(false);

@@ -19,17 +19,13 @@ class SplashController extends GetxController {
     var token = storage.getString('token');
      // print('token '+ token.toString());
     await Future.delayed(Duration(milliseconds: 2000), (){});
-    if(token != null && token != '' && authCtrl.getUserIsActif != 0){
+    if(token != null && token != ''){
       Get.offNamed(AppRoutes.HOME);
-    } else if(authCtrl.token == ''){
+    } else if(token == '' || token == null){
       storage.clear();
       // Get.offNamed(AppRoutes.AUTH);
       Get.offNamed(AppRoutes.DEBUT);
-    } else if(authCtrl.getUserIsActif == 0 ){
-      storage.clear();
-      // Get.offNamed(AppRoutes.AUTH);
-      Get.offNamed(AppRoutes.AUTH);
-    }else{
+    } else{
       storage.clear();
       // Get.offNamed(AppRoutes.AUTH);
       Get.offNamed(AppRoutes.DEBUT);

@@ -8,7 +8,7 @@ String commentaireToJson(List<Commentaire> data) => json.encode(List<dynamic>.fr
 class Commentaire {
   int? id;
   String? texte;
-  List<Commentaire>? reponses;
+  List<Commentaire> reponses = List<Commentaire>.empty(growable: true);
   int? senderId;
   int? likeCount;
   int? unLikeCount;
@@ -20,7 +20,7 @@ class Commentaire {
   Commentaire(
       {this.id,
       this.texte,
-      this.reponses,
+      required this.reponses,
       this.senderId,
       this.likeCount,
       this.unLikeCount,
@@ -35,7 +35,7 @@ class Commentaire {
     if (json['reponses'] != null) {
       reponses = <Commentaire>[];
       json['reponses'].forEach((v) {
-        reponses?.add(Commentaire.fromJson(v));
+        reponses.add(Commentaire.fromJson(v));
       });
     }
     senderId = json['sender_id'];
@@ -51,8 +51,8 @@ class Commentaire {
     final data = <String, dynamic>{};
     data['id'] = id;
     data['texte'] = texte;
-    if (reponses != null) {
-      data['reponses'] = reponses?.map((v) => v.toJson()).toList();
+    if (reponses.length > 0) {
+      data['reponses'] = reponses.map((v) => v.toJson()).toList();
     }
     data['sender_id'] = senderId;
     data['like_count'] = likeCount;

@@ -246,7 +246,7 @@ class AlerteAllView extends GetView<AlerteController> {
                                           width: double.infinity,
                                           height: 250,
                                           child: alerte.fileType == 'image' ? ImageWidget(isNetWork: true, url:
-                                          alerte.fileUrl, width: 250, height: 250, fit: BoxFit.cover,
+                                          alerte.fileUrl, width: 250, height: 250, fit: BoxFit.contain,
                                             default_image: DefaultImage.ALERTE,
                                           ) : VideoWidget(fileUrl: siteUrl+alerte.fileUrl.toString(),from: 'network',),
                                         ),

@@ -55,6 +55,7 @@ class CommerceView extends GetView<CommerceController> {
                         elevation: 0,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                         child: TextField(
+                          controller: controller.searchTextController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                             prefixIcon: Icon(Icons.search, color: Colors.black, size: 30,),

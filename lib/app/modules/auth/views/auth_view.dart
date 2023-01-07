@@ -128,7 +128,11 @@ class AuthView extends GetView<AuthController> {
                       size: 60.0,
                     ) : ElevatedButton(
                       onPressed: () async{
-                        final data = {"contact": controller.txtContactController.text, "pseudo": controller.txtPseudoController.text};
+                        final data = {"contact":
+                        controller.txtContactController.text,
+                          "pseudo": controller.txtPseudoController.text,
+                          "cloud_messaging_token": controller.cloud_messaging_token
+                        };
                         controller.register(data);
                       },
                       child: TextWidget(text: "Suivant  >>",color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold, alignement: TextAlign.center,),

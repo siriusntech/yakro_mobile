@@ -22,6 +22,11 @@ class HomeView extends GetView<HomeController> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         elevation: 0.0,
+        leading: NotificationWidget(icon: Icons.refresh_rounded,
+          action: (){
+            controller.refreshData();
+          },
+        ),
         actions: [
           NotificationWidget(icon: Icons.call,
             action: (){

@@ -22,6 +22,19 @@ class CommerceController extends GetxController {
 
   final HomeController homeCtrl = Get.find();
 
+  late TextEditingController searchTextController;
+
+  initFields() async{
+    searchTextController  = TextEditingController();
+  }
+
+  disposeFields(){
+    searchTextController.dispose();
+  }
+
+  clearFields(){
+    searchTextController.clear();
+  }
 
   // GET ALL COMMERCE TYPES
   void getCommerceTypes() async{
@@ -110,6 +123,7 @@ class CommerceController extends GetxController {
   void refresh(){
     commerceList.clear();
     commerceTypesList.clear();
+    clearFields();
     setSelectedType('');
     getCommerceTypes();
     getCommerces(page);
@@ -191,9 +205,11 @@ class CommerceController extends GetxController {
     }
   }
 
+
   @override
   void onInit(){
     super.onInit();
+    initFields();
     getCommerces(page);
     getCommerceTypes();
 

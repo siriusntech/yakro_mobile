@@ -195,7 +195,7 @@ class AlerteShowView extends GetView<AlerteController> {
                 width: double.infinity,
                 height: 250,
                 child: controller.selectedAlerte.value.fileType == 'image' ? ImageWidget(isNetWork: true, url:
-                controller.selectedAlerte.value.fileUrl, width: 250, height: 250, fit: BoxFit.cover,
+                controller.selectedAlerte.value.fileUrl, width: 250, height: 250, fit: BoxFit.contain,
                   default_image: DefaultImage.ALERTE,
                 ) : VideoWidget(fileUrl: siteUrl+controller.selectedAlerte.value.fileUrl.toString(),from: 'network',),
               ),

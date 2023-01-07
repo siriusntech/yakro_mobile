@@ -22,6 +22,10 @@ class CommentaireCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // var reponsesList = List<Commentaire>.empty(growable: true);
+    // reponsesList.addAll(controller.getReponses(commentaireModel.id));
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -122,7 +126,7 @@ class CommentaireCardWidget extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Icon(Icons.question_answer, color: mainColor,),
-                                    TextWidget(text: commentaireModel.reponses?.length.toString(),alignement: TextAlign.center,fontSize: 16, fontWeight: FontWeight.bold, color: mainColor,),
+                                    TextWidget(text: commentaireModel.reponses.length.toString(),alignement: TextAlign.center,fontSize: 16, fontWeight: FontWeight.bold, color: mainColor,),
                                   ],
                                 ),
                               )
@@ -135,7 +139,7 @@ class CommentaireCardWidget extends StatelessWidget {
             ),
           ),
         ),
-        commentaireModel.reponses?.length != 0 ?
+        commentaireModel.reponses.length > 0 ?
         Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,9 +155,10 @@ class CommentaireCardWidget extends StatelessWidget {
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
-                    itemCount: commentaireModel.reponses?.length,
+                    itemCount: commentaireModel.reponses.length,
                     itemBuilder: (context,index){
-                      var comment = commentaireModel.reponses![index];
+                      var comment = commentaireModel.reponses[index];
+                      // print(comment.id.toString()+' '+comment.texte.toString()+' '+comment.date.toString());
                       return Column(
                         // shrinkWrap: true,
                         // physics: ClampingScrollPhysics(),
@@ -161,6 +166,7 @@ class CommentaireCardWidget extends StatelessWidget {
                           CommentaireCardWidget(commentaireModel: comment, userId: controller.user_id.value,
                             action: (){},
                             editAction: (){
+                              print(comment.id.toString()+' '+comment.texte.toString());
                               controller.setSelectedCommentaire(comment);
                               controller.showEditCommentaireForm();
                             },
@@ -219,9 +225,9 @@ class CommentaireReponseCardWidget extends StatelessWidget {
           ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
-              itemCount: commentaireModel.reponses?.length,
+              itemCount: commentaireModel.reponses.length,
               itemBuilder: (context,index){
-                var commentaire = commentaireModel.reponses![index];
+                var commentaire = commentaireModel.reponses[index];
                 reponse = commentaire;
                 return Column(
                   // shrinkWrap: true,
@@ -322,7 +328,7 @@ class CommentaireReponseCardWidget extends StatelessWidget {
                                             child: Column(
                                               children: [
                                                 Icon(Icons.question_answer, color: mainColor,),
-                                                TextWidget(text: commentaire.reponses?.length.toString(),alignement: TextAlign.center,fontSize: 16, fontWeight: FontWeight.bold, color: mainColor,),
+                                                TextWidget(text: commentaire.reponses.length.toString(),alignement: TextAlign.center,fontSize: 16, fontWeight: FontWeight.bold, color: mainColor,),
                                               ],
                                             ),
                                           )
@@ -346,9 +352,9 @@ class CommentaireReponseCardWidget extends StatelessWidget {
                     // ListView.builder(
                     //     shrinkWrap: true,
                     //     physics: ClampingScrollPhysics(),
-                    //     itemCount: commentaire.reponses?.length,
+                    //     itemCount: commentaire.reponses.length,
                     //     itemBuilder: (context,index){
-                    //       var comment = reponse.reponses![index];
+                    //       var comment = reponse.reponses[index];
                     //       return reponseCard(comment, userId, editAction, deleteAction, commentAction, controller);
                     //     }
                     // )
@@ -461,7 +467,7 @@ Widget reponseCard(Commentaire commentaire, userId, editAction, deleteAction, co
                               Flexible(child: Icon(Icons.question_answer, color: mainColor,),),
                               Flexible(
                                   child: TextWidget(
-                                    text: commentaire.reponses?.length.toString(),
+                                    text: commentaire.reponses.length.toString(),
                                     alignement: TextAlign.center,fontSize: 16, fontWeight: FontWeight.bold, color: mainColor,
                                   )
                               ),

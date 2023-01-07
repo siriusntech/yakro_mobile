@@ -22,6 +22,7 @@ class CommentaireServices {
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(apiUrl+'/$user_id');
       var response = await http.get(url, headers: headers);
+      // print('response comm: '+response.body.toString());
       if(response.statusCode == 200){
           return Success(response: commentaireFromJson(response.body));
       }
@@ -323,11 +324,12 @@ class CommentaireServices {
 
   }
 
-  static Future<Object> getReponses(comment_id) async {
+  static Future<Object> getReponses(comment_id, user_id) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'/reponses/$comment_id');
+      var url = Uri.parse(baseUrl+'/get_commentaire_reponses/$comment_id/$user_id');
       var response = await http.get(url, headers: headers);
+      print('reponses '+response.body.toString());
       if(response.statusCode == 200){
         return Success(response: commentaireFromJson(response.body));
       }
