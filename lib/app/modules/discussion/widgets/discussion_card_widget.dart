@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/modules/discussion/discussion_model.dart';
-import 'package:mon_plateau/app/widgets/text_widget.dart';
+import 'package:jaime_cocody/app/modules/discussion/discussion_model.dart';
+import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';

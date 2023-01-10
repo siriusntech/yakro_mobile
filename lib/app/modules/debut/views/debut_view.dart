@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/Utils/app_constantes.dart';
-import 'package:mon_plateau/app/widgets/text_widget.dart';
+import 'package:jaime_cocody/app/Utils/app_constantes.dart';
+import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
+import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_routes.dart';
 import '../controllers/debut_controller.dart';
 
@@ -37,7 +38,7 @@ class DebutView extends GetView<DebutController> {
         child: Container(
           padding: EdgeInsets.only(bottom: 15),
           decoration: BoxDecoration(
-            color: Colors.blue
+            color: AppColors.mainColor
           ),
           child: Column(
             children: [
@@ -109,11 +110,12 @@ class DebutView extends GetView<DebutController> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.black)
                       ),
                       onPressed: (){
                         Get.offAllNamed(AppRoutes.AUTH);
                       },
-                      child: TextWidget(text: 'Commencer >>', fontSize: 18, fontWeight: FontWeight.bold,),
+                      child: TextWidget(text: 'Commencer >>', fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
                     ),
                   )
               ),

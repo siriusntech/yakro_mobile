@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:mon_plateau/app/modules/alerte/controllers/alerte_controller.dart';
-import 'package:mon_plateau/app/modules/alerte/alerte_model.dart';
+import 'package:jaime_cocody/app/modules/alerte/controllers/alerte_controller.dart';
+import 'package:jaime_cocody/app/modules/alerte/alerte_model.dart';
 import 'package:get/get.dart';
 
 import '../modules/alerte/alerte_model.dart';

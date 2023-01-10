@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/widgets/button_widget.dart';
-import 'package:mon_plateau/app/widgets/image_widget.dart';
-import 'package:mon_plateau/app/widgets/text_widget.dart';
+import 'package:jaime_cocody/app/widgets/button_widget.dart';
+import 'package:jaime_cocody/app/widgets/image_widget.dart';
+import 'package:jaime_cocody/app/widgets/text_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Utils/app_constantes.dart';
@@ -60,7 +60,7 @@ showNotificationBox(String title, String body, String action_url){
         action: () {
           Get.back();
           if(action_url == '/mise_a_jour'){
-             launch('https://play.google.com/store/apps/details?id=com.sirius.mon_plateau');
+             launch('https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody');
           }else{
             Get.toNamed(action_url);
           }
@@ -74,6 +74,7 @@ showNotificationSnackBar(String title, String body, String action_url){
   Get.snackbar(
     title,
     body,
+    icon: Image.asset(DefaultImage.LOGO),
     titleText: TextWidget(text: title, fontSize: 15, fontWeight: FontWeight.bold,),
     messageText: TextWidget(text: body, fontSize: 16),
     backgroundColor: Colors.white,
@@ -84,18 +85,19 @@ showNotificationSnackBar(String title, String body, String action_url){
     // forwardAnimationCurve: Curves.elasticInOut,
     // reverseAnimationCurve: Curves.easeOut,
     borderRadius: 10,
-    duration: Duration(seconds: 45),
+    duration: Duration(seconds: 10),
     padding: EdgeInsets.all(8),
     onTap: (val){
       Get.back();
       if(action_url == '/mise_a_jour'){
-        launch('https://play.google.com/store/apps/details?id=com.sirius.mon_plateau');
+        launch('https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody');
       }else{
         Get.toNamed(action_url);
       }
     },
   );
 }
+
 // SHOW NOTICATION BOTTOM SHEET
 void showNotificationBottomSheet(String title, String body){
   Get.bottomSheet(

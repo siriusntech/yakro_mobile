@@ -51,10 +51,10 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.sirius.mon_plateau"
+        applicationId "com.siriusntech.jaime_cocody"
         minSdkVersion 19
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 202
+        versionCode 114
         versionName "1.0.1"
         multiDexEnabled true
     }

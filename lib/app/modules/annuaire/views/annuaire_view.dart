@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/modules/annuaire/widgets/annuaire_card_widget.dart';
+import 'package:jaime_cocody/app/modules/annuaire/widgets/annuaire_card_widget.dart';
 
+import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
@@ -16,7 +17,8 @@ class AnnuaireView extends GetView<AnnuaireController> {
       appBar: AppBar(
         title: TextWidget(text: 'Informations utiles',
           fontSize: 20,
-          fontWeight: FontWeight.bold,),
+          fontWeight: FontWeight.bold, color: Colors.white,
+        ),
         centerTitle: true,
         elevation: 0.0,
         actions: [
@@ -37,42 +39,45 @@ class AnnuaireView extends GetView<AnnuaireController> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Expanded(
-                  flex: 1,
-                  child: ListView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      controller.typeAnnuaireList.length > 0 ? Obx(() => Row(
+                Obx(() => Visibility(
+                    visible: controller.typeAnnuaireList.length > 1,
+                    child: Expanded(
+                      flex: 1,
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
                         children: [
-                          for(var type in controller.typeAnnuaireList) Card(
-                            elevation: 0.0,
-                            child: InkWell(
-                              onTap: () {
-                                if(controller.selectedTypeAnnuaireName.value == '' || controller.selectedTypeAnnuaireName.value != type.nom!.toString()){
-                                  controller.setSelectedTypeAnnuaire(type.id, type.nom);
-                                  controller.getAnnuairesByType(type.id);
-                                }else{
-                                  controller.setSelectedTypeAnnuaire(null, '');
-                                  controller.refresh();
-                                }
-                              },
-                              child: Chip(
+                          Obx(() => Row(
+                            children: [
+                              for(var type in controller.typeAnnuaireList) Card(
                                 elevation: 0.0,
-                                backgroundColor: type.nom.toString() == controller.selectedTypeAnnuaireName.value ? Colors.amber : Colors.black26,
-                                label: TextWidget(text: type.nom.toString(),
-                                  fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
+                                child: InkWell(
+                                  onTap: () {
+                                    if(controller.selectedTypeAnnuaireName.value == '' || controller.selectedTypeAnnuaireName.value != type.nom!.toString()){
+                                      controller.setSelectedTypeAnnuaire(type.id, type.nom);
+                                      controller.getAnnuairesByType(type.id);
+                                    }else{
+                                      controller.setSelectedTypeAnnuaire(null, '');
+                                      controller.refresh();
+                                    }
+                                  },
+                                  child: Chip(
+                                    elevation: 0.0,
+                                    backgroundColor: type.nom.toString() == controller.selectedTypeAnnuaireName.value ? Colors.amber : AppColors.chip_color,
+                                    label: TextWidget(text: type.nom.toString(),
+                                      fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                            color: Colors.transparent,
-                          )
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                                color: Colors.transparent,
+                              )
+                            ],
+                          )),
                         ],
-                      )) : Container(),
-                    ],
-                  ),
-                ),
+                      ),
+                    )
+                )),
                 Expanded(
                     flex: 16,
                     child: _ui()

@@ -41,7 +41,7 @@ class _SplashViewState extends State<SplashView> {
                   Container(
                     width: double.infinity,
                     height: 230,
-                    child: Image.asset(LOGO_BLANC, fit: BoxFit.cover,),
+                    child: Image.asset(LOGO_BLANC, fit: BoxFit.contain,),
                   ),
                 ],
               ),

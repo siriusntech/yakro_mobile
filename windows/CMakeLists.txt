@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(mon_plateau LANGUAGES CXX)
+project(jaime_cocody LANGUAGES CXX)
 
-set(BINARY_NAME "mon_plateau")
+set(BINARY_NAME "jaime_cocody")
 
 cmake_policy(SET CMP0063 NEW)
 

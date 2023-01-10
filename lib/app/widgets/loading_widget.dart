@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mon_plateau/app/Utils/app_constantes.dart';
+import 'package:jaime_cocody/app/Utils/app_constantes.dart';
 
 
 class LoadingWidget extends StatelessWidget {

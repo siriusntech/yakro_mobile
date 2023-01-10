@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
@@ -38,7 +39,7 @@ class PharmacieView extends GetView<PharmacieController> {
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              Obx(() => TextWidget(text: controller.periode.value, color: mainColor,
+              Obx(() => TextWidget(text: controller.periode.value, color: Colors.black,
                 fontSize: 18, fontWeight: FontWeight.bold, alignement: TextAlign.center,
               )),
               SizedBox(height: 5,),
@@ -70,48 +71,48 @@ class PharmacieView extends GetView<PharmacieController> {
                         ),
                       ),
                     ),
-                    Visibility(
+                    Obx(() => Visibility(
+                        visible: controller.zoneList.length > 1,
+                        child: SizedBox(height: 3,)
+                    )),
+                    Obx(() => Visibility(
                       visible: controller.zoneList.length > 1,
-                      child: SizedBox(height: 3,)
-                    ),
-                    Visibility(
-                      visible: controller.zoneList.length > 1,
-                        child: Expanded(
-                          child: ListView(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              Obx(() => Row(
-                                children: [
-                                  for(var zone in controller.zoneList) Card(
-                                    elevation: 0.0,
-                                    child: InkWell(
-                                      onTap: () {
-                                        if(controller.selectedZoneName.value == '' || controller.selectedZoneName.value != zone.nom!.toString()){
-                                          controller.setSelectedZone(zone.id, zone.nom);
-                                          controller.getPharmaciesByZone(zone.id);
-                                        }else{
-                                          controller.setSelectedZone(null, '');
-                                          controller.refresh();
-                                        }
-                                      },
-                                      child: Chip(
-                                        elevation: 4.0,
-                                        backgroundColor: zone.nom.toString() == controller.selectedZoneName.value ? Colors.amber : Colors.black26,
-                                        label: TextWidget(text: zone.nom.toString(),
-                                          fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
-                                        ),
+                      child: Expanded(
+                        child: ListView(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            Row(
+                              children: [
+                                for(var zone in controller.zoneList) Card(
+                                  elevation: 0.0,
+                                  child: InkWell(
+                                    onTap: () {
+                                      if(controller.selectedZoneName.value == '' || controller.selectedZoneName.value != zone.nom!.toString()){
+                                        controller.setSelectedZone(zone.id, zone.nom);
+                                        controller.getPharmaciesByZone(zone.id);
+                                      }else{
+                                        controller.setSelectedZone(null, '');
+                                        controller.refresh();
+                                      }
+                                    },
+                                    child: Chip(
+                                      elevation: 4.0,
+                                      backgroundColor: zone.nom.toString() == controller.selectedZoneName.value ? Colors.amber : AppColors.chip_color,
+                                      label: TextWidget(text: zone.nom.toString(),
+                                        fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                       ),
                                     ),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                                    color: Colors.transparent,
-                                  )
-                                ],
-                              )),
-                            ],
-                          ),
+                                  ),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                                  color: Colors.transparent,
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                    )
+                      ),
+                    ))
                   ],
                 ),
               ),

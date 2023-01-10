@@ -1,9 +1,9 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/Utils/app_constantes.dart';
-import 'package:mon_plateau/app/data/repository/data/Env.dart';
-import 'package:mon_plateau/app/widgets/image_widget.dart';
+import 'package:jaime_cocody/app/Utils/app_constantes.dart';
+import 'package:jaime_cocody/app/data/repository/data/Env.dart';
+import 'package:jaime_cocody/app/widgets/image_widget.dart';
 
 import '../../../Utils/default_image.dart';
 import '../../../models/pharmacie_model.dart';

@@ -33,7 +33,7 @@ class User {
     id = json['id'] ?? null;
     code = json['code'] ?? null;
     isActif = json['is_actif'] ?? 0;
-    isActif = json['account_exist'] ?? null;
+    account_exist = json['account_exist'] ?? 0;
     token = json['token'] ?? null;
     nom = json['nom'] ?? null;
     prenom = json['prenom'] ?? null;
@@ -47,6 +47,7 @@ class User {
     data['id'] = id;
     data['code'] = code;
     data['is_actif'] = isActif;
+    data['account_exist'] = account_exist;
     data['token'] = token;
     data['nom'] = nom;
     data['prenom'] = prenom;

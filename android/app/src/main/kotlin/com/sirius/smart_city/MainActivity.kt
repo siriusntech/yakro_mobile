@@ -1,4 +1,4 @@
-package com.sirius.mon_plateau
+package com.siriusntech.jaime_cocody
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/modules/discussion/discussion_model.dart';
+import 'package:jaime_cocody/app/modules/discussion/discussion_model.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';

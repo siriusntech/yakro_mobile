@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/Utils/app_string.dart';
+import 'package:jaime_cocody/app/Utils/app_string.dart';
 
 import '../commerce_model.dart';
 

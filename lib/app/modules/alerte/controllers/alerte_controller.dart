@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mon_plateau/app/modules/alerte/alerte_model.dart';
-import 'package:mon_plateau/app/widgets/text_widget.dart';
+import 'package:jaime_cocody/app/modules/alerte/alerte_model.dart';
+import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
 import '../../../Utils/app_routes.dart';
 import '../../../data/repository/alerte_services.dart';

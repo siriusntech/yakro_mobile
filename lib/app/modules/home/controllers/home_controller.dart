@@ -4,10 +4,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/data/repository/consultation_services.dart';
-import 'package:mon_plateau/app/models/consultation.dart';
-import 'package:mon_plateau/app/modules/auth/controllers/auth_controller.dart';
-import 'package:mon_plateau/app/modules/commerce/commerce_model.dart';
+import 'package:jaime_cocody/app/data/repository/consultation_services.dart';
+import 'package:jaime_cocody/app/models/consultation.dart';
+import 'package:jaime_cocody/app/modules/auth/controllers/auth_controller.dart';
+import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -172,7 +172,7 @@ class HomeController extends GetxController {
   // FIREBASE CLOUD MESSAGE AVANT PLAN
   void onMessageListen(){
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
-      showNotificationBox(event.notification!.title!, event.notification!.body!, event.data['click_action']);
+      showNotificationSnackBar(event.notification!.title!, event.notification!.body!, event.data['click_action']);
     });
   }
   // FIREBASE CLOUD MESSAGE ARRIERE PLAN
@@ -223,7 +223,7 @@ class HomeController extends GetxController {
     await auth_ctrl.loadAuthInfo();
     connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
-      // print('check account');
+      // print('check account user id '+ auth_ctrl.getUserId.toString());
       await getAuthUserInfo(auth_ctrl.getUserId);
 
       if(auth_user.id == null || auth_user.id == 0 || auth_user.isActif == 0 || auth_user.isActif == null){
@@ -283,7 +283,7 @@ class HomeController extends GetxController {
 
   // Share app
   void ShareAppLink() async{
-    Share.share('https://sirius.com/app/mon_plateau', subject: 'Application mon plateau');
+    Share.share('https://sirius.com/app/jaime_cocody', subject: 'Application mon plateau');
   }
 
 }

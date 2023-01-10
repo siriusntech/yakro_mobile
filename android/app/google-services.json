@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "37020883447",
-    "project_id": "app-mon-plateau",
-    "storage_bucket": "app-mon-plateau.appspot.com"
+    "project_number": "267768850958",
+    "project_id": "jaime-cocody",
+    "storage_bucket": "jaime-cocody.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:37020883447:android:389b0893ee5ffde4bd76f2",
+        "mobilesdk_app_id": "1:267768850958:android:a61e61dce03c28f211aa5f",
         "android_client_info": {
-          "package_name": "com.sirius.mon_plateau"
+          "package_name": "com.siriusntech.jaime_cocody"
         }
       },
       "oauth_client": [
         {
-          "client_id": "37020883447-qg98caddc9ln8r93f35groj1gko9rs0r.apps.googleusercontent.com",
+          "client_id": "267768850958-cc2fmv21s4ipqqakclbhvk8lsu54t2jg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.sirius.mon_plateau",
-            "certificate_hash": "bd1d7491d2947f3cd62129a29eb03173edfe90cb"
+            "package_name": "com.siriusntech.jaime_cocody",
+            "certificate_hash": "290b3d2f70faa59c099e45f5be00784b4f779407"
           }
         },
         {
-          "client_id": "37020883447-t6jti8kpnm4cb30r4aedm34bpo5u1dmm.apps.googleusercontent.com",
+          "client_id": "267768850958-gg3iojo8m262fq03ubajif7o59r1lvfd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBa_gT-CML6c6fSMoXQBiLLNM3Q7JE9DqU"
+          "current_key": "AIzaSyBhEwDz1pxmfirM8b5qftgu5GWt1I8a4oQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "37020883447-t6jti8kpnm4cb30r4aedm34bpo5u1dmm.apps.googleusercontent.com",
+              "client_id": "267768850958-gg3iojo8m262fq03ubajif7o59r1lvfd.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

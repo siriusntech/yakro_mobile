@@ -1,5 +1,5 @@
-import 'package:mon_plateau/app/models/media.dart';
-import 'package:mon_plateau/app/modules/historique/information_model.dart';
+import 'package:jaime_cocody/app/models/media.dart';
+import 'package:jaime_cocody/app/modules/historique/information_model.dart';
 
 import 'dart:convert';
 

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/modules/home/controllers/home_controller.dart';
+import 'package:jaime_cocody/app/modules/home/controllers/home_controller.dart';
 
 import '../../../data/repository/actualite_services.dart';
 import '../../../data/repository/data/api_status.dart';

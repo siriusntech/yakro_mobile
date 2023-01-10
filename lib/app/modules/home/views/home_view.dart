@@ -2,8 +2,8 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/Utils/app_routes.dart';
-import 'package:mon_plateau/app/widgets/notification_widget.dart';
+import 'package:jaime_cocody/app/Utils/app_routes.dart';
+import 'package:jaime_cocody/app/widgets/notification_widget.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../widgets/menu_widget.dart';
@@ -76,7 +76,7 @@ class HomeView extends GetView<HomeController> {
                             child: Image(
                               image: AssetImage(LOGO),
                               alignment: Alignment.topCenter,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           )
                       ),

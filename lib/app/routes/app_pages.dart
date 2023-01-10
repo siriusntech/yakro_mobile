@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/modules/auth/views/condition_view.dart';
-import 'package:mon_plateau/app/modules/pharmacie/views/pharmacie_show_view.dart';
+import 'package:jaime_cocody/app/modules/auth/views/condition_view.dart';
+import 'package:jaime_cocody/app/modules/pharmacie/views/pharmacie_show_view.dart';
 
 import '../modules/actualite/bindings/actualite_binding.dart';
 import '../modules/actualite/views/actualite_show_view.dart';

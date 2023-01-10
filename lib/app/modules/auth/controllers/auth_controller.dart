@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mon_plateau/app/Utils/app_routes.dart';
+import 'package:jaime_cocody/app/Utils/app_routes.dart';
 
 import '../../../data/repository/auth_service.dart';
 import '../../../data/repository/data/api_status.dart';
@@ -158,7 +158,6 @@ class AuthController extends GetxController {
     storage.setString('pseudo', user.value.pseudo ?? '');
     storage.setString('email', user.value.email ?? '');
     storage.setString('contact', user.value.contact ?? '');
-    storage.setString('cloud_messaging_token', cloud_messaging_token);
     // ignore: deprecated_member_use
     storage.commit();
   }
@@ -174,7 +173,6 @@ class AuthController extends GetxController {
     setPseudo(storage.getString('pseudo'));
     setEmail(storage.getString('email'));
     setContact(storage.getString('contact'));
-    setCloudMessagingToken(storage.getString('cloud_messaging_token'));
   }
 
 
@@ -290,7 +288,6 @@ class AuthController extends GetxController {
       if(response is Success){
         isProcessing(false);
         setUser(response.response as User);
-        print("user existe "+ jsonEncode(user));
         setPseudo(user.value.pseudo);
         setUserId(user.value.id);
         setContact(user.value.contact);
@@ -299,7 +296,7 @@ class AuthController extends GetxController {
         if(user.value.account_exist == 1){
           iniAuthInfo();
           Get.offNamed(AppRoutes.HOME);
-        }else{
+        } else {
           setStep(2);
         }
       }

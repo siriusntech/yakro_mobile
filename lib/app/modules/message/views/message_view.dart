@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/Utils/app_routes.dart';
+import 'package:jaime_cocody/app/Utils/app_routes.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/data/Env.dart';

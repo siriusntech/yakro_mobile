@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/modules/actualite/widgets/actualite_card_widget.dart';
+import 'package:jaime_cocody/app/modules/actualite/widgets/actualite_card_widget.dart';
 
+import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../data/repository/data/Env.dart';
@@ -62,7 +63,7 @@ class ActualiteView extends GetView<ActualiteController> {
                                 },
                                 child: Chip(
                                   elevation: 2.0,
-                                  backgroundColor: type.nom.toString() == controller.selectedType.value ? Colors.amber : Colors.black26,
+                                  backgroundColor: type.nom.toString() == controller.selectedType.value ? Colors.amber : AppColors.chip_color,
                                   label: TextWidget(text: type.nom.toString().toLowerCase(),
                                     fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                   ),

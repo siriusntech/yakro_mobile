@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
@@ -128,7 +129,7 @@ class AlerteAllView extends GetView<AlerteController> {
                                 }
                               },
                               child: Chip(
-                                backgroundColor: type.nom == controller.selected_type_alerte.value ? Colors.amber : Colors.black26,
+                                backgroundColor: type.nom == controller.selected_type_alerte.value ? Colors.amber : AppColors.chip_color,
                                 label: TextWidget(text: type.nom.toString().toLowerCase(),
                                   fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                 ),

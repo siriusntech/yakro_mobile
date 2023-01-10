@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mon_plateau/app/models/entreprise.dart';
+import 'package:jaime_cocody/app/models/entreprise.dart';
 
 import '../../modules/agenda/agenda_model.dart';
 import 'auth_service.dart';

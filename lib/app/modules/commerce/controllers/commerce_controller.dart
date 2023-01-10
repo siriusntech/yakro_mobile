@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/modules/commerce/commerce_model.dart';
+import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:clipboard/clipboard.dart';
 import '../../../Utils/app_constantes.dart';
@@ -121,12 +121,16 @@ class CommerceController extends GetxController {
   }
   // REFRESH PAGE
   void refresh(){
-    commerceList.clear();
-    commerceTypesList.clear();
-    clearFields();
-    setSelectedType('');
-    getCommerceTypes();
-    getCommerces(page);
+    if(searchTextController.text == ""){
+      commerceList.clear();
+      commerceTypesList.clear();
+      clearFields();
+      setSelectedType('');
+      getCommerceTypes();
+      getCommerces(page);
+    }else{
+      getCommercesByName(searchTextController.text);
+    }
   }
 
   Future<Null> showAlerte(phoneNumber) async{

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
@@ -71,7 +72,7 @@ class AgendaView extends GetView<AgendaController> {
                               },
                               child: Chip(
                                 elevation: 5.0,
-                                backgroundColor: type.toString() == controller.selectedType.value.toString() ? Colors.amber : Colors.black26,
+                                backgroundColor: type.toString() == controller.selectedType.value.toString() ? Colors.amber : AppColors.chip_color,
                                 label: TextWidget(text: type.toString().toLowerCase(),
                                   fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../data/repository/data/Env.dart';
@@ -71,7 +72,7 @@ class MessageMineView extends GetView<MessageController> {
                               },
                               child: Chip(
                                 elevation: 5.0,
-                                backgroundColor: controller.selectedType.value ==  type.nom.toString() ? Colors.amber : Colors.black26,
+                                backgroundColor: controller.selectedType.value ==  type.nom.toString() ? Colors.amber : AppColors.chip_color,
                                 label: TextWidget(text: type.nom.toString().toLowerCase(),
                                   fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                 ),

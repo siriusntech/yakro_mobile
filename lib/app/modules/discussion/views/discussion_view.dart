@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/modules/discussion/discussion_model.dart';
+import 'package:jaime_cocody/app/modules/discussion/discussion_model.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';

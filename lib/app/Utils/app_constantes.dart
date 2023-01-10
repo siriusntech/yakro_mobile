@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import '../../extensions.dart';
 
-const Color appbarColor = Colors.blueGrey;
-Color appbarColorFromCode = '#02205F'.toColor();
+const Color appbarColor = Colors.orangeAccent;
+Color appbarColorFromCode = '#fc9003'.toColor();
 Color secondaryColorFromCode = '#66ff76'.toColor();
-MaterialColor mainColor = createMaterialColor('#02205F'.toColor());
+MaterialColor mainColor = createMaterialColor('#fc9003'.toColor());
 const Color appbarTextColor = Colors.white;
-const Color menuColor = Colors.lightBlue;
+const Color menuColor = Colors.orange;
 
 // ICONS
 const String ICON_VOIRIE = 'assets/images/route.png';

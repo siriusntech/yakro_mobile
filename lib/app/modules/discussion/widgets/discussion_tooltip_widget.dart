@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:mon_plateau/app/modules/discussion/controllers/discussion_controller.dart';
-import 'package:mon_plateau/app/modules/discussion/discussion_model.dart';
+import 'package:jaime_cocody/app/modules/discussion/controllers/discussion_controller.dart';
+import 'package:jaime_cocody/app/modules/discussion/discussion_model.dart';
 import 'package:get/get.dart';
 
 class DiscussionToolTipWidget extends StatelessWidget {

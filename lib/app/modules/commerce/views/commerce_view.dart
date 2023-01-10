@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/Utils/app_routes.dart';
-import 'package:mon_plateau/app/modules/commerce/widgets/commerce_card_widget.dart';
-import 'package:mon_plateau/app/widgets/no_data_widget.dart';
+import 'package:jaime_cocody/app/Utils/app_routes.dart';
+import 'package:jaime_cocody/app/modules/commerce/widgets/commerce_card_widget.dart';
+import 'package:jaime_cocody/app/widgets/no_data_widget.dart';
 
+import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/text_widget.dart';
@@ -100,7 +101,7 @@ class CommerceView extends GetView<CommerceController> {
                                 },
                                 child: Chip(
                                   elevation: 0.0,
-                                  backgroundColor: type.nom.toString() == controller.selectedType.value ? Colors.amber : Colors.black26,
+                                  backgroundColor: type.nom.toString() == controller.selectedType.value ? Colors.amber : AppColors.chip_color,
                                   label: TextWidget(text: type.nom.toString().toLowerCase(),
                                     fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                   ),

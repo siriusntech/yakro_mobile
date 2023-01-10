@@ -1,6 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:mon_plateau/app/widgets/text_widget.dart';
+import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
 import '../Utils/app_constantes.dart';
 

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/widgets/alerte_widgets.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
+import 'package:jaime_cocody/app/widgets/alerte_widgets.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
@@ -124,7 +125,7 @@ class AuthView extends GetView<AuthController> {
                     height: 40,
                     child: controller.isProcessing.value ?
                     SpinKitFadingCircle(
-                      color: Colors.blue,
+                      color: AppColors.mainColor,
                       size: 60.0,
                     ) : ElevatedButton(
                       onPressed: () async{
@@ -178,7 +179,7 @@ class AuthView extends GetView<AuthController> {
             )),
             controller.isProcessing.value ?
             SpinKitFadingCircle(
-              color: Colors.blue,
+              color: AppColors.mainColor,
               size: 60.0,
             ) :
             Expanded(child: Row(
@@ -293,7 +294,7 @@ class AuthView extends GetView<AuthController> {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.blue,
+              AppColors.secondaryColorFromCode,
               mainColor,
              ],
             )

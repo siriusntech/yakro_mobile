@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:mon_plateau/app/widgets/button_widget.dart';
+import 'package:jaime_cocody/app/widgets/button_widget.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
@@ -173,12 +173,12 @@ class AlerteView extends GetView<AlerteController> {
                 SizedBox(width: 5,),
                 TextButtonWidget(
                   text_widget: TextWidget(text: "Voir tout",
-                   fontSize: 16.0, color: Colors.red, fontWeight: FontWeight.bold,
+                   fontSize: 16.0, color: Colors.white, fontWeight: FontWeight.bold,
                   ),
                   action: (){
                     Get.toNamed(AppRoutes.ALL_ALERTES);
                   },
-                  border_side: MaterialStateProperty.all(BorderSide(color: Colors.red)),
+                  border_side: MaterialStateProperty.all(BorderSide(color: Colors.white)),
                   rounded: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))),
                 ),
               ],

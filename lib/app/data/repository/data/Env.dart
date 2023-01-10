@@ -3,8 +3,8 @@
 // const siteUrl = 'http://10.0.2.2:8000';
 
 // ONLINE
-const baseUrl = 'http://sdplateau.siriusntech.digital/api/mobile/';
-const siteUrl = 'http://sdplateau.siriusntech.digital';
+const baseUrl = 'https://sdcocody.siriusntech.digital/api/mobile/';
+const siteUrl = 'https://sdcocody.siriusntech.digital';
 
 // Errors Codes
 const USER_INVALID_RESPONSE = 100;
