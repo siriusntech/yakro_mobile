@@ -46,7 +46,7 @@ class ActualiteShowView extends GetView<ActualiteController> {
                 width: double.infinity,
                 height: 250,
                 child: ImageWidget(isNetWork: true, url:
-                controller.selectedActualite.value.imageUrl, width: 250, height: 250, fit: BoxFit.cover,
+                controller.selectedActualite.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
                   default_image: DefaultImage.ACTUALITE,
                 ),
               ),

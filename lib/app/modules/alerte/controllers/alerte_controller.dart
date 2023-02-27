@@ -88,6 +88,8 @@ class AlerteController extends GetxController {
     addFile.value = false;
   }
 
+
+
   void choosePhoto(BuildContext ctx) {
     showModalBottomSheet(
         elevation: 10,

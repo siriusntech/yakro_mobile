@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'package:jaime_cocody/app/Utils/app_constantes.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
-import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_routes.dart';
 import '../controllers/debut_controller.dart';
 
@@ -16,7 +16,7 @@ class DebutView extends GetView<DebutController> {
 
     final List<Widget> pages = [
       NewPage(image: SLIDE_NEWS, titre: 'Actualités',
-          desc: "Suivez l'actualités de votre commune."),
+          desc: "Suivez l'actualité de votre commune."),
       NewPage(image: SLIDE_STORE, titre: 'Commerces et autres',
           desc: "Les restaurants, super marché et autres espaces de la commune."),
       NewPage(image: SLIDE_KNOWN, titre: 'Bon à savoir',
@@ -46,7 +46,7 @@ class DebutView extends GetView<DebutController> {
                    flex: 7,
                    child: Container(
                      width: 175,
-                     child: Image.asset(LOGO_BLANC),
+                     child: Image.asset(LOGO_BLANC, fit: BoxFit.contain,),
                    )
                ),
                Expanded(
@@ -110,7 +110,6 @@ class DebutView extends GetView<DebutController> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.black)
                       ),
                       onPressed: (){
                         Get.offAllNamed(AppRoutes.AUTH);

@@ -93,6 +93,8 @@ class DiscussionController extends GetxController {
     addFile.value = false;
   }
 
+
+
   void choosePhoto() {
     Get.bottomSheet(
         Container(

@@ -54,8 +54,8 @@ android {
         applicationId "com.siriusntech.jaime_cocody"
         minSdkVersion 19
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 114
-        versionName "1.0.1"
+        versionCode 123
+        versionName "1.0.5"
         multiDexEnabled true
     }
     signingConfigs {

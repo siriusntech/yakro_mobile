@@ -108,6 +108,8 @@ class HistoriqueController extends GetxController {
     }
   }
 
+
+
   getRefreshHistoriques() async {
     try{
       final response = await HistoriqueServices.getHistoriques(user_id.value);

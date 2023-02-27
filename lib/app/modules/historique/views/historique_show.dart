@@ -19,7 +19,7 @@ class HistoriqueShow extends GetView<HistoriqueController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(text: 'Bon à savoir', fontSize: 18, fontWeight: FontWeight.bold,),
+        title: TextWidget(text: 'Culture', fontSize: 18, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
       ),
@@ -40,7 +40,7 @@ class HistoriqueShow extends GetView<HistoriqueController> {
                       Container(
                         width: double.infinity,
                         height: 200,
-                        child: ImageWidget(url: controller.selectedHistorique.value.medias![0].url!, isNetWork: true,),
+                        child: ImageWidget(url: controller.selectedHistorique.value.medias![0].url!, isNetWork: true,fit: BoxFit.contain,),
                       )
                     ],
                   ),

@@ -55,6 +55,7 @@ class CommerceController extends GetxController {
     }
   }
 
+
   // GET ALL COMMERCE
   getCommerces(var page) async{
     try{

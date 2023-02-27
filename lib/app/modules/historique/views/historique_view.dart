@@ -18,7 +18,7 @@ class HistoriqueView extends GetView<HistoriqueController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(text: 'Bon à savoir', fontSize: 18, fontWeight: FontWeight.bold,),
+        title: TextWidget(text: 'Culture', fontSize: 18, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
         actions: [

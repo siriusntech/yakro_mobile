@@ -73,6 +73,8 @@ class AgendaController extends GetxController {
     getAgendas(page);
   }
 
+
+
   // SHOW SNACKBAR
   showSnackBar(String title, String message, Color bgColor){
     Get.snackbar(title, message, backgroundColor: bgColor,

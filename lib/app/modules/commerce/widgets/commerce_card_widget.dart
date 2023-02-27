@@ -82,7 +82,7 @@ class CommerceCardWidget extends StatelessWidget {
                 width: double.infinity,
                 height: 250,
                 child: ImageWidget(isNetWork: true, url:
-                commerce.imageUrl, width: 250, height: 250, fit: BoxFit.cover,
+                commerce.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
                   default_image: DefaultImage.COMMERCE,
                 ),
               ),

@@ -1,5 +1,5 @@
 name: jaime_cocody
-version: 1.0.0+2
+version: 1.0.0+9
 publish_to: none
 description: App commune.
 environment: 
@@ -36,7 +36,8 @@ dependencies:
   firebase_messaging: ^14.2.0
   firebase_core: ^2.4.0
   firebase_analytics: ^10.0.8
-#  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^13.0.0
+  assets_audio_player: ^3.0.6
 #  persistent_bottom_nav_bar: any
 #  laravel_echo: ^0.2.9
   get: 4.6.5
@@ -101,14 +102,17 @@ flutter:
     - assets/images/job.png
     - assets/images/name.png
     - assets/images/default-file.png
+    - assets/images/update.png
     - assets/images/presentation/store.png
     - assets/images/presentation/news.png
     - assets/images/presentation/alerte.png
     - assets/images/presentation/known.png
     - assets/images/presentation/chat.png
     - assets/images/presentation/pharmacie.png
-    - assets/images/bg/bg.png
     - assets/images/bg/bg.jpg
+    - assets/images/bg/bgccdy.jpg
+    - assets/sound/single-press.mp3
+    - assets/sound/positive-notification.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

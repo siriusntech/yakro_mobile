@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:get/get.dart';
 
@@ -15,12 +16,86 @@ Future<void> _messageHandler(RemoteMessage message) async {
   showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
 }
 
+// late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+void onSelectNotification(payload){
+  print('payload '+ payload);
+}
+// LOCAL NOTIF
+void showLocalNotification(){
+  var initializationSettingsAndroid = new AndroidInitializationSettings('ic_launcher');
+  var initialzationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+  var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid);
+  flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onDidReceiveBackgroundNotificationResponse: onSelectNotification,
+      onDidReceiveNotificationResponse: onSelectNotification);
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+    if (notification != null && android != null) {
+      flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              color: mainColor,
+              // TODO add a proper drawable resource to android, for now using
+              // one that already exists in example app.
+              icon: "@mipmap/ic_launcher",
+            ),
+          ));
+    }
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+    if (notification != null && android != null) {
+      showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
+    }
+  });
+}
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+  showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
+  // Future.delayed(Duration(seconds: 20), (){
+  //   showLocalNotification();
+  // });
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // INITIALISATION FIREBASE
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_messageHandler);
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  // FirebaseMessaging.onBackgroundMessage(_messageHandler);
+
+  await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
 
   // WidgetsFlutterBinding.ensureInitialized();
   // Step 3
@@ -32,6 +107,15 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'high_importance_channel', // id
+  'High Importance Notifications', // title
+  description: 'This channel is used for important notifications.', // description
+  importance: Importance.high,
+);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -42,7 +126,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: mainColor,
         fontFamily: 'Roboto',
       ),
-      title: "mon plateau",
+      title: "J'aime Cocody",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,

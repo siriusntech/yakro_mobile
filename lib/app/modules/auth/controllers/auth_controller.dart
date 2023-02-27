@@ -59,10 +59,10 @@ class AuthController extends GetxController {
   var step = 1.obs;
   var isProcessing = false.obs;
 
-  var condition_of_use = """Mon plateau est une application qui permet de mieux connaitre la commune à travers son histoire et être informé de toutes les actualités la concernant.
+  var condition_of_use = """J'aime Cocody est une application qui permet de mieux connaitre la commune à travers son histoire et être informé de toutes les actualités la concernant.
   Elle permet aussi aux habitants d'échanger et donner leur avis sur tous ce qui concerne la commune à travers des discussions ou forums.
   Vous pouvez aussi trouver tous les espaces importants de la commune tels que les pharmacies de garde, commerces, restaurants et autres.
-   Il interdits d'utiliser les mots inappropriés comme les injures et propos haineux sous peine de voir son compte bloqué.
+   Il est interdits d'utiliser les mots inappropriés comme les injures et propos haineux sous peine de voir son compte bloqué.
   """;
 
   var politique = """La connexion se fait avec un pseudo(quelconque) et votre numéro de téléphone et en une seule fois, 
@@ -341,8 +341,21 @@ class AuthController extends GetxController {
   // FIREBASE CLOUD MESSAGING CONFIGURATION
   late FirebaseMessaging messaging;
 
-  void initCloudMessaging(){
+  initCloudMessaging() async{
     messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    // print('User granted permission: ${settings.authorizationStatus}');
+
     messaging.getToken().then((value){
       setCloudMessagingToken(value.toString());
       // print('Cloud Messaging Token: '+value.toString());

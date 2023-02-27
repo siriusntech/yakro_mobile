@@ -1,7 +1,7 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/widgets/button_widget.dart';
-import 'package:jaime_cocody/app/widgets/image_widget.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,6 +23,15 @@ showAlerte(String title, String message){
     middleTextStyle: TextStyle(fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
     textCancel: 'OK',
     cancelTextColor: Colors.red
+  );
+}
+// PLAY SOUND ON NOTIFICATION
+playSound() async {
+  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+  await audioPlayer.open(
+    Audio(
+      'assets/sound/single-press.mp3',
+    ),
   );
 }
 
@@ -71,6 +80,7 @@ showNotificationBox(String title, String body, String action_url){
 }
 // SHOW NOTICATION DIALOG
 showNotificationSnackBar(String title, String body, String action_url){
+  playSound();
   Get.snackbar(
     title,
     body,
@@ -85,15 +95,16 @@ showNotificationSnackBar(String title, String body, String action_url){
     // forwardAnimationCurve: Curves.elasticInOut,
     // reverseAnimationCurve: Curves.easeOut,
     borderRadius: 10,
-    duration: Duration(seconds: 10),
+    duration: Duration(seconds: 20),
     padding: EdgeInsets.all(8),
+    margin: EdgeInsets.only(top: 80),
     onTap: (val){
-      Get.back();
       if(action_url == '/mise_a_jour'){
-        launch('https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody');
+        launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody'));
       }else{
         Get.toNamed(action_url);
       }
+      Get.back();
     },
   );
 }

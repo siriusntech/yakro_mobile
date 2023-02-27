@@ -71,7 +71,7 @@ class NouscontactezView extends GetView<NouscontactezController> {
                           onTap: (){
                             launch("https://sirius.com/");
                           },
-                          child: TextWidget(text: "https://sirius.com", fontSize: 18, color: Colors.blue,),
+                          child: TextWidget(text: "https://siriusntech.com", fontSize: 18, color: Colors.blue,),
                         ),
                       )
                   )

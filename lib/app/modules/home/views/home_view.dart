@@ -1,11 +1,13 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/Utils/app_routes.dart';
+import 'package:jaime_cocody/app/Utils/default_image.dart';
 import 'package:jaime_cocody/app/widgets/notification_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
+import '../../../widgets/loading_widget.dart';
 import '../../../widgets/menu_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/home_controller.dart';
@@ -22,7 +24,7 @@ class HomeView extends GetView<HomeController> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         elevation: 0.0,
-        leading: NotificationWidget(icon: Icons.refresh_rounded,
+        leading: NotificationWidget(icon: Icons.home,
           action: (){
             controller.refreshData();
           },
@@ -49,11 +51,11 @@ class HomeView extends GetView<HomeController> {
         // height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(BG_HOME),
+              image: AssetImage(DefaultImage.HOME_BG),
               fit: BoxFit.cover
           ),
         ),
-        child: Column(
+        child: Obx(() => Column(
           children: [
             Expanded(
               flex: 1,
@@ -102,40 +104,183 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             SizedBox(height: 5,),
+            Visibility(
+              visible: controller.miseAJourModel.value.id != null && controller.miseAJourModel.value.etat == 0 && controller.showUpdateWidget.value == true,
+              child: Container(
+              margin: EdgeInsets.only(left: 15, right: 15),
+              child: Card(
+                child: ListTile(
+                  leading: Icon(Icons.system_update_alt_rounded, color: mainColor, size: 30,),
+                  trailing: IconButton(
+                      onPressed: (){
+                        controller.closeUpdateWidget();
+                      },
+                      icon: Icon(Icons.close)
+                  ),
+                  title: TextWidget(text: controller.miseAJourModel.value.titre, fontWeight: FontWeight.bold,),
+                  subtitle: TextWidget(text: controller.miseAJourModel.value.description, fontSize: 15, fontWeight: FontWeight.w600,),
+                  onTap: () async{
+                    await controller.makeUpdate();
+                    launchUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody"));
+                  },
+                ),
+              ),
+            )
+            ),
             Expanded(
               flex: 3,
-              child: Obx(() => MenuViewDeux()),
+              child: controller.isDataRefreshing == true ? LoadingWidget() : ListView(
+                padding: EdgeInsets.only(bottom: 20),
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Flexible(
+                      //     child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                      //       title: 'Agenda',icon: MENU_AGENDA, page: AppRoutes.AGENDA,
+                      //     )
+                      // ),
+                      Flexible(
+                          child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                            title: 'Actualités',icon: MENU_ACTUALITE, enabled: true,
+                            itemCount: controller.selectedItemsCounts.value.un_read_actualite_count,
+                            action: (){
+                              controller.addActualiteVisiteCount();
+                              Get.toNamed(AppRoutes.ACTUALITE);
+                            },
+                          )
+                      ),
+                      Flexible(
+                          child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                              title: 'Commerces et autres',icon: MENU_COMMERCE,
+                              enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_commerce_count,
+                              action: (){
+                                controller.addCommerceVisiteCount();
+                                Get.toNamed(AppRoutes.COMMERCE);
+                              }
+                          )
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Flexible(
+                      //     child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                      //         title: 'Discussions',icon: MENU_DISCUSSION, page: AppRoutes.DISCUSSION,
+                      //     )
+                      // ),
+                      Flexible(
+                          child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                            title: 'Culture',icon: MENU_HISTORIQUE,
+                            enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_sujet_count,
+                            action: (){
+                              controller.addHistoriqueVisiteCount();
+                              Get.toNamed(AppRoutes.HISTORIQUE);
+                            },
+                          )
+                      ),
+                      Flexible(
+                          child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                              title: 'Signaler un incident',icon: MENU_ALERTE,
+                              enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count,
+                              action: (){
+                                controller.addAlerteVisiteCount();
+                                Get.toNamed(AppRoutes.ALERTE);
+                              }
+                          )
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                          child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                              title: 'Bons plans', icon: MENU_NOTIFICATION,
+                              enabled: true, itemCount: controller.unReadDiffusionCount.value,
+                              action: (){
+                                controller.addDiffusionVisiteCount();
+                                Get.toNamed(AppRoutes.DIFFUSION);
+                              }
+                          )
+                      ),
+                      Flexible(
+                          child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                              title: 'Numéros utiles', icon: MENU_INFORMATION,
+                              enabled: true,
+                              action: (){
+                                controller.addAnnuaireVisiteCount();
+                                Get.toNamed(AppRoutes.ANNUAIRE);
+                              }
+                          )
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                          child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                              title: 'Discussions',icon: MENU_DISCUSSION,
+                              enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_discussion_count,
+                              action: (){
+                                controller.addDiscussionVisiteCount();
+                                Get.toNamed(AppRoutes.DISCUSSION);
+                              }
+                          )
+                      ),
+                      Flexible(
+                          child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                              title: 'Pharmacie de garde', icon: MENU_PHARMACIE,
+                              enabled: true,
+                              action: (){
+                                controller.addPharmacieVisiteCount();
+                                Get.toNamed(AppRoutes.PHARMACIE);
+                              }
+                          )
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
-        ),
+        )),
       )
     );
   }
 
 
+  // WIDGET MENU
   MenuViewDeux(){
     return ListView(
       padding: EdgeInsets.only(bottom: 20),
-      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Flexible(
-            //     child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
+            //     child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
             //       title: 'Agenda',icon: MENU_AGENDA, page: AppRoutes.AGENDA,
             //     )
             // ),
             Flexible(
-                child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
-                    title: 'Actualités',icon: MENU_ACTUALITE, page: AppRoutes.ACTUALITE,
-                    enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_actualite_count,
+                child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                    title: 'Actualités',icon: MENU_ACTUALITE, enabled: true,
+                    itemCount: controller.selectedItemsCounts.value.un_read_actualite_count,
+                    action: (){
+                      Get.toNamed(AppRoutes.ACTUALITE);
+                    },
                 )
             ),
             Flexible(
-                child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
-                  title: 'Commerces et autres',icon: MENU_COMMERCE, page: AppRoutes.COMMERCE,
+                child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                  title: 'Commerces et autres',icon: MENU_COMMERCE,
                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_commerce_count,
+                    action: (){
+                      Get.toNamed(AppRoutes.COMMERCE);
+                    }
                 )
             ),
           ],
@@ -144,23 +289,26 @@ class HomeView extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Flexible(
-            //     child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
+            //     child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
             //         title: 'Discussions',icon: MENU_DISCUSSION, page: AppRoutes.DISCUSSION,
             //     )
             // ),
             Flexible(
-                child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
-                    title: 'Bon à savoir',icon: MENU_HISTORIQUE, page: AppRoutes.HISTORIQUE,
+                child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                    title: 'Culture',icon: MENU_HISTORIQUE,
                     enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_sujet_count,
                     action: (){
-
+                      Get.toNamed(AppRoutes.HISTORIQUE);
                     },
                 )
             ),
             Flexible(
-                child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
-                  title: 'Signaler un incident',icon: MENU_ALERTE, page: AppRoutes.ALERTE,
-                  enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count
+                child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                  title: 'Signaler un incident',icon: MENU_ALERTE,
+                  enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count,
+                    action: (){
+                      Get.toNamed(AppRoutes.ALERTE);
+                    }
                 )
             ),
           ],
@@ -169,15 +317,21 @@ class HomeView extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(
-                child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
-                  title: 'Notification', icon: MENU_NOTIFICATION, page: AppRoutes.DIFFUSION,
-                  enabled: true, itemCount: controller.unReadDiffusionCount.value
+                child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                  title: 'Bons plans', icon: MENU_NOTIFICATION,
+                  enabled: true, itemCount: controller.unReadDiffusionCount.value,
+                    action: (){
+                      Get.toNamed(AppRoutes.DIFFUSION);
+                    }
                 )
             ),
             Flexible(
-                child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
-                  title: 'Informations utiles', icon: MENU_INFORMATION, page: AppRoutes.ANNUAIRE,
+                child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                  title: 'Numéros utiles', icon: MENU_INFORMATION,
                   enabled: true,
+                    action: (){
+                      Get.toNamed(AppRoutes.ANNUAIRE);
+                    }
                 )
             ),
           ],
@@ -186,15 +340,21 @@ class HomeView extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(
-                child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
-                  title: 'Discussions',icon: MENU_DISCUSSION, page: AppRoutes.DISCUSSION,
+                child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                  title: 'Discussions',icon: MENU_DISCUSSION,
                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_discussion_count,
+                    action: (){
+                      Get.toNamed(AppRoutes.DISCUSSION);
+                    }
                 )
             ),
             Flexible(
-                child: MenuDeuxWidget(width: (Get.width / 2) - 20, height: 120,
-                  title: 'Pharmacie de garde', icon: MENU_PHARMACIE, page: AppRoutes.PHARMACIE,
+                child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                  title: 'Pharmacie de garde', icon: MENU_PHARMACIE,
                   enabled: true,
+                    action: (){
+                      Get.toNamed(AppRoutes.PHARMACIE);
+                    }
                 )
             ),
           ],
@@ -203,43 +363,4 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  _menu({page, icon, title, subtitle}){
-    return GestureDetector(
-      onTap: (){
-        Get.toNamed(page);
-      },
-      child: Container(
-        margin: EdgeInsets.only(left: 8, right: 8, top: 2),
-        width: double.maxFinite,
-        height: 80,
-        child: Card(
-          elevation: 25 ,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)
-          ),
-          child: Row(
-            children: [
-              SizedBox(width: 5,),
-              Container(
-                child: Image.asset(icon, width: 40, height: 40,),
-              ),
-              SizedBox(width: 5,),
-              Text("|", style: TextStyle(fontSize: 55.0, color: Colors.black38),),
-              SizedBox(width: 10,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextWidget(text: title, fontSize: 16.0, color: Colors.black87, fontWeight: FontWeight.bold),
-                  SizedBox(height: 3,),
-                  TextWidget(text: subtitle, fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w600),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

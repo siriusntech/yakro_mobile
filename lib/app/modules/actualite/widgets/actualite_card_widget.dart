@@ -46,7 +46,7 @@ class ActualiteCardWidget extends StatelessWidget {
                 width: double.infinity,
                 height: 250,
                 child: ImageWidget(isNetWork: true, url:
-                actualite.imageUrl, width: 250, height: 250, fit: BoxFit.cover,
+                actualite.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
                   default_image: DefaultImage.ACTUALITE,
                 ),
               ),

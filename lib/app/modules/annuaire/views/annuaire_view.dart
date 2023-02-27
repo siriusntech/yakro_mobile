@@ -15,7 +15,7 @@ class AnnuaireView extends GetView<AnnuaireController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(text: 'Informations utiles',
+        title: TextWidget(text: 'Numéros utiles',
           fontSize: 20,
           fontWeight: FontWeight.bold, color: Colors.white,
         ),

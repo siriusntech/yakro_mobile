@@ -18,7 +18,7 @@ class Annuaire{
    factory Annuaire.fromJson(Map<dynamic, dynamic> json) => Annuaire(
        id: json["id"] ?? null,
        nom: json["nom"] ?? null,
-       prenom: json["prenom"] ?? null,
+       prenom: json["prenom"] ?? '',
        poste: json["poste"] ?? null,
        contact: json["contact"] ?? null,
        imageUrl: json["imageUrl"] ?? null,

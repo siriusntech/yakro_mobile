@@ -4,59 +4,8 @@ import 'package:get/get.dart';
 import 'package:jaime_cocody/app/Utils/app_constantes.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
-class MenuUnWidget extends StatelessWidget {
-  final String page;
-  final String icon;
-  final String title;
-  final String subtitle;
-
-  MenuUnWidget(this.page, this.icon, this.title, this.subtitle);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        Get.toNamed(page);
-      },
-      child: Container(
-        margin: EdgeInsets.only(left: 8, right: 8, top: 2),
-        width: double.maxFinite,
-        height: 80,
-        child: Card(
-          elevation: 25 ,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)
-          ),
-          child: Row(
-            children: [
-              SizedBox(width: 5,),
-              Container(
-                child: Image.asset(icon, width: 40, height: 40,),
-              ),
-              SizedBox(width: 5,),
-              Text("|", style: TextStyle(fontSize: 55.0, color: Colors.black38),),
-              SizedBox(width: 10,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextWidget(text: title, fontSize: 16.0, color: Colors.black87, fontWeight: FontWeight.bold),
-                  SizedBox(height: 3,),
-                  TextWidget(text: subtitle, fontSize: 13.0, color: Colors.black54, fontWeight: FontWeight.w600),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 // MY MENU
-class MenuDeuxWidget extends StatelessWidget {
-  final String? page;
+class MenuWidget extends StatelessWidget {
   final String? icon;
   final String? title;
   final String? subtitle;
@@ -64,16 +13,16 @@ class MenuDeuxWidget extends StatelessWidget {
   final double height;
   final bool? enabled;
   final int? itemCount;
+  final Color? color;
+  final Color? bgColor;
   final VoidCallback? action;
 
-  MenuDeuxWidget({this.page, this.action, this.icon, this.title, this.subtitle, required this.width, required this.height, this.enabled, this.itemCount});
+  MenuWidget({this.color, this.bgColor, this.action, this.icon, this.title, this.subtitle, required this.width, required this.height, this.enabled, this.itemCount});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: enabled! ? (){
-        Get.toNamed(page!);
-      } : null,
+      onTap: enabled! ? action : null,
       child: Stack(
         children: [
           Container(
@@ -82,7 +31,7 @@ class MenuDeuxWidget extends StatelessWidget {
             height: height,
             child: Card(
               elevation: 25 ,
-              color: enabled! ? Colors.white70 : Colors.transparent,
+              color: enabled! ? bgColor != null ? bgColor :Colors.white70 : Colors.transparent,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)
               ),
@@ -106,7 +55,7 @@ class MenuDeuxWidget extends StatelessWidget {
                         width: double.infinity,
                         height: double.infinity,
                         decoration: BoxDecoration(
-                            color: menuColor,
+                            color: color != null ? color : menuColor,
                             borderRadius: BorderRadius.only(bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10))
                         ),
                       )

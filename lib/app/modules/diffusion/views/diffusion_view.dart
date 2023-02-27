@@ -22,7 +22,7 @@ class DiffusionView extends GetView<DiffusionController> {
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: appbarColorFromCode,
-        title: TextWidget(text: "Liste des notifications",fontSize: 18.0,
+        title: TextWidget(text: "Les bons plans",fontSize: 18.0,
             color: Colors.white, fontWeight: FontWeight.bold
         ),
         actions: [
@@ -98,7 +98,7 @@ class DiffusionView extends GetView<DiffusionController> {
                                           width: double.infinity,
                                           height: 250,
                                           child: ImageWidget(isNetWork: true, url:
-                                          _diffusion.imageUrl, width: 250, height: 250, fit: BoxFit.cover,
+                                          _diffusion.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
                                             default_image: DefaultImage.DIFFUSION,
                                           ),
                                         ),

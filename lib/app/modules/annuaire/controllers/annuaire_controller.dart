@@ -46,6 +46,8 @@ class AnnuaireController extends GetxController {
     }
   }
 
+
+
   getAnnuairesByType(type_id) async {
     try{
       isDataProcessing(true);

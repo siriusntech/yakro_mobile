@@ -9,4 +9,6 @@ class DefaultImage{
   static const String ANNUAIRE = 'assets/images/annuaire.png';
   static const String DIFFUSION = 'assets/images/diffusion.png';
   static const String LOGO = 'assets/images/logo/logo.png';
+
+  static const String HOME_BG = 'assets/images/bg/bgccdy.jpg';
 }

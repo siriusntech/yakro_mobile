@@ -10,7 +10,7 @@ class LoadingWidget extends StatelessWidget {
     return Center(
       child: Container(
         padding: EdgeInsets.all(20.0),
-        child: CircularProgressIndicator(color: mainColor),
+        child: CircularProgressIndicator(color: mainColor, strokeWidth: 12,),
       ),
     );
   }

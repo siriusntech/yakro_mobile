@@ -86,7 +86,7 @@ class DiscussionShow extends GetView<DiscussionController> {
                              width: Get.width - 20,
                              height: 250,
                              child: ImageWidget(isNetWork: true, url:
-                             controller.selectedDiscussion.value.medias![0].url, width: 250, height: 250, fit: BoxFit.cover,
+                             controller.selectedDiscussion.value.medias![0].url, width: 250, height: 250, fit: BoxFit.contain,
                                default_image: DefaultImage.DISCUSSION,
                              ),
                            ),

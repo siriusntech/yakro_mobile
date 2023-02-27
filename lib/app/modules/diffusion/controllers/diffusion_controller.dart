@@ -16,6 +16,7 @@ class DiffusionController extends GetxController {
   final HomeController homeCtrl = Get.find();
 
 
+
   // GET ALL DIFFUSION
   getDiffusions(var page) async{
     try{

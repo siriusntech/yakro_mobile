@@ -24,6 +24,8 @@ class PharmacieController extends GetxController {
   var selectedType = ''.obs;
   var periode = ''.obs;
 
+
+
   // GET ALL ZONES
   void getZones() async{
     try{

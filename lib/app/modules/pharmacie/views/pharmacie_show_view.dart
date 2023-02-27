@@ -36,7 +36,7 @@ class PharmacieShowView extends GetView<PharmacieController> {
                 height: 250,
                 child: ImageWidget(isNetWork: true, url:
                  controller.selectedPharmacie.value.photo, width: 250, height: 250,
-                  default_image: DefaultImage.PHARMACIE, fit: BoxFit.cover,
+                  default_image: DefaultImage.PHARMACIE, fit: BoxFit.contain,
                 ),
               ),
               SizedBox(height: 10,),
@@ -64,13 +64,8 @@ class PharmacieShowView extends GetView<PharmacieController> {
                 ],
               ),
               SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(child: TextWidget(text: "Adresse: ", fontSize: 18, alignement: TextAlign.center, fontWeight: FontWeight.w600, color: Colors.red,),),
-                  Flexible(child: TextWidget(text: controller.selectedPharmacie.value.adresse, fontSize: 18, alignement: TextAlign.center, fontWeight: FontWeight.w600, color: Colors.blue,),),
-                ],
-              ),
+              TextWidget(text: "Adresse: ", fontSize: 18, alignement: TextAlign.center, fontWeight: FontWeight.w600, color: Colors.red,),
+              TextWidget(text: controller.selectedPharmacie.value.adresse, fontSize: 18, alignement: TextAlign.center, fontWeight: FontWeight.w600, color: Colors.blue,),
               SizedBox(height: 15,),
               TextButton(
                   style: ButtonStyle(

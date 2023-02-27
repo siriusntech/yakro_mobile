@@ -64,7 +64,7 @@ class DiscussionCardWidget extends StatelessWidget {
               width: Get.width - 20,
               height: 250,
               child: ImageWidget(isNetWork: true, url:
-                  discussion.medias![0].url, width: 250, height: 250, fit: BoxFit.cover,
+                  discussion.medias![0].url, width: 250, height: 250, fit: BoxFit.contain,
                 default_image: DefaultImage.DISCUSSION,
                ),
             ),

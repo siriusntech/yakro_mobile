@@ -15,7 +15,7 @@ class DiffusionShowView extends GetView<DiffusionController> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: appbarColorFromCode,
-        title: Text("Détails de notifcation",
+        title: Text("Les bons plans",
           style: TextStyle(
               fontSize: 18.0,
               color: Colors.white,
@@ -67,7 +67,7 @@ class DiffusionShowView extends GetView<DiffusionController> {
                 width: double.infinity,
                 height: 250,
                 child: ImageWidget(isNetWork: true, url:
-                controller.selectedDiffusion.value.imageUrl, width: 250, height: 250, fit: BoxFit.cover,
+                controller.selectedDiffusion.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
                   default_image: DefaultImage.DIFFUSION,
                 ),
               ),

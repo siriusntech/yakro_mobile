@@ -131,7 +131,7 @@ class AgendaView extends GetView<AgendaController> {
                                                   width: double.infinity,
                                                   height: 250,
                                                   child: ImageWidget(isNetWork: true, url:
-                                                  agenda.imageUrl, width: 250, height: 250, fit: BoxFit.cover,
+                                                  agenda.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
                                                     default_image: DefaultImage.AGENDA,
                                                   ),
                                                 ),

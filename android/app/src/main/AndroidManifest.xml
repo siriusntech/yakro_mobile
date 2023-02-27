@@ -34,7 +34,7 @@
         </intent>
     </queries>
    <application
-        android:label="mon plateau"
+        android:label="J'aime Cocody"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

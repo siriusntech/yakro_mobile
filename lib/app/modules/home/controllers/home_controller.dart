@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/data/repository/consultation_services.dart';
 import 'package:jaime_cocody/app/models/consultation.dart';
@@ -11,12 +12,21 @@ import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../main.dart';
+import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../data/repository/actualite_services.dart';
 import '../../../data/repository/agenda_services.dart';
+import '../../../data/repository/alerte_services.dart';
+import '../../../data/repository/annuaire_services.dart';
 import '../../../data/repository/auth_service.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/diffusion_services.dart';
+import '../../../data/repository/discussion_services.dart';
+import '../../../data/repository/historique_services.dart';
+import '../../../data/repository/main_services.dart';
+import '../../../data/repository/pharmacie_services.dart';
+import '../../../models/mise_a_jour_model.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../actualite/actualite_model.dart';
 import '../../agenda/agenda_model.dart';
@@ -40,6 +50,8 @@ class HomeController extends GetxController {
 
   var  auth_user = User();
 
+  var isDataRefreshing = false.obs;
+
   final AuthController auth_ctrl = Get.put(AuthController());
   // final ActualiteController actualite_ctrl = Get.put(ActualiteController());
   // final CommerceController commerce_ctrl = Get.put(CommerceController());
@@ -55,6 +67,7 @@ class HomeController extends GetxController {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setInt('user_id', 0);
     storage.setInt('is_actif', 0);
+    // storage.setString('token', '');
     // ignore: deprecated_member_use
     storage.commit();
   }
@@ -173,6 +186,9 @@ class HomeController extends GetxController {
   void onMessageListen(){
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
       showNotificationSnackBar(event.notification!.title!, event.notification!.body!, event.data['click_action']);
+      // Future.delayed(Duration(seconds: 20), (){
+      //   showLocalNotification();
+      // });
     });
   }
   // FIREBASE CLOUD MESSAGE ARRIERE PLAN
@@ -181,12 +197,17 @@ class HomeController extends GetxController {
       // print("msg "+message.toString());
       showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
     });
+    // Future.delayed(Duration(seconds: 20), (){
+    //     showLocalNotification();
+    // });
   }
    refreshData() async {
+    await isDataRefreshing(true);
     await checkIfAccountIsActif();
 
     await getUnReadItemsCounts();
     await getUnReadDiffusionCount();
+    await isDataRefreshing(false);
   }
 
   var connectivityResult;
@@ -224,6 +245,7 @@ class HomeController extends GetxController {
     connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
       // print('check account user id '+ auth_ctrl.getUserId.toString());
+      await checkUpdate(auth_ctrl.getUserId);
       await getAuthUserInfo(auth_ctrl.getUserId);
 
       if(auth_user.id == null || auth_user.id == 0 || auth_user.isActif == 0 || auth_user.isActif == null){
@@ -233,9 +255,98 @@ class HomeController extends GetxController {
     }
   }
 
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+   // LOCAL NOTIF
+  void showLocalNotification(){
+    var initializationSettingsAndroid = new AndroidInitializationSettings('ic_launcher');
+    var initialzationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveBackgroundNotificationResponse: onSelectNotification,
+        onDidReceiveNotificationResponse: onSelectNotification);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channelDescription: channel.description,
+                color: mainColor,
+                // TODO add a proper drawable resource to android, for now using
+                // one that already exists in example app.
+                icon: "@mipmap/ic_launcher",
+              ),
+            ));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
+      }
+    });
+
+    getToken();
+  }
+
+  void onSelectNotification(payload){
+     print('payload '+ payload);
+  }
+
+  var miseAJourModel = MiseAJourModel().obs;
+
+  var showUpdateWidget = true.obs;
+
+  closeUpdateWidget(){
+    showUpdateWidget(false);
+  }
+
+  // CHECK UPDATE
+  checkUpdate(user_id) async{
+    try{
+      final response = await MainServices.checkUpdate(user_id);
+      if(response is Success){
+        miseAJourModel = MiseAJourModel().obs;
+        miseAJourModel.value = response.response as MiseAJourModel;
+      }
+      if(response is Failure){
+
+      }
+    }catch(ex){
+
+    }
+  }
+  // MAKE UPDATE
+  makeUpdate() async{
+    try{
+      final response = await MainServices.makeUpdate(auth_ctrl.getUserId);
+      if(response is Success){
+        miseAJourModel = MiseAJourModel().obs;
+        miseAJourModel.value = response.response as MiseAJourModel;
+        showUpdateWidget(false);
+      }
+      if(response is Failure){
+
+      }
+    }catch(ex){
+
+    }
+  }
+
+
   @override
   void onInit() {
     super.onInit();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     // GetConnectionType();
     // _streamSubscription = _connectivity.onConnectivityChanged.listen(_updateState);
     checkConnexion();
@@ -243,13 +354,19 @@ class HomeController extends GetxController {
       observeConnexion(result);
     });
 
-    checkIfAccountIsActif();
-
-    getUnReadItemsCounts();
-    getUnReadDiffusionCount();
+    refreshData();
 
     onMessageListen();
     onMessageOpenedAppListen();
+
+
+    // checkUpdate();
+
+  }
+
+  String token = '';
+  getToken() async {
+    token = (await FirebaseMessaging.instance.getToken())!;
   }
 
   @override
@@ -262,11 +379,11 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     timer?.cancel();
-    checkIfAccountIsActif();
 
-    getUnReadItemsCounts();
-    getUnReadDiffusionCount();
+    refreshData();
+
     _connectivitySubscription.cancel();
+    // checkUpdate();
   }
 
   // // Share app
@@ -283,7 +400,154 @@ class HomeController extends GetxController {
 
   // Share app
   void ShareAppLink() async{
-    Share.share('https://sirius.com/app/jaime_cocody', subject: 'Application mon plateau');
+    Share.share('https://siriusntech.com/app/jaime_cocody', subject: "Application J'aime Cocody");
+  }
+
+  // ADD VISITE
+  addActualiteVisiteCount() async{
+    try{
+      final response = await ActualiteServices.addActualiteVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+  // ADD VISITE
+  addAgendaVisiteCount() async{
+    try{
+      final response = await AgendaServices.addAgendaVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+  // ADD VISITE
+  addAlerteVisiteCount() async{
+    try{
+      final response = await AlerteServices.addAlerteVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+  // ADD VISITE
+  addAnnuaireVisiteCount() async{
+    try{
+      final response = await AnnuaireServices.addAnnuaireVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+
+  // ADD VISITE
+  addCommerceVisiteCount() async{
+    try{
+      final response = await CommerceServices.addCommerceVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+  // ADD VISITE
+  addDiffusionVisiteCount() async{
+    try{
+      final response = await DiffusionServices.addBonPlanVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+  // ADD VISITE
+  addDiscussionVisiteCount() async{
+    try{
+      final response = await DiscussionServices.addDiscussionVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+  // ADD VISITE
+  addHistoriqueVisiteCount() async{
+    try{
+      final response = await HistoriqueServices.addHistoriqueVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+
+  // ADD VISITE
+  addPharmacieVisiteCount() async{
+    try{
+      final response = await PharmacieServices.addPharmacieVisite();
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
   }
 
 }
