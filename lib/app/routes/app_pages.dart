@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/auth/views/condition_view.dart';
-import 'package:jaime_cocody/app/modules/pharmacie/views/pharmacie_show_view.dart';
 
 import '../modules/actualite/bindings/actualite_binding.dart';
 import '../modules/actualite/views/actualite_show_view.dart';
@@ -21,6 +19,7 @@ import '../modules/apropos/bindings/apropos_binding.dart';
 import '../modules/apropos/views/apropos_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
+import '../modules/auth/views/condition_view.dart';
 import '../modules/commerce/bindings/commerce_binding.dart';
 import '../modules/commerce/views/commerce_show_view.dart';
 import '../modules/commerce/views/commerce_view.dart';
@@ -48,9 +47,12 @@ import '../modules/message/views/message_view.dart';
 import '../modules/nouscontactez/bindings/nouscontactez_binding.dart';
 import '../modules/nouscontactez/views/nouscontactez_view.dart';
 import '../modules/pharmacie/bindings/pharmacie_binding.dart';
+import '../modules/pharmacie/views/pharmacie_show_view.dart';
 import '../modules/pharmacie/views/pharmacie_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/zoom/bindings/zoom_binding.dart';
+import '../modules/zoom/views/zoom_view.dart';
 
 part 'app_routes.dart';
 
@@ -233,6 +235,11 @@ class AppPages {
       name: _Paths.DEBUT,
       page: () => DebutView(),
       binding: DebutBinding(),
+    ),
+    GetPage(
+      name: _Paths.ZOOM,
+      page: () => ZoomView(),
+      binding: ZoomBinding(),
     ),
   ];
 }

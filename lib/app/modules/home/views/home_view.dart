@@ -109,6 +109,7 @@ class HomeView extends GetView<HomeController> {
               child: Container(
               margin: EdgeInsets.only(left: 15, right: 15),
               child: Card(
+                elevation: 30,
                 child: ListTile(
                   leading: Icon(Icons.system_update_alt_rounded, color: mainColor, size: 30,),
                   trailing: IconButton(
@@ -120,8 +121,10 @@ class HomeView extends GetView<HomeController> {
                   title: TextWidget(text: controller.miseAJourModel.value.titre, fontWeight: FontWeight.bold,),
                   subtitle: TextWidget(text: controller.miseAJourModel.value.description, fontSize: 15, fontWeight: FontWeight.w600,),
                   onTap: () async{
+                    print(controller.miseAJourModel.value.lien);
+                    var link = controller.miseAJourModel.value.lien != "" ? controller.miseAJourModel.value.lien : "https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody" ;
+                    launchUrl(Uri.parse(link!));
                     await controller.makeUpdate();
-                    launchUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody"));
                   },
                 ),
               ),

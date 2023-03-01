@@ -6,6 +6,8 @@ import 'package:jaime_cocody/app/widgets/text_widget.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
 import '../../../widgets/image_widget.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
 import 'discussion_tooltip_widget.dart';
 
 class DiscussionCardWidget extends StatelessWidget {
@@ -17,8 +19,7 @@ class DiscussionCardWidget extends StatelessWidget {
   final int? userId;
 
   DiscussionCardWidget({required this.discussion, this.action, this.editAction, this.deleteAction, this.commentAction, this.userId});
-
-
+  final ZoomController zoomCtrl = Get.put(ZoomController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,13 +37,13 @@ class DiscussionCardWidget extends StatelessWidget {
                 children: [
                   TextWidget(text: discussion.senderPseudo ?? '', fontSize: 16, fontWeight: FontWeight.bold,),
                   SizedBox(width: 25,),
-                  userId == discussion.senderId ? TextButton(
+                  userId == discussion.senderId ? IconButton(
                     onPressed: editAction,
-                    child: TextWidget(text: "Editer", fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blue,),
+                    icon: Icon(Icons.edit, color: Colors.blue, size: 25,),
                   ) : Container(),
-                  userId == discussion.senderId ? TextButton(
+                  userId == discussion.senderId ? IconButton(
                     onPressed: deleteAction,
-                    child: TextWidget(text: "Supprimer", fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red,),
+                    icon: Icon(Icons.delete, color: Colors.red, size: 25,),
                   ) : Container(),
                 ],
               ),
@@ -63,10 +64,16 @@ class DiscussionCardWidget extends StatelessWidget {
               alignment: Alignment.center,
               width: Get.width - 20,
               height: 250,
-              child: ImageWidget(isNetWork: true, url:
+              child: GestureDetector(
+                  child: ImageWidget(isNetWork: true, url:
                   discussion.medias![0].url, width: 250, height: 250, fit: BoxFit.contain,
-                default_image: DefaultImage.DISCUSSION,
-               ),
+                    default_image: DefaultImage.DISCUSSION,
+                  ),
+                  onTap: (){
+                  zoomCtrl.setImageUrl(discussion.medias![0].url.toString());
+                  Get.to(ZoomView(), fullscreenDialog: true);
+                  },
+              )
             ),
             Container(
               height: 50,

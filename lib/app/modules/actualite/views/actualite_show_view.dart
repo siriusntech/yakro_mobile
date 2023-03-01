@@ -6,9 +6,14 @@ import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
 import '../controllers/actualite_controller.dart';
 
 class ActualiteShowView extends GetView<ActualiteController> {
+
+  final ZoomController zoomCtrl = Get.put(ZoomController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +50,16 @@ class ActualiteShowView extends GetView<ActualiteController> {
               Container(
                 width: double.infinity,
                 height: 250,
-                child: ImageWidget(isNetWork: true, url:
-                controller.selectedActualite.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
-                  default_image: DefaultImage.ACTUALITE,
-                ),
+                child: GestureDetector(
+                  child: ImageWidget(isNetWork: true, url:
+                  controller.selectedActualite.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
+                    default_image: DefaultImage.ACTUALITE,
+                  ),
+                  onTap: (){
+                    zoomCtrl.setImageUrl(controller.selectedActualite.value.imageUrl.toString());
+                    Get.to(ZoomView(), fullscreenDialog: true);
+                  },
+                )
               ),
               SizedBox(height: 15.0,),
               Text(controller.selectedActualite.value.description.toString(),

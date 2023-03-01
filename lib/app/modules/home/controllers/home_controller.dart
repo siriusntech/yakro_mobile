@@ -202,12 +202,15 @@ class HomeController extends GetxController {
     // });
   }
    refreshData() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+
     await isDataRefreshing(true);
     await checkIfAccountIsActif();
 
     await getUnReadItemsCounts();
     await getUnReadDiffusionCount();
     await isDataRefreshing(false);
+    checkUpdate(storage.getInt('user_id'));
   }
 
   var connectivityResult;
@@ -312,14 +315,16 @@ class HomeController extends GetxController {
 
   // CHECK UPDATE
   checkUpdate(user_id) async{
+    // print(user_id);
     try{
       final response = await MainServices.checkUpdate(user_id);
       if(response is Success){
         miseAJourModel = MiseAJourModel().obs;
         miseAJourModel.value = response.response as MiseAJourModel;
+        // print(miseAJourModel.value.toString());
       }
       if(response is Failure){
-
+        // print("error de mis a jour "+response.toString());
       }
     }catch(ex){
 

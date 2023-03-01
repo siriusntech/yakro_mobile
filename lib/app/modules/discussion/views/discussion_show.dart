@@ -11,6 +11,8 @@ import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
 import '../controllers/discussion_controller.dart';
 import '../widgets/commentaire_card_widget.dart';
 import '../widgets/discussion_card_widget.dart';
@@ -18,6 +20,7 @@ import '../widgets/discussion_tooltip_widget.dart';
 
 class DiscussionShow extends GetView<DiscussionController> {
 
+  final ZoomController zoomCtrl = Get.put(ZoomController());
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +88,15 @@ class DiscussionShow extends GetView<DiscussionController> {
                              alignment: Alignment.center,
                              width: Get.width - 20,
                              height: 250,
-                             child: ImageWidget(isNetWork: true, url:
-                             controller.selectedDiscussion.value.medias![0].url, width: 250, height: 250, fit: BoxFit.contain,
-                               default_image: DefaultImage.DISCUSSION,
+                             child: GestureDetector(
+                               child: ImageWidget(isNetWork: true, url:
+                               controller.selectedDiscussion.value.medias![0].url, width: 250, height: 250, fit: BoxFit.contain,
+                                 default_image: DefaultImage.DISCUSSION,
+                               ),
+                               onTap: (){
+                                 zoomCtrl.setImageUrl(controller.selectedDiscussion.value.medias![0].url.toString());
+                                 Get.to(ZoomView(), fullscreenDialog: true);
+                               },
                              ),
                            ),
                            Container(

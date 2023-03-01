@@ -5,9 +5,14 @@ import 'package:get/get.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
 import '../../../widgets/image_widget.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
 import '../controllers/agenda_controller.dart';
 
 class AgendaShowView extends GetView<AgendaController> {
+
+  final ZoomController zoomCtrl = Get.put(ZoomController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +49,16 @@ class AgendaShowView extends GetView<AgendaController> {
               Container(
                 width: double.infinity,
                 height: 250,
-                child: ImageWidget(isNetWork: true, url:
-                controller.selectedAgenda.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
-                  default_image: DefaultImage.AGENDA,
-                ),
+                child: GestureDetector(
+                  child: ImageWidget(isNetWork: true, url:
+                  controller.selectedAgenda.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
+                    default_image: DefaultImage.AGENDA,
+                  ),
+                  onTap: (){
+                    zoomCtrl.setImageUrl(controller.selectedAgenda.value.imageUrl.toString());
+                    Get.to(ZoomView(), fullscreenDialog: true);
+                  },
+                )
               ),
               SizedBox(height: 15.0,),
               Text(controller.selectedAgenda.value.description.toString(),

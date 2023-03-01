@@ -35,4 +35,5 @@ class AppRoutes {
   static const ANNUAIRE = '/annuaire';
   static const DEBUT = '/debut';
   static const CONDITION = '/condition';
+  static const ZOOM = '/zoom';
 }

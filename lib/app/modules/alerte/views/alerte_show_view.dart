@@ -11,10 +11,14 @@ import '../../../widgets/image_widget.dart';
 import '../../../widgets/my_alerte_tooltip_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
 import '../alerte_model.dart';
 import '../controllers/alerte_controller.dart';
 
 class AlerteShowView extends GetView<AlerteController> {
+
+  final ZoomController zoomCtrl = Get.put(ZoomController());
 
   liked(Alerte alerte) {
     final key_alerte = GlobalKey<State<Tooltip>>();
@@ -194,9 +198,16 @@ class AlerteShowView extends GetView<AlerteController> {
               Container(
                 width: double.infinity,
                 height: 250,
-                child: controller.selectedAlerte.value.fileType == 'image' ? ImageWidget(isNetWork: true, url:
-                controller.selectedAlerte.value.fileUrl, width: 250, height: 250, fit: BoxFit.contain,
-                  default_image: DefaultImage.ALERTE,
+                child: controller.selectedAlerte.value.fileType == 'image' ?
+                GestureDetector(
+                  child: ImageWidget(isNetWork: true, url:
+                  controller.selectedAlerte.value.fileUrl, width: 250, height: 250, fit: BoxFit.contain,
+                    default_image: DefaultImage.ALERTE,
+                  ),
+                  onTap: (){
+                    zoomCtrl.setImageUrl(controller.selectedAlerte.value.fileUrl.toString());
+                    Get.to(ZoomView(), fullscreenDialog: true);
+                  },
                 ) : VideoWidget(fileUrl: siteUrl+controller.selectedAlerte.value.fileUrl.toString(),from: 'network',),
               ),
               SizedBox(height: 5,),

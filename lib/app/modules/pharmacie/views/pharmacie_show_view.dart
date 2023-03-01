@@ -6,9 +6,12 @@ import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/text_widget.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
 import '../controllers/pharmacie_controller.dart';
 
 class PharmacieShowView extends GetView<PharmacieController> {
+  final ZoomController zoomCtrl = Get.put(ZoomController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +37,16 @@ class PharmacieShowView extends GetView<PharmacieController> {
               Container(
                 width: 250,
                 height: 250,
-                child: ImageWidget(isNetWork: true, url:
-                 controller.selectedPharmacie.value.photo, width: 250, height: 250,
-                  default_image: DefaultImage.PHARMACIE, fit: BoxFit.contain,
-                ),
+                child: GestureDetector(
+                  child: ImageWidget(isNetWork: true, url:
+                  controller.selectedPharmacie.value.photo, width: 250, height: 250,
+                    default_image: DefaultImage.PHARMACIE, fit: BoxFit.contain,
+                  ),
+                  onTap: (){
+                    zoomCtrl.setImageUrl(controller.selectedPharmacie.value.photo.toString());
+                    Get.to(ZoomView(), fullscreenDialog: true);
+                  },
+                )
               ),
               SizedBox(height: 10,),
               TextWidget(text: controller.selectedPharmacie.value.medecin, fontSize: 18, alignement: TextAlign.center, fontWeight: FontWeight.w600, color: mainColor,),

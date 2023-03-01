@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/modules/zoom/controllers/zoom_controller.dart';
+import 'package:jaime_cocody/app/modules/zoom/views/zoom_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
@@ -11,6 +13,9 @@ import '../../../widgets/text_widget.dart';
 import '../controllers/commerce_controller.dart';
 
 class CommerceShowView extends GetView<CommerceController> {
+
+  final ZoomController zoomCtrl = Get.put(ZoomController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,9 +84,15 @@ class CommerceShowView extends GetView<CommerceController> {
               Container(
                 width: double.infinity,
                 height: 250,
-                child: ImageWidget(isNetWork: true, url:
-                controller.selectedCommerce.value.imageUrl, width: 250, height: 250, fit: BoxFit.cover,
-                  default_image: DefaultImage.COMMERCE,
+                child: GestureDetector(
+                  child: ImageWidget(isNetWork: true, url:
+                  controller.selectedCommerce.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
+                    default_image: DefaultImage.COMMERCE,
+                  ),
+                  onTap: (){
+                    zoomCtrl.setImageUrl(controller.selectedCommerce.value.imageUrl.toString());
+                    Get.to(ZoomView(), fullscreenDialog: true);
+                  },
                 ),
               ),
               SizedBox(height: 15.0,),

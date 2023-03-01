@@ -527,6 +527,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.4"
+  lightbox:
+    dependency: "direct main"
+    description:
+      name: lightbox
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   lints:
     dependency: transitive
     description:
@@ -1064,6 +1071,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  zoom_widget:
+    dependency: "direct main"
+    description:
+      name: zoom_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
 sdks:
   dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.0.0"

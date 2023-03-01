@@ -39,6 +39,7 @@ abstract class Routes {
   static const SHOW_PHARMACIE = _Paths.SHOW_PHARMACIE;
   static const ANNUAIRE = _Paths.ANNUAIRE;
   static const DEBUT = _Paths.DEBUT;
+  static const ZOOM = _Paths.ZOOM;
 }
 
 abstract class _Paths {
@@ -79,4 +80,5 @@ abstract class _Paths {
   static const SHOW_PHARMACIE = '/show_pharmacie';
   static const ANNUAIRE = '/annuaire';
   static const DEBUT = '/debut';
+  static const ZOOM = '/zoom';
 }

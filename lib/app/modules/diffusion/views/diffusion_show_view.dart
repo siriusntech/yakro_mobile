@@ -6,9 +6,12 @@ import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/text_widget.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
 import '../controllers/diffusion_controller.dart';
 
 class DiffusionShowView extends GetView<DiffusionController> {
+  final ZoomController zoomCtrl = Get.put(ZoomController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,9 +69,15 @@ class DiffusionShowView extends GetView<DiffusionController> {
               Container(
                 width: double.infinity,
                 height: 250,
-                child: ImageWidget(isNetWork: true, url:
-                controller.selectedDiffusion.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
-                  default_image: DefaultImage.DIFFUSION,
+                child: GestureDetector(
+                  child: ImageWidget(isNetWork: true, url:
+                  controller.selectedDiffusion.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
+                    default_image: DefaultImage.DIFFUSION,
+                  ),
+                  onTap: (){
+                    zoomCtrl.setImageUrl(controller.selectedDiffusion.value.imageUrl.toString());
+                    Get.to(ZoomView(), fullscreenDialog: true);
+                  },
                 ),
               ),
             ],

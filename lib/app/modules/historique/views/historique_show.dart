@@ -8,12 +8,15 @@ import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
 import '../controllers/historique_controller.dart';
 import '../widgets/historique_card_widget.dart';
 import '../widgets/info_card_widget.dart';
 
 class HistoriqueShow extends GetView<HistoriqueController> {
 
+  final ZoomController zoomCtrl = Get.put(ZoomController());
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,13 @@ class HistoriqueShow extends GetView<HistoriqueController> {
                       Container(
                         width: double.infinity,
                         height: 200,
-                        child: ImageWidget(url: controller.selectedHistorique.value.medias![0].url!, isNetWork: true,fit: BoxFit.contain,),
+                        child: GestureDetector(
+                          child: ImageWidget(url: controller.selectedHistorique.value.medias![0].url!, isNetWork: true,fit: BoxFit.contain,),
+                          onTap: (){
+                            zoomCtrl.setImageUrl(controller.selectedHistorique.value.medias![0].url!.toString());
+                            Get.to(ZoomView(), fullscreenDialog: true);
+                          },
+                        )
                       )
                     ],
                   ),

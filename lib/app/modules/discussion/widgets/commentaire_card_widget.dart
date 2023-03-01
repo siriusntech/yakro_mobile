@@ -49,13 +49,13 @@ class CommentaireCardWidget extends StatelessWidget {
                     children: [
                       TextWidget(text: commentaireModel.senderPseudo, fontSize: 16, fontWeight: FontWeight.bold,),
                       SizedBox(width: 25,),
-                      userId == commentaireModel.senderId ? TextButton(
+                      userId == commentaireModel.senderId ? IconButton(
                         onPressed: editAction,
-                        child: TextWidget(text: "Editer", fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blue,),
+                        icon: Icon(Icons.edit, color: Colors.blue, size: 25,),
                       ) : Container(),
-                      userId == commentaireModel.senderId ? TextButton(
+                      userId == commentaireModel.senderId ? IconButton(
                         onPressed: deleteAction,
-                        child: TextWidget(text: "Supprimer", fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red,),
+                        icon: Icon(Icons.delete, color: Colors.red, size: 25,),
                       ) : Container(),
                     ],
                   ),
