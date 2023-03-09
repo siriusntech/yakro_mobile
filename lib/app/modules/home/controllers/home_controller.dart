@@ -184,6 +184,7 @@ class HomeController extends GetxController {
 
   // FIREBASE CLOUD MESSAGE AVANT PLAN
   void onMessageListen(){
+    playSound();
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
       showNotificationSnackBar(event.notification!.title!, event.notification!.body!, event.data['click_action']);
       // Future.delayed(Duration(seconds: 20), (){
@@ -193,6 +194,7 @@ class HomeController extends GetxController {
   }
   // FIREBASE CLOUD MESSAGE ARRIERE PLAN
   void onMessageOpenedAppListen(){
+    playSound();
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       // print("msg "+message.toString());
       showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
@@ -261,6 +263,7 @@ class HomeController extends GetxController {
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
    // LOCAL NOTIF
   void showLocalNotification(){
+    playSound();
     var initializationSettingsAndroid = new AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid);

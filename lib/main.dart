@@ -10,19 +10,14 @@ import 'app/Utils/app_constantes.dart';
 import 'app/routes/app_pages.dart';
 import 'app/widgets/alerte_widgets.dart';
 
-// ECOUTE DES MESSAGES EN ARRIERE PLAN
-Future<void> _messageHandler(RemoteMessage message) async {
-  // print("msg "+message.toString());
-  showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
-}
-
 // late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void onSelectNotification(payload){
   print('payload '+ payload);
 }
+
 // LOCAL NOTIF
 void showLocalNotification(){
-  var initializationSettingsAndroid = new AndroidInitializationSettings('ic_launcher');
+  playSound();
   var initialzationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid);
   flutterLocalNotificationsPlugin.initialize(initializationSettings,
@@ -60,6 +55,7 @@ void showLocalNotification(){
   });
 }
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  playSound();
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();

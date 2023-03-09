@@ -80,7 +80,6 @@ showNotificationBox(String title, String body, String action_url){
 }
 // SHOW NOTICATION DIALOG
 showNotificationSnackBar(String title, String body, String action_url){
-  playSound();
   Get.snackbar(
     title,
     body,
