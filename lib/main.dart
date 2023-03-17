@@ -17,7 +17,6 @@ void onSelectNotification(payload){
 
 // LOCAL NOTIF
 void showLocalNotification(){
-  playSound();
   var initialzationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid);
   flutterLocalNotificationsPlugin.initialize(initializationSettings,
@@ -25,6 +24,7 @@ void showLocalNotification(){
       onDidReceiveNotificationResponse: onSelectNotification);
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    playSound();
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
     if (notification != null && android != null) {

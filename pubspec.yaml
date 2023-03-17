@@ -1,5 +1,5 @@
 name: jaime_cocody
-version: 1.0.0+10
+version: 1.0.0+11
 publish_to: none
 description: App commune.
 environment: 
@@ -98,6 +98,8 @@ flutter:
     - assets/images/menu-historique.png
     - assets/images/menu-pharmacie.png
     - assets/images/menu-information.png
+    - assets/images/menu-job.png
+    - assets/images/menu-bon-plan.png
     - assets/images/telephone.png
     - assets/images/copie.png
     - assets/images/store.png
@@ -113,6 +115,11 @@ flutter:
     - assets/images/presentation/pharmacie.png
     - assets/images/bg/bg.jpg
     - assets/images/bg/bgccdy.jpg
+    - assets/images/e-mail.png
+    - assets/images/facebook.png
+    - assets/images/youtube.png
+    - assets/images/linkedin.png
+    - assets/images/instagram.png
     - assets/sound/single-press.mp3
     - assets/sound/positive-notification.mp3
 

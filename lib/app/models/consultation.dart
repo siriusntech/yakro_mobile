@@ -11,10 +11,11 @@ class Consultation{
    int? un_read_agenda_count;
    int? un_read_commerce_count;
    int? un_read_discussion_count;
+   int? un_read_job_count;
    int? un_read_sujet_count;
 
    Consultation({this.un_read_actualite_count, this.un_read_alerte_count, this.un_read_agenda_count, this.un_read_commerce_count,
-               this.un_read_discussion_count, this.un_read_sujet_count});
+               this.un_read_discussion_count, this.un_read_sujet_count, this.un_read_job_count});
 
    factory Consultation.fromJson(Map<dynamic, dynamic> json) => Consultation(
        un_read_actualite_count: json["un_read_actualite_count"] ?? 0,
@@ -23,6 +24,7 @@ class Consultation{
        un_read_commerce_count: json["un_read_commerce_count"] ?? 0,
        un_read_discussion_count: json["un_read_discussion_count"] ?? 0,
        un_read_sujet_count: json["un_read_sujet_count"] ?? 0,
+       un_read_job_count: json["un_read_job_count"] ?? 0,
    );
 
    Map<String, dynamic> toJson() => {
@@ -32,5 +34,6 @@ class Consultation{
       "un_read_commerce_count": un_read_commerce_count,
       "un_read_discussion_count": un_read_discussion_count,
       "un_read_sujet_count": un_read_sujet_count,
+      "un_read_job_count": un_read_job_count,
    };
 }

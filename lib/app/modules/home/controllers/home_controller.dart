@@ -33,6 +33,7 @@ import '../../agenda/agenda_model.dart';
 import '../../auth/user_model.dart';
 import '../../commerce/commerce_services.dart';
 import '../../diffusion/diffusion_model.dart';
+import '../../job/job_services.dart';
 
 class HomeController extends GetxController {
 
@@ -49,6 +50,8 @@ class HomeController extends GetxController {
   var unReadSujetCount = 0.obs;
 
   var  auth_user = User();
+
+  var user_id = null;
 
   var isDataRefreshing = false.obs;
 
@@ -181,21 +184,21 @@ class HomeController extends GetxController {
   }
 
 
-
   // FIREBASE CLOUD MESSAGE AVANT PLAN
   void onMessageListen(){
-    playSound();
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      playSound();
       showNotificationSnackBar(event.notification!.title!, event.notification!.body!, event.data['click_action']);
       // Future.delayed(Duration(seconds: 20), (){
       //   showLocalNotification();
       // });
     });
   }
+
   // FIREBASE CLOUD MESSAGE ARRIERE PLAN
   void onMessageOpenedAppListen(){
-    playSound();
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      playSound();
       // print("msg "+message.toString());
       showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
     });
@@ -205,7 +208,9 @@ class HomeController extends GetxController {
   }
    refreshData() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
-
+    user_id = storage.getInt('user_id');
+    // print('cloud token '+storage.getString('cloud_messaging_token').toString());
+    // print('user auth id '+user_id.toString());
     await isDataRefreshing(true);
     await checkIfAccountIsActif();
 
@@ -301,12 +306,8 @@ class HomeController extends GetxController {
       }
     });
 
-    getToken();
   }
 
-  void onSelectNotification(payload){
-     print('payload '+ payload);
-  }
 
   var miseAJourModel = MiseAJourModel().obs;
 
@@ -350,6 +351,43 @@ class HomeController extends GetxController {
     }
   }
 
+  var tokenTimer;
+  checkCloudMessagingTokenInTime() async{
+    tokenTimer = Timer.periodic(Duration(seconds: 8), (timer) async {
+      await checkCloudMessagingToken();
+    });
+  }
+
+  checkCloudMessagingToken()async{
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    var cloud_messaging_token = storage.getString('cloud_messaging_token');
+    if(cloud_messaging_token == null || cloud_messaging_token == ''){
+        await setCloudMessagingToken();
+    }
+  }
+  // FIREBASE CLOUD MESSAGING CONFIGURATION
+  String token = '';
+  getToken() async {
+    token = (await FirebaseMessaging.instance.getToken())!;
+  }
+
+  setCloudMessagingToken() async{
+    await getToken();
+    try{
+      final response = await MainServices.setUserCloudMessagingToken(user_id, token);
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      // showSnackBar("Exception", ex.toString(), Colors.red);
+    }
+  }
+
 
   @override
   void onInit() {
@@ -367,21 +405,18 @@ class HomeController extends GetxController {
     onMessageListen();
     onMessageOpenedAppListen();
 
-
     // checkUpdate();
 
   }
 
-  String token = '';
-  getToken() async {
-    token = (await FirebaseMessaging.instance.getToken())!;
-  }
 
   @override
   void onReady() {
     super.onReady();
     // IN REAL TIME
     getUnReadItemsCountsInRealTime();
+    // CHECK CLOUD TOKEN
+    checkCloudMessagingTokenInTime();
   }
 
   @override
@@ -412,139 +447,9 @@ class HomeController extends GetxController {
   }
 
   // ADD VISITE
-  addActualiteVisiteCount() async{
+  addVisiteCount(module) async{
     try{
-      final response = await ActualiteServices.addActualiteVisite();
-      if(response is Success){
-        // refresh();
-      }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-  // ADD VISITE
-  addAgendaVisiteCount() async{
-    try{
-      final response = await AgendaServices.addAgendaVisite();
-      if(response is Success){
-        // refresh();
-      }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-  // ADD VISITE
-  addAlerteVisiteCount() async{
-    try{
-      final response = await AlerteServices.addAlerteVisite();
-      if(response is Success){
-        // refresh();
-      }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-  // ADD VISITE
-  addAnnuaireVisiteCount() async{
-    try{
-      final response = await AnnuaireServices.addAnnuaireVisite();
-      if(response is Success){
-        // refresh();
-      }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-
-  // ADD VISITE
-  addCommerceVisiteCount() async{
-    try{
-      final response = await CommerceServices.addCommerceVisite();
-      if(response is Success){
-        // refresh();
-      }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-  // ADD VISITE
-  addDiffusionVisiteCount() async{
-    try{
-      final response = await DiffusionServices.addBonPlanVisite();
-      if(response is Success){
-        // refresh();
-      }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-  // ADD VISITE
-  addDiscussionVisiteCount() async{
-    try{
-      final response = await DiscussionServices.addDiscussionVisite();
-      if(response is Success){
-        // refresh();
-      }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-  // ADD VISITE
-  addHistoriqueVisiteCount() async{
-    try{
-      final response = await HistoriqueServices.addHistoriqueVisite();
-      if(response is Success){
-        // refresh();
-      }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
-      }
-    }catch(ex){
-      // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
-    }
-  }
-
-  // ADD VISITE
-  addPharmacieVisiteCount() async{
-    try{
-      final response = await PharmacieServices.addPharmacieVisite();
+      final response = await MainServices.addVisiteCount(module);
       if(response is Success){
         // refresh();
       }

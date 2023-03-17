@@ -40,6 +40,7 @@ abstract class Routes {
   static const ANNUAIRE = _Paths.ANNUAIRE;
   static const DEBUT = _Paths.DEBUT;
   static const ZOOM = _Paths.ZOOM;
+  static const JOB = _Paths.JOB;
 }
 
 abstract class _Paths {
@@ -81,4 +82,6 @@ abstract class _Paths {
   static const ANNUAIRE = '/annuaire';
   static const DEBUT = '/debut';
   static const ZOOM = '/zoom';
+  static const JOB = '/job';
+  static const SHOW_JOB = '/show_job';
 }

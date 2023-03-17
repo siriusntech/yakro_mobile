@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/modules/job/views/job_show_view.dart';
 
 import '../modules/actualite/bindings/actualite_binding.dart';
 import '../modules/actualite/views/actualite_show_view.dart';
@@ -37,6 +38,8 @@ import '../modules/historique/views/historique_view.dart';
 import '../modules/historique/views/information_show.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/job/bindings/job_binding.dart';
+import '../modules/job/views/job_view.dart';
 import '../modules/message/bindings/message_binding.dart';
 import '../modules/message/views/message_add_view.dart';
 import '../modules/message/views/message_all_view.dart';
@@ -240,6 +243,16 @@ class AppPages {
       name: _Paths.ZOOM,
       page: () => ZoomView(),
       binding: ZoomBinding(),
+    ),
+    GetPage(
+      name: _Paths.JOB,
+      page: () => JobView(),
+      binding: JobBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOW_JOB,
+      page: () => JobShowView(),
+      binding: JobBinding(),
     ),
   ];
 }

@@ -54,7 +54,7 @@ android {
         applicationId "com.siriusntech.jaime_cocody"
         minSdkVersion 19
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 124
+        versionCode 125
         versionName "1.0.5"
         multiDexEnabled true
     }

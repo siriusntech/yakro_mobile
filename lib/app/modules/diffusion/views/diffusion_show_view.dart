@@ -72,7 +72,7 @@ class DiffusionShowView extends GetView<DiffusionController> {
                 child: GestureDetector(
                   child: ImageWidget(isNetWork: true, url:
                   controller.selectedDiffusion.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
-                    default_image: DefaultImage.DIFFUSION,
+                    default_image: DefaultImage.BON_PLAN,
                   ),
                   onTap: (){
                     zoomCtrl.setImageUrl(controller.selectedDiffusion.value.imageUrl.toString());

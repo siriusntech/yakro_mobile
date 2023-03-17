@@ -16,6 +16,12 @@ class Commerce {
   String? contact;
   String? imageUrl;
   String? lien;
+  String? site;
+  String? email;
+  String? facebook;
+  String? linkedln;
+  String? instagram;
+  String? youtube;
 
   Commerce(
       {this.id,
@@ -25,7 +31,14 @@ class Commerce {
       this.description,
       this.contact,
       this.imageUrl,
-      this.lien});
+      this.lien,
+      this.site,
+      this.email,
+      this.facebook,
+      this.linkedln,
+      this.instagram,
+      this.youtube
+      });
 
   Commerce.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -36,6 +49,12 @@ class Commerce {
     contact = json['contact'];
     imageUrl = json['imageUrl'];
     lien = json['lien'];
+    site = json['site'];
+    email = json['email'];
+    facebook = json['facebook'];
+    linkedln = json['linkedln'];
+    instagram = json['instagram'];
+    youtube = json['youtube'];
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +67,12 @@ class Commerce {
     data['contact'] = contact;
     data['imageUrl'] = imageUrl;
     data['lien'] = lien;
+    data['site'] = site;
+    data['email'] = email;
+    data['facebook'] = facebook;
+    data['linkedln'] = linkedln;
+    data['instagram'] = instagram;
+    data['youtube'] = youtube;
     return data;
   }
 }

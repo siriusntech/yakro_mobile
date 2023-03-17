@@ -222,9 +222,9 @@ class AuthController extends GetxController {
     user.value = puser;
   }
   setCloudMessagingToken(String? token)async{
+    cloud_messaging_token = token.toString();
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setString('cloud_messaging_token', cloud_messaging_token);
-    cloud_messaging_token = token ?? '';
     storage.commit();
   }
   verifyAccount(){
@@ -356,8 +356,8 @@ class AuthController extends GetxController {
 
     // print('User granted permission: ${settings.authorizationStatus}');
 
-    messaging.getToken().then((value){
-      setCloudMessagingToken(value.toString());
+    messaging.getToken().then((value) async{
+      await setCloudMessagingToken(value.toString());
       // print('Cloud Messaging Token: '+value.toString());
     });
   }

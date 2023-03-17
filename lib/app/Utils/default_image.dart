@@ -1,5 +1,7 @@
 class DefaultImage{
   static const String COMMERCE = 'assets/images/presentation/store.png';
+  static const String JOB = 'assets/images/menu-job.png';
+  static const String BON_PLAN = 'assets/images/menu-bon-plan.png';
   static const String DISCUSSION = 'assets/images/presentation/chat.png';
   static const String BON_A_SAVOIR = 'assets/images/presentation/known.png';
   static const String ACTUALITE = 'assets/images/presentation/news.png';

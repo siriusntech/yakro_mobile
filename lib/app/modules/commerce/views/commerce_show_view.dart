@@ -6,6 +6,7 @@ import 'package:jaime_cocody/app/modules/zoom/views/zoom_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
+import '../../../Utils/app_icons.dart';
 import '../../../Utils/default_image.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
@@ -53,6 +54,132 @@ class CommerceShowView extends GetView<CommerceController> {
                     ),
                   )
                 ],
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: controller.selectedCommerce.value.site != null && controller.selectedCommerce.value.site != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(controller.selectedCommerce.value.site.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        TextWidget(text: 'Site Internet: ', fontWeight: FontWeight.w600, fontSize: 14),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: controller.selectedCommerce.value.site.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: controller.selectedCommerce.value.email != null && controller.selectedCommerce.value.email != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(controller.selectedCommerce.value.email.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        TextWidget(text: 'Adresse Email: ', fontWeight: FontWeight.w600, fontSize: 14),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: controller.selectedCommerce.value.email.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: controller.selectedCommerce.value.facebook != null && controller.selectedCommerce.value.facebook != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(controller.selectedCommerce.value.facebook.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        Image.asset(AppIcons.FACEBOOK, width: 20, height: 20,),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: controller.selectedCommerce.value.facebook.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: controller.selectedCommerce.value.linkedln != null && controller.selectedCommerce.value.linkedln != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(controller.selectedCommerce.value.linkedln.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        Image.asset(AppIcons.LINKEDIN, width: 20, height: 20,),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: controller.selectedCommerce.value.linkedln.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: controller.selectedCommerce.value.instagram != null && controller.selectedCommerce.value.instagram != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(controller.selectedCommerce.value.instagram.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        Image.asset(AppIcons.INSTAGRAM, width: 20, height: 20,),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: controller.selectedCommerce.value.instagram.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: controller.selectedCommerce.value.youtube != null && controller.selectedCommerce.value.youtube != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(controller.selectedCommerce.value.youtube.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        Image.asset(AppIcons.YOUTUBE, width: 20, height: 20,),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: controller.selectedCommerce.value.youtube.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
               ),
               SizedBox(height: 5.0,),
               Row(
@@ -107,7 +234,7 @@ class CommerceShowView extends GetView<CommerceController> {
               TextButton(
                 onPressed: (){
                   // MapsLauncher.launchCoordinates(double.parse(controller.selectedCommerce.value.longitude!), double.parse(controller.selectedCommerce.value.latitude!), controller.selectedCommerce.value.nom);
-                  launch(controller.selectedCommerce.value.lien.toString());
+                  launchUrl(Uri.parse(controller.selectedCommerce.value.lien.toString()));
                 },
                 child: Row(
                   children: [

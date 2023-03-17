@@ -99,7 +99,7 @@ class DiffusionView extends GetView<DiffusionController> {
                                           height: 250,
                                           child: ImageWidget(isNetWork: true, url:
                                           _diffusion.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
-                                            default_image: DefaultImage.DIFFUSION,
+                                            default_image: DefaultImage.BON_PLAN,
                                           ),
                                         ),
                                       ],

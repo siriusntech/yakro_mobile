@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jaime_cocody/app/Utils/app_icons.dart';
 import 'package:jaime_cocody/app/widgets/image_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,6 +49,90 @@ class CommerceCardWidget extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: commerce.site != null && commerce.site != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(commerce.site.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        TextWidget(text: 'Site Internet: ', fontWeight: FontWeight.w600, fontSize: 14),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: commerce.site.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: commerce.email != null && commerce.email != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(commerce.email.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        TextWidget(text: 'Adresse Email: ', fontWeight: FontWeight.w600, fontSize: 14),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: commerce.email.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: commerce.facebook != null && commerce.facebook != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(commerce.facebook.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        Image.asset(AppIcons.FACEBOOK, width: 20, height: 20,),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: commerce.facebook.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 3.0,),
+              Visibility(
+                  visible: commerce.linkedln != null && commerce.linkedln != '',
+                  child: InkWell(
+                    onTap: (){
+                      launchUrl(Uri.parse(commerce.linkedln.toString()));
+                    },
+                    child: Row(
+                      children: [
+                        Image.asset(AppIcons.LINKEDIN, width: 20, height: 20,),
+                        SizedBox(width: 3,),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 50,
+                          child: TextWidget(text: commerce.linkedln.toString(), fontWeight: FontWeight.w600,
+                            fontSize: 15,maxLine: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
               ),
               SizedBox(height: 5.0,),
               Row(

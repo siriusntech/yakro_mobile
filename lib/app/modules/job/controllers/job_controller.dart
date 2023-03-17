@@ -1,21 +1,22 @@
-
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:clipboard/clipboard.dart';
+
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../widgets/text_widget.dart';
 import '../../home/controllers/home_controller.dart';
-import '../commerce_services.dart';
-import '../commerce_type_model.dart';
+import '../job_model.dart';
+import '../job_services.dart';
+import '../job_type_model.dart';
 
-class CommerceController extends GetxController {
 
-  var commerceList = List<Commerce>.empty(growable: true).obs;
-  var commerceTypesList = List<CommerceType>.empty(growable: true).obs;
-  var selectedCommerce = Commerce().obs;
+class JobController extends GetxController {
+
+  var jobList = List<JobModel>.empty(growable: true).obs;
+  var jobTypesList = List<JobTypeModel>.empty(growable: true).obs;
+  var selectedJob = JobModel().obs;
   var page = 1;
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
@@ -37,13 +38,13 @@ class CommerceController extends GetxController {
   }
 
   // GET ALL COMMERCE TYPES
-  void getCommerceTypes() async{
+  void getJobTypes() async{
     try{
       isDataProcessing(true);
-      final response = await CommerceServices.getCommercetypes();
+      final response = await JobServices.getJobtypes();
       if(response is Success){
         isDataProcessing(false);
-        commerceTypesList.addAll(response.response as List<CommerceType>);
+        jobTypesList.addAll(response.response as List<JobTypeModel>);
       }
       if(response is Failure){
         isDataProcessing(false);
@@ -57,13 +58,13 @@ class CommerceController extends GetxController {
 
 
   // GET ALL COMMERCE
-  getCommerces(var page) async{
+  getJobs(var page) async{
     try{
       isDataProcessing(true);
-      final response = await CommerceServices.getCommerces();
+      final response = await JobServices.getJobs();
       if(response is Success){
         isDataProcessing(false);
-        commerceList.addAll(response.response as List<Commerce>);
+        jobList.addAll(response.response as List<JobModel>);
       }
       if(response is Failure){
         isDataProcessing(false);
@@ -75,14 +76,14 @@ class CommerceController extends GetxController {
     }
   }
   // GET ALL COMMERCE BY TYPE
-  getCommercesByType(var type) async{
+  getJobsByType(var type) async{
     try{
       isDataProcessing(true);
-      final response = await CommerceServices.getCommercesByType(type);
+      final response = await JobServices.getJobsByType(type);
       if(response is Success){
-        commerceList.clear();
+        jobList.clear();
         isDataProcessing(false);
-        commerceList.addAll(response.response as List<Commerce>);
+        jobList.addAll(response.response as List<JobModel>);
       }
       if(response is Failure){
         isDataProcessing(false);
@@ -94,14 +95,14 @@ class CommerceController extends GetxController {
     }
   }
   // GET ALL COMMERCE BY NAME
-  getCommercesByName(var name) async{
+  getJobsByName(var name) async{
     try{
       isDataProcessing(true);
-      final response = await CommerceServices.getCommercesByNom(name);
+      final response = await JobServices.getJobsByNom(name);
       if(response is Success){
-        commerceList.clear();
+        jobList.clear();
         isDataProcessing(false);
-        commerceList.addAll(response.response as List<Commerce>);
+        jobList.addAll(response.response as List<JobModel>);
       }
       if(response is Failure){
         isDataProcessing(false);
@@ -113,8 +114,8 @@ class CommerceController extends GetxController {
     }
   }
   // SET SELECTED COMMERCE
-  void setSelectedCommerce(Commerce commerce){
-    selectedCommerce.value = commerce;
+  void setSelectedJob(JobModel job){
+    selectedJob.value = job;
   }
   // SET SELECTED TYPE
   void setSelectedType(var type){
@@ -123,14 +124,14 @@ class CommerceController extends GetxController {
   // REFRESH PAGE
   void refresh(){
     if(searchTextController.text == ""){
-      commerceList.clear();
-      commerceTypesList.clear();
+      jobList.clear();
+      jobTypesList.clear();
       clearFields();
       setSelectedType('');
-      getCommerceTypes();
-      getCommerces(page);
+      getJobTypes();
+      getJobs(page);
     }else{
-      getCommercesByName(searchTextController.text);
+      getJobsByName(searchTextController.text);
     }
   }
 
@@ -138,39 +139,39 @@ class CommerceController extends GetxController {
     return Get.defaultDialog(
         title: '',
         content: Container(
-        child: Column(
-        children: [
-          TextButton(
-              onPressed: (){
-                Get.back();
-                makePhoneCall('tel:$phoneNumber');
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(ICON_TELEPHONE, width: 20, height: 20,),
-                  SizedBox(width: 3,),
-                  TextWidget(text: 'Appeler', fontSize: 16, fontWeight: FontWeight.bold,alignement: TextAlign.center,)
-                ],
-              )
+          child: Column(
+            children: [
+              TextButton(
+                  onPressed: (){
+                    Get.back();
+                    makePhoneCall('tel:$phoneNumber');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(ICON_TELEPHONE, width: 20, height: 20,),
+                      SizedBox(width: 3,),
+                      TextWidget(text: 'Appeler', fontSize: 16, fontWeight: FontWeight.bold,alignement: TextAlign.center,)
+                    ],
+                  )
+              ),
+              TextButton(
+                  onPressed: (){
+                    Get.back();
+                    makeCopieNumber(phoneNumber);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(ICON_COPIE, width: 20, height: 20,),
+                      SizedBox(width: 3,),
+                      TextWidget(text: 'Copier', fontSize: 16, fontWeight: FontWeight.bold, alignement: TextAlign.center)
+                    ],
+                  )
+              ),
+            ],
           ),
-          TextButton(
-              onPressed: (){
-                Get.back();
-                makeCopieNumber(phoneNumber);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(ICON_COPIE, width: 20, height: 20,),
-                  SizedBox(width: 3,),
-                  TextWidget(text: 'Copier', fontSize: 16, fontWeight: FontWeight.bold, alignement: TextAlign.center)
-                ],
-              )
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 
   Future<void> makePhoneCall(String phoneNumber) async {
@@ -179,7 +180,7 @@ class CommerceController extends GetxController {
     //   path: phoneNumber,
     // );
     // await launch(launchUri.toString());
-    await launchUrl(Uri.parse(phoneNumber));
+    await launch(phoneNumber);
   }
 
   Future<void> makeCopieNumber(String phoneNumber) async {
@@ -187,16 +188,16 @@ class CommerceController extends GetxController {
       Get.snackbar('', "Contact Copié dans le presse-papier", snackPosition: SnackPosition.BOTTOM);
     });
   }
-   // SHOW SNACKBAR
+  // SHOW SNACKBAR
   showSnackBar(String title, String message, Color bgColor){
     Get.snackbar(title, message, backgroundColor: bgColor,
         snackPosition: SnackPosition.BOTTOM, colorText: Colors.white);
   }
 
   // MAKE ALL AS READS
-  makeCommercesAsRead() async{
+  makeJobsAsRead() async{
     try{
-      final response = await CommerceServices.makeCommercesAsRead();
+      final response = await JobServices.makeJobsAsRead();
       if(response is Success){
         // refresh();
       }
@@ -215,10 +216,10 @@ class CommerceController extends GetxController {
   void onInit(){
     super.onInit();
     initFields();
-    getCommerces(page);
-    getCommerceTypes();
+    getJobs(page);
+    getJobTypes();
 
-    makeCommercesAsRead();
+    makeJobsAsRead();
     homeCtrl.getUnReadItemsCounts();
   }
   @override
@@ -227,7 +228,8 @@ class CommerceController extends GetxController {
   }
   @override
   void onClose() {
-    makeCommercesAsRead();
+    makeJobsAsRead();
     homeCtrl.getUnReadItemsCounts();
   }
+
 }

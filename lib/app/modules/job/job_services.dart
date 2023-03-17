@@ -4,27 +4,28 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../modules/actualite/actualite_model.dart';
-import '../../modules/actualite/actualite_type_model.dart';
-import 'auth_service.dart';
-import 'data/Env.dart';
-import 'data/api_status.dart';
+import '../../data/repository/auth_service.dart';
+import '../../data/repository/data/Env.dart';
+import '../../data/repository/data/api_status.dart';
+import 'job_model.dart';
+import 'job_type_model.dart';
 
-class ActualiteServices {
 
-  static final String apiUrl = baseUrl+'actualites';
+class JobServices {
 
-  static Future<Object> getActualites() async {
+  static final String apiUrl = baseUrl+'jobs';
+
+  static Future<Object> getJobs() async {
     var headers = await AuthService.getLoggedHeaders();
+    var url = Uri.parse(apiUrl);
     try{
-      var url = Uri.parse(apiUrl);
       var response = await http.get(url, headers: headers);
-      // print('actualites response status code '+ response.statusCode.toString());
-      // print('actualites response '+ response.body.toString());
-    if(response.statusCode == 200){
-      return Success(response: actualiteFromJson(response.body));
-    }
-    return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+      // print(response.statusCode.toString());
+      // print(response.body.toString());
+      if(response.statusCode == 200){
+        return Success(response: jobModelFromJson(response.body));
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
     }
     on HttpException{
       return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
@@ -36,21 +37,21 @@ class ActualiteServices {
       return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
     }
     catch(e){
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue '+e.toString());
     }
 
   }
 
-  static Future<Object> getUnReadActualites() async {
+  static Future<Object> getUnReadJobs() async {
     var headers = await AuthService.getLoggedHeaders();
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
+    var url = Uri.parse(baseUrl+'un_read_jobs/$user_id');
     try{
-      var url = Uri.parse(baseUrl+'un_read_actualites/$user_id');
       var response = await http.get(url, headers: headers);
-      // print('actualites response '+ response.body.toString());
+
       if(response.statusCode == 200){
-        return Success(response: actualiteFromJson(response.body));
+        return Success(response: jobModelFromJson(response.body));
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
     }
@@ -64,95 +65,92 @@ class ActualiteServices {
       return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
     }
     catch(e){
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue '+e.toString());
     }
 
   }
 
-  static getActualiteById(String id) async {
-    var headers = await AuthService.getLoggedHeaders();
-    Actualite actualite = Actualite();
-    try{
-      var url = Uri.parse(apiUrl+'/${int.parse(id)}');
-      final response = await http.get(url, headers: headers);
-      if(response.statusCode == 200){
-        actualite = Actualite.fromJson(json.decode(response.body));
-        return Success(response: actualite);
-      }
-      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
-    }
-    on HttpException{
-      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
-    }
-    on SocketException{
-      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
-    }
-    on FormatException{
-      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
-    }
-    catch(e){
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
-    }
-  }
-
-  static Future<Object> getActualitesByType(type) async {
-    var headers = await AuthService.getLoggedHeaders();
-    try{
-      var url = Uri.parse(baseUrl+'actualites_by_type/$type');
-      var response = await http.get(url, headers: headers);
-      if(response.statusCode == 200){
-        return Success(response: actualiteFromJson(response.body));
-      }
-      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
-    }
-    on HttpException{
-      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
-    }
-    on SocketException{
-      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
-    }
-    on FormatException{
-      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
-    }
-    catch(e){
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
-    }
-
-  }
-
-  static Future<Object> getActualitesByWeek() async {
-    var headers = await AuthService.getLoggedHeaders();
-    try{
-      var url = Uri.parse(baseUrl+'actualites_by_week');
-      var response = await http.get(url, headers: headers);
-      if(response.statusCode == 200){
-        return Success(response: actualiteFromJson(response.body));
-      }
-      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
-    }
-    on HttpException{
-      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
-    }
-    on SocketException{
-      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
-    }
-    on FormatException{
-      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
-    }
-    catch(e){
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
-    }
-
-  }
-
-  static getActualitetypes() async {
+  static getJobsByType(type) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+"actualites_types");
+      var url = Uri.parse(baseUrl+"jobs_by_type/${type.toString()}");
       var response =  await http.get(url, headers: headers);
 
       if(response.statusCode == 200){
-        return Success(response: actualiteTypeFromJson(response.body));
+        return Success(response: jobModelFromJson(response.body));
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on SocketException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
+    }
+    catch(e){
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
+  }
+  static getJobsByNom(nom) async {
+    try{
+      var headers = await AuthService.getLoggedHeaders();
+      var url = Uri.parse(baseUrl+"jobs_by_nom/$nom");
+      var response =  await http.get(url, headers: headers);
+      if(response.statusCode == 200){
+        return Success(response: jobModelFromJson(response.body));
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on SocketException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
+    }
+    catch(e){
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
+  }
+  static getJobById(String id) async {
+    try{
+      var headers = await AuthService.getLoggedHeaders();
+      var url = Uri.parse(apiUrl+'/$id');
+      final response = await http.get(url, headers: headers);
+      JobModel _job = JobModel();
+
+      if(response.statusCode == 200){
+        _job = JobModel.fromJson(json.decode(response.body));
+        return _job;
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on SocketException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
+    }
+    catch(e){
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
+  }
+  static getJobtypes() async {
+    try{
+      var headers = await AuthService.getLoggedHeaders();
+      var url = Uri.parse(baseUrl+"jobs_types");
+      var response =  await http.get(url, headers: headers);
+      // print('response com type '+response.body.toString());
+      if(response.statusCode == 200){
+        return Success(response: jobTypeModelFromJson(response.body));
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
     }
@@ -170,12 +168,36 @@ class ActualiteServices {
     }
   }
 
-  static Future<Object> makeActualitesAsRead() async {
+  static Future<Object> makeJobsAsRead() async {
     try{
       var headers = await AuthService.getLoggedHeaders();
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_actualites_as_read/$user_id');
+
+      var url = Uri.parse(baseUrl+'make_jobs_as_read/$user_id');
+      var response = await http.post(url, headers: headers);
+      // print('response job'+response.body.toString());
+      if(response.statusCode == 200){
+        return Success();
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
+    }
+    catch(e){
+      // print('Erreur inconnue '+ e.toString());
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
+  }
+  static Future<Object> addJobVisite() async {
+    try{
+      var headers = await AuthService.getLoggedHeaders();
+      var module = "job";
+      var url = Uri.parse(baseUrl+'add-visite-count/$module');
       var response = await http.post(url, headers: headers);
       if(response.statusCode == 200){
         return Success();
@@ -193,6 +215,4 @@ class ActualiteServices {
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
     }
   }
-
-
 }

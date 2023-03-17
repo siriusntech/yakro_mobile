@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/Utils/app_routes.dart';
 import 'package:jaime_cocody/app/Utils/default_image.dart';
+import 'package:jaime_cocody/app/data/repository/main_services.dart';
 import 'package:jaime_cocody/app/widgets/notification_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -147,9 +148,11 @@ class HomeView extends GetView<HomeController> {
                           child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
                             title: 'Actualités',icon: MENU_ACTUALITE, enabled: true,
                             itemCount: controller.selectedItemsCounts.value.un_read_actualite_count,
-                            action: (){
-                              controller.addActualiteVisiteCount();
+                            action: () async{
                               Get.toNamed(AppRoutes.ACTUALITE);
+                              if(await MainServices.checkUserIsExclude() == false){
+                                controller.addVisiteCount('actualite');
+                              }
                             },
                           )
                       ),
@@ -157,9 +160,12 @@ class HomeView extends GetView<HomeController> {
                           child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
                               title: 'Commerces et autres',icon: MENU_COMMERCE,
                               enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_commerce_count,
-                              action: (){
-                                controller.addCommerceVisiteCount();
+                              action: () async{
+                                // controller.addCommerceVisiteCount();
                                 Get.toNamed(AppRoutes.COMMERCE);
+                                if(await MainServices.checkUserIsExclude() == false){
+                                  controller.addVisiteCount('commerce');
+                                }
                               }
                           )
                       ),
@@ -177,9 +183,12 @@ class HomeView extends GetView<HomeController> {
                           child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
                             title: 'Culture',icon: MENU_HISTORIQUE,
                             enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_sujet_count,
-                            action: (){
-                              controller.addHistoriqueVisiteCount();
+                            action: () async{
+                              // controller.addHistoriqueVisiteCount();
                               Get.toNamed(AppRoutes.HISTORIQUE);
+                              if(await MainServices.checkUserIsExclude() == false){
+                                controller.addVisiteCount('culture');
+                              }
                             },
                           )
                       ),
@@ -187,9 +196,12 @@ class HomeView extends GetView<HomeController> {
                           child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
                               title: 'Signaler un incident',icon: MENU_ALERTE,
                               enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count,
-                              action: (){
-                                controller.addAlerteVisiteCount();
+                              action: () async{
+                                // controller.addAlerteVisiteCount();
                                 Get.toNamed(AppRoutes.ALERTE);
+                                if(await MainServices.checkUserIsExclude() == false){
+                                  controller.addVisiteCount('alerte');
+                                }
                               }
                           )
                       ),
@@ -200,11 +212,14 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       Flexible(
                           child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                              title: 'Bons plans', icon: MENU_NOTIFICATION,
+                              title: 'Bons plans', icon: MENU_BON_PLAN,
                               enabled: true, itemCount: controller.unReadDiffusionCount.value,
-                              action: (){
-                                controller.addDiffusionVisiteCount();
+                              action: () async{
+                                // controller.addDiffusionVisiteCount();
                                 Get.toNamed(AppRoutes.DIFFUSION);
+                                if(await MainServices.checkUserIsExclude() == false){
+                                  controller.addVisiteCount('bon_plan');
+                                }
                               }
                           )
                       ),
@@ -212,9 +227,12 @@ class HomeView extends GetView<HomeController> {
                           child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
                               title: 'Numéros utiles', icon: MENU_INFORMATION,
                               enabled: true,
-                              action: (){
-                                controller.addAnnuaireVisiteCount();
+                              action: () async{
+                                // controller.addAnnuaireVisiteCount();
                                 Get.toNamed(AppRoutes.ANNUAIRE);
+                                if(await MainServices.checkUserIsExclude() == false){
+                                  controller.addVisiteCount('annuaire');
+                                }
                               }
                           )
                       ),
@@ -225,11 +243,14 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       Flexible(
                           child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                              title: 'Discussions',icon: MENU_DISCUSSION,
-                              enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_discussion_count,
-                              action: (){
-                                controller.addDiscussionVisiteCount();
-                                Get.toNamed(AppRoutes.DISCUSSION);
+                              title: 'Jobs / Annonces',icon: MENU_JOB,
+                              enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
+                              action: () async{
+                                // controller.addJobVisiteCount();
+                                Get.toNamed(AppRoutes.JOB);
+                                if(await MainServices.checkUserIsExclude() == false){
+                                 controller.addVisiteCount('job');
+                                }
                               }
                           )
                       ),
@@ -237,14 +258,42 @@ class HomeView extends GetView<HomeController> {
                           child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
                               title: 'Pharmacie de garde', icon: MENU_PHARMACIE,
                               enabled: true,
-                              action: (){
-                                controller.addPharmacieVisiteCount();
+                              action: () async{
+                                // controller.addPharmacieVisiteCount();
                                 Get.toNamed(AppRoutes.PHARMACIE);
+                                if(await MainServices.checkUserIsExclude() == false){
+                                  controller.addVisiteCount('pharmacie');
+                                }
                               }
                           )
                       ),
                     ],
                   ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Flexible(
+                  //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                  //             title: 'Discussions',icon: MENU_DISCUSSION,
+                  //             enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_discussion_count,
+                  //             action: (){
+                  //               controller.addDiscussionVisiteCount();
+                  //               Get.toNamed(AppRoutes.DISCUSSION);
+                  //             }
+                  //         )
+                  //     ),
+                  //     Flexible(
+                  //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                  //             title: 'Pharmacie de garde', icon: MENU_PHARMACIE,
+                  //             enabled: true,
+                  //             action: (){
+                  //               controller.addPharmacieVisiteCount();
+                  //               Get.toNamed(AppRoutes.PHARMACIE);
+                  //             }
+                  //         )
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             )

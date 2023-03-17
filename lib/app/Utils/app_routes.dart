@@ -36,4 +36,6 @@ class AppRoutes {
   static const DEBUT = '/debut';
   static const CONDITION = '/condition';
   static const ZOOM = '/zoom';
+  static const JOB = '/job';
+  static const SHOW_JOB = '/show_job';
 }
