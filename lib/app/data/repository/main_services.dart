@@ -113,10 +113,10 @@ class MainServices {
     }
   }
 
-  static Future<Object> addVisiteCount(module) async {
+  static Future<Object> addVisiteCount(module, user_id) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'add-visite-count/$module');
+      var url = Uri.parse(baseUrl+'add-visite-count/$module/$user_id');
       var response = await http.post(url, headers: headers);
       if(response.statusCode == 200){
         return Success();

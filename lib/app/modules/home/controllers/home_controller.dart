@@ -449,7 +449,7 @@ class HomeController extends GetxController {
   // ADD VISITE
   addVisiteCount(module) async{
     try{
-      final response = await MainServices.addVisiteCount(module);
+      final response = await MainServices.addVisiteCount(module, user_id);
       if(response is Success){
         // refresh();
       }
