@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jaime_cocody/extensions.dart';
 
 class AppColors {
-  static final Color appbarColor = Colors.orangeAccent;
+  static final Color appbarColor = Colors.orange;
   static final Color appbarColorFromCode = '#fc9003'.toColor();
   static final Color secondaryColorFromCode = '#66ff76'.toColor();
   static final MaterialColor mainColor = createMaterialColor('#fc9003'.toColor());

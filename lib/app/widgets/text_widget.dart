@@ -4,20 +4,33 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class TextWidget extends StatelessWidget {
 
-  TextWidget({this.text, this.color, this.fontSize, this.fontWeight, this.alignement, this.scaleFactor, this.maxLine, this.overFlow});
+  TextWidget({
+    this.text, this.color,
+    this.fontSize, this.fontWeight,
+    this.alignement, this.scaleFactor,
+    this.maxLine, this.overFlow,
+    this.fontStyle
+  });
 
   String? text;
   Color? color;
   double? fontSize;
   double? scaleFactor;
   FontWeight? fontWeight;
+  FontStyle? fontStyle;
   TextAlign? alignement;
   int? maxLine;
   TextOverflow? overFlow;
+
   @override
   Widget build(BuildContext context) {
     return Text(text!,
-      style: TextStyle(color: color, fontSize: fontSize,fontWeight: fontWeight),
+      style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          fontStyle: fontStyle
+      ),
       textAlign: alignement,
       textScaleFactor: scaleFactor,
       maxLines: maxLine,

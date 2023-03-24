@@ -1,5 +1,5 @@
 name: jaime_cocody
-version: 1.0.0+11
+version: 1.0.0+12
 publish_to: none
 description: App commune.
 environment: 
@@ -107,6 +107,9 @@ flutter:
     - assets/images/name.png
     - assets/images/default-file.png
     - assets/images/update.png
+    - assets/images/calendrier-foot.png
+    - assets/images/ambassade.png
+    - assets/images/site-touristique.png
     - assets/images/presentation/store.png
     - assets/images/presentation/news.png
     - assets/images/presentation/alerte.png

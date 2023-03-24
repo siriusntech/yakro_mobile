@@ -8,4 +8,9 @@ class AppIcons {
   static const String YOUTUBE = 'assets/images/youtube.png';
   static const String LINKEDIN = 'assets/images/linkedin.png';
   static const String INSTAGRAM = 'assets/images/instagram.png';
+
+  static const String calendrier_foot = 'assets/images/calendrier-foot.png';
+  static const String site_touristique = 'assets/images/site-touristique.png';
+  static const String ambassade = 'assets/images/ambassade.png';
+
 }

@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
 import '../Utils/app_constantes.dart';
@@ -17,7 +18,7 @@ class NotificationWidget extends StatelessWidget {
       children: [
         IconButton(
             onPressed: action,
-            icon: Icon(icon, color: mainColor, size: 30,)
+            icon: Icon(icon, color: AppColors.menuColor, size: 30,)
         ),
         count != null ? Positioned(
           left: 5,

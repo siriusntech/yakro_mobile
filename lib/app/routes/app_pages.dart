@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/job/views/job_show_view.dart';
 
 import '../modules/actualite/bindings/actualite_binding.dart';
 import '../modules/actualite/views/actualite_show_view.dart';
@@ -21,6 +20,8 @@ import '../modules/apropos/views/apropos_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/auth/views/condition_view.dart';
+import '../modules/cocan/bindings/cocan_binding.dart';
+import '../modules/cocan/views/cocan_view.dart';
 import '../modules/commerce/bindings/commerce_binding.dart';
 import '../modules/commerce/views/commerce_show_view.dart';
 import '../modules/commerce/views/commerce_view.dart';
@@ -39,6 +40,7 @@ import '../modules/historique/views/information_show.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/job/bindings/job_binding.dart';
+import '../modules/job/views/job_show_view.dart';
 import '../modules/job/views/job_view.dart';
 import '../modules/message/bindings/message_binding.dart';
 import '../modules/message/views/message_add_view.dart';
@@ -253,6 +255,11 @@ class AppPages {
       name: _Paths.SHOW_JOB,
       page: () => JobShowView(),
       binding: JobBinding(),
+    ),
+    GetPage(
+      name: _Paths.COCAN,
+      page: () => CocanView(),
+      binding: CocanBinding(),
     ),
   ];
 }
