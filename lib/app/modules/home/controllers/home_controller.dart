@@ -9,12 +9,14 @@ import 'package:jaime_cocody/app/data/repository/consultation_services.dart';
 import 'package:jaime_cocody/app/models/consultation.dart';
 import 'package:jaime_cocody/app/modules/auth/controllers/auth_controller.dart';
 import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
+import 'package:new_version/new_version.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../main.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/actualite_services.dart';
 import '../../../data/repository/agenda_services.dart';
 import '../../../data/repository/alerte_services.dart';
@@ -61,6 +63,7 @@ class HomeController extends GetxController {
   // final HistoriqueController auth_ctrl = Get.put(AuthController());
   // final AuthController auth_ctrl = Get.put(AuthController());
 
+  final MainController mainCtrl = Get.put(MainController());
 
 
 
@@ -392,6 +395,8 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    mainCtrl.checkAppName();
+
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     // GetConnectionType();
     // _streamSubscription = _connectivity.onConnectivityChanged.listen(_updateState);
@@ -440,6 +445,50 @@ class HomeController extends GetxController {
   //
   //   Share.shareFiles([(file.path)]);
   // }
+
+  // CHECK UPDATE
+  checkNewVersion(){
+    // Instantiate NewVersion manager object (Using GCP Console app as example)
+    final newVersion = NewVersion(
+      iOSId: 'com.google.Vespa',
+      androidId: 'com.google.android.apps.cloudconsole',
+    );
+
+    advancedStatusCheck(newVersion);
+
+    // // You can let the plugin handle fetching the status and showing a dialog,
+    // // or you can fetch the status and display your own dialog, or no dialog.
+    // const simpleBehavior = true;
+    //
+    // if (simpleBehavior) {
+    //   basicStatusCheck(newVersion);
+    // } else {
+    //   advancedStatusCheck(newVersion);
+    // }
+  }
+
+  basicStatusCheck(NewVersion newVersion) {
+    newVersion.showAlertIfNecessary(context: Get.context!);
+  }
+
+  advancedStatusCheck(NewVersion newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    if (status != null) {
+      newVersion.showUpdateDialog(
+        context: Get.context!,
+        versionStatus: status,
+        dialogTitle: 'Mise à jour',
+        dialogText: 'Nouvelles fonctionnalités disponible',
+        updateButtonText: 'Effectuer la mise à jour',
+        dismissButtonText: 'Annuler',
+        dismissAction: () => functionToRunAfterDialogDismissed(),
+      );
+    }
+  }
+
+  functionToRunAfterDialogDismissed(){
+    Get.back();
+  }
 
   // Share app
   void ShareAppLink() async{

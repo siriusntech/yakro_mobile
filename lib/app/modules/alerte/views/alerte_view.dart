@@ -6,6 +6,7 @@ import 'package:jaime_cocody/app/widgets/button_widget.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/image_widget.dart';
@@ -18,7 +19,7 @@ import '../alerte_model.dart';
 import '../controllers/alerte_controller.dart';
 
 class AlerteView extends GetView<AlerteController> {
-
+  final MainController settingsCtrl = Get.find();
   liked(Alerte alerte) {
     final key_alerte = GlobalKey<State<Tooltip>>();
 
@@ -87,7 +88,7 @@ class AlerteView extends GetView<AlerteController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Text("Signaler un incident",
           style: TextStyle(
               fontSize: 18.0,
@@ -340,6 +341,7 @@ class AlerteView extends GetView<AlerteController> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.mainColor,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

@@ -5,12 +5,14 @@ import 'package:jaime_cocody/app/modules/annuaire/widgets/annuaire_card_widget.d
 
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_routes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/annuaire_controller.dart';
 
 class AnnuaireView extends GetView<AnnuaireController> {
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +23,7 @@ class AnnuaireView extends GetView<AnnuaireController> {
         ),
         centerTitle: true,
         elevation: 0.0,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         actions: [
           IconButton(
               onPressed: (){
@@ -88,6 +91,7 @@ class AnnuaireView extends GetView<AnnuaireController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.mainColor,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

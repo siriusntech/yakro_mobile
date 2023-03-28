@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/my_message_tooltip_widget.dart';
@@ -14,13 +15,14 @@ import '../../../widgets/video_widget.dart';
 import '../controllers/message_controller.dart';
 
 class MessageMineView extends GetView<MessageController> {
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Text("Mes Messages envoyés",
           style: TextStyle(
               fontSize: 18.0,

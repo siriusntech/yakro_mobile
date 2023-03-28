@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
 import '../../../Utils/app_constantes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../controllers/apropos_controller.dart';
 
 class AproposView extends GetView<AproposController> {
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
 
@@ -17,6 +19,7 @@ class AproposView extends GetView<AproposController> {
         title: TextWidget(text:'Apropos de nous', fontSize: 20, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
       ),
       body: Center(
         child: Obx((){

@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/job_controller.dart';
@@ -14,13 +15,13 @@ import '../controllers/job_controller.dart';
 class JobShowView extends GetView<JobController> {
 
   final ZoomController zoomCtrl = Get.put(ZoomController());
-
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Text(controller.selectedJob.value.intitule!.toUpperCase(),
           style: TextStyle(
               fontSize: 12.0,

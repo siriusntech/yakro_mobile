@@ -279,12 +279,12 @@ class AuthView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: appbarColorFromCode,
-        // backgroundColor: appbarColorFromCode,
+        // backgroundColor: settingsCtrl.appbarColorFromCode,
+        // backgroundColor: settingsCtrl.appbarColorFromCode,
         resizeToAvoidBottomInset: false,
         // appBar: AppBar(
         //   title: Text(""),
-        //   backgroundColor: appbarColorFromCode,
+        //   backgroundColor: settingsCtrl.appbarColorFromCode,
         //   elevation: 0.0,
         //   automaticallyImplyLeading: false,
         // ),

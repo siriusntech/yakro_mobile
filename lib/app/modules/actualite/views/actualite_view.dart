@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/controllers/main_controller.dart';
 import 'package:jaime_cocody/app/modules/actualite/widgets/actualite_card_widget.dart';
 
 import '../../../Utils/app_colors.dart';
@@ -13,6 +14,9 @@ import '../../../widgets/text_widget.dart';
 import '../controllers/actualite_controller.dart';
 
 class ActualiteView extends GetView<ActualiteController> {
+
+  final MainController settingsCtrl = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +25,7 @@ class ActualiteView extends GetView<ActualiteController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title:TextWidget(text: 'Actualités et Evènements',fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
         actions: [
           IconButton(
@@ -117,6 +121,7 @@ class ActualiteView extends GetView<ActualiteController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.mainColor,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

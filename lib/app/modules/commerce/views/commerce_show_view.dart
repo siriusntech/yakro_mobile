@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_icons.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/text_widget.dart';
@@ -16,13 +17,13 @@ import '../controllers/commerce_controller.dart';
 class CommerceShowView extends GetView<CommerceController> {
 
   final ZoomController zoomCtrl = Get.put(ZoomController());
-
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Text("Commerces et autres",
           style: TextStyle(
               fontSize: 18.0,

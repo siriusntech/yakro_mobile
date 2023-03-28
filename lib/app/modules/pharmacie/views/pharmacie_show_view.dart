@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../../zoom/controllers/zoom_controller.dart';
@@ -12,12 +13,13 @@ import '../controllers/pharmacie_controller.dart';
 
 class PharmacieShowView extends GetView<PharmacieController> {
   final ZoomController zoomCtrl = Get.put(ZoomController());
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Center(
           child: Obx(() => Text(controller.selectedPharmacie.value.nom.toString(),
             style: TextStyle(

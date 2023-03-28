@@ -5,6 +5,7 @@ import 'package:jaime_cocody/app/Utils/app_routes.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/image_widget.dart';
@@ -19,6 +20,7 @@ import '../controllers/alerte_controller.dart';
 class AlerteShowView extends GetView<AlerteController> {
 
   final ZoomController zoomCtrl = Get.put(ZoomController());
+  final MainController settingsCtrl = Get.find();
 
   liked(Alerte alerte) {
     final key_alerte = GlobalKey<State<Tooltip>>();
@@ -86,7 +88,7 @@ class AlerteShowView extends GetView<AlerteController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Text("Incidents signalés",
           style: TextStyle(
               fontSize: 18.0,

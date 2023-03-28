@@ -5,11 +5,13 @@ import 'package:jaime_cocody/app/widgets/text_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../controllers/nouscontactez_controller.dart';
 
 class NouscontactezView extends GetView<NouscontactezController> {
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +19,7 @@ class NouscontactezView extends GetView<NouscontactezController> {
         title: TextWidget(text: 'Nous contactez', fontSize: 20, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
       ),
       body: Center(
         child: Padding(

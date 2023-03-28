@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
@@ -13,7 +14,7 @@ import '../../../widgets/text_widget.dart';
 import '../controllers/diffusion_controller.dart';
 
 class DiffusionView extends GetView<DiffusionController> {
-
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,7 @@ class DiffusionView extends GetView<DiffusionController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: TextWidget(text: "Les bons plans",fontSize: 18.0,
             color: Colors.white, fontWeight: FontWeight.bold
         ),
@@ -118,6 +119,7 @@ class DiffusionView extends GetView<DiffusionController> {
         )
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.mainColor,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

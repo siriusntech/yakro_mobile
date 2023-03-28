@@ -9,8 +9,9 @@ class NotificationWidget extends StatelessWidget {
   final int? count;
   final VoidCallback? action;
   final IconData icon;
+  final Color? color;
 
-  NotificationWidget({this.count, this.action, required this.icon});
+  NotificationWidget({this.count, this.action, this.color, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class NotificationWidget extends StatelessWidget {
       children: [
         IconButton(
             onPressed: action,
-            icon: Icon(icon, color: AppColors.menuColor, size: 30,)
+            icon: Icon(icon, color: color != null ? color : AppColors.menuColor, size: 30,)
         ),
         count != null ? Positioned(
           left: 5,

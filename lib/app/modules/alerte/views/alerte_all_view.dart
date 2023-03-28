@@ -6,6 +6,7 @@ import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/image_widget.dart';
@@ -18,6 +19,8 @@ import '../alerte_model.dart';
 import '../controllers/alerte_controller.dart';
 
 class AlerteAllView extends GetView<AlerteController> {
+
+  final MainController settingsCtrl = Get.find();
 
   liked(Alerte alerte) {
     final key_alerte = GlobalKey<State<Tooltip>>();
@@ -85,7 +88,7 @@ class AlerteAllView extends GetView<AlerteController> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: TextWidget(text: "Toutes les alertes",fontSize: 18.0,
             color: Colors.white, fontWeight: FontWeight.bold
         ),

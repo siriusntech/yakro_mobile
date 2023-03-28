@@ -7,12 +7,14 @@ import 'package:jaime_cocody/app/widgets/no_data_widget.dart';
 
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/commerce_controller.dart';
 
 class CommerceView extends GetView<CommerceController> {
 
+  final MainController settingsCtrl = Get.find();
 
 
   @override
@@ -23,7 +25,7 @@ class CommerceView extends GetView<CommerceController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title:TextWidget(text: 'Commerces et autres',fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
         actions: [
           IconButton(
@@ -156,6 +158,7 @@ class CommerceView extends GetView<CommerceController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.mainColor,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

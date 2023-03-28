@@ -6,11 +6,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/app_constantes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
 import '../controllers/message_controller.dart';
 
 class MessageEditView extends GetView<MessageController> {
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class MessageEditView extends GetView<MessageController> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Obx(()=> TextWidget(
           text: controller.selectedType.value != ''
               ? controller.selectedType.value

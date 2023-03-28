@@ -4,12 +4,13 @@ import 'package:get/get.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
 import '../controllers/historique_controller.dart';
 
 class InformationShow extends GetView<HistoriqueController> {
-
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +18,7 @@ class InformationShow extends GetView<HistoriqueController> {
         title: TextWidget(text: 'Culture', fontSize: 18, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
       ),
       body: SafeArea(
         child: Obx(() => Padding(

@@ -46,8 +46,8 @@ class PharmacieCardWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextWidget(text: pharmacie!.nom, color: mainColor, fontSize: 18, fontWeight: FontWeight.bold, overFlow: TextOverflow.ellipsis),
-                      TextWidget(text: pharmacie!.medecin, color: Colors.lightBlue, fontSize: 16, fontWeight: FontWeight.w600, overFlow: TextOverflow.ellipsis),
+                      TextWidget(text: pharmacie!.nom, color: mainColor, fontSize: 14, fontWeight: FontWeight.bold, overFlow: TextOverflow.ellipsis),
+                      TextWidget(text: pharmacie!.medecin, color: Colors.lightBlue, fontSize: 13, fontWeight: FontWeight.w600, overFlow: TextOverflow.ellipsis),
                       Row(
                           children: [
                             for(var ct in pharmacie!.contacts!)
@@ -55,7 +55,7 @@ class PharmacieCardWidget extends StatelessWidget {
                           ]
                       ),
                       TextWidget(text: pharmacie!.adresse.toString(),
-                          color: mainColor, fontSize: 16, overFlow: TextOverflow.ellipsis,
+                          color: mainColor, fontSize: 13, overFlow: TextOverflow.ellipsis,
                       )
                     ],
                   ),

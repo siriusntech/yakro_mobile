@@ -7,13 +7,14 @@ import 'package:jaime_cocody/app/widgets/no_data_widget.dart';
 
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/job_controller.dart';
 
 class JobView extends GetView<JobController> {
 
-
+  final MainController settingsCtrl = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class JobView extends GetView<JobController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title:TextWidget(text: 'Jobs / Annonces',fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
         actions: [
           IconButton(
@@ -156,6 +157,7 @@ class JobView extends GetView<JobController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.mainColor,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

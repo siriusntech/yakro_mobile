@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/modules/discussion/discussion_model.dart';
 import '../../../Utils/app_routes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
@@ -10,7 +11,7 @@ import '../controllers/discussion_controller.dart';
 import '../widgets/discussion_card_widget.dart';
 
 class DiscussionView extends GetView<DiscussionController> {
-
+  final MainController settingsCtrl = Get.find();
   Discussion disc = Discussion();
 
   @override
@@ -21,6 +22,7 @@ class DiscussionView extends GetView<DiscussionController> {
         title: TextWidget(text: 'Discussions', fontSize: 20, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         actions: [
           IconButton(
               onPressed: (){

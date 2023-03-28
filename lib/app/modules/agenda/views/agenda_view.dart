@@ -6,6 +6,7 @@ import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
@@ -14,6 +15,7 @@ import '../../../widgets/text_widget.dart';
 import '../controllers/agenda_controller.dart';
 
 class AgendaView extends GetView<AgendaController> {
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +23,7 @@ class AgendaView extends GetView<AgendaController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Text("Agenda de la mairie",
           style: TextStyle(
               fontSize: 18.0,
@@ -156,6 +158,7 @@ class AgendaView extends GetView<AgendaController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.mainColor,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

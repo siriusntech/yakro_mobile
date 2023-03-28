@@ -5,6 +5,7 @@ import 'package:jaime_cocody/app/Utils/app_colors.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
@@ -12,6 +13,7 @@ import '../controllers/pharmacie_controller.dart';
 import '../widgets/pharmacie_card_widget.dart';
 
 class PharmacieView extends GetView<PharmacieController> {
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,7 @@ class PharmacieView extends GetView<PharmacieController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title:TextWidget(text: 'Pharmacies de garde',fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,),
         actions: [
           IconButton(
@@ -157,6 +159,7 @@ class PharmacieView extends GetView<PharmacieController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.mainColor,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

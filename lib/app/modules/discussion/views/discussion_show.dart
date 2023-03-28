@@ -6,6 +6,7 @@ import 'package:jaime_cocody/app/modules/discussion/discussion_model.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
@@ -21,7 +22,7 @@ import '../widgets/discussion_tooltip_widget.dart';
 class DiscussionShow extends GetView<DiscussionController> {
 
   final ZoomController zoomCtrl = Get.put(ZoomController());
-
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +31,7 @@ class DiscussionShow extends GetView<DiscussionController> {
         title: TextWidget(text: 'Liste des commentaires', fontSize: 20, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
       ),
       body: GestureDetector(
          onTap: (){

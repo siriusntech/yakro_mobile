@@ -6,11 +6,15 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/app_constantes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
 import '../controllers/alerte_controller.dart';
 
 class AlerteAddView extends GetView<AlerteController> {
+
+  final MainController settingsCtrl = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +22,7 @@ class AlerteAddView extends GetView<AlerteController> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: appbarColorFromCode,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
         title: Obx(() => TextWidget(text: controller.selected_type_alerte.value, color: Colors.white,
           fontSize: 15, alignement: TextAlign.center, fontWeight: FontWeight.bold, scaleFactor: 1.2,
         )),

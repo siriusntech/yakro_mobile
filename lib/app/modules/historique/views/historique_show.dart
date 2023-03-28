@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
 
 import '../../../Utils/app_routes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
@@ -17,7 +18,7 @@ import '../widgets/info_card_widget.dart';
 class HistoriqueShow extends GetView<HistoriqueController> {
 
   final ZoomController zoomCtrl = Get.put(ZoomController());
-
+  final MainController settingsCtrl = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +26,7 @@ class HistoriqueShow extends GetView<HistoriqueController> {
         title: TextWidget(text: 'Culture', fontSize: 18, fontWeight: FontWeight.bold,),
         centerTitle: true,
         elevation: 0.0,
+        backgroundColor: settingsCtrl.appbarColorFromCode,
       ),
       body: SafeArea(
         child: Obx(() => Padding(
