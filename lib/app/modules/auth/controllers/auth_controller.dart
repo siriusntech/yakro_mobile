@@ -240,10 +240,10 @@ class AuthController extends GetxController {
         setUsersList(response.response as List<User>);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   getUserInfo() async {
@@ -259,10 +259,10 @@ class AuthController extends GetxController {
         setIsActif(user.value.isActif);
       }
       if(response is Failure){
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
   register(Map data) async{
@@ -302,11 +302,11 @@ class AuthController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   confirm(Map data) async{
@@ -330,11 +330,11 @@ class AuthController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 

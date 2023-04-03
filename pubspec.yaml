@@ -1,5 +1,5 @@
 name: jaime_cocody
-version: 1.0.0+12
+version: 1.0.0+13
 publish_to: none
 description: App commune.
 environment: 
@@ -41,6 +41,7 @@ dependencies:
   zoom_widget: ^2.0.1
   lightbox: ^0.1.0
   new_version: ^0.3.0
+  in_app_update: ^4.0.1
 #  persistent_bottom_nav_bar: any
 #  laravel_echo: ^0.2.9
   get: 4.6.5
@@ -118,7 +119,6 @@ flutter:
     - assets/images/presentation/chat.png
     - assets/images/presentation/pharmacie.png
     - assets/images/bg/bg.jpg
-    - assets/images/bg/bgccdy.jpg
     - assets/images/e-mail.png
     - assets/images/facebook.png
     - assets/images/youtube.png

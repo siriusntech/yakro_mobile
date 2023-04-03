@@ -3,17 +3,23 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import '../../controllers/main_controller.dart';
 import '../../models/annuaire.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
-
+import 'package:get/get.dart';
 
 class AnnuaireServices {
 
-  static final String apiUrl = baseUrl+'annuaires';
+  static MainController settingsCtrl = Get.put(MainController());
+
+
+  // static final String apiUrl = baseUrl+'actualites';
+  // static final String apiUrl = settingsCtrl.baseUrl+'annuaires';
 
   static Future<Object> getAnnuaires() async {
+    final apiUrl = settingsCtrl.baseUrl+'annuaires';
     var headers = await AuthService.getLoggedHeaders();
     try{
       var url = Uri.parse(apiUrl);
@@ -41,7 +47,7 @@ class AnnuaireServices {
   static getAnnuairesByType(type_id) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+"annuaires_by_type/$type_id");
+      var url = Uri.parse(settingsCtrl.baseUrl+"annuaires_by_type/$type_id");
       var response =  await http.get(url, headers: headers);
       // print('response an type '+response.body.toString());
       if(response.statusCode == 200){
@@ -64,6 +70,7 @@ class AnnuaireServices {
   }
 
   static getAnnuaireById(String id) async {
+    final apiUrl = settingsCtrl.baseUrl+'annuaires';
     var headers = await AuthService.getLoggedHeaders();
     Annuaire annuaire = Annuaire();
     try{

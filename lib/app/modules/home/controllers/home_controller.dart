@@ -5,11 +5,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:jaime_cocody/app/data/repository/consultation_services.dart';
 import 'package:jaime_cocody/app/models/consultation.dart';
 import 'package:jaime_cocody/app/modules/auth/controllers/auth_controller.dart';
 import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
-import 'package:new_version/new_version.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,15 +19,10 @@ import '../../../Utils/app_routes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../data/repository/actualite_services.dart';
 import '../../../data/repository/agenda_services.dart';
-import '../../../data/repository/alerte_services.dart';
-import '../../../data/repository/annuaire_services.dart';
 import '../../../data/repository/auth_service.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/diffusion_services.dart';
-import '../../../data/repository/discussion_services.dart';
-import '../../../data/repository/historique_services.dart';
 import '../../../data/repository/main_services.dart';
-import '../../../data/repository/pharmacie_services.dart';
 import '../../../models/mise_a_jour_model.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../actualite/actualite_model.dart';
@@ -35,7 +30,6 @@ import '../../agenda/agenda_model.dart';
 import '../../auth/user_model.dart';
 import '../../commerce/commerce_services.dart';
 import '../../diffusion/diffusion_model.dart';
-import '../../job/job_services.dart';
 
 class HomeController extends GetxController {
 
@@ -58,14 +52,18 @@ class HomeController extends GetxController {
   var isDataRefreshing = false.obs;
 
   final AuthController auth_ctrl = Get.put(AuthController());
-  // final ActualiteController actualite_ctrl = Get.put(ActualiteController());
-  // final CommerceController commerce_ctrl = Get.put(CommerceController());
-  // final HistoriqueController auth_ctrl = Get.put(AuthController());
-  // final AuthController auth_ctrl = Get.put(AuthController());
 
   final MainController mainCtrl = Get.put(MainController());
 
 
+  // final ActualiteController actualite_ctrl = Get.put(ActualiteController());
+  // final CommerceController commerce_ctrl = Get.put(CommerceController());
+  // final JobController job_ctrl = Get.put(JobController());
+  // final PharmacieController pharm_ctrl = Get.put(PharmacieController());
+  // final AlerteController alerte_ctrl = Get.put(AlerteController());
+  // final AnnuaireController annuaire_ctrl = Get.put(AnnuaireController());
+  // final HistoriqueController culture_ctrl = Get.put(HistoriqueController());
+  // final DiffusionController bon_plan_ctrl = Get.put(DiffusionController());
 
 
   // SET USER ACCOUNT INFO
@@ -209,18 +207,34 @@ class HomeController extends GetxController {
     //     showLocalNotification();
     // });
   }
+
    refreshData() async {
+    await mainCtrl.checkAppName();
+
     SharedPreferences storage = await SharedPreferences.getInstance();
     user_id = storage.getInt('user_id');
     // print('cloud token '+storage.getString('cloud_messaging_token').toString());
     // print('user auth id '+user_id.toString());
     await isDataRefreshing(true);
-    await checkIfAccountIsActif();
+    await mainCtrl.isCocody.value == true ? checkIfAccountIsActif() : null;
 
     await getUnReadItemsCounts();
     await getUnReadDiffusionCount();
     await isDataRefreshing(false);
-    checkUpdate(storage.getInt('user_id'));
+    await checkUpdate(user_id);
+  }
+
+  refreshHome() async {
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    user_id = storage.getInt('user_id');
+
+    await isDataRefreshing(true);
+    await mainCtrl.isCocody.value == true ? checkIfAccountIsActif() : null;
+
+    await getUnReadItemsCounts();
+    await getUnReadDiffusionCount();
+    await isDataRefreshing(false);
+    await mainCtrl.isCocody.value == true ? checkUpdate(user_id) : null;
   }
 
   var connectivityResult;
@@ -272,7 +286,6 @@ class HomeController extends GetxController {
    // LOCAL NOTIF
   void showLocalNotification(){
     playSound();
-    var initializationSettingsAndroid = new AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
@@ -383,11 +396,11 @@ class HomeController extends GetxController {
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 
@@ -395,7 +408,8 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    mainCtrl.checkAppName();
+    // MAKE APP NEW VERSION UPDATE AUTO
+    checkAppForUpdate();
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     // GetConnectionType();
@@ -405,13 +419,14 @@ class HomeController extends GetxController {
       observeConnexion(result);
     });
 
+
     refreshData();
 
     onMessageListen();
     onMessageOpenedAppListen();
 
     // checkUpdate();
-
+    // checkNewVersion();
   }
 
 
@@ -434,61 +449,78 @@ class HomeController extends GetxController {
     // checkUpdate();
   }
 
-  // // Share app
-  // void ShareApp() async{
-  //   final bytes = await rootBundle.load('assets/apk/contactup.apk');
-  //   final list = bytes.buffer.asUint8List();
-  //
-  //   final tempDir = await getTemporaryDirectory();
-  //   final file = await File('${tempDir.path}/contactup.apk').create();
-  //   file.writeAsBytesSync(list);
-  //
-  //   Share.shareFiles([(file.path)]);
-  // }
 
-  // CHECK UPDATE
-  checkNewVersion(){
-    // Instantiate NewVersion manager object (Using GCP Console app as example)
-    final newVersion = NewVersion(
-      iOSId: 'com.google.Vespa',
-      androidId: 'com.google.android.apps.cloudconsole',
-    );
-
-    advancedStatusCheck(newVersion);
-
-    // // You can let the plugin handle fetching the status and showing a dialog,
-    // // or you can fetch the status and display your own dialog, or no dialog.
-    // const simpleBehavior = true;
+  /* CHECK UPDATE FOR PACKAGE NEW VERSION */
+    // // CHECK UPDATE
+    // checkNewVersion() async{
+    //   // Instantiate NewVersion manager object (Using GCP Console app as example)
+    //   final newVersion = NewVersion(
+    //     // iOSId: 'com.google.Vespa',
+    //     // androidId: 'com.google.android.apps.cloudconsole',
+    //     androidId: 'com.siriusntech.jaime_cocody',
+    //   );
     //
-    // if (simpleBehavior) {
-    //   basicStatusCheck(newVersion);
-    // } else {
-    //   advancedStatusCheck(newVersion);
+    //   await advancedStatusCheck(newVersion);
+    //
+    //   // // You can let the plugin handle fetching the status and showing a dialog,
+    //   // // or you can fetch the status and display your own dialog, or no dialog.
+    //   // const simpleBehavior = true;
+    //   //
+    //   // if (simpleBehavior) {
+    //   //   basicStatusCheck(newVersion);
+    //   // } else {
+    //   //   advancedStatusCheck(newVersion);
+    //   // }
     // }
-  }
+    //
+    // basicStatusCheck(NewVersion newVersion) {
+    //   newVersion.showAlertIfNecessary(context: Get.context!);
+    // }
+    //
+    // advancedStatusCheck(NewVersion newVersion) async {
+    //   final status = await newVersion.getVersionStatus();
+    //   if (status != null) {
+    //     newVersion.showUpdateDialog(
+    //       context: Get.context!,
+    //       versionStatus: status,
+    //       dialogTitle: 'Mise à jour',
+    //       dialogText: 'Nouvelles fonctionnalités disponible',
+    //       updateButtonText: 'Effectuer la mise à jour',
+    //       allowDismissal: false,
+    //       dismissButtonText: 'Annuler',
+    //       dismissAction: () => functionToRunAfterDialogDismissed(),
+    //     );
+    //   }
+    // }
+    //
+    // functionToRunAfterDialogDismissed(){
+    //   Get.back();
+    // }
+  /* END CHECK UPDATE FOR PACKAGE NEW VERSION */
 
-  basicStatusCheck(NewVersion newVersion) {
-    newVersion.showAlertIfNecessary(context: Get.context!);
-  }
+  /* CHECK UPDATE FOR PACKAGE in_app_update */
+      AppUpdateInfo? updateInfo;
 
-  advancedStatusCheck(NewVersion newVersion) async {
-    final status = await newVersion.getVersionStatus();
-    if (status != null) {
-      newVersion.showUpdateDialog(
-        context: Get.context!,
-        versionStatus: status,
-        dialogTitle: 'Mise à jour',
-        dialogText: 'Nouvelles fonctionnalités disponible',
-        updateButtonText: 'Effectuer la mise à jour',
-        dismissButtonText: 'Annuler',
-        dismissAction: () => functionToRunAfterDialogDismissed(),
-      );
-    }
-  }
+      // Platform messages are asynchronous, so we initialize in an async method.
+      Future<void> checkAppForUpdate() async {
+        InAppUpdate.checkForUpdate().then((info) {
+          updateInfo = info;
+          updateApp();
+        }).catchError((e) {
+          print("in_app_update check update error "+e.toString());
+        });
+      }
+      updateApp(){
+        updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
+            ? () {
+            InAppUpdate.startFlexibleUpdate().then((_) {
 
-  functionToRunAfterDialogDismissed(){
-    Get.back();
-  }
+          }).catchError((e) {
+              print("in_app_update make update error "+e.toString());
+          });
+        } : null;
+      }
+  /* END CHECK UPDATE FOR PACKAGE in_app_update */
 
   // Share app
   void ShareAppLink() async{
@@ -504,11 +536,11 @@ class HomeController extends GetxController {
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 

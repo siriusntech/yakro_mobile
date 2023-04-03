@@ -2,9 +2,10 @@
 // const baseUrl = 'http://10.0.2.2:8000/api/mobile/';
 // const siteUrl = 'http://10.0.2.2:8000';
 
+
 // ONLINE
-const baseUrl = 'https://sdcocody.siriusntech.digital/api/mobile/';
-const siteUrl = 'https://sdcocody.siriusntech.digital';
+var baseUrl =  'https://sdcocody.siriusntech.digital/api/mobile/';
+var siteUrl = 'https://sdcocody.siriusntech.digital';
 
 // Errors Codes
 const USER_INVALID_RESPONSE = 100;

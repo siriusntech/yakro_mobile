@@ -29,8 +29,8 @@ class CommerceView extends GetView<CommerceController> {
         title:TextWidget(text: 'Commerces et autres',fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
         actions: [
           IconButton(
-              onPressed: (){
-                controller.refresh();
+              onPressed: () async{
+                await controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
           )
@@ -38,7 +38,7 @@ class CommerceView extends GetView<CommerceController> {
       ),
       body: RefreshIndicator(
         onRefresh: () async{
-        controller.refresh();
+          await controller.refreshData();
         },
         child: Column(
           children: [
@@ -75,7 +75,7 @@ class CommerceView extends GetView<CommerceController> {
                             if(val.length > 0){
                               controller.getCommercesByName(val);
                             }else{
-                              controller.refresh();
+                              controller.refreshData();
                             }
                           },
                         ),
@@ -98,7 +98,7 @@ class CommerceView extends GetView<CommerceController> {
                                     controller.getCommercesByType(type.nom.toString());
                                   }else{
                                     controller.setSelectedType('');
-                                    controller.refresh();
+                                    controller.refreshData();
                                   }
                                 },
                                 child: Chip(

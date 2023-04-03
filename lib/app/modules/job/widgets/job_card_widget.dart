@@ -79,11 +79,13 @@ class JobCardWidget extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        TextWidget(text: job.lien,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.blue,
-                        ),
+                        Flexible(
+                            child: TextWidget(text: job.lien,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blue,
+                            ),
+                        )
                       ],
                     ),
                   )

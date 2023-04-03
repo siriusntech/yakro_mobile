@@ -814,11 +814,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         // return Commentaire(reponses: []);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // return Commentaire(reponses: []);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 
@@ -842,11 +842,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
 
     // getDiscussionsInRealTime();
@@ -892,11 +892,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -929,11 +929,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -966,11 +966,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -987,10 +987,10 @@ class DiscussionController extends GetxController {
         manageLike(_discussion, discussion_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1023,10 +1023,10 @@ class DiscussionController extends GetxController {
         manageUnlike(_discussion, discussion_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1274,11 +1274,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1299,11 +1299,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // DEL CONFIRLMATION
@@ -1335,11 +1335,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1356,10 +1356,10 @@ class DiscussionController extends GetxController {
         manageComLike(_commentaire, commentaire_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1392,10 +1392,10 @@ class DiscussionController extends GetxController {
         manageComUnlike(_commentaire, commentaire_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1638,11 +1638,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1663,11 +1663,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // DEL CONFIRLMATION
@@ -1699,11 +1699,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1717,10 +1717,10 @@ class DiscussionController extends GetxController {
         manageRepLike(_reponse, reponse_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1748,10 +1748,10 @@ class DiscussionController extends GetxController {
         manageRepUnlike(_reponse, reponse_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -1890,10 +1890,10 @@ class DiscussionController extends GetxController {
         }
       }
       if(response is Failure){
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 
@@ -1906,11 +1906,11 @@ class DiscussionController extends GetxController {
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 

@@ -37,7 +37,7 @@ class CommerceController extends GetxController {
   }
 
   // GET ALL COMMERCE TYPES
-  void getCommerceTypes() async{
+  getCommerceTypes() async{
     try{
       isDataProcessing(true);
       final response = await CommerceServices.getCommercetypes();
@@ -47,11 +47,11 @@ class CommerceController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -67,11 +67,11 @@ class CommerceController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL COMMERCE BY TYPE
@@ -86,11 +86,11 @@ class CommerceController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL COMMERCE BY NAME
@@ -105,11 +105,11 @@ class CommerceController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // SET SELECTED COMMERCE
@@ -121,17 +121,25 @@ class CommerceController extends GetxController {
     selectedType.value = type;
   }
   // REFRESH PAGE
-  void refresh(){
+  refreshData() async{
     if(searchTextController.text == ""){
       commerceList.clear();
       commerceTypesList.clear();
       clearFields();
       setSelectedType('');
-      getCommerceTypes();
-      getCommerces(page);
+      await getCommerceTypes();
+      await getCommerces(page);
     }else{
-      getCommercesByName(searchTextController.text);
+      await getCommercesByName(searchTextController.text);
     }
+  }
+
+  refreshOnly() async{
+    commerceList.clear();
+    commerceTypesList.clear();
+    setSelectedType('');
+    await getCommerceTypes();
+    await getCommerces(page);
   }
 
   Future<Null> showAlerte(phoneNumber) async{
@@ -202,11 +210,11 @@ class CommerceController extends GetxController {
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 

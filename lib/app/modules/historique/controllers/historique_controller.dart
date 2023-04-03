@@ -40,11 +40,11 @@ class HistoriqueController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -82,10 +82,10 @@ class HistoriqueController extends GetxController {
         infosList[index].is_read = 1;
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -100,11 +100,11 @@ class HistoriqueController extends GetxController {
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 
@@ -126,11 +126,11 @@ class HistoriqueController extends GetxController {
   }
 
   // REFRESH PAGE
-  void refresh(){
+  refreshData() async{
     historiqueList.clear();
     infosList.clear();
     // allHistoriqueList.clear();
-    getHistoriques();
+    await getHistoriques();
     // getAllHistoriques();
   }
 
@@ -139,7 +139,7 @@ class HistoriqueController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    refresh();
+    refreshData();
 
     makeHistoriquesAsRead();
     homeCtrl.getUnReadItemsCounts();

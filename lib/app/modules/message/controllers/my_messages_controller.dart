@@ -31,11 +31,11 @@ class MyMessagesController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET MY MESSAGES BY TYPE
@@ -49,11 +49,11 @@ class MyMessagesController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL MESSAGES
@@ -67,11 +67,11 @@ class MyMessagesController extends GetxController {
       }
       if(response is Failure){
         isAllDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isAllDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL MESSAGES BY TYPE
@@ -85,11 +85,11 @@ class MyMessagesController extends GetxController {
       }
       if(response is Failure){
         isAllDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isAllDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET MESSAGE TYPES
@@ -103,11 +103,11 @@ class MyMessagesController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // CREATE NEW MESSAGE
@@ -121,11 +121,11 @@ class MyMessagesController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // UPDATE MESSAGE
@@ -139,11 +139,11 @@ class MyMessagesController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // DELETE MESSAGE
@@ -157,11 +157,11 @@ class MyMessagesController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // LIKE MESSAGE
@@ -172,10 +172,10 @@ class MyMessagesController extends GetxController {
         messageList.addAll(response.response as List<Message>);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // UN_LIKE MESSAGE
@@ -186,10 +186,10 @@ class MyMessagesController extends GetxController {
         messageList.addAll(response.response as List<Message>);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 

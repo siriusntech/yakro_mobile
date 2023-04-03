@@ -26,8 +26,8 @@ class PharmacieView extends GetView<PharmacieController> {
         title:TextWidget(text: 'Pharmacies de garde',fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,),
         actions: [
           IconButton(
-              onPressed: (){
-                controller.refresh();
+              onPressed: () async{
+                await controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
           )
@@ -35,7 +35,7 @@ class PharmacieView extends GetView<PharmacieController> {
       ),
       body: RefreshIndicator(
         onRefresh: () async{
-          controller.refresh();
+          await controller.refreshData();
         },
         child: Padding(
           padding: EdgeInsets.all(8),
@@ -67,7 +67,7 @@ class PharmacieView extends GetView<PharmacieController> {
                             if(val.length > 0){
                               controller.getPharmaciesByName(val);
                             }else{
-                              controller.refresh();
+                              controller.refreshData();
                             }
                           },
                         ),
@@ -95,7 +95,7 @@ class PharmacieView extends GetView<PharmacieController> {
                                         controller.getPharmaciesByZone(zone.id);
                                       }else{
                                         controller.setSelectedZone(null, '');
-                                        controller.refresh();
+                                        controller.refreshData();
                                       }
                                     },
                                     child: Chip(

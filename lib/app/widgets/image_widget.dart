@@ -1,10 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../controllers/main_controller.dart';
 import '../data/repository/data/Env.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class ImageWidget extends StatelessWidget {
+
+  static MainController settingsCtrl = Get.put(MainController());
+
    final String? url;
    final String? default_image;
    final double? width;
@@ -24,7 +29,7 @@ class ImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isNetWork ? CachedNetworkImage(
-      imageUrl: siteUrl+url.toString(),
+      imageUrl: settingsCtrl.siteUrl+url.toString(),
       width: width,
       height: height,
       fit: fit,

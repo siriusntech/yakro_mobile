@@ -238,11 +238,11 @@ class MessageController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET MY MESSAGES BY TYPE
@@ -257,11 +257,11 @@ class MessageController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL MESSAGES
@@ -275,11 +275,11 @@ class MessageController extends GetxController {
       }
       if(response is Failure){
         isAllDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isAllDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL MESSAGES BY TYPE
@@ -294,11 +294,11 @@ class MessageController extends GetxController {
       }
       if(response is Failure){
         isAllDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isAllDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET MESSAGE TYPES
@@ -313,10 +313,10 @@ class MessageController extends GetxController {
         allMessagesTypesList.removeWhere((element) => element.nom.toString().contains('Rendez-vous'));
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // CREATE NEW MESSAGE
@@ -332,11 +332,11 @@ class MessageController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GO TO EDIT PAGE
@@ -358,11 +358,11 @@ class MessageController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // DEL CONFIRLMATION
@@ -394,11 +394,11 @@ class MessageController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -411,10 +411,10 @@ class MessageController extends GetxController {
         manageLike(_message, message_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   manageLike(Message message, index) async{
@@ -441,10 +441,10 @@ class MessageController extends GetxController {
         manageUnlike(_message, message_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   manageUnlike(Message message, index) async{

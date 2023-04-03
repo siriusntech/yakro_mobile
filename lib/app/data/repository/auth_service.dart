@@ -149,4 +149,36 @@ class AuthService {
      };
      return headers;
    }
+
+  static registerSwipeUser(data, url) async {
+    try{
+      var endPoint = Uri.parse(url+'register_swipe_user');
+      var body = json.encode(data);
+      Map <String, String> headers = {
+        'Content-type': 'application/json; charset=UTF-8',
+      };
+      var response = await http.post(endPoint, body: body, headers: headers);
+      // print('response register' + response.body.toString());
+      // print('response ' + response.statusCode.toString());
+      if (response.statusCode == 200) {
+        var info = jsonDecode(response.body)['data'];
+        var user = User.fromJson(info);
+        return Success(response: user);
+      } else {
+        return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+      }
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
+    }
+    catch(e){
+      // print('Erreur inconnue '+e.toString());
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue '+e.toString());
+    }
+
+  }
+
 }

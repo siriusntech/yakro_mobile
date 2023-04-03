@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_icons.dart';
 import 'package:jaime_cocody/app/Utils/app_routes.dart';
 import 'package:jaime_cocody/app/Utils/default_image.dart';
 import 'package:jaime_cocody/app/data/repository/main_services.dart';
@@ -13,12 +12,28 @@ import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/menu_widget.dart';
 import '../../../widgets/text_widget.dart';
+import '../../actualite/controllers/actualite_controller.dart';
+import '../../alerte/controllers/alerte_controller.dart';
+import '../../annuaire/controllers/annuaire_controller.dart';
+import '../../commerce/controllers/commerce_controller.dart';
+import '../../diffusion/controllers/diffusion_controller.dart';
+import '../../historique/controllers/historique_controller.dart';
+import '../../job/controllers/job_controller.dart';
+import '../../pharmacie/controllers/pharmacie_controller.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
 
   // final mainCtrl = Get.find<MainController>();
   final MainController mainCtrl = Get.put(MainController());
+  final ActualiteController actualite_ctrl = Get.put(ActualiteController());
+  final CommerceController commerce_ctrl = Get.put(CommerceController());
+  final JobController job_ctrl = Get.put(JobController());
+  final PharmacieController pharm_ctrl = Get.put(PharmacieController());
+  final AlerteController alerte_ctrl = Get.put(AlerteController());
+  final AnnuaireController annuaire_ctrl = Get.put(AnnuaireController());
+  final HistoriqueController culture_ctrl = Get.put(HistoriqueController());
+  final DiffusionController bon_plan_ctrl = Get.put(DiffusionController());
 
   Loading(){
     return Container(
@@ -29,7 +44,6 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-
 
     return Obx(() => mainCtrl.isSettingProcessing.value == true ? Loading() :
         Scaffold(
@@ -47,8 +61,8 @@ class HomeView extends GetView<HomeController> {
           actions: [
             NotificationWidget(icon: Icons.home,
               color: mainCtrl.menuColor,
-              action: (){
-                controller.refreshData();
+              action: () async{
+                 await controller.refreshHome();
               },
             ),
             NotificationWidget(icon: Icons.call,
@@ -131,7 +145,7 @@ class HomeView extends GetView<HomeController> {
                 ),
                 SizedBox(height: 5,),
                 Visibility(
-                    visible: controller.miseAJourModel.value.id != null && controller.miseAJourModel.value.etat == 0 && controller.showUpdateWidget.value == true,
+                    visible: mainCtrl.isCocody == true && controller.miseAJourModel.value.id != null && controller.miseAJourModel.value.etat == 0 && controller.showUpdateWidget.value == true,
                     child: Container(
                       margin: EdgeInsets.only(left: 15, right: 15),
                       child: Card(
@@ -211,6 +225,7 @@ class HomeView extends GetView<HomeController> {
                                 title: 'Actualités',icon: MENU_ACTUALITE, enabled: true,
                                 itemCount: controller.selectedItemsCounts.value.un_read_actualite_count,
                                 action: () async{
+                                  await actualite_ctrl.refreshData();
                                   Get.toNamed(AppRoutes.ACTUALITE);
                                   if(await MainServices.checkUserIsExclude() == false){
                                     controller.addVisiteCount('actualite');
@@ -225,6 +240,7 @@ class HomeView extends GetView<HomeController> {
                                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_commerce_count,
                                   action: () async{
                                     // controller.addCommerceVisiteCount();
+                                    await commerce_ctrl.refreshData();
                                     Get.toNamed(AppRoutes.COMMERCE);
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('commerce');
@@ -244,6 +260,7 @@ class HomeView extends GetView<HomeController> {
                                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
                                   action: () async{
                                     // controller.addJobVisiteCount();
+                                    await job_ctrl.refreshData();
                                     Get.toNamed(AppRoutes.JOB);
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('job');
@@ -257,6 +274,7 @@ class HomeView extends GetView<HomeController> {
                                 title: 'Culture',icon: MENU_HISTORIQUE,
                                 enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_sujet_count,
                                 action: () async{
+                                  await culture_ctrl.refreshData();
                                   // controller.addHistoriqueVisiteCount();
                                   Get.toNamed(AppRoutes.HISTORIQUE);
                                   if(await MainServices.checkUserIsExclude() == false){
@@ -276,6 +294,7 @@ class HomeView extends GetView<HomeController> {
                                   title: 'Bons plans', icon: MENU_BON_PLAN,
                                   enabled: true, itemCount: controller.unReadDiffusionCount.value,
                                   action: () async{
+                                    await bon_plan_ctrl.refreshData();
                                     // controller.addDiffusionVisiteCount();
                                     Get.toNamed(AppRoutes.DIFFUSION);
                                     if(await MainServices.checkUserIsExclude() == false){
@@ -290,6 +309,7 @@ class HomeView extends GetView<HomeController> {
                                   title: 'Signaler un incident',icon: MENU_ALERTE,
                                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count,
                                   action: () async{
+                                    await alerte_ctrl.refreshData();
                                     // controller.addAlerteVisiteCount();
                                     Get.toNamed(AppRoutes.ALERTE);
                                     if(await MainServices.checkUserIsExclude() == false){
@@ -310,6 +330,7 @@ class HomeView extends GetView<HomeController> {
                                   enabled: true,
                                   action: () async{
                                     // controller.addAnnuaireVisiteCount();
+                                    await annuaire_ctrl.refreshData();
                                     Get.toNamed(AppRoutes.ANNUAIRE);
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('annuaire');
@@ -323,6 +344,7 @@ class HomeView extends GetView<HomeController> {
                                   title: 'Pharmacie de garde', icon: MENU_PHARMACIE,
                                   enabled: true,
                                   action: () async{
+                                    await pharm_ctrl.refreshData();
                                     // controller.addPharmacieVisiteCount();
                                     Get.toNamed(AppRoutes.PHARMACIE);
                                     if(await MainServices.checkUserIsExclude() == false){
@@ -411,6 +433,19 @@ class HomeView extends GetView<HomeController> {
           ListTile(
             title: TextWidget(
               text: "Bouaké", fontSize: 15,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              color: Colors.grey,
+            ),
+            // tileColor: Get.currentRoute == '/home' ? Colors.grey[300] : null,
+            onTap: () {
+              // Get.back();
+              // Get.offNamed('/home');
+            },
+          ),
+          ListTile(
+            title: TextWidget(
+              text: "Korhogo", fontSize: 15,
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic,
               color: Colors.grey,

@@ -5,22 +5,27 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controllers/main_controller.dart';
 import '../../modules/message/message_model.dart';
 import '../../modules/message/message_type_model.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
-
+import 'package:get/get.dart';
 
 class MessageServices {
 
-  static final String apiUrl = baseUrl+'messages';
+  static MainController settingsCtrl = Get.put(MainController());
+
+  // static final String apiUrl = baseUrl+'actualites';
+  // static final String apiUrl = settingsCtrl.baseUrl+'messages';
 
   static getMessages() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
     var headers = await AuthService.getLoggedHeaders();
     try{
+      final apiUrl = settingsCtrl.baseUrl+'messages';
       var url = Uri.parse(apiUrl+'/$user_id');
       var response = await http.get(url, headers: headers);
       if(response.statusCode == 200){
@@ -44,7 +49,7 @@ class MessageServices {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
     try{
-      var url = Uri.parse(baseUrl+'my_messages_by_type/$type_id/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'my_messages_by_type/$type_id/$user_id');
       var response = await http.get(url, headers: headers);
       // print('msg by type response '+ response.body.toString());
       if(response.statusCode == 200){
@@ -69,7 +74,7 @@ class MessageServices {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
     try{
-      var url = Uri.parse(baseUrl+'all_messages/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'all_messages/$user_id');
       var response = await http.get(url, headers: headers);
       if(response.statusCode == 200){
         return Success(response: messageFromJson(response.body));
@@ -93,7 +98,7 @@ class MessageServices {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
     try{
-      var url = Uri.parse(baseUrl+'messages_by_type/$type_id/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'messages_by_type/$type_id/$user_id');
       var response = await http.get(url, headers: headers);
       // print('msg by type response '+ response.body.toString());
       if(response.statusCode == 200){
@@ -114,6 +119,7 @@ class MessageServices {
   }
 
   static getMessageById(String id) async {
+    final apiUrl = settingsCtrl.baseUrl+'messages';
     var headers = await AuthService.getLoggedHeaders();
     var url = Uri.parse(apiUrl+'/$id');
     final response = await http.get(url, headers: headers);
@@ -152,6 +158,7 @@ class MessageServices {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
     try{
+      final apiUrl = settingsCtrl.baseUrl+'messages';
       var url = Uri.parse(apiUrl);
       var request = http.MultipartRequest('POST', url);
       request.headers.addAll(headers);
@@ -202,6 +209,7 @@ class MessageServices {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
     try{
+      final apiUrl = settingsCtrl.baseUrl+'messages';
       var url = Uri.parse(apiUrl+'/$msg_id');
       var request = http.MultipartRequest('POST', url);
       request.headers.addAll(headers);
@@ -245,6 +253,7 @@ class MessageServices {
 
   static deleteMessage(id) async {
     try{
+      final apiUrl = settingsCtrl.baseUrl+'messages';
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse('$apiUrl/$id');
       var response = await http.delete(url, headers: headers);
@@ -275,7 +284,7 @@ class MessageServices {
     // data['user_id'] = user_id;
     try{
       // var body = jsonEncode(data);
-      var url = Uri.parse(baseUrl+'message_liked/$message_id/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'message_liked/$message_id/$user_id');
       var response = await http.post(url, headers: headers);
       print(response.body.toString());
       if (response.statusCode == 200) {
@@ -303,7 +312,7 @@ class MessageServices {
     var user_id = storage.getInt('user_id') ?? null;
     try{
       // var body = jsonEncode(data);
-      var url = Uri.parse(baseUrl+'message_unliked/$message_id/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'message_unliked/$message_id/$user_id');
       var response = await http.post(url, headers: headers);
       if (response.statusCode == 200) {
         // print(response.body.toString());

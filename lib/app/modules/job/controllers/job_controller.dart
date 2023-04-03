@@ -38,7 +38,7 @@ class JobController extends GetxController {
   }
 
   // GET ALL COMMERCE TYPES
-  void getJobTypes() async{
+  getJobTypes() async{
     try{
       isDataProcessing(true);
       final response = await JobServices.getJobtypes();
@@ -48,11 +48,11 @@ class JobController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -68,11 +68,11 @@ class JobController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL COMMERCE BY TYPE
@@ -87,11 +87,11 @@ class JobController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL COMMERCE BY NAME
@@ -106,11 +106,11 @@ class JobController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // SET SELECTED COMMERCE
@@ -122,16 +122,16 @@ class JobController extends GetxController {
     selectedType.value = type;
   }
   // REFRESH PAGE
-  void refresh(){
+  refreshData() async{
     if(searchTextController.text == ""){
       jobList.clear();
       jobTypesList.clear();
       clearFields();
       setSelectedType('');
-      getJobTypes();
-      getJobs(page);
+      await getJobTypes();
+      await getJobs(page);
     }else{
-      getJobsByName(searchTextController.text);
+      await getJobsByName(searchTextController.text);
     }
   }
 
@@ -203,11 +203,11 @@ class JobController extends GetxController {
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 

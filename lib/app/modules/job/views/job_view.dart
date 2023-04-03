@@ -28,8 +28,8 @@ class JobView extends GetView<JobController> {
         title:TextWidget(text: 'Jobs / Annonces',fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
         actions: [
           IconButton(
-              onPressed: (){
-                controller.refresh();
+              onPressed: () async{
+                await controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
           )
@@ -37,7 +37,7 @@ class JobView extends GetView<JobController> {
       ),
       body: RefreshIndicator(
         onRefresh: () async{
-        controller.refresh();
+         await controller.refreshData();
         },
         child: Column(
           children: [
@@ -74,7 +74,7 @@ class JobView extends GetView<JobController> {
                             if(val.length > 0){
                               controller.getJobsByName(val);
                             }else{
-                              controller.refresh();
+                              controller.refreshData();
                             }
                           },
                         ),
@@ -97,7 +97,7 @@ class JobView extends GetView<JobController> {
                                     controller.getJobsByType(type.nom.toString());
                                   }else{
                                     controller.setSelectedType('');
-                                    controller.refresh();
+                                    controller.refreshData();
                                   }
                                 },
                                 child: Chip(

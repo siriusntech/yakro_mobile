@@ -5,19 +5,25 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controllers/main_controller.dart';
 import '../../modules/discussion/discussion_model.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
-
+import 'package:get/get.dart';
 
 class DiscussionServices {
 
-  static final String apiUrl = baseUrl+'discussions';
+  static MainController settingsCtrl = Get.put(MainController());
+
+
+  // static final String apiUrl = baseUrl+'actualites';
+  // static final String apiUrl = settingsCtrl.baseUrl+'discussions';
 
   static Future<Object> getDiscussions(user_id) async {
     // print('request sendind...');
     try{
+      final apiUrl = settingsCtrl.baseUrl+'discussions';
       // SharedPreferences storage = await SharedPreferences.getInstance();
       // var user_id = storage.getInt('user_id') ?? null;
       var headers = await AuthService.getLoggedHeaders();
@@ -49,7 +55,7 @@ class DiscussionServices {
       // SharedPreferences storage = await SharedPreferences.getInstance();
       // var user_id = storage.getInt('user_id') ?? null;
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'discussions_all/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'discussions_all/$user_id');
       var response = await http.get(url, headers: headers);
       // print('response all discussions: '+jsonDecode(response.body).toString());
       if(response.statusCode == 200){
@@ -72,6 +78,7 @@ class DiscussionServices {
 
 
   static getDiscussionById(String id) async {
+    final apiUrl = settingsCtrl.baseUrl+'discussions';
     var headers = await AuthService.getLoggedHeaders();
     var url = Uri.parse(apiUrl+'/$id');
     final response = await http.get(url, headers: headers);
@@ -88,6 +95,7 @@ class DiscussionServices {
     // SharedPreferences storage = await SharedPreferences.getInstance();
     // var user_id = storage.getInt('user_id') ?? null;
     try{
+      final apiUrl = settingsCtrl.baseUrl+'discussions';
       var url = Uri.parse(apiUrl);
       var request = http.MultipartRequest('POST', url);
       request.headers.addAll(headers);
@@ -135,6 +143,7 @@ class DiscussionServices {
     // SharedPreferences storage = await SharedPreferences.getInstance();
     // var user_id = storage.getInt('user_id') ?? null;
     try{
+      final apiUrl = settingsCtrl.baseUrl+'discussions';
       var url = Uri.parse(apiUrl+'/$discussion_id');
       var request = http.MultipartRequest('POST', url);
       request.headers.addAll(headers);
@@ -173,9 +182,10 @@ class DiscussionServices {
 
   static deleteDiscussion(id) async {
     try{
+      final apiUrl = settingsCtrl.baseUrl+'discussions';
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse('$apiUrl/$id');
-      Response response = await http.delete(url, headers: headers);
+      var response = await http.delete(url, headers: headers);
       if (response.statusCode == 200) {
         return Success();
       } else {
@@ -199,7 +209,7 @@ class DiscussionServices {
     try{
       // SharedPreferences storage = await SharedPreferences.getInstance();
       // var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'discussion_liked/$user_id/$discussion_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'discussion_liked/$user_id/$discussion_id');
       var response = await http.post(url, headers: headers);
       // print("response like "+response.body.toString());
       // print("response like status "+response.statusCode.toString());
@@ -224,7 +234,7 @@ class DiscussionServices {
     try{
       // SharedPreferences storage = await SharedPreferences.getInstance();
       // var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'discussion_unliked/$user_id/$discussion_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'discussion_unliked/$user_id/$discussion_id');
       var response = await http.post(url, headers: headers);
       // print("response unlike "+response.body.toString());
       // print("response unlike status "+response.statusCode.toString());
@@ -248,7 +258,7 @@ class DiscussionServices {
       var headers = await AuthService.getLoggedHeaders();
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_discussions_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_discussions_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       if(response.statusCode == 200){
         return Success();

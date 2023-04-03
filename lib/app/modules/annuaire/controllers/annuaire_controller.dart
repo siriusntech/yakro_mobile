@@ -38,11 +38,11 @@ class AnnuaireController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -59,11 +59,11 @@ class AnnuaireController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -73,7 +73,7 @@ class AnnuaireController extends GetxController {
   }
 
   // GET ALL TYPES ANNUAIRES
-  void getTypesAnnuaire() async{
+  getTypesAnnuaire() async{
     try{
       isDataProcessing(true);
       final response = await TypeAnnuaireServices.getTypesAnnuaire();
@@ -84,11 +84,11 @@ class AnnuaireController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -97,11 +97,11 @@ class AnnuaireController extends GetxController {
   }
 
   // REFRESH PAGE
-  void refresh(){
+  refreshData() async{
     setSelectedTypeAnnuaire(null, '');
-    getTypesAnnuaire();
     annuaireList.clear();
-    getAnnuaires();
+    await getTypesAnnuaire();
+    await getAnnuaires();
   }
 
 final ButtonStyle buttonStyle = ButtonStyle(
@@ -166,7 +166,7 @@ final ButtonStyle buttonStyle = ButtonStyle(
   @override
   void onInit() {
     super.onInit();
-    refresh();
+    refreshData();
   }
 
   @override

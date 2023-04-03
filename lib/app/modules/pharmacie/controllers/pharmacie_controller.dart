@@ -27,7 +27,7 @@ class PharmacieController extends GetxController {
 
 
   // GET ALL ZONES
-  void getZones() async{
+  getZones() async{
     try{
       isDataProcessing(true);
       final response = await ZoneServices.getZones();
@@ -38,11 +38,11 @@ class PharmacieController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -60,11 +60,11 @@ class PharmacieController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL PHARMACIE BY NAME
@@ -79,11 +79,11 @@ class PharmacieController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL PHARMACIE BY Zone
@@ -98,11 +98,11 @@ class PharmacieController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // SET SELECTED PHARMACIE
@@ -119,11 +119,11 @@ class PharmacieController extends GetxController {
     selectedZoneName.value = zoneName;
   }
   // REFRESH PAGE
-  void refresh(){
+  refreshData() async{
     setSelectedZone(null, '');
-    getZones();
     pharmacieList.clear();
-    getPharmacies(page);
+    await getZones();
+    await getPharmacies(page);
   }
 
   void launchMap(String link){

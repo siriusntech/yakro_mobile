@@ -5,18 +5,24 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controllers/main_controller.dart';
 import '../../modules/diffusion/diffusion_model.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
-
+import 'package:get/get.dart';
 
 class DiffusionServices {
 
-  static final String apiUrl = baseUrl+'diffusions';
+  static MainController settingsCtrl = Get.put(MainController());
+
+
+  // static final String apiUrl = baseUrl+'actualites';
+  // static final String apiUrl = settingsCtrl.baseUrl+'diffusions';
 
   static Future<Object> getDiffusions() async {
     try{
+      final apiUrl = settingsCtrl.baseUrl+'diffusions';
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
       var headers = await AuthService.getLoggedHeaders();
@@ -46,7 +52,7 @@ class DiffusionServices {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'unread_diffusions'+'/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'unread_diffusions'+'/$user_id');
       var response = await http.get(url, headers: headers);
       // print('response unread: '+response.body.toString());
       if(response.statusCode == 200){
@@ -70,7 +76,7 @@ class DiffusionServices {
   static Future<Object> makeDiffusionAsRead(int diffusion_id) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'make_diffusion_as_read'+'/$diffusion_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_diffusion_as_read'+'/$diffusion_id');
       var response = await http.post(url, headers: headers);
       if(response.statusCode == 200){
         return Success();
@@ -92,9 +98,10 @@ class DiffusionServices {
 
   static deleteDiffusion(String id) async {
     try{
+      final apiUrl = settingsCtrl.baseUrl+'diffusions';
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse('$apiUrl/${int.parse(id)}');
-      Response response = await http.delete(url, headers: headers);
+      var response = await http.delete(url, headers: headers);
       if (response.statusCode == 200) {
         return Success();
       } else {

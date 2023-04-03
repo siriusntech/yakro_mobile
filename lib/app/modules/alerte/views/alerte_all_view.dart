@@ -94,8 +94,8 @@ class AlerteAllView extends GetView<AlerteController> {
         ),
         actions: [
           IconButton(
-              onPressed: (){
-                controller.refresh();
+              onPressed: () async{
+                await controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
           )
@@ -105,7 +105,7 @@ class AlerteAllView extends GetView<AlerteController> {
         padding: EdgeInsets.all(2.0),
         child: RefreshIndicator(
           onRefresh: () async {
-            controller.refresh();
+            await controller.refreshData();
           },
           child: Column(
             children: [
@@ -128,7 +128,7 @@ class AlerteAllView extends GetView<AlerteController> {
                                   controller.selectedTypeAlerteModel.value = type;
                                   controller.getAllAlertesByType();
                                 }else{
-                                  controller.refresh();
+                                  controller.refreshData();
                                 }
                               },
                               child: Chip(

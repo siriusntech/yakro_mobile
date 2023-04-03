@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_themes.dart';
 import 'package:jaime_cocody/extensions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/repository/auth_service.dart';
+import '../data/repository/data/api_status.dart';
+import '../modules/auth/user_model.dart';
+
 class MainController extends GetxController {
+
 
   Color appbarColor = Colors.orange;
   Color appbarColorFromCode = '#fc9003'.toColor();
@@ -18,8 +22,8 @@ class MainController extends GetxController {
   var isSettingProcessing = false.obs;
   var isCocody = false.obs;
 
-  var baseUrl = "";
-  var siteUrl = "";
+  var baseUrl = "https://sdcocody.siriusntech.digital/api/mobile/";
+  var siteUrl = "https://sdcocody.siriusntech.digital";
 
 
   setToCocody() async{
@@ -42,8 +46,11 @@ class MainController extends GetxController {
     // Get.changeTheme(AppThemes.cocodyTheme);
 
     isCocody(true);
+    await registerSwipeUser();
+
     Future.delayed(Duration(seconds: 3), (){
        isSettingProcessing(false);
+       // homeCtrl.onInit();
     });
   }
 
@@ -68,8 +75,12 @@ class MainController extends GetxController {
     // Get.changeTheme(AppThemes.plateauTheme);
 
     isCocody(false);
-    Future.delayed(Duration(seconds: 2), (){
+    await registerSwipeUser();
+
+
+    Future.delayed(Duration(seconds: 3), (){
       isSettingProcessing(false);
+      // homeCtrl.onInit();
     });
   }
 
@@ -79,21 +90,57 @@ class MainController extends GetxController {
 
     if(app_name != ''){
       if(app_name =="cocody"){
-        setToCocody();
+        await setToCocody();
+        // await MainServices.reloadAllData();
+        // Get.offNamed(AppRoutes.HOME);
       }else if(app_name =="plateau"){
-        setToPlateau();
+        await setToPlateau();
+        // await MainServices.reloadAllData();
+        // Get.offNamed(AppRoutes.HOME);
       }
     }else{
       setToCocody();
     }
   }
 
+  var userAuth = User();
+  setUser(User puser) async{
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    userAuth = puser;
+    storage.setString("pseudo", userAuth.pseudo.toString());
+    storage.setString("contact", userAuth.contact.toString());
+    storage.setString("token", userAuth.token.toString());
+    storage.setInt("user_id", userAuth.id!);
+    storage.commit();
+    // print('ps ID '+userAuth.id.toString());
+    // print('ps '+userAuth.pseudo.toString());
+    // print('ps token '+userAuth.token.toString());
+    // print('ps contact '+userAuth.contact.toString());
+  }
+  registerSwipeUser() async{
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    var userAuthPseudo = storage.getString("pseudo");
+    var userAuthContact = storage.getString("contact");
+    var currentBaseUrl = isCocody.value == true ? "https://sdcocody.siriusntech.digital/api/mobile/" : 'http://sdplateau.siriusntech.digital/api/mobile/' ;
+    // print('Coord: '+userAuthContact.toString()+' - '+userAuthPseudo.toString());
+    // print('Base Url: '+currentBaseUrl.toString());
+    try{
+      var data = {"pseudo": userAuthPseudo, "contact": userAuthContact};
+      var response = await AuthService.registerSwipeUser(data, currentBaseUrl);
+      if(response is Success){
+        setUser(response.response as User);
+      }
+      if(response is Failure){
+        // print("Erreur "+response.errorResponse.toString());
+      }
+    }catch(ex){
+      // print("Exception  "+ex.toString());
+    }
+  }
 
   @override
   void onInit() {
     super.onInit();
-
-
   }
 
   @override
@@ -103,4 +150,6 @@ class MainController extends GetxController {
 
   @override
   void onClose() {}
+
+
 }

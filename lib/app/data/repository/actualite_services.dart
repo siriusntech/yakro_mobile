@@ -4,23 +4,31 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controllers/main_controller.dart';
 import '../../modules/actualite/actualite_model.dart';
 import '../../modules/actualite/actualite_type_model.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
+import 'package:get/get.dart';
 
 class ActualiteServices {
 
-  static final String apiUrl = baseUrl+'actualites';
+  static MainController settingsCtrl = Get.put(MainController());
+
+  // static final String apiUrl = baseUrl+'actualites';
+  // static String apiUrl = settingsCtrl.baseUrl+'actualites';
 
   static Future<Object> getActualites() async {
+    // print('settings base url  '+settingsCtrl.baseUrl.toString());
     var headers = await AuthService.getLoggedHeaders();
     try{
+      final apiUrl = settingsCtrl.baseUrl+'actualites';
       var url = Uri.parse(apiUrl);
+      // print('actaulités url  '+url.toString());
       var response = await http.get(url, headers: headers);
       // print('actualites response status code '+ response.statusCode.toString());
-      // print('actualites response '+ response.body.toString());
+      // print('actualites response body '+ response.body.toString());
     if(response.statusCode == 200){
       return Success(response: actualiteFromJson(response.body));
     }
@@ -46,7 +54,7 @@ class ActualiteServices {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
     try{
-      var url = Uri.parse(baseUrl+'un_read_actualites/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'un_read_actualites/$user_id');
       var response = await http.get(url, headers: headers);
       // print('actualites response '+ response.body.toString());
       if(response.statusCode == 200){
@@ -73,6 +81,7 @@ class ActualiteServices {
     var headers = await AuthService.getLoggedHeaders();
     Actualite actualite = Actualite();
     try{
+      final apiUrl = settingsCtrl.baseUrl+'actualites';
       var url = Uri.parse(apiUrl+'/${int.parse(id)}');
       final response = await http.get(url, headers: headers);
       if(response.statusCode == 200){
@@ -98,7 +107,7 @@ class ActualiteServices {
   static Future<Object> getActualitesByType(type) async {
     var headers = await AuthService.getLoggedHeaders();
     try{
-      var url = Uri.parse(baseUrl+'actualites_by_type/$type');
+      var url = Uri.parse(settingsCtrl.baseUrl+'actualites_by_type/$type');
       var response = await http.get(url, headers: headers);
       if(response.statusCode == 200){
         return Success(response: actualiteFromJson(response.body));
@@ -123,7 +132,7 @@ class ActualiteServices {
   static Future<Object> getActualitesByWeek() async {
     var headers = await AuthService.getLoggedHeaders();
     try{
-      var url = Uri.parse(baseUrl+'actualites_by_week');
+      var url = Uri.parse(settingsCtrl.baseUrl+'actualites_by_week');
       var response = await http.get(url, headers: headers);
       if(response.statusCode == 200){
         return Success(response: actualiteFromJson(response.body));
@@ -148,7 +157,7 @@ class ActualiteServices {
   static getActualitetypes() async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+"actualites_types");
+      var url = Uri.parse(settingsCtrl.baseUrl+"actualites_types");
       var response =  await http.get(url, headers: headers);
 
       if(response.statusCode == 200){
@@ -175,7 +184,7 @@ class ActualiteServices {
       var headers = await AuthService.getLoggedHeaders();
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_actualites_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_actualites_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       if(response.statusCode == 200){
         return Success();

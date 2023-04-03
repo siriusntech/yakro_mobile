@@ -3,21 +3,34 @@ import 'dart:ffi';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:jaime_cocody/app/data/repository/actualite_services.dart';
+import 'package:jaime_cocody/app/data/repository/pharmacie_services.dart';
 import 'package:jaime_cocody/app/models/mise_a_jour_model.dart';
 import 'package:jaime_cocody/app/models/entreprise.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controllers/main_controller.dart';
+import '../../modules/commerce/commerce_services.dart';
+import '../../modules/job/job_services.dart';
+import 'alerte_services.dart';
+import 'annuaire_services.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
+import 'package:get/get.dart';
 
+import 'diffusion_services.dart';
 
 class MainServices {
 
-  static final String apiUrl = baseUrl+'entreprise_infos';
+  static MainController settingsCtrl = Get.put(MainController());
+
+  // static final String apiUrl = baseUrl+'actualites';
+  // static final String apiUrl = settingsCtrl.baseUrl+'entreprise_infos';
 
   static Future<Object> getInfos() async {
     try{
+      final apiUrl = settingsCtrl.baseUrl+'entreprise_infos';
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(apiUrl);
       var response =  await http.get(url, headers: headers);
@@ -46,7 +59,7 @@ class MainServices {
     // print("update user_id "+ user_id.toString());
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'check-mise-a-jour/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'check-mise-a-jour/$user_id');
       var response =  await http.get(url, headers: headers);
       // print('up response '+ response.body.toString());
       if(response.statusCode == 200){
@@ -72,7 +85,7 @@ class MainServices {
   static makeUpdate(user_id) async {
     var headers = await AuthService.getLoggedHeaders();
     try{
-      var url = Uri.parse(baseUrl+'make-mise-a-jour/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make-mise-a-jour/$user_id');
       var response = await http.post(url, headers: headers);
       // print("response unlike "+response.body.toString());
       // print("response unlike status "+response.statusCode.toString());
@@ -116,7 +129,7 @@ class MainServices {
   static Future<Object> addVisiteCount(module, user_id) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'add-visite-count/$module/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'add-visite-count/$module/$user_id');
       var response = await http.post(url, headers: headers);
       if(response.statusCode == 200){
         return Success();
@@ -137,7 +150,7 @@ class MainServices {
   static Future<Object> setUserCloudMessagingToken(user_id, token) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'set-user-cloud-messaging-token/$user_id/$token');
+      var url = Uri.parse(settingsCtrl.baseUrl+'set-user-cloud-messaging-token/$user_id/$token');
       var response = await http.post(url, headers: headers);
       if(response.statusCode == 200){
         return Success();
@@ -154,5 +167,15 @@ class MainServices {
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
     }
   }
+
+  // static Future<void> reloadAllData() async {
+  //    ActualiteServices.getActualites();
+  //    AlerteServices.getAlertes();
+  //    AnnuaireServices.getAnnuaires();
+  //    JobServices.getJobs();
+  //    CommerceServices.getCommerces();
+  //    PharmacieServices.getPharmacies();
+  //    DiffusionServices.getDiffusions();
+  // }
 
 }

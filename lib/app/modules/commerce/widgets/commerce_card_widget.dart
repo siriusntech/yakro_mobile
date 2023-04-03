@@ -16,7 +16,7 @@ class CommerceCardWidget extends StatelessWidget {
 
   CommerceCardWidget({required this.commerce, this.action});
 
-  final controller = Get.find<CommerceController>();
+  final CommerceController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

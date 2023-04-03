@@ -28,8 +28,8 @@ class DiffusionView extends GetView<DiffusionController> {
         ),
         actions: [
           IconButton(
-              onPressed: (){
-                controller.refresh();
+              onPressed: () async{
+                await controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
           )
@@ -37,7 +37,7 @@ class DiffusionView extends GetView<DiffusionController> {
       ),
       body: RefreshIndicator(
         onRefresh: () async{
-          controller.refresh();
+          await controller.refreshData();
         },
         child: Container(
           padding: EdgeInsets.all(2.0),

@@ -244,11 +244,11 @@ class AlerteController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -262,11 +262,11 @@ class AlerteController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -281,11 +281,11 @@ class AlerteController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -300,11 +300,11 @@ class AlerteController extends GetxController {
       }
       if(response is Failure){
         isAllDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isAllDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -319,11 +319,11 @@ class AlerteController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -335,16 +335,16 @@ class AlerteController extends GetxController {
         isProcessing(false);
         clearFields();
         removeFile();
-        refresh();
+        refreshData();
         Get.toNamed(AppRoutes.ALERTE);
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -374,16 +374,16 @@ class AlerteController extends GetxController {
         isProcessing(false);
         clearFields();
         removeFile();
-        refresh();
+        refreshData();
         Get.toNamed(AppRoutes.ALERTE);
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // DEL CONFIRLMATION
@@ -410,16 +410,16 @@ class AlerteController extends GetxController {
       final response = await AlerteServices.deleteAlerte(id);
       if(response is Success){
         isProcessing(false);
-        refresh();
+        refreshData();
         Get.toNamed(AppRoutes.ALERTE);
       }
       if(response is Failure){
         isProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -432,10 +432,10 @@ class AlerteController extends GetxController {
         manageLike(_alerte, alerte_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -464,10 +464,10 @@ class AlerteController extends GetxController {
         manageUnlike(_alerte, alerte_index);
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -497,10 +497,10 @@ class AlerteController extends GetxController {
         reponse?.like = reponse.like + 1;
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -517,10 +517,10 @@ class AlerteController extends GetxController {
         reponse?.un_like = reponse.un_like + 1;
       }
       if(response is Failure){
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
 
   }
@@ -553,15 +553,15 @@ class AlerteController extends GetxController {
   }
 
   // REFRESH PAGE
-  void refresh(){
+  refreshData() async{
     alerteList.clear();
     allAlerteList.clear();
     type_alertes_list.clear();
     selected_type_alerte.value = '';
     
-    getTypeAlertes();
-    getAlertes();
-    getAllAlertes();
+    await getTypeAlertes();
+    await getAlertes();
+    await getAllAlertes();
   }
 
   initFields() async{
@@ -595,22 +595,22 @@ class AlerteController extends GetxController {
     try{
       final response = await AlerteServices.makeAlertesAsRead();
       if(response is Success){
-        // refresh();
+        // refreshData();
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 
   @override
   void onInit() {
     super.onInit();
-    refresh();
+    refreshData();
     initFields();
 
     makeAlertesAsRead();

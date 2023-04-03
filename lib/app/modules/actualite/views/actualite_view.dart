@@ -30,7 +30,7 @@ class ActualiteView extends GetView<ActualiteController> {
         actions: [
           IconButton(
               onPressed: (){
-                controller.refresh();
+                controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
           )
@@ -38,7 +38,7 @@ class ActualiteView extends GetView<ActualiteController> {
       ),
       body: RefreshIndicator(
         onRefresh: () async{
-          controller.refresh();
+          controller.refreshData();
         },
         child: Column(
           children: [
@@ -62,7 +62,7 @@ class ActualiteView extends GetView<ActualiteController> {
                                     controller.getActualitesByType(type.nom.toString());
                                   }else{
                                     controller.setSelectedType('');
-                                    controller.refresh();
+                                    controller.refreshData();
                                   }
                                 },
                                 child: Chip(

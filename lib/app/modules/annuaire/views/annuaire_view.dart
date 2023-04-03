@@ -26,8 +26,8 @@ class AnnuaireView extends GetView<AnnuaireController> {
         backgroundColor: settingsCtrl.appbarColorFromCode,
         actions: [
           IconButton(
-              onPressed: (){
-                controller.refresh();
+              onPressed: () async{
+                await controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
           )
@@ -36,7 +36,7 @@ class AnnuaireView extends GetView<AnnuaireController> {
       body: Center(
         child: RefreshIndicator(
           onRefresh: () async {
-            controller.refresh();
+             await controller.refreshData();
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -61,7 +61,7 @@ class AnnuaireView extends GetView<AnnuaireController> {
                                       controller.getAnnuairesByType(type.id);
                                     }else{
                                       controller.setSelectedTypeAnnuaire(null, '');
-                                      controller.refresh();
+                                      controller.refreshData();
                                     }
                                   },
                                   child: Chip(

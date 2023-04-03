@@ -28,11 +28,11 @@ class DiffusionController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -43,9 +43,9 @@ class DiffusionController extends GetxController {
     makeDiffusionsAsRead(diffusion.id);
   }
   // REFRESH PAGE
-  void refresh(){
+  refreshData() async{
     diffusionList.clear();
-    getDiffusions(page);
+    await getDiffusions(page);
   }
 
   // SHOW SNACKBAR
@@ -63,18 +63,18 @@ class DiffusionController extends GetxController {
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
 
   @override
   void onInit() {
     super.onInit();
-    refresh();
+    refreshData();
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Utils/app_routes.dart';
+import '../../../controllers/main_controller.dart';
 import '../../auth/controllers/auth_controller.dart';
 
 class SplashController extends GetxController {
@@ -37,6 +38,7 @@ class SplashController extends GetxController {
   void onInit() {
     // print('token');
     super.onInit();
+    Get.put(MainController());
   }
 
   @override

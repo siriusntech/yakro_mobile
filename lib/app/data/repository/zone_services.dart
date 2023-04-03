@@ -2,20 +2,23 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import '../../controllers/main_controller.dart';
 import '../../models/zone_model.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
-
+import 'package:get/get.dart';
 
 class ZoneServices {
 
-  static final String apiUrl = baseUrl;
+  static MainController settingsCtrl = Get.put(MainController());
+
+  // static final String apiUrl = settingsCtrl.baseUrl;
 
   static getZones() async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(apiUrl+"m-get-zones");
+      var url = Uri.parse(settingsCtrl.baseUrl+"m-get-zones");
       var response =  await http.get(url, headers: headers);
       // print('response com type '+response.body.toString());
       if(response.statusCode == 200){

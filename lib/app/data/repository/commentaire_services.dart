@@ -5,17 +5,23 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controllers/main_controller.dart';
 import '../../modules/discussion/commentaire_model.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
-
+import 'package:get/get.dart';
 
 class CommentaireServices {
 
-  static final String apiUrl = baseUrl+'commentaires';
+  static MainController settingsCtrl = Get.put(MainController());
+
+
+  // static final String apiUrl = baseUrl+'actualites';
+  // static final String apiUrl = settingsCtrl.baseUrl+'commentaires';
 
   static Future<Object> getCommentaires() async {
+    final apiUrl = settingsCtrl.baseUrl+'commentaires';
     try{
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
@@ -46,7 +52,7 @@ class CommentaireServices {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'my_commentaires_by_type/$type_id/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'my_commentaires_by_type/$type_id/$user_id');
       var response = await http.get(url, headers: headers);
       // print('response by type: '+response.body.toString());
       if(response.statusCode == 200){
@@ -73,7 +79,7 @@ class CommentaireServices {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'commentaires_all/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'commentaires_all/$user_id');
       var response = await http.get(url, headers: headers);
       // print('response all commentaires: '+jsonDecode(response.body).toString());
       if(response.statusCode == 200){
@@ -99,7 +105,7 @@ class CommentaireServices {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'commentaires_all_by_type/$type_id/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'commentaires_all_by_type/$type_id/$user_id');
       var response = await http.get(url, headers: headers);
       // print('response by type: '+response.body.toString());
       if(response.statusCode == 200){
@@ -121,6 +127,7 @@ class CommentaireServices {
   }
 
   static getCommentaireById(String id) async {
+    final apiUrl = settingsCtrl.baseUrl+'commentaires';
     var headers = await AuthService.getLoggedHeaders();
     var url = Uri.parse(apiUrl+'/$id');
     final response = await http.get(url, headers: headers);
@@ -133,6 +140,7 @@ class CommentaireServices {
   }
 
   static createCommentaire(data, user_id) async {
+    final apiUrl = settingsCtrl.baseUrl+'commentaires';
     var headers = await AuthService.getLoggedHeaders();
     // SharedPreferences storage = await SharedPreferences.getInstance();
     // var user_id = storage.getInt('user_id') ?? null;
@@ -177,6 +185,7 @@ class CommentaireServices {
   }
 
   static updateCommentaire(commentaire_id, data, user_id) async {
+    final apiUrl = settingsCtrl.baseUrl+'commentaires';
     var headers = await AuthService.getLoggedHeaders();
     // SharedPreferences storage = await SharedPreferences.getInstance();
     // var user_id = storage.getInt('user_id') ?? null;
@@ -219,9 +228,10 @@ class CommentaireServices {
 
   static deleteCommentaire(id) async {
     try{
+      final apiUrl = settingsCtrl.baseUrl+'commentaires';
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse('$apiUrl/$id');
-      Response response = await http.delete(url, headers: headers);
+      var response = await http.delete(url, headers: headers);
       if (response.statusCode == 200) {
         return Success();
       } else {
@@ -244,7 +254,7 @@ class CommentaireServices {
     try{
       // SharedPreferences storage = await SharedPreferences.getInstance();
       // var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'commentaire_liked/$user_id/$commentaire_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'commentaire_liked/$user_id/$commentaire_id');
       var response = await http.post(url, headers: headers);
       // print("response like "+response.body.toString());
       // print("response like status "+response.statusCode.toString());
@@ -269,7 +279,7 @@ class CommentaireServices {
     try{
       // SharedPreferences storage = await SharedPreferences.getInstance();
       // var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'commentaire_unliked/$user_id/$commentaire_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'commentaire_unliked/$user_id/$commentaire_id');
       var response = await http.post(url, headers: headers);
       // print("response unlike "+response.body.toString());
       // print("response unlike status "+response.statusCode.toString());
@@ -295,7 +305,7 @@ class CommentaireServices {
     // SharedPreferences storage = await SharedPreferences.getInstance();
     // var user_id = storage.getInt('user_id') ?? null;
     try{
-      var url = Uri.parse(baseUrl+'commentaires_reponse');
+      var url = Uri.parse(settingsCtrl.baseUrl+'commentaires_reponse');
       var request = http.MultipartRequest('POST', url);
       request.headers.addAll(headers);
       request.fields['user_id'] = user_id.toString();
@@ -327,9 +337,9 @@ class CommentaireServices {
   static Future<Object> getReponses(comment_id, user_id) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(baseUrl+'/get_commentaire_reponses/$comment_id/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'/get_commentaire_reponses/$comment_id/$user_id');
       var response = await http.get(url, headers: headers);
-      print('reponses '+response.body.toString());
+      // print('reponses '+response.body.toString());
       if(response.statusCode == 200){
         return Success(response: commentaireFromJson(response.body));
       }

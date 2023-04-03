@@ -25,8 +25,8 @@ class HistoriqueView extends GetView<HistoriqueController> {
         backgroundColor: settingsCtrl.appbarColorFromCode,
         actions: [
           IconButton(
-              onPressed: (){
-                controller.refresh();
+              onPressed: () async{
+                await controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
           )
@@ -35,7 +35,7 @@ class HistoriqueView extends GetView<HistoriqueController> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async{
-            controller.refresh();
+            await controller.refreshData();
           },
           child: Obx((){
             if(controller.isDataProcessing.value == true){

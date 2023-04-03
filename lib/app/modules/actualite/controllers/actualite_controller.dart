@@ -20,7 +20,7 @@ class ActualiteController extends GetxController {
    final HomeController homeCtrl = Get.find();
 
   // GET ALL COMMERCE TYPES
-  void getActualiteTypes() async{
+  getActualiteTypes() async{
     try{
       isDataProcessing(true);
       final response = await ActualiteServices.getActualitetypes();
@@ -30,11 +30,11 @@ class ActualiteController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -49,11 +49,11 @@ class ActualiteController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
   // GET ALL COMMERCE BY TYPE
@@ -68,11 +68,11 @@ class ActualiteController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
-      showSnackBar("Exception", ex.toString(), Colors.red);
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -85,13 +85,15 @@ class ActualiteController extends GetxController {
     selectedType.value = type;
   }
   // REFRESH PAGE
-  void refresh(){
+   refreshData() async{
     actualiteList.clear();
     actualiteTypesList.clear();
     setSelectedType('');
-    getActualiteTypes();
-    getActualites(page);
+    await getActualiteTypes();
+    await getActualites(page);
   }
+
+
 
   // SHOW SNACKBAR
   showSnackBar(String title, String message, Color bgColor){
@@ -108,18 +110,20 @@ class ActualiteController extends GetxController {
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // showSnackBar("Erreur", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // showSnackBar("Exception", ex.toString(), Colors.red);
+      // print("Exception  "+ex.toString());
     }
   }
+
+
 
   @override
   void onInit() {
     super.onInit();
-    refresh();
+    refreshData();
 
     makeActualitesAsRead();
     homeCtrl.getUnReadItemsCounts();

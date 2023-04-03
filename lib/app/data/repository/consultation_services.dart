@@ -5,12 +5,16 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controllers/main_controller.dart';
 import '../../models/consultation.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
+import 'package:get/get.dart';
 
 class ConsultationServices {
+
+  static MainController settingsCtrl = Get.put(MainController());
 
 
   static Future<Object> getAllUnreadsCounts() async {
@@ -19,7 +23,7 @@ class ConsultationServices {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
 
-      var url = Uri.parse(baseUrl+'get_unreads/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'get_unreads/$user_id');
       var response =  await http.get(url, headers: headers);
       // print('unread response '+ response.body.toString());
       // print('code response '+ response.statusCode.toString());
@@ -47,7 +51,7 @@ class ConsultationServices {
     try{
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_agendas_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_agendas_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       // print("response like "+response.body.toString());
       // print("response like status "+response.statusCode.toString());
@@ -71,7 +75,7 @@ class ConsultationServices {
     try{
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_actualites_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_actualites_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       // print("response like "+response.body.toString());
       // print("response like status "+response.statusCode.toString());
@@ -95,7 +99,7 @@ class ConsultationServices {
     try{
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_commerces_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_commerces_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       // print("response like "+response.body.toString());
       // print("response like status "+response.statusCode.toString());
@@ -119,7 +123,7 @@ class ConsultationServices {
     try{
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_historiques_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_historiques_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       // print("response like "+response.body.toString());
       // print("response like status "+response.statusCode.toString());
@@ -143,7 +147,7 @@ class ConsultationServices {
     try{
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_discussions_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_discussions_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       // print("response like "+response.body.toString());
       // print("response like status "+response.statusCode.toString());
@@ -167,7 +171,7 @@ class ConsultationServices {
     try{
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(baseUrl+'make_alertes_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_alertes_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       // print("response like "+response.body.toString());
       // print("response like status "+response.statusCode.toString());
