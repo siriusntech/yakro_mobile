@@ -302,11 +302,13 @@ class AuthController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        print("Erreur "+response.errorResponse.toString());
+        showSnackBar("Echec d'authentification", response.errorResponse.toString(), Colors.red);
+        // print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       isProcessing(false);
-      print("Exception  "+ex.toString());
+      // print("Exception  "+ex.toString());
+      showSnackBar("Echec d'authentification", ex.toString(), Colors.red);
     }
   }
   confirm(Map data) async{
@@ -330,11 +332,13 @@ class AuthController extends GetxController {
       }
       if(response is Failure){
         isProcessing(false);
-        print("Erreur "+response.errorResponse.toString());
+        // print("Erreur "+response.errorResponse.toString());
+        showSnackBar("Echec de confirmation", response.errorResponse.toString(), Colors.red);
       }
     }catch(ex){
       isProcessing(false);
-      print("Exception  "+ex.toString());
+      // print("Exception  "+ex.toString());
+      showSnackBar("Echec d'authentification", ex.toString(), Colors.red);
     }
   }
 

@@ -1,11 +1,9 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_constantes.dart';
-import 'package:jaime_cocody/app/data/repository/data/Env.dart';
 import 'package:jaime_cocody/app/widgets/image_widget.dart';
 
 import '../../../Utils/default_image.dart';
+import '../../../controllers/main_controller.dart';
 import '../../../models/pharmacie_model.dart';
 import '../../../widgets/text_widget.dart';
 
@@ -15,6 +13,8 @@ class PharmacieCardWidget extends StatelessWidget {
   final VoidCallback? action;
 
   PharmacieCardWidget({this.pharmacie, this.action});
+
+  final MainController settingsCtrl = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class PharmacieCardWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextWidget(text: pharmacie!.nom, color: mainColor, fontSize: 14, fontWeight: FontWeight.bold, overFlow: TextOverflow.ellipsis),
+                      TextWidget(text: pharmacie!.nom, color: settingsCtrl.mainColor, fontSize: 14, fontWeight: FontWeight.bold, overFlow: TextOverflow.ellipsis),
                       TextWidget(text: pharmacie!.medecin, color: Colors.lightBlue, fontSize: 13, fontWeight: FontWeight.w600, overFlow: TextOverflow.ellipsis),
                       Row(
                           children: [
@@ -55,7 +55,7 @@ class PharmacieCardWidget extends StatelessWidget {
                           ]
                       ),
                       TextWidget(text: pharmacie!.adresse.toString(),
-                          color: mainColor, fontSize: 13, overFlow: TextOverflow.ellipsis,
+                          color: settingsCtrl.mainColor, fontSize: 13, overFlow: TextOverflow.ellipsis,
                       )
                     ],
                   ),
@@ -63,7 +63,7 @@ class PharmacieCardWidget extends StatelessWidget {
             ),
             Flexible(
                 flex: 1,
-                child: Icon(Icons.arrow_right_outlined, size: 50, color: mainColor,)
+                child: Icon(Icons.arrow_right_outlined, size: 50, color: settingsCtrl.mainColor,)
             )
           ],
         ),

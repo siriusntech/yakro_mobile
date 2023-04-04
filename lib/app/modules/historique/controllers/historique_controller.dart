@@ -1,11 +1,9 @@
 
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/historique_services.dart';
-import '../../../widgets/alerte_widgets.dart';
 import '../../home/controllers/home_controller.dart';
 import '../historique_model.dart';
 import '../information_model.dart';
@@ -49,7 +47,6 @@ class HistoriqueController extends GetxController {
   }
 
 
-
   setSelectedHistorique(Historique historique){
     selectedHistorique.value = historique;
     infosList.clear();
@@ -90,21 +87,22 @@ class HistoriqueController extends GetxController {
   }
 
 
-
   // MAKE ALL AS READS
   makeHistoriquesAsRead() async{
     try{
-      final response = await HistoriqueServices.makeHistoriquesAsRead();
+      SharedPreferences storage = await SharedPreferences.getInstance();
+      var user_id = storage.getInt('user_id');
+      final response = await HistoriqueServices.makeHistoriquesAsRead(user_id);
       if(response is Success){
         // refresh();
       }
       if(response is Failure){
         // isDataProcessing(false);
-        // print("Erreur "+response.errorResponse.toString());
+        print("Erreur "+response.errorResponse.toString());
       }
     }catch(ex){
       // isDataProcessing(false);
-      // print("Exception  "+ex.toString());
+      print("Exception  "+ex.toString());
     }
   }
 
@@ -131,6 +129,8 @@ class HistoriqueController extends GetxController {
     infosList.clear();
     // allHistoriqueList.clear();
     await getHistoriques();
+    await makeHistoriquesAsRead();
+    await homeCtrl.getUnReadItemsCounts();
     // getAllHistoriques();
   }
 
@@ -141,8 +141,6 @@ class HistoriqueController extends GetxController {
     super.onInit();
     refreshData();
 
-    makeHistoriquesAsRead();
-    homeCtrl.getUnReadItemsCounts();
   }
 
   @override

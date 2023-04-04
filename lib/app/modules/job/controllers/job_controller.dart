@@ -133,6 +133,8 @@ class JobController extends GetxController {
     }else{
       await getJobsByName(searchTextController.text);
     }
+    await makeJobsAsRead();
+    await homeCtrl.getUnReadItemsCounts();
   }
 
   Future<Null> showAlerte(phoneNumber) async{
@@ -216,11 +218,9 @@ class JobController extends GetxController {
   void onInit(){
     super.onInit();
     initFields();
-    getJobs(page);
-    getJobTypes();
-
-    makeJobsAsRead();
-    homeCtrl.getUnReadItemsCounts();
+    // getJobs(page);
+    // getJobTypes();
+    refreshData();
   }
   @override
   void onReady() {

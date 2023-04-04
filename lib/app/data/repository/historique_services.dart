@@ -223,11 +223,9 @@ class HistoriqueServices {
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
     }
   }
-  static Future<Object> makeHistoriquesAsRead() async {
+  static Future<Object> makeHistoriquesAsRead(user_id) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      SharedPreferences storage = await SharedPreferences.getInstance();
-      var user_id = storage.getInt('user_id') ?? null;
       // print('user id $user_id');
       var url = Uri.parse(settingsCtrl.baseUrl+'make_all_historiques_as_read/$user_id');
       var response = await http.post(url, headers: headers);

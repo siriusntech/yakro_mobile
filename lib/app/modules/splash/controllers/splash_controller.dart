@@ -9,6 +9,7 @@ class SplashController extends GetxController {
 
 
   final authCtrl = AuthController();
+  final MainController mainCtrl = Get.put(MainController());
 
   void navigateToHome() async{
     SharedPreferences storage = await SharedPreferences.getInstance();
@@ -33,12 +34,23 @@ class SplashController extends GetxController {
     }
   }
 
+  checkAppName() async{
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    // var app_name = storage.getString("app_name");
+    // if(app_name == null){
+    //   storage.setString("app_name", "cocody");
+    // }
+    print("splash main ctrl");
+    if(storage.getString("token") != null){
+       mainCtrl.checkAppName();
+    }
+  }
 
   @override
   void onInit() {
     // print('token');
     super.onInit();
-    Get.put(MainController());
+    // checkAppName();
   }
 
   @override

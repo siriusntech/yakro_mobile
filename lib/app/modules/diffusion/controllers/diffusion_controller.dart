@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/diffusion_services.dart';
@@ -14,7 +15,6 @@ class DiffusionController extends GetxController {
   var isDataProcessing = false.obs;
 
   final HomeController homeCtrl = Get.find();
-
 
 
   // GET ALL DIFFUSION
@@ -46,6 +46,7 @@ class DiffusionController extends GetxController {
   refreshData() async{
     diffusionList.clear();
     await getDiffusions(page);
+    await makeAllDiffusionsAsRead();
   }
 
   // SHOW SNACKBAR
@@ -68,6 +69,25 @@ class DiffusionController extends GetxController {
     }catch(ex){
       // isDataProcessing(false);
       // print("Exception  "+ex.toString());
+    }
+  }
+
+  // MAKE ALL AS READS
+  makeAllDiffusionsAsRead() async{
+    try{
+      SharedPreferences storage = await SharedPreferences.getInstance();
+      var user_id = storage.getInt("user_id");
+      final response = await DiffusionServices.makeAllDiffusionAsRead(user_id);
+      if(response is Success){
+        // refresh();
+      }
+      if(response is Failure){
+        // isDataProcessing(false);
+        print("Erreur "+response.errorResponse.toString());
+      }
+    }catch(ex){
+      // isDataProcessing(false);
+      print("Exception  "+ex.toString());
     }
   }
 

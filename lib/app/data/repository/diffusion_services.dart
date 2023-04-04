@@ -93,7 +93,28 @@ class DiffusionServices {
       // print('Erreur inconnue '+ e.toString());
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
     }
+  }
 
+  static Future<Object> makeAllDiffusionAsRead(user_id) async {
+    try{
+      var headers = await AuthService.getLoggedHeaders();
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_all_diffusions_as_read/$user_id');
+      var response = await http.post(url, headers: headers);
+      if(response.statusCode == 200){
+        return Success();
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
+    }
+    catch(e){
+      // print('Erreur inconnue '+ e.toString());
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
   }
 
   static deleteDiffusion(String id) async {

@@ -23,7 +23,7 @@ class PharmacieShowView extends GetView<PharmacieController> {
         title: Center(
           child: Obx(() => Text(controller.selectedPharmacie.value.nom.toString(),
             style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 12.0,
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),

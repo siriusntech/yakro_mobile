@@ -91,6 +91,7 @@ class ActualiteController extends GetxController {
     setSelectedType('');
     await getActualiteTypes();
     await getActualites(page);
+    await makeActualitesAsRead();
   }
 
 
@@ -125,7 +126,6 @@ class ActualiteController extends GetxController {
     super.onInit();
     refreshData();
 
-    makeActualitesAsRead();
     homeCtrl.getUnReadItemsCounts();
   }
 

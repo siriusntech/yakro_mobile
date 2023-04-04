@@ -145,7 +145,7 @@ class HomeView extends GetView<HomeController> {
                 ),
                 SizedBox(height: 5,),
                 Visibility(
-                    visible: mainCtrl.isCocody == true && controller.miseAJourModel.value.id != null && controller.miseAJourModel.value.etat == 0 && controller.showUpdateWidget.value == true,
+                    visible: mainCtrl.isCocody.value == true && controller.miseAJourModel.value.id != null && controller.miseAJourModel.value.etat == 0 && controller.showUpdateWidget.value == true,
                     child: Container(
                       margin: EdgeInsets.only(left: 15, right: 15),
                       child: Card(
@@ -160,11 +160,12 @@ class HomeView extends GetView<HomeController> {
                           ),
                           title: TextWidget(text: controller.miseAJourModel.value.titre, fontWeight: FontWeight.bold,),
                           subtitle: TextWidget(text: controller.miseAJourModel.value.description, fontSize: 15, fontWeight: FontWeight.w600,),
-                          onTap: () async{
-                            print(controller.miseAJourModel.value.lien);
+                          onTap: () {
+                            // print(controller.miseAJourModel.value.lien);
                             var link = controller.miseAJourModel.value.lien != "" ? controller.miseAJourModel.value.lien : "https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody" ;
                             launchUrl(Uri.parse(link!));
-                            await controller.makeUpdate();
+                            // await controller.makeUpdate();
+                            controller.makeUpdate();
                           },
                         ),
                       ),
@@ -225,8 +226,8 @@ class HomeView extends GetView<HomeController> {
                                 title: 'Actualités',icon: MENU_ACTUALITE, enabled: true,
                                 itemCount: controller.selectedItemsCounts.value.un_read_actualite_count,
                                 action: () async{
-                                  await actualite_ctrl.refreshData();
                                   Get.toNamed(AppRoutes.ACTUALITE);
+                                  actualite_ctrl.refreshData();
                                   if(await MainServices.checkUserIsExclude() == false){
                                     controller.addVisiteCount('actualite');
                                   }
@@ -240,8 +241,8 @@ class HomeView extends GetView<HomeController> {
                                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_commerce_count,
                                   action: () async{
                                     // controller.addCommerceVisiteCount();
-                                    await commerce_ctrl.refreshData();
                                     Get.toNamed(AppRoutes.COMMERCE);
+                                    commerce_ctrl.refreshData();
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('commerce');
                                     }
@@ -260,8 +261,8 @@ class HomeView extends GetView<HomeController> {
                                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
                                   action: () async{
                                     // controller.addJobVisiteCount();
-                                    await job_ctrl.refreshData();
                                     Get.toNamed(AppRoutes.JOB);
+                                    job_ctrl.refreshData();
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('job');
                                     }
@@ -274,9 +275,9 @@ class HomeView extends GetView<HomeController> {
                                 title: 'Culture',icon: MENU_HISTORIQUE,
                                 enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_sujet_count,
                                 action: () async{
-                                  await culture_ctrl.refreshData();
                                   // controller.addHistoriqueVisiteCount();
                                   Get.toNamed(AppRoutes.HISTORIQUE);
+                                  culture_ctrl.refreshData();
                                   if(await MainServices.checkUserIsExclude() == false){
                                     controller.addVisiteCount('culture');
                                   }
@@ -294,9 +295,9 @@ class HomeView extends GetView<HomeController> {
                                   title: 'Bons plans', icon: MENU_BON_PLAN,
                                   enabled: true, itemCount: controller.unReadDiffusionCount.value,
                                   action: () async{
-                                    await bon_plan_ctrl.refreshData();
                                     // controller.addDiffusionVisiteCount();
                                     Get.toNamed(AppRoutes.DIFFUSION);
+                                    bon_plan_ctrl.refreshData();
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('bon_plan');
                                     }
@@ -309,9 +310,9 @@ class HomeView extends GetView<HomeController> {
                                   title: 'Signaler un incident',icon: MENU_ALERTE,
                                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count,
                                   action: () async{
-                                    await alerte_ctrl.refreshData();
                                     // controller.addAlerteVisiteCount();
                                     Get.toNamed(AppRoutes.ALERTE);
+                                    alerte_ctrl.refreshData();
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('alerte');
                                     }
@@ -330,8 +331,8 @@ class HomeView extends GetView<HomeController> {
                                   enabled: true,
                                   action: () async{
                                     // controller.addAnnuaireVisiteCount();
-                                    await annuaire_ctrl.refreshData();
                                     Get.toNamed(AppRoutes.ANNUAIRE);
+                                    annuaire_ctrl.refreshData();
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('annuaire');
                                     }
@@ -344,9 +345,9 @@ class HomeView extends GetView<HomeController> {
                                   title: 'Pharmacie de garde', icon: MENU_PHARMACIE,
                                   enabled: true,
                                   action: () async{
-                                    await pharm_ctrl.refreshData();
                                     // controller.addPharmacieVisiteCount();
                                     Get.toNamed(AppRoutes.PHARMACIE);
+                                    pharm_ctrl.refreshData();
                                     if(await MainServices.checkUserIsExclude() == false){
                                       controller.addVisiteCount('pharmacie');
                                     }
@@ -390,15 +391,15 @@ class HomeView extends GetView<HomeController> {
           ),
           ListTile(
             title: TextWidget(
-              text: mainCtrl.isCocody == true ? "Mon Plateau" : "J'aime Cocody",
+              text: mainCtrl.isCocody.value == true ? "Mon Plateau" : "J'aime Cocody",
               fontSize: 15,
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic,
-              color: mainCtrl.isCocody == true ? Colors.deepOrange : Colors.lightBlue,
+              color: mainCtrl.isCocody.value== true ? Colors.deepOrange : Colors.lightBlue,
             ),
             tileColor: Get.currentRoute == '/home' ? Colors.grey[300] : null,
             onTap: () async{
-              await mainCtrl.isCocody == true ? mainCtrl.setToPlateau() : mainCtrl.setToCocody();
+              await mainCtrl.isCocody.value == true ? mainCtrl.setToPlateau() : mainCtrl.setToCocody();
               // Get.back();
               // Get.offNamed('/home');
             },

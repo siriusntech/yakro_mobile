@@ -132,6 +132,7 @@ class CommerceController extends GetxController {
     }else{
       await getCommercesByName(searchTextController.text);
     }
+    await makeCommercesAsRead();
   }
 
   refreshOnly() async{
@@ -226,7 +227,6 @@ class CommerceController extends GetxController {
     getCommerces(page);
     getCommerceTypes();
 
-    makeCommercesAsRead();
     homeCtrl.getUnReadItemsCounts();
   }
   @override

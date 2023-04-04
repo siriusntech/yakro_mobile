@@ -3,8 +3,9 @@ import 'package:flutter/painting.dart';
 
 
 import '../../../Utils/app_constantes.dart';
+import '../../../controllers/main_controller.dart';
 import '../controllers/splash_controller.dart';
-
+import 'package:get/get.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -16,10 +17,12 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
 
   final ctrl = SplashController();
+  // final main_ctrl = MainController();
 
   @override
   void initState() {
     super.initState();
+    // main_ctrl.checkAppName();
     ctrl.navigateToHome();
   }
 

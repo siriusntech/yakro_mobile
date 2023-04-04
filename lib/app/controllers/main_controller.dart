@@ -18,9 +18,9 @@ class MainController extends GetxController {
   Color menuColor = Colors.orange;
   Color chip_color = Color(0xFFeeeeee);
 
-  var app_logo = "".obs;
+  var app_logo = "assets/images/logo/logo.png".obs;
   var isSettingProcessing = false.obs;
-  var isCocody = false.obs;
+  var isCocody = true.obs;
 
   var baseUrl = "https://sdcocody.siriusntech.digital/api/mobile/";
   var siteUrl = "https://sdcocody.siriusntech.digital";
@@ -88,7 +88,7 @@ class MainController extends GetxController {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var app_name = storage.getString("app_name");
 
-    if(app_name != ''){
+    if(app_name != null && app_name != ''){
       if(app_name =="cocody"){
         await setToCocody();
         // await MainServices.reloadAllData();

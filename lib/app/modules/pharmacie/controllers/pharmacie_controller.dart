@@ -127,7 +127,7 @@ class PharmacieController extends GetxController {
   }
 
   void launchMap(String link){
-    launch(link);
+    launchUrl(Uri.parse(link));
   }
 
   Future<Null> showAlerte(phoneNumber) async{

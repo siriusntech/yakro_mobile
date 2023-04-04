@@ -562,6 +562,7 @@ class AlerteController extends GetxController {
     await getTypeAlertes();
     await getAlertes();
     await getAllAlertes();
+    await makeAlertesAsRead();
   }
 
   initFields() async{
@@ -613,7 +614,6 @@ class AlerteController extends GetxController {
     refreshData();
     initFields();
 
-    makeAlertesAsRead();
     homeCtrl.getUnReadItemsCounts();
   }
 
