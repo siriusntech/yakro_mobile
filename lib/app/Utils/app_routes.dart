@@ -38,4 +38,5 @@ class AppRoutes {
   static const ZOOM = '/zoom';
   static const JOB = '/job';
   static const SHOW_JOB = '/show_job';
+  static const TRAJET = '/trajet';
 }

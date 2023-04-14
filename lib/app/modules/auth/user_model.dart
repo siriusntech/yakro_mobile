@@ -8,7 +8,7 @@ String userToJson(List<User> data) => json.encode(List<dynamic>.from(data.map((x
 class User {
   int? id;
   int? code;
-  int? isActif;
+  int? is_actif;
   int? account_exist;
   String? token;
   String? nom;
@@ -20,7 +20,7 @@ class User {
   User(
       {this.id,
       this.code,
-      this.isActif,
+      this.is_actif,
       this.account_exist,
       this.token,
       this.nom,
@@ -32,7 +32,7 @@ class User {
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? null;
     code = json['code'] ?? null;
-    isActif = json['is_actif'] ?? 0;
+    is_actif = json['is_actif'] ?? 0;
     account_exist = json['account_exist'] ?? 0;
     token = json['token'] ?? null;
     nom = json['nom'] ?? null;
@@ -46,7 +46,7 @@ class User {
     final data = <String, dynamic>{};
     data['id'] = id;
     data['code'] = code;
-    data['is_actif'] = isActif;
+    data['is_actif'] = is_actif;
     data['account_exist'] = account_exist;
     data['token'] = token;
     data['nom'] = nom;

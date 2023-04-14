@@ -42,6 +42,7 @@ abstract class Routes {
   static const ZOOM = _Paths.ZOOM;
   static const JOB = _Paths.JOB;
   static const COCAN = _Paths.COCAN;
+  static const TRAJET = _Paths.TRAJET;
 }
 
 abstract class _Paths {
@@ -86,4 +87,5 @@ abstract class _Paths {
   static const JOB = '/job';
   static const SHOW_JOB = '/show_job';
   static const COCAN = '/cocan';
+  static const TRAJET = '/trajet';
 }

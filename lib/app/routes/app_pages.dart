@@ -56,6 +56,8 @@ import '../modules/pharmacie/views/pharmacie_show_view.dart';
 import '../modules/pharmacie/views/pharmacie_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/trajet/bindings/trajet_binding.dart';
+import '../modules/trajet/views/trajet_view.dart';
 import '../modules/zoom/bindings/zoom_binding.dart';
 import '../modules/zoom/views/zoom_view.dart';
 
@@ -260,6 +262,11 @@ class AppPages {
       name: _Paths.COCAN,
       page: () => CocanView(),
       binding: CocanBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRAJET,
+      page: () => TrajetView(),
+      binding: TrajetBinding(),
     ),
   ];
 }

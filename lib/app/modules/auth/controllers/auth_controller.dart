@@ -33,7 +33,7 @@ class AuthController extends GetxController {
   get getUserPrenom => prenom.value;
   get getUserEmail => email.value;
   get getUserContact => contact.value;
-  get getUserIsActif => is_actif.value;
+  get getUseris_actif => is_actif.value;
   get getUserCode => code.value;
 
   var  user = User().obs;
@@ -103,14 +103,14 @@ class AuthController extends GetxController {
       return false;
     }
   }
-  checkIsActif(pseudo) async{
+  checkis_actif(pseudo) async{
     await getUsers();
     var userIndex = -1;
     userIndex = usersList.indexWhere((element) => element.pseudo == pseudo);
     if(userIndex != -1){ // IF PSEUDO EXISTE
       final User user = usersList[userIndex];
       if(user.contact == txtContactController.text){
-        if(user.isActif == 1){
+        if(user.is_actif == 1){
           return true;
         }else{
           return false;
@@ -151,7 +151,7 @@ class AuthController extends GetxController {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setInt('user_id', user.value.id ?? 0);
     storage.setInt('code', user.value.code ?? 0);
-    storage.setInt('is_actif', user.value.isActif ?? 0);
+    storage.setInt('is_actif', user.value.is_actif ?? 0);
     storage.setString('token', user.value.token ?? '');
     storage.setString('nom', user.value.nom ?? '');
     storage.setString('prenom', user.value.prenom ?? '');
@@ -166,7 +166,7 @@ class AuthController extends GetxController {
     SharedPreferences storage = await SharedPreferences.getInstance();
     setUserId(storage.getInt('user_id'));
     setCode(storage.getInt('code'));
-    setIsActif(storage.getInt('is_actif'));
+    setis_actif(storage.getInt('is_actif'));
     setToken(storage.getString('token'));
     setNom(storage.getString('nom'));
     setPrenom(storage.getString('prenom'));
@@ -186,7 +186,7 @@ class AuthController extends GetxController {
   setCode(int? p_code){
     code.value = p_code != null ? p_code : 0;
   }
-  setIsActif(int? p_actif) async{
+  setis_actif(int? p_actif) async{
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setInt('is_actif', p_actif != null ? p_actif : 0);
     is_actif.value = p_actif != null ? p_actif : 0;
@@ -256,7 +256,7 @@ class AuthController extends GetxController {
         setPseudo(user.value.pseudo);
         setContact(user.value.contact);
         setCode(user.value.code);
-        setIsActif(user.value.isActif);
+        setis_actif(user.value.is_actif);
       }
       if(response is Failure){
         // print("Erreur "+response.errorResponse.toString());
@@ -273,13 +273,13 @@ class AuthController extends GetxController {
     isProcessing(true);
     try{
       var _pseudoExist = await checkPseudo();
-      var _isActif = await checkIsActif(txtPseudoController.text);
+      var _is_actif = await checkis_actif(txtPseudoController.text);
       if(_pseudoExist == true){
         isProcessing(false);
          showAlerte('Alerte', 'Désolé ce pseudo existe déjà');
          return;
       }
-      if(_isActif == false){
+      if(_is_actif == false){
         isProcessing(false);
         showAlerte('Compte désactivé', "Désolé votre compte est temporairement désactivé.");
         return;
@@ -292,7 +292,7 @@ class AuthController extends GetxController {
         setUserId(user.value.id);
         setContact(user.value.contact);
         setCode(user.value.code);
-        setIsActif(user.value.isActif);
+        setis_actif(user.value.is_actif);
         if(user.value.account_exist == 1){
           iniAuthInfo();
           Get.offNamed(AppRoutes.HOME);
@@ -323,7 +323,7 @@ class AuthController extends GetxController {
         setUserId(user.value.id);
         setContact(user.value.contact);
         setCode(user.value.code);
-        setIsActif(user.value.isActif);
+        setis_actif(user.value.is_actif);
         setPseudo(user.value.pseudo);
         setToken(user.value.token);
 

@@ -216,7 +216,7 @@ class HomeController extends GetxController {
     // print('cloud token '+storage.getString('cloud_messaging_token').toString());
     // print('user auth id '+user_id.toString());
     await isDataRefreshing(true);
-    await mainCtrl.isCocody.value == true ? checkIfAccountIsActif() : null;
+    await mainCtrl.isCocody.value == true ? checkIfAccountis_actif() : null;
 
     await getUnReadItemsCounts();
     await getUnReadDiffusionCount();
@@ -229,7 +229,7 @@ class HomeController extends GetxController {
     user_id = storage.getInt('user_id');
 
     await isDataRefreshing(true);
-    await mainCtrl.isCocody.value == true ? checkIfAccountIsActif() : null;
+    await mainCtrl.isCocody.value == true ? checkIfAccountis_actif() : null;
 
     await getUnReadItemsCounts();
     await getUnReadDiffusionCount();
@@ -267,7 +267,7 @@ class HomeController extends GetxController {
   }
 
   // CHECK USER ACCOUNT
-  checkIfAccountIsActif() async{
+  checkIfAccountis_actif() async{
     await auth_ctrl.loadAuthInfo();
     connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
@@ -275,7 +275,7 @@ class HomeController extends GetxController {
       await checkUpdate(auth_ctrl.getUserId);
       await getAuthUserInfo(auth_ctrl.getUserId);
 
-      if(auth_user.id == null || auth_user.id == 0 || auth_user.isActif == 0 || auth_user.isActif == null){
+      if(auth_user.id == null || auth_user.id == 0 || auth_user.is_actif == 0 || auth_user.is_actif == null){
         await resetUserInfo();
         Get.offNamed(AppRoutes.AUTH);
       }

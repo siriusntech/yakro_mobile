@@ -345,6 +345,39 @@ class HomeView extends GetView<HomeController> {
                                   title: 'Pharmacie de garde', icon: MENU_PHARMACIE,
                                   enabled: true,
                                   action: () async{
+                                    Get.toNamed(AppRoutes.PHARMACIE);
+                                    pharm_ctrl.refreshData();
+                                    if(await MainServices.checkUserIsExclude() == false){
+                                      controller.addVisiteCount('pharmacie');
+                                    }
+                                  }
+                              )
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  color: mainCtrl.menuColor,
+                                  title: 'Covoiturage', icon: MENU_COVOITURAGE,
+                                  enabled: true,
+                                  action: () async{
+                                    Get.toNamed(AppRoutes.TRAJET);
+                                    // annuaire_ctrl.refreshData();
+                                    // if(await MainServices.checkUserIsExclude() == false){
+                                    //   controller.addVisiteCount('annuaire');
+                                    // }
+                                  }
+                              )
+                          ),
+                          Flexible(
+                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  color: mainCtrl.menuColor,
+                                  title: 'Pharmacie de garde', icon: MENU_PHARMACIE,
+                                  enabled: false,
+                                  action: () async{
                                     // controller.addPharmacieVisiteCount();
                                     Get.toNamed(AppRoutes.PHARMACIE);
                                     pharm_ctrl.refreshData();
@@ -356,12 +389,6 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ],
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //
-                      //   ],
-                      // ),
                     ],
                   ),
                 )

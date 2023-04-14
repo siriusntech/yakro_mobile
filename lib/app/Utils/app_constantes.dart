@@ -51,6 +51,7 @@ const String MENU_INFORMATION = 'assets/images/menu-information.png';
 const String MENU_PHARMACIE = 'assets/images/menu-pharmacie.png';
 const String MENU_JOB = 'assets/images/menu-job.png';
 const String MENU_BON_PLAN = 'assets/images/menu-bon-plan.png';
+const String MENU_COVOITURAGE = 'assets/images/menu-covoiturage.png';
 
 //SLIDES
 const String SLIDE_STORE = 'assets/images/presentation/store.png';

@@ -121,6 +121,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: mainColor,
         fontFamily: 'Roboto',
+        appBarTheme: AppBarTheme(
+          foregroundColor: Colors.white,
+          elevation: 0,
+          toolbarTextStyle: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)
+        ),
+        tabBarTheme: TabBarTheme(
+            labelColor: Colors.white,
+            labelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)
+        )
       ),
       title: "J'aime Cocody",
       initialRoute: AppPages.INITIAL,

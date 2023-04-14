@@ -12,5 +12,7 @@ class AppIcons {
   static const String calendrier_foot = 'assets/images/calendrier-foot.png';
   static const String site_touristique = 'assets/images/site-touristique.png';
   static const String ambassade = 'assets/images/ambassade.png';
+  static const String depart = 'assets/images/depart.png';
+  static const String arriver = 'assets/images/arriver.png';
 
 }
