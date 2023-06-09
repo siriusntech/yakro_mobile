@@ -12,12 +12,13 @@ String conversationToJson(List<ConversationModel> data) => json.encode(List<dyna
 class ConversationModel{
    int? id;
    String? message;
+   String? date;
    TrajetModel? trajet;
    User? sender;
    User? receiver;
    int? is_read;
 
-   ConversationModel({this.id, this.message, this.trajet, this.sender, this.receiver, this.is_read});
+   ConversationModel({this.id, this.message, this.date, this.trajet, this.sender, this.receiver, this.is_read});
 
    ConversationModel.fromJson(Map<String, dynamic> json) {
        id = json["id"] ?? null;
@@ -26,6 +27,7 @@ class ConversationModel{
        sender = json["sender"] ?? null;
        receiver = json["receiver"] ?? null;
        is_read = json["is_read"] ?? null;
+       date = json["date"] ?? null;
    }
 
    Map<String, dynamic> toJson() {
@@ -36,6 +38,7 @@ class ConversationModel{
      data['sender'] = sender;
      data['receiver'] = receiver;
      data['is_read'] = is_read;
+     data['date'] = date;
      return data;
    }
 }

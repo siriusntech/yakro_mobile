@@ -1,5 +1,5 @@
 name: jaime_cocody
-version: 1.0.0+14
+version: 1.0.0+15
 publish_to: none
 description: App commune.
 environment: 
@@ -47,6 +47,12 @@ dependencies:
   get: 4.6.5
   flutter: 
     sdk: flutter
+  get_cli: ^0.2.30
+  dropdown_search: ^5.0.6
+  animated_text_kit: ^4.2.2
+  animations: ^2.0.7
+  fluttertoast: ^8.2.2
+  flutter_staggered_animations: ^1.1.1
 
 dev_dependencies: 
   flutter_lints: ^1.0.0
@@ -131,6 +137,13 @@ flutter:
     - assets/images/logo_plateau/logoblanc.png
     - assets/images/depart.png
     - assets/images/arriver.png
+    - assets/images/tam-tam.png
+    - assets/images/bg/yakro.jpg
+    - assets/images/restaurants.jpg
+    - assets/images/bar.jpg
+    - assets/images/hotel.jpg
+    - assets/images/restaurant.jpg
+    - assets/images/vt.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

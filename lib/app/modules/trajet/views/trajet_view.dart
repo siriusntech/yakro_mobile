@@ -36,7 +36,10 @@ class TrajetView extends GetView<TrajetController> {
                     var trajet = controller.trajetList[index];
                     return TrajetCardWidget(
                       trajet: trajet,
-                      action: (){
+                      actionReservation: (){
+
+                      },
+                      actionDetail: (){
 
                       },
                     );

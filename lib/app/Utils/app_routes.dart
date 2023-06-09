@@ -39,4 +39,8 @@ class AppRoutes {
   static const JOB = '/job';
   static const SHOW_JOB = '/show_job';
   static const TRAJET = '/trajet';
+  //Roland
+  static const RESTAURANT = '/restaurant';
+  static const MAQUIS = '/maquis';
+  static const HOTEL = 'hotels';
 }

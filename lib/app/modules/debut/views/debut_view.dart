@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'package:jaime_cocody/app/Utils/app_constantes.dart';
@@ -38,7 +37,7 @@ class DebutView extends GetView<DebutController> {
         child: Container(
           padding: EdgeInsets.only(bottom: 15),
           decoration: BoxDecoration(
-            color: AppColors.mainColor
+            color: AppColors.vert_colorFonce
           ),
           child: Column(
             children: [
@@ -82,7 +81,7 @@ class DebutView extends GetView<DebutController> {
                                      child: InkWell(
                                        onTap: () {
                                          pageController.animateToPage(index,
-                                             duration: const Duration(milliseconds: 300),
+                                             duration: const Duration(milliseconds: 250),
                                              curve: Curves.easeIn);
                                        },
                                        child: Obx(() => CircleAvatar(
@@ -90,7 +89,7 @@ class DebutView extends GetView<DebutController> {
                                          // check if a dot is connected to the current page
                                          // if true, give it a different color
                                          backgroundColor: controller.activePage.value == index
-                                             ? Colors.amber
+                                             ? Color(0xFFD3D3D3)
                                              : Colors.grey,
                                        )),
                                      ),
@@ -102,22 +101,66 @@ class DebutView extends GetView<DebutController> {
                      ),
                    )
                ),
+              // Expanded(
+              //     flex: 1,
+              //     child: SizedBox(
+              //       width: 160,
+              //       height: 40,
+              //       child: ElevatedButton(
+              //         style: ButtonStyle(
+              //           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+              //         ),
+              //         onPressed: (){
+              //           Get.offAllNamed(AppRoutes.AUTH);
+              //         },
+              //         child: TextWidget(text: 'Commencer >>', fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
+              //       ),
+              //     )
+              // ),
               Expanded(
                   flex: 1,
                   child: SizedBox(
                     width: 160,
                     height: 40,
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                      ),
-                      onPressed: (){
-                        Get.offAllNamed(AppRoutes.AUTH);
-                      },
-                      child: TextWidget(text: 'Commencer >>', fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
-                    ),
-                  )
-              ),
+  onPressed: () async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    int score = await Future.delayed(
+      const Duration(milliseconds: 1500),
+      () => 35,
+    );
+
+    Navigator.pop(context); // Fermer la boîte de dialogue
+
+    Get.offAllNamed(AppRoutes.AUTH);
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Color(0xFFA2B4AC),
+    foregroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(50),
+    ),
+    minimumSize: Size(200, 40),
+  ),
+  child: Text(
+    'Commencer >>',
+    style: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+),
+
+                   )
+                ),
             ],
           ),
         ),

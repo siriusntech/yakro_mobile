@@ -1,4 +1,3 @@
-
 // COLORS
 import 'package:flutter/material.dart';
 import '../../extensions.dart';
@@ -9,6 +8,9 @@ Color secondaryColorFromCode = '#66ff76'.toColor();
 MaterialColor mainColor = createMaterialColor('#fc9003'.toColor());
 const Color appbarTextColor = Colors.white;
 const Color menuColor = Colors.orange;
+
+//YAKRO
+MaterialColor mainColorYakro = createMaterialColor('#51624F'.toColor());
 
 // ICONS
 const String ICON_VOIRIE = 'assets/images/route.png';
@@ -37,7 +39,6 @@ const String FORMAT_INVALID = 'assets/images/';
 const String AUCUNE_DONNEE = 'assets/images/';
 const String REPONSE_INCONNUE = 'assets/images/';
 
-
 // MENU
 const String MENU_ACTUALITE = 'assets/images/menu-actualite.png';
 const String MENU_ALERTE = 'assets/images/menu-alerte.png';
@@ -46,12 +47,15 @@ const String MENU_COMMERCE = 'assets/images/menu-commerce.png';
 const String MENU_MESSAGE = 'assets/images/menu-message.png';
 const String MENU_NOTIFICATION = 'assets/images/menu-notification.png';
 const String MENU_DISCUSSION = 'assets/images/menu-discussion.png';
-const String MENU_HISTORIQUE = 'assets/images/menu-historique.png';
+const String MENU_HISTORIQUE = 'assets/images/tam-tam.png';
 const String MENU_INFORMATION = 'assets/images/menu-information.png';
 const String MENU_PHARMACIE = 'assets/images/menu-pharmacie.png';
 const String MENU_JOB = 'assets/images/menu-job.png';
 const String MENU_BON_PLAN = 'assets/images/menu-bon-plan.png';
-const String MENU_COVOITURAGE = 'assets/images/menu-covoiturage.png';
+const String BAR_MAQUIS = 'assets/images/bar.jpg';
+const String HOTEL = 'assets/images/hotel.jpg';
+const String RESTAURANT = 'assets/images/restaurant.jpg';
+const String VT = 'assets/images/vt.jpg';
 
 //SLIDES
 const String SLIDE_STORE = 'assets/images/presentation/store.png';
@@ -62,4 +66,4 @@ const String SLIDE_ALERTE = 'assets/images/presentation/alerte.png';
 const String SLIDE_PHARMACIE = 'assets/images/presentation/pharmacie.png';
 
 // BG
-const String BG_HOME = 'assets/images/bg/bg.jpg';
+const String BG_HOME = 'assets/images/bg/smart-city.jpg';

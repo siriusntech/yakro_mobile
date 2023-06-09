@@ -1,4 +1,4 @@
-class DefaultImage{
+class DefaultImage {
   static const String COMMERCE = 'assets/images/presentation/store.png';
   static const String JOB = 'assets/images/menu-job.png';
   static const String BON_PLAN = 'assets/images/menu-bon-plan.png';
@@ -12,5 +12,5 @@ class DefaultImage{
   static const String DIFFUSION = 'assets/images/diffusion.png';
   static const String LOGO = 'assets/images/logo/logo.png';
 
-  static const String HOME_BG = 'assets/images/bg/bg.jpg';
+  static const String HOME_BG = 'assets/images/bg/yakro.jpg';
 }

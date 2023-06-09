@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+import '../../../models/reservation_model.dart';
 import '../../../models/trajet_model.dart';
 
 class TrajetController extends GetxController with GetSingleTickerProviderStateMixin {
 
   var trajetList = List<TrajetModel>.empty(growable: true).obs;
+  var mesTrajetList = List<TrajetModel>.empty(growable: true).obs;
+  var mesReservationList = List<ReservationModel>.empty(growable: true).obs;
+
+  var selectedTrajet = TrajetModel().obs;
+  var selectedReservation = ReservationModel().obs;
+
+  var user_id = 0.obs;
 
   final List<Tab> myTabs = const <Tab>[
     Tab(
@@ -35,6 +44,8 @@ class TrajetController extends GetxController with GetSingleTickerProviderStateM
         point_rassemblement: 'Cocody',
         prix_place: 700,
         statut: 0,
+        date: '08-04-2023',
+        is_reserved: 0,
       ),
       new TrajetModel(
         id: 2,
@@ -46,7 +57,9 @@ class TrajetController extends GetxController with GetSingleTickerProviderStateM
         place_reserver: 1,
         point_rassemblement: 'Cocody',
         prix_place: 400,
-        statut: 0,
+        statut: 1,
+        date: '06-04-2023',
+        is_reserved: 1,
       ),
       new TrajetModel(
         id: 3,
@@ -59,10 +72,16 @@ class TrajetController extends GetxController with GetSingleTickerProviderStateM
         point_rassemblement: 'Cocody',
         prix_place: 500,
         statut: 0,
+        date: '10-04-2023',
+        is_reserved: 0,
       ),
     ];
 
     trajetList.addAll(trajets);
+  }
+
+  int setPlaceDisponible(TrajetModel trajet){
+    return trajet.nombre_place! - trajet.place_reserver!;
   }
 
   @override

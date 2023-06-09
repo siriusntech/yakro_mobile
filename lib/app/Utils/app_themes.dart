@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:jaime_cocody/app/Utils/app_colors.dart';
 
@@ -7,12 +5,14 @@ class AppThemes {
   static final ThemeData cocodyTheme = ThemeData(
     primarySwatch: AppColors.mainColor,
     textSelectionTheme: TextSelectionThemeData(
-      selectionColor: Colors.grey,
-      cursorColor: Colors.deepOrange,
-      selectionHandleColor: Colors.deepOrangeAccent,
+        selectionColor: Colors.grey,
+        cursorColor: AppColors.vert_color,
+        selectionHandleColor: AppColors.vert_color),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.vert_color_fonce,
+      focusColor: AppColors.vert_color,
+      splashColor: AppColors.vert_color_fonce,
     ),
-    floatingActionButtonTheme:
-    FloatingActionButtonThemeData (backgroundColor: Colors.orange,focusColor: Colors.orangeAccent , splashColor: Colors.orange),
   );
 
   static final ThemeData plateauTheme = ThemeData(
@@ -22,8 +22,23 @@ class AppThemes {
       cursorColor: Colors.blueAccent,
       selectionHandleColor: Colors.lightBlueAccent,
     ),
-    floatingActionButtonTheme:
-    FloatingActionButtonThemeData (backgroundColor: Colors.blue,focusColor: Colors.blueAccent , splashColor: Colors.blue),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: Colors.blue,
+        focusColor: Colors.blueAccent,
+        splashColor: Colors.blue),
   );
 
+//Yakro
+  static final ThemeData yakroTheme = ThemeData(
+    primarySwatch: AppColors.mainColor,
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: Colors.blueGrey,
+      cursorColor: Colors.blueAccent,
+      selectionHandleColor: Colors.lightBlueAccent,
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: Colors.blue,
+        focusColor: Colors.blueAccent,
+        splashColor: Colors.blue),
+  );
 }

@@ -43,6 +43,11 @@ abstract class Routes {
   static const JOB = _Paths.JOB;
   static const COCAN = _Paths.COCAN;
   static const TRAJET = _Paths.TRAJET;
+  static const HOTEL = _Paths.HOTEL;
+  static const RESTAURANT = _Paths.RESTAURANT;
+  static const BARS_MAQUIS = _Paths.BARS_MAQUIS;
+  static const WIDGET_SPLASH_SCREEN = _Paths.WIDGET_SPLASH_SCREEN;
+
 }
 
 abstract class _Paths {
@@ -88,4 +93,10 @@ abstract class _Paths {
   static const SHOW_JOB = '/show_job';
   static const COCAN = '/cocan';
   static const TRAJET = '/trajet';
+
+  static const HOTEL = '/hotel';
+  static const RESTAURANT = '/restaurant';
+  static const BARS_MAQUIS = '/bars-maquis';
+  static const WIDGET_SPLASH_SCREEN = '/widget-splash-screen';
+
 }

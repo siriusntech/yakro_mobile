@@ -11,22 +11,28 @@ String reservationToJson(List<ReservationModel> data) => json.encode(List<dynami
 
 class ReservationModel{
    int? id;
+   int? nombre_place;
    User? user;
    TrajetModel? trajet;
+   String? date;
 
-   ReservationModel({this.id, this.user, this.trajet});
+   ReservationModel({this.id, this.user, this.date, this.trajet, this.nombre_place});
 
    ReservationModel.fromJson(Map<String, dynamic> json) {
        id = json["id"] ?? null;
+       nombre_place = json["nombre_place"] ?? null;
        user = json["user"] ?? null;
        trajet = json["trajet"] ?? null;
+       date = json["date"] ?? null;
    }
 
    Map<String, dynamic> toJson() {
      final data = <String, dynamic>{};
      data['id'] = id;
+     data['nombre_place'] = nombre_place;
      data['user'] = user;
      data['trajet'] = trajet;
+     data['date'] = date;
      return data;
    }
 }

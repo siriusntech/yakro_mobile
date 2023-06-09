@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jaime_cocody/app/Utils/app_routes.dart';
 
@@ -72,7 +73,7 @@ class AuthController extends GetxController {
   var isChecked = false.obs;
 
   Color getColor() {
-    return isChecked.value == true ? Colors.blue : Colors.red;
+    return isChecked.value == true ? AppColors.vert_color_fonce : AppColors.rouge_doux;
   }
 
   accepteConditions(bool cond){

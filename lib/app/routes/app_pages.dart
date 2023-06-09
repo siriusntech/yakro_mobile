@@ -20,6 +20,8 @@ import '../modules/apropos/views/apropos_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/auth/views/condition_view.dart';
+import '../modules/barsMaquis/bindings/bars_maquis_binding.dart';
+import '../modules/barsMaquis/views/bars_maquis_view.dart';
 import '../modules/cocan/bindings/cocan_binding.dart';
 import '../modules/cocan/views/cocan_view.dart';
 import '../modules/commerce/bindings/commerce_binding.dart';
@@ -39,6 +41,8 @@ import '../modules/historique/views/historique_view.dart';
 import '../modules/historique/views/information_show.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/hotel/bindings/hotel_binding.dart';
+import '../modules/hotel/views/hotel_view.dart';
 import '../modules/job/bindings/job_binding.dart';
 import '../modules/job/views/job_show_view.dart';
 import '../modules/job/views/job_view.dart';
@@ -54,10 +58,15 @@ import '../modules/nouscontactez/views/nouscontactez_view.dart';
 import '../modules/pharmacie/bindings/pharmacie_binding.dart';
 import '../modules/pharmacie/views/pharmacie_show_view.dart';
 import '../modules/pharmacie/views/pharmacie_view.dart';
+import '../modules/restaurant/bindings/restaurant_binding.dart';
+import '../modules/restaurant/views/restaurant_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/trajet/bindings/trajet_binding.dart';
 import '../modules/trajet/views/trajet_view.dart';
+
+import '../modules/widget_splashScreen/bindings/widget_splash_screen_binding.dart';
+import '../modules/widget_splashScreen/views/widget_splash_screen_view.dart';
 import '../modules/zoom/bindings/zoom_binding.dart';
 import '../modules/zoom/views/zoom_view.dart';
 
@@ -66,7 +75,8 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  // static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.WIDGET_SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
@@ -267,6 +277,41 @@ class AppPages {
       name: _Paths.TRAJET,
       page: () => TrajetView(),
       binding: TrajetBinding(),
+    ),
+    //roland kekre
+    GetPage(
+      name: _Paths.HOTEL,
+      page: () => const HotelView(),
+      binding: HotelBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESTAURANT,
+      page: () => const RestaurantView(),
+      binding: RestaurantBinding(),
+    ),
+    GetPage(
+      name: _Paths.BARS_MAQUIS,
+      page: () => const BarsMaquisView(),
+      binding: BarsMaquisBinding(),
+      children: [
+        GetPage(
+          name: _Paths.BARS_MAQUIS,
+          page: () => const BarsMaquisView(),
+          binding: BarsMaquisBinding(),
+        ),
+      ],
+    ),
+    GetPage(
+      name: _Paths.WIDGET_SPLASH_SCREEN,
+      page: () => WidgetSplashScreenView(),
+      binding: WidgetSplashScreenBinding(),
+      children: [
+        GetPage(
+          name: _Paths.WIDGET_SPLASH_SCREEN,
+          page: () =>  WidgetSplashScreenView(),
+          binding: WidgetSplashScreenBinding(),
+        ),
+      ],
     ),
   ];
 }

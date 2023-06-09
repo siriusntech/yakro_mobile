@@ -33,10 +33,10 @@ class _SplashViewState extends State<SplashView> {
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          color: mainColor,
+          color: mainColorYakro,
           child: Center(
             child: CircleAvatar(
-              backgroundColor: mainColor,
+              backgroundColor: mainColorYakro,
               radius: 135,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +44,7 @@ class _SplashViewState extends State<SplashView> {
                   Container(
                     width: double.infinity,
                     height: 230,
-                    child: Image.asset(LOGO_BLANC, fit: BoxFit.contain,),
+                    child: Image.asset(LOGO_BLANC, fit: BoxFit.contain),
                   ),
                 ],
               ),

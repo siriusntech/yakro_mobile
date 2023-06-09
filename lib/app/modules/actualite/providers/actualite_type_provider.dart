@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../actualite_type_model.dart';
 
 class ActualiteTypeProvider extends GetConnect {

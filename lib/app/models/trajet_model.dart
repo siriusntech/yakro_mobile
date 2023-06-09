@@ -17,10 +17,12 @@ class TrajetModel{
    String? date_depart;
    String? heure_depart;
    String? point_rassemblement;
+   String? date;
    int? nombre_place;
    int? place_reserver;
    int? prix_place;
    int? statut;
+   int? is_reserved;
    User? user;
    List<ConversationModel>? conversations;
    List<ReservationModel>? reservations;
@@ -36,9 +38,11 @@ class TrajetModel{
      this.place_reserver,
      this.prix_place,
      this.statut,
+     this.is_reserved,
      this.user,
      this.reservations,
      this.conversations,
+     this.date,
    });
 
    TrajetModel.fromJson(Map<String, dynamic> json) {
@@ -52,7 +56,9 @@ class TrajetModel{
        place_reserver = json["place_reserver"] ?? null;
        prix_place = json["prix_place"] ?? null;
        statut = json["statut"] ?? null;
+       is_reserved = json["is_reserved"] ?? null;
        user = json["user"] ?? null;
+       date = json["date"] ?? null;
        if (json['reservations'] != null) {
          reservations = <ReservationModel>[];
          json['reservations'].forEach((v) {
@@ -80,6 +86,8 @@ class TrajetModel{
      data['prix_place'] = prix_place;
      data['statut'] = statut;
      data['user'] = user;
+     data['is_reserved'] = is_reserved;
+     data['date'] = date;
      if (reservations != null) {
        data['reservations'] = reservations?.map((v) => v.toJson()).toList();
      }
