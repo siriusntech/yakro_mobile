@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../controllers/main_controller.dart';
 import '../../modules/actualite/actualite_model.dart';
 import '../../modules/actualite/actualite_type_model.dart';
@@ -46,8 +44,8 @@ class ActualiteServices {
     catch(e){
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
     }
-
   }
+
 
   static Future<Object> getUnReadActualites() async {
     var headers = await AuthService.getLoggedHeaders();

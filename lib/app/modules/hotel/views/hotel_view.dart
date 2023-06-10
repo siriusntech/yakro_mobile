@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/Utils/app_colors.dart';
+import 'package:jaime_cocody/app/data/repository/data/Env.dart';
 
 import '../controllers/hotel_controller.dart';
+import 'detail_hotel_view.dart';
 
 class HotelView extends GetView<HotelController> {
   const HotelView({Key? key}) : super(key: key);
@@ -17,53 +19,49 @@ class HotelView extends GetView<HotelController> {
         centerTitle: true,
       ),
       body: Obx(() {
-        if (hotelController.isLoading.value) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return ListView.builder(
-            itemCount: hotelController.hotelList.length,
-            itemBuilder: (context, index) {
-              final hotelData = hotelController.hotelList[index];
-
-
-              return Column(
-                children: <Widget>[
-                  Row(
+        return hotelController.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                padding: EdgeInsets.all(10),
+                itemCount: hotelController.hotelList.length,
+                itemBuilder: (context, index) {
+                  final hotelData = hotelController.hotelList[index];
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 120,
-                        height: 80,
-                        margin: EdgeInsets.fromLTRB(16, 8.0, 8.0, 8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          // child: Image.network(
-                          //   hotelData.NomHotel ?? '',
-                          //   width: 120,
-                          //   height: 80,
-                          //   fit: BoxFit.fill,
-                          //   color: AppColors.vert_colorFonce,
-                          //   colorBlendMode: BlendMode.color,
-                          // ),
+                      ListTile(
+                        onTap: () {
+                          Get.to(DetailHotelView(
+                            data: hotelData,
+                          ));
+                        },
+                        title: Text(
+                          hotelData.nomHotel!,
+                          style: TextStyle(color: Colors.black),
                         ),
-                      ),
-                      Flexible(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Text(hotelData.nomHotel ?? 'No Name'),
-                          ],
+                        trailing: Icon(Icons.arrow_right),
+                        subtitle: Text(
+                          hotelData.description!,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        leading: Container(
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "https://www.parisinfo.com/var/otcp/sites/images/media/1.-photos/03.-hebergement-630-x-405/hotel-enseigne-neon-630x405-c-thinkstock/31513-1-fre-FR/Hotel-enseigne-neon-630x405-C-Thinkstock.jpg"),
+                                  fit: BoxFit.cover)),
                         ),
                       ),
                     ],
-                  ),
-                ],
+                  );
+                },
               );
-            },
-          );
-        }
       }),
     );
   }

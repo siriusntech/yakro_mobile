@@ -25,7 +25,7 @@ class HotelServices {
        print('Hotels response status code '+ response.statusCode.toString());
        print('Hotels response body '+ response.body.toString());
       if (response.statusCode == 200) {
-        return Success(response: HotelModel.fromJson(jsonDecode(response.body)));
+        return Success(response: HotelModel.fromJson(jsonDecode(response.body)).data);
       }
       return Failure(
           code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');

@@ -10,7 +10,7 @@ String hotelModelToJson(HotelModel data) => json.encode(data.toJson());
 
 class HotelModel {
   bool? success;
-  List<Datum>? data;
+  List<DataHotelModel>? data;
   dynamic message;
 
   HotelModel({
@@ -21,7 +21,7 @@ class HotelModel {
 
   factory HotelModel.fromJson(Map<String, dynamic> json) => HotelModel(
     success: json["success"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<DataHotelModel>.from(json["data"].map((x) => DataHotelModel.fromJson(x))),
     message: json["message"],
   );
 
@@ -32,7 +32,7 @@ class HotelModel {
   };
 }
 
-class Datum {
+class DataHotelModel {
   int? id;
   String? nomHotel;
   String? typeQuartierId;
@@ -43,7 +43,7 @@ class Datum {
   String? imageUrl;
   List<Media>? medias;
 
-  Datum({
+  DataHotelModel({
     this.id,
     this.nomHotel,
     this.typeQuartierId,
@@ -55,7 +55,7 @@ class Datum {
     this.medias,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DataHotelModel.fromJson(Map<String, dynamic> json) => DataHotelModel(
     id: json["id"],
     nomHotel: json["nom_hotel"],
     typeQuartierId: json["type_quartier_id"],
