@@ -268,8 +268,7 @@ class HomeView extends GetView<HomeController> {
                                                 if (await MainServices
                                                         .checkUserIsExclude() ==
                                                     false) {
-                                                  controller
-                                                      .addVisiteCount('annuaire');
+                                                  controller.addVisiteCount('annuaire');
                                                 }
                                               })),
                                                 
@@ -306,7 +305,7 @@ class HomeView extends GetView<HomeController> {
                                               icon: VT,
                                               enabled: true,
                                               action: () async {
-                                                Get.toNamed(Routes.HOTEL);
+                                                Get.toNamed(Routes.SITETOURISTIQUES);
                                                 // annuaire_ctrl.refreshData();
                                                 // if(await MainServices.checkUserIsExclude() == false){
                                                 //   controller.addVisiteCount('annuaire');

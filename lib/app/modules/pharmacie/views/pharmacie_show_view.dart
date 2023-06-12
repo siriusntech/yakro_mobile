@@ -19,17 +19,30 @@ class PharmacieShowView extends GetView<PharmacieController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
         title: Center(
           child: Obx(() => Text(controller.selectedPharmacie.value.nom.toString(),
             style: TextStyle(
-              fontSize: 12.0,
+              fontSize: 16.0,
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           )),
-        ),
+        ), leading: IconButton(
+        onPressed: () {
+          Get.back();
+        },
+        icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
+      ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await controller.refreshData();
+            },
+            icon: Icon(Icons.refresh, color: Colors.white, size: 30),
+          )
+        ],
       ),
       body: Center(
         child: Padding(
@@ -51,7 +64,7 @@ class PharmacieShowView extends GetView<PharmacieController> {
                 )
               ),
               SizedBox(height: 10,),
-              TextWidget(text: controller.selectedPharmacie.value.medecin, fontSize: 18, alignement: TextAlign.center, fontWeight: FontWeight.w600, color: mainColor,),
+              TextWidget(text: controller.selectedPharmacie.value.medecin, fontSize: 19, alignement: TextAlign.center, fontWeight: FontWeight.w600, color: mainColorYakro,),
               SizedBox(height: 10,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

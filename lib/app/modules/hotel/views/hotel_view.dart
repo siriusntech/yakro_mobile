@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/Utils/app_colors.dart';
-import 'package:jaime_cocody/app/data/repository/data/Env.dart';
-
+import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import '../../../controllers/main_controller.dart';
 import '../controllers/hotel_controller.dart';
 import 'detail_hotel_view.dart';
 
@@ -12,12 +12,29 @@ class HotelView extends GetView<HotelController> {
   @override
   Widget build(BuildContext context) {
     HotelController hotelController = Get.put(HotelController());
-
+    final MainController settingsCtrl = Get.find();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HotelView'),
-        centerTitle: true,
+       appBar: AppBar(
+      automaticallyImplyLeading: false,
+      centerTitle: true,
+      elevation: 0.0,
+      backgroundColor: settingsCtrl.vert_color_fonce,
+      title: TextWidget(text: 'Hotels', fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+      leading: IconButton(
+        onPressed: () {
+          Get.back();
+        },
+        icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
       ),
+      actions: [
+        IconButton(
+          onPressed: () async {
+            await controller.refreshData();
+          },
+          icon: Icon(Icons.refresh, color: Colors.white, size: 30),
+        )
+      ],
+    ),
       body: Obx(() {
         return hotelController.isLoading.value
             ? Center(
@@ -38,9 +55,10 @@ class HotelView extends GetView<HotelController> {
                             data: hotelData,
                           ));
                         },
-                        title: Text(
-                          hotelData.nomHotel!,
-                          style: TextStyle(color: Colors.black),
+                        title: TextWidget(
+                          text: hotelData.nomHotel!,
+                          color: Colors.black,
+                          fontSize: 19, fontWeight: FontWeight.bold, alignement: TextAlign.center,
                         ),
                         trailing: Icon(Icons.arrow_right),
                         subtitle: Text(

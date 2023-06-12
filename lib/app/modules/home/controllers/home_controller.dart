@@ -524,7 +524,7 @@ class HomeController extends GetxController {
 
   // Share app
   void ShareAppLink() async{
-    Share.share('https://siriusntech.com/app/jaime_cocody', subject: "Application J'aime Cocody");
+    Share.share('https://siriusntech.com/app/jaime_yakro', subject: "Application J'aime Yakro");
   }
 
   // ADD VISITE
@@ -532,7 +532,7 @@ class HomeController extends GetxController {
     try{
       final response = await MainServices.addVisiteCount(module, user_id);
       if(response is Success){
-        // refresh();
+         refresh();
       }
       if(response is Failure){
         // isDataProcessing(false);

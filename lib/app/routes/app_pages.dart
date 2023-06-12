@@ -60,11 +60,12 @@ import '../modules/pharmacie/views/pharmacie_show_view.dart';
 import '../modules/pharmacie/views/pharmacie_view.dart';
 import '../modules/restaurant/bindings/restaurant_binding.dart';
 import '../modules/restaurant/views/restaurant_view.dart';
+import '../modules/sitetouristiques/bindings/sitetouristiques_binding.dart';
+import '../modules/sitetouristiques/views/sitetouristiques_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/trajet/bindings/trajet_binding.dart';
 import '../modules/trajet/views/trajet_view.dart';
-
 import '../modules/widget_splashScreen/bindings/widget_splash_screen_binding.dart';
 import '../modules/widget_splashScreen/views/widget_splash_screen_view.dart';
 import '../modules/zoom/bindings/zoom_binding.dart';
@@ -308,10 +309,15 @@ class AppPages {
       children: [
         GetPage(
           name: _Paths.WIDGET_SPLASH_SCREEN,
-          page: () =>  WidgetSplashScreenView(),
+          page: () => WidgetSplashScreenView(),
           binding: WidgetSplashScreenBinding(),
         ),
       ],
+    ),
+    GetPage(
+      name: _Paths.SITETOURISTIQUES,
+      page: () => const SitetouristiquesView(),
+      binding: SitetouristiquesBinding(),
     ),
   ];
 }

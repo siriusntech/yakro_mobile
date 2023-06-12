@@ -22,7 +22,7 @@ class HotelController extends GetxController {
   void onInit() {
     super.onInit();
     getHotels();
-    // fetchHotels();
+
   }
 
   @override
@@ -37,25 +37,6 @@ class HotelController extends GetxController {
 
   void increment() => count.value++;
 
-  // GET ALL GET HOTELS
-/*  void getHotels() async {
-    try {
-      isDataProcessing(true);
-      final response = await HotelServices.getHotels();
-      if (response is Success) {
-        isDataProcessing(false);
-        hotelList.addAll(response.response as List<HotelModel>);
-
-      }
-      if (response is Failure) {
-        isDataProcessing(false);
-        print("Erreur " + response.errorResponse.toString());
-      }
-    } catch(ex){
-      isDataProcessing(false);
-      print("Exception  " + ex.toString());
-    }
-  }*/
 
   getHotels() async {
       isDataProcessing(true);
@@ -74,18 +55,11 @@ class HotelController extends GetxController {
       // print("Exception  " + ex.toString());
       isLoading.value = false;
   }
+  // REFRESH PAGE
+  refreshData() async{
+    hotelList.clear();
+    await getHotels();
+  }
 
-  // void fetchHotels() async {
-  //   final response = await getHotels();
-  //   if (response is Success) {
-  //     final hotelModel = response.response as HotelModel;
-  //     hotelList.value = [
-  //       hotelModel
-  //     ]; // Mettez à jour la liste des hôtels avec les données reçues
-  //   } else if (response is Failure) {
-  //     final errorCode = response.code;
-  //     final errorMessage = response.errorResponse;
-  //     // Gérez les erreurs en fonction du code et du message
-  //   }
-  // }
+
 }

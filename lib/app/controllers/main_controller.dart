@@ -13,8 +13,8 @@ class MainController extends GetxController {
   Color secondaryColorFromCode = '#66ff76'.toColor();
   MaterialColor mainColor = createMaterialColor('#fc9003'.toColor());
   Color appbarTextColor = Colors.white;
+  Color gris = Color(0xFFCCCCCC);
   Color menuColor = Color(0xFF51624F);
-
   Color vert_color_fonce = Color(0xFF51624F);
 
   var app_logo = "assets/images/logo/logo.png".obs;
@@ -42,7 +42,6 @@ class MainController extends GetxController {
     mainColor = createMaterialColor('#fc9003'.toColor());
     appbarTextColor = Colors.white;
     menuColor = Color(0xFF51624F);
-    ;
 
     // Get.changeTheme(AppThemes.cocodyTheme);
 
@@ -71,6 +70,7 @@ class MainController extends GetxController {
     mainColor = createMaterialColor('#02205F'.toColor());
     appbarTextColor = Colors.white;
     menuColor = Color(0xFFA2B4AC);
+
 
     // Get.changeTheme(AppThemes.plateauTheme);
 

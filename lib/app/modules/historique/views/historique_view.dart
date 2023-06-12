@@ -19,17 +19,25 @@ class HistoriqueView extends GetView<HistoriqueController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(text: 'Culture', fontSize: 18, fontWeight: FontWeight.bold,),
+        title: TextWidget(text: 'Cultures', fontSize: 20.0, fontWeight: FontWeight.bold,color:settingsCtrl.appbarTextColor ,),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
+        ),
         actions: [
           IconButton(
               onPressed: () async{
                 await controller.refreshData();
               },
               icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
-          )
+          ),
+
+
         ],
       ),
       body: SafeArea(
@@ -66,7 +74,7 @@ class HistoriqueView extends GetView<HistoriqueController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: settingsCtrl.mainColor,
+        backgroundColor: settingsCtrl.vert_color_fonce,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },
