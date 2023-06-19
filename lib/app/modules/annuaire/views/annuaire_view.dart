@@ -23,7 +23,13 @@ class AnnuaireView extends GetView<AnnuaireController> {
         ),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
+        ),
         actions: [
           IconButton(
               onPressed: () async{
@@ -66,7 +72,7 @@ class AnnuaireView extends GetView<AnnuaireController> {
                                   },
                                   child: Chip(
                                     elevation: 0.0,
-                                    backgroundColor: type.nom.toString() == controller.selectedTypeAnnuaireName.value ? Colors.amber : AppColors.chip_color,
+                                    backgroundColor: type.nom.toString() == controller.selectedTypeAnnuaireName.value ?  AppColors.vert_color_fonce : AppColors.vert_color,
                                     label: TextWidget(text: type.nom.toString(),
                                       fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                     ),
@@ -91,7 +97,7 @@ class AnnuaireView extends GetView<AnnuaireController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: settingsCtrl.mainColor,
+        backgroundColor: settingsCtrl.vert_color_fonce,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

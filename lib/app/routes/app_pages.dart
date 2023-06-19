@@ -62,6 +62,8 @@ import '../modules/restaurant/bindings/restaurant_binding.dart';
 import '../modules/restaurant/views/restaurant_view.dart';
 import '../modules/sitetouristiques/bindings/sitetouristiques_binding.dart';
 import '../modules/sitetouristiques/views/sitetouristiques_view.dart';
+import '../modules/slider/bindings/slider_binding.dart';
+import '../modules/slider/views/slider_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/trajet/bindings/trajet_binding.dart';
@@ -318,6 +320,11 @@ class AppPages {
       name: _Paths.SITETOURISTIQUES,
       page: () => const SitetouristiquesView(),
       binding: SitetouristiquesBinding(),
+    ),
+    GetPage(
+      name: _Paths.SLIDER,
+      page: () => const SliderView(),
+      binding: SliderBinding(),
     ),
   ];
 }

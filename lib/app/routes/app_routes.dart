@@ -48,6 +48,7 @@ abstract class Routes {
   static const BARS_MAQUIS = _Paths.BARS_MAQUIS;
   static const WIDGET_SPLASH_SCREEN = _Paths.WIDGET_SPLASH_SCREEN;
   static const SITETOURISTIQUES = _Paths.SITETOURISTIQUES;
+  static const SLIDER = _Paths.SLIDER;
 }
 
 abstract class _Paths {
@@ -99,4 +100,5 @@ abstract class _Paths {
   static const BARS_MAQUIS = '/bars-maquis';
   static const WIDGET_SPLASH_SCREEN = '/widget-splash-screen';
   static const SITETOURISTIQUES = '/sitetouristiques';
+  static const SLIDER = '/slider';
 }
