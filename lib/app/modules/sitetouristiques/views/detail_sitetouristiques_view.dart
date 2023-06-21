@@ -16,7 +16,7 @@ class DetailSitetouristiquesView extends GetView {
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: settingsCtrl.vert_color_fonce,
-        title: TextWidget(text: 'Details sur la Visite Touristique', fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white),
+        title: TextWidget(text: 'Details sur la Visite Touristique', fontSize: 17.5, fontWeight: FontWeight.bold, color: Colors.white),
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -50,15 +50,50 @@ class DetailSitetouristiquesView extends GetView {
           ),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  data.nomVt!,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text(data.description!)
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.nomVt!,
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(data.description!, style: TextStyle(fontSize: 15.0),),
+                  SizedBox(height: 35),
+                  TextField(
+                    controller: TextEditingController(text: '${data.typeQuartierVtLieu}'),
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: 'Lieu',
+                      prefixIcon: Icon(Icons.map_sharp),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    controller: TextEditingController(text: '${data.prix} CFA'),
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: 'Prix',
+                      prefixIcon: Icon(Icons.price_change),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    controller: TextEditingController(text: data.numeroVisitesTouristique),
+                    enabled: false,
+                    decoration: InputDecoration(
+                      labelText: 'Numéro',
+                      prefixIcon: Icon(Icons.phone),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ],

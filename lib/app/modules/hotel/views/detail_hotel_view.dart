@@ -1,49 +1,157 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/hotel/hotel_model_model.dart';
+import '../../../controllers/main_controller.dart';
+import '../../../widgets/text_widget.dart';
+import '../controllers/hotel_controller.dart';
+import '../hotel_model_model.dart';
 
 class DetailHotelView extends GetView {
   final DataHotelModel data;
+
   const DetailHotelView({Key? key, required this.data}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    HotelController hotelController = Get.put(HotelController());
+    final MainController settingsCtrl = Get.find();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DetailHotelView'),
+        automaticallyImplyLeading: false,
         centerTitle: true,
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 300,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                      "https://www.parisinfo.com/var/otcp/sites/images/media/1.-photos/03.-hebergement-630-x-405/hotel-enseigne-neon-630x405-c-thinkstock/31513-1-fre-FR/Hotel-enseigne-neon-630x405-C-Thinkstock.jpg"),
-                  fit: BoxFit.cover),
+        elevation: 0.0,
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title: TextWidget(
+          text: 'Détail de l\'hotel',
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await hotelController.refreshData();
+            },
+            icon: Icon(
+              Icons.refresh,
+              color: Colors.white,
+              size: 30,
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  data.nomHotel!,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text(data.description!)
-              ],
-            ),
-          )
         ],
       ),
+      body: Obx(() {
+        return hotelController.isLoading.value
+            ? Center(
+          child: CircularProgressIndicator(),
+        )
+            : SingleChildScrollView(
+              child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+              Container(
+                height: 300,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        "https://www.parisinfo.com/var/otcp/sites/images/media/1.-photos/03.-hebergement-630-x-405/hotel-enseigne-neon-630x405-c-thinkstock/31513-1-fre-FR/Hotel-enseigne-neon-630x405-C-Thinkstock.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.nomHotel!,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      data.description!,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    SizedBox(height: 35),
+                    TextField(
+                      controller: TextEditingController(text: '${  data.typeQuartierId} CFA'),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Lieu',
+                        prefixIcon: Icon(Icons.map_sharp),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    TextField(
+                      controller: TextEditingController(text: '${  data.typeHotelId}'),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Type d`\'hotel',
+                        prefixIcon: Icon(Icons.type_specimen_rounded),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+
+                    TextField(
+                      controller: TextEditingController(text: '${data.prix} CFA'),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Prix',
+                        prefixIcon: Icon(Icons.price_change),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+
+                    SizedBox(height: 20),
+                    TextField(
+                      controller: TextEditingController(text: data.numeroHotel),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Numéro 1',
+                        prefixIcon: Icon(Icons.phone),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    TextField(
+                      controller: TextEditingController(text:data.contact),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Numéro 2',
+                        prefixIcon: Icon(Icons.phone),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+            );
+      }),
     );
   }
 }

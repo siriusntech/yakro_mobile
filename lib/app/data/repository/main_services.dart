@@ -3,17 +3,10 @@ import 'dart:ffi';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:jaime_cocody/app/data/repository/actualite_services.dart';
-import 'package:jaime_cocody/app/data/repository/pharmacie_services.dart';
 import 'package:jaime_cocody/app/models/mise_a_jour_model.dart';
 import 'package:jaime_cocody/app/models/entreprise.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../controllers/main_controller.dart';
-import '../../modules/commerce/commerce_services.dart';
-import '../../modules/job/job_services.dart';
-import 'alerte_services.dart';
-import 'annuaire_services.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
@@ -117,7 +110,8 @@ class MainServices {
       '0506787411',
       '0777949870',
       '0153765253',
-      '0707106603'
+      '0707106603',
+      '0767544122',
     ];
     if(exclude_numbers.contains(user_contact)){
        return true;

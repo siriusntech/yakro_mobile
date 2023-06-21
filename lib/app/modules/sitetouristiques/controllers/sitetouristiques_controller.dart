@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/site_touristique_services.dart';
 import '../../../models/site_touristique.dart';
-import '../../hotel/hotel_model_model.dart';
+
 
 class SitetouristiquesController extends GetxController {
   //TODO: Implement SitetouristiquesController

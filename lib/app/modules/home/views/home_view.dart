@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'package:jaime_cocody/app/Utils/app_routes.dart';
 import 'package:jaime_cocody/app/Utils/default_image.dart';
 import 'package:jaime_cocody/app/data/repository/main_services.dart';
@@ -24,7 +27,6 @@ import '../../pharmacie/controllers/pharmacie_controller.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  // final mainCtrl = Get.find<MainController>();
   final MainController mainCtrl = Get.put(MainController());
   final ActualiteController actualite_ctrl = Get.put(ActualiteController());
   final CommerceController commerce_ctrl = Get.put(CommerceController());
@@ -102,62 +104,29 @@ class HomeView extends GetView<HomeController> {
                 ),
                 child: Column(
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        padding: EdgeInsets.only(bottom: 5),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20))),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 1, right: 1),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                  flex: 12,
-                                  child: Container(
-                                    height: 115,
-                                    width: 115,
-                                    child: Image(
-                                      image:
-                                          AssetImage(mainCtrl.app_logo.value),
-                                      alignment: Alignment.topCenter,
-                                      fit: BoxFit.contain,
-                                    ),
-                                  )),
-                              // SizedBox(height: 3,),
-                              Flexible(
-                                  flex: 8,
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        TextWidget(
-                                          text:
-                                              "Bienvenue sur l'application mobile de la commune.",
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          alignement: TextAlign.center,
-                                        ),
-                                        TextWidget(
-                                          text:
-                                              "Connaitre et participer au developpement de votre commune.",
-                                          color: Colors.blueGrey,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          alignement: TextAlign.center,
-                                          maxLine: 5,
-                                        )
-                                      ],
-                                    ),
-                                  )),
-                            ],
+              Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                width: 390,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          CarouselSlider(
+                            options: CarouselOptions(
+                              enableInfiniteScroll: true,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 3),
+                              autoPlayAnimationDuration: Duration(milliseconds: 1500),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              enlargeCenterPage: true,
+                            ),
+                            items: generateSlider(),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
+                    )
+              ),
                     SizedBox(
                       height: 5,
                     ),
@@ -271,7 +240,7 @@ class HomeView extends GetView<HomeController> {
                                                   controller.addVisiteCount('annuaire');
                                                 }
                                               })),
-                                                
+
                                     ],
                                   ),
                                   SizedBox(height: 20),
@@ -335,8 +304,37 @@ class HomeView extends GetView<HomeController> {
                   ],
                 )),
             // drawer: MainDrawer()
-          ));
+          )
+    );
   }
+  List<Widget> generateSlider() {
+    List<Widget> imageSliders = controller.sliderList.map((item) {
+      return Builder(
+        builder: (BuildContext context) {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.symmetric(horizontal: 5.0),
+            decoration: BoxDecoration(
+              // color: AppColors.vert_color,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              child: CachedNetworkImage(
+                imageUrl: item.imageUrl,
+                fit: BoxFit.cover,
+                width: Get.width,
+              ),
+            ),
+          );
+        },
+      );
+    }).toList();
+    return imageSliders;
+  }
+
+
+
+
 
 
 }

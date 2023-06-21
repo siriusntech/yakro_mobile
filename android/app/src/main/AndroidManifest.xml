@@ -34,7 +34,7 @@
         </intent>
     </queries>
    <application
-        android:label="J'aime Cocody"
+        android:label="J'aime Yakro"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

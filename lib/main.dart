@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'app/Utils/app_constantes.dart';
 import 'app/routes/app_pages.dart';
 import 'app/widgets/alerte_widgets.dart';
@@ -140,7 +141,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(
-        primarySwatch: mainColor,
+        primarySwatch: AppColors.vert_colorFonce,
         fontFamily: 'Roboto',
         appBarTheme: AppBarTheme(
             foregroundColor: Colors.black,

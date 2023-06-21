@@ -7,7 +7,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:jaime_cocody/app/data/repository/consultation_services.dart';
+import 'package:jaime_cocody/app/data/repository/slider_services.dart';
 import 'package:jaime_cocody/app/models/consultation.dart';
+import 'package:jaime_cocody/app/models/slider.dart';
 import 'package:jaime_cocody/app/modules/auth/controllers/auth_controller.dart';
 import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
 import 'package:share_plus/share_plus.dart';
@@ -55,7 +57,11 @@ class HomeController extends GetxController {
 
   final MainController mainCtrl = Get.put(MainController());
 
-
+   // var sliderList = List<dynamic>.empty(growable: true).obs;
+  // var sliderList = <SliderModel>[].obs;
+  var sliderList = RxList<dynamic>([]); // Utilisation de RxList pour sliderList
+  var isDataProcessing = false.obs;
+  var isDataError =false.obs;
   // final ActualiteController actualite_ctrl = Get.put(ActualiteController());
   // final CommerceController commerce_ctrl = Get.put(CommerceController());
   // final JobController job_ctrl = Get.put(JobController());
@@ -64,6 +70,33 @@ class HomeController extends GetxController {
   // final AnnuaireController annuaire_ctrl = Get.put(AnnuaireController());
   // final HistoriqueController culture_ctrl = Get.put(HistoriqueController());
   // final DiffusionController bon_plan_ctrl = Get.put(DiffusionController());
+
+  //Service Slider
+  void getSlider() {
+    try {
+      isDataProcessing(true);
+      SliderServices.getSliders().then((response) {
+        print(response);
+        if (response is List<SliderModel>) {
+          sliderList.clear();
+          // sliderList.addAll(response);
+          sliderList.assignAll(response); // Utilisation de assignAll() pour mettre à jour la liste
+          isDataProcessing(false);
+          isDataError(false);
+        } else {
+          isDataProcessing(false);
+          isDataError(true);
+        }
+      }, onError: (err) {
+        isDataProcessing(false);
+        isDataError(true);
+      });
+    } catch (exception) {
+      isDataProcessing(false);
+      isDataError(true);
+    }
+  }
+
 
 
   // SET USER ACCOUNT INFO
@@ -410,6 +443,8 @@ class HomeController extends GetxController {
     super.onInit();
     // MAKE APP NEW VERSION UPDATE AUTO
     checkAppForUpdate();
+    getSlider();
+    ever(sliderList, (_) => print("La valeur de sliderList a changé"));
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     // GetConnectionType();

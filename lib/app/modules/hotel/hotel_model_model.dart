@@ -36,10 +36,12 @@ class DataHotelModel {
   int? id;
   String? nomHotel;
   String? typeQuartierId;
+  String? typeHotelId;
   String? prix;
   String? description;
   String? avis;
   String? numeroHotel;
+  String? contact;
   String? imageUrl;
   List<Media>? medias;
 
@@ -47,10 +49,12 @@ class DataHotelModel {
     this.id,
     this.nomHotel,
     this.typeQuartierId,
+    this.typeHotelId,
     this.prix,
     this.description,
     this.avis,
     this.numeroHotel,
+    this.contact,
     this.imageUrl,
     this.medias,
   });
@@ -59,10 +63,12 @@ class DataHotelModel {
     id: json["id"],
     nomHotel: json["nom_hotel"],
     typeQuartierId: json["type_quartier_id"],
+    typeHotelId: json["type_hotel_id"],
     prix: json["prix"],
     description: json["description"],
     avis: json["avis"],
     numeroHotel: json["numero_hotel"],
+    contact: json["contact"],
     imageUrl: json["imageUrl"],
     medias: List<Media>.from(json["medias"].map((x) => Media.fromJson(x))),
   );
@@ -71,10 +77,12 @@ class DataHotelModel {
     "id": id,
     "nom_hotel": nomHotel,
     "type_quartier_id": typeQuartierId,
+    "type_hotel_id": typeHotelId,
     "prix": prix,
     "description": description,
     "avis": avis,
     "numero_hotel": numeroHotel,
+    "contact": contact,
     "imageUrl": imageUrl,
     "medias": List<dynamic>.from(medias!.map((x) => x.toJson())),
   };

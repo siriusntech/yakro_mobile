@@ -8,9 +8,10 @@ import '../../controllers/main_controller.dart';
 import '../../data/repository/auth_service.dart';
 import '../../data/repository/data/Env.dart';
 import '../../data/repository/data/api_status.dart';
-import 'commerce_model.dart';
-import 'restaurants_type_model.dart';
+import '../../modules/commerce/commerce_model.dart';
 import 'package:get/get.dart';
+
+import '../../modules/commerce/commerce_type_model.dart';
 
 class CommerceServices {
 
@@ -22,10 +23,10 @@ class CommerceServices {
     var headers = await AuthService.getLoggedHeaders();
     final apiUrl = settingsCtrl.baseUrl+'commerces';
     var url = Uri.parse(apiUrl);
-    // print(url);
+     print(url);
     try{
       var response = await http.get(url, headers: headers);
-      // print(response.statusCode.toString());
+       print(response.statusCode.toString());
       if(response.statusCode == 200){
         return Success(response: commerceFromJson(response.body));
       }
@@ -153,7 +154,7 @@ class CommerceServices {
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(settingsCtrl.baseUrl+"commerces_types");
       var response =  await http.get(url, headers: headers);
-      // print('response com type '+response.body.toString());
+      print('response com type '+response.body.toString());
       if(response.statusCode == 200){
         return Success(response: commerceTypeFromJson(response.body));
       }

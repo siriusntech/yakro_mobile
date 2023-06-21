@@ -10,7 +10,7 @@ class NoDataWidget extends StatelessWidget {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextWidget(text: "Aucune donnee trouvée", fontSize: 18.0, color: Colors.red, fontWeight: FontWeight.bold,)
+            TextWidget(text: "Aucune donnee trouvée", fontSize: 20.0, color: Colors.red, fontWeight: FontWeight.bold,)
           ],
       ),
     );

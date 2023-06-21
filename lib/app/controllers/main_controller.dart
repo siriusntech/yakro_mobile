@@ -31,8 +31,6 @@ class MainController extends GetxController {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setString("app_name", "cocody");
     app_logo.value = "assets/images/logo/logo.png";
-    // baseUrl = "https://sdcocody.siriusntech.digital/api/mobile/";
-    // siteUrl = "https://sdcocody.siriusntech.digital";
     var baseUrl = "https://sdyakro.siriusntech.digital/api/mobile/";
     var siteUrl = "https://sdyakro.siriusntech.digital";
     appbarColor = Color(0xFF51624F);
