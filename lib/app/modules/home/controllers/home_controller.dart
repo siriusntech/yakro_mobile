@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ import 'package:jaime_cocody/app/modules/auth/controllers/auth_controller.dart';
 import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../main.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
@@ -34,7 +32,7 @@ import '../../commerce/commerce_services.dart';
 import '../../diffusion/diffusion_model.dart';
 
 class HomeController extends GetxController {
-
+    late Timer _timer;
   var unReadItemsCountsList = List<Consultation>.empty(growable: true).obs;
 
   var selectedItemsCounts = Consultation().obs;
@@ -62,6 +60,7 @@ class HomeController extends GetxController {
   var sliderList = RxList<dynamic>([]); // Utilisation de RxList pour sliderList
   var isDataProcessing = false.obs;
   var isDataError =false.obs;
+
   // final ActualiteController actualite_ctrl = Get.put(ActualiteController());
   // final CommerceController commerce_ctrl = Get.put(CommerceController());
   // final JobController job_ctrl = Get.put(JobController());
@@ -71,10 +70,15 @@ class HomeController extends GetxController {
   // final HistoriqueController culture_ctrl = Get.put(HistoriqueController());
   // final DiffusionController bon_plan_ctrl = Get.put(DiffusionController());
 
+
+
+
   //Service Slider
-  void getSlider() {
+/*  void getSlider() {
     try {
+      const duration = Duration(seconds: 30); // Durée de l'intervalle, par exemple 30 secondes
       isDataProcessing(true);
+
       SliderServices.getSliders().then((response) {
         print(response);
         if (response is List<SliderModel>) {
@@ -91,11 +95,51 @@ class HomeController extends GetxController {
         isDataProcessing(false);
         isDataError(true);
       });
+
+    } catch (exception) {
+      isDataProcessing(false);
+      isDataError(true);
+    }
+  }*/
+
+  void getSlider() {
+    try {
+      const duration = Duration(seconds: 120); // Durée de l'intervalle, par exemple 30 secondes
+      isDataProcessing(true);
+
+      void fetchData() {
+        SliderServices.getSliders().then((response) {
+          print(response);
+          if (response is List<SliderModel>) {
+            sliderList.clear();
+            sliderList.assignAll(response); // Utilisation de assignAll() pour mettre à jour la liste
+            isDataProcessing(false);
+            isDataError(false);
+          } else {
+            isDataProcessing(false);
+            isDataError(true);
+          }
+        }, onError: (err) {
+          isDataProcessing(false);
+          isDataError(true);
+        });
+      }
+
+      fetchData(); // Appel initial de la fonction
+
+      _timer = Timer.periodic(duration, (_) {
+        fetchData(); // Appel de la fonction à intervalles réguliers
+      });
     } catch (exception) {
       isDataProcessing(false);
       isDataError(true);
     }
   }
+
+  void stopTimer() {
+    _timer?.cancel(); // Arrêt du timer lorsque vous n'avez plus besoin de le rafraîchir
+  }
+
 
 
 
@@ -444,6 +488,7 @@ class HomeController extends GetxController {
     // MAKE APP NEW VERSION UPDATE AUTO
     checkAppForUpdate();
     getSlider();
+    // stopTimer();
     ever(sliderList, (_) => print("La valeur de sliderList a changé"));
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();

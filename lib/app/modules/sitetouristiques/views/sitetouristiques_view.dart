@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/data/repository/data/Env.dart';
 import 'package:jaime_cocody/app/modules/sitetouristiques/views/detail_sitetouristiques_view.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/text_widget.dart';
@@ -72,7 +73,8 @@ class SitetouristiquesView extends GetView<SitetouristiquesController> {
                         borderRadius: BorderRadius.circular(5),
                         image: DecorationImage(
                             image: NetworkImage(
-                              "https://destinationafrique.io/wp-content/uploads/2020/12/CAVA-Abidjan-1024x682.jpeg"),
+                                siteUrl+visiteTouristiqueData.imageUrl
+                            ),
                             fit: BoxFit.cover)),
                   ),
                 ),
@@ -83,4 +85,6 @@ class SitetouristiquesView extends GetView<SitetouristiquesController> {
       }),
     );
   }
+
+
 }

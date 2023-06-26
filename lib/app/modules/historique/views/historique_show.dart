@@ -23,10 +23,26 @@ class HistoriqueShow extends GetView<HistoriqueController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(text: 'Culture', fontSize: 18, fontWeight: FontWeight.bold,),
+        title: TextWidget(text: 'Cultures', fontSize: 20.0, fontWeight: FontWeight.bold,color:settingsCtrl.appbarTextColor ,),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () async{
+                await controller.refreshData();
+              },
+              icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
+          ),
+
+
+        ],
       ),
       body: SafeArea(
         child: Obx(() => Padding(
@@ -39,9 +55,8 @@ class HistoriqueShow extends GetView<HistoriqueController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SelectableTextWidget(text: controller.selectedHistorique.value.titre, fontSize: 16, fontWeight: FontWeight.bold,),
-                      SizedBox(height: 6,),
-                      SelectableTextWidget(text: controller.selectedHistorique.value.description.toString(), fontSize: 16,),
+                      SelectableTextWidget(text: controller.selectedHistorique.value.titre, fontSize: 30, fontWeight: FontWeight.bold,),
+                        SizedBox(height: 30,),
                       Container(
                         width: double.infinity,
                         height: 200,
@@ -52,7 +67,10 @@ class HistoriqueShow extends GetView<HistoriqueController> {
                             Get.to(ZoomView(), fullscreenDialog: true);
                           },
                         )
-                      )
+                      ),
+                      SizedBox(height: 30,),
+                      SelectableTextWidget(text: controller.selectedHistorique.value.description.toString(), fontSize: 18,),
+
                     ],
                   ),
                 ),
@@ -60,7 +78,7 @@ class HistoriqueShow extends GetView<HistoriqueController> {
                   decoration: BoxDecoration(
                     border: Border(top: BorderSide(color: Colors.grey, width: 1),)
                   ),
-                  child: SelectableTextWidget(text: "Le savie-vous ?", fontSize: 16, fontWeight: FontWeight.bold,),
+                  child: SelectableTextWidget(text: "Le saviez-vous ?", fontSize: 16, fontWeight: FontWeight.bold,),
                 ): Container(),
                 Container(
                   child: controller.isDataProcessing.value == true ?

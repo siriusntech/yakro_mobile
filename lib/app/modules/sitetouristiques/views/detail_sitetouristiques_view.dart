@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/data/repository/data/Env.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../models/site_touristique.dart';
+import '../../../widgets/loading_widget.dart';
+import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
+import '../widgets/visiteTouristique_card_widget.dart';
 
 class DetailSitetouristiquesView extends GetView {
   final DataVisiteTouristiqueModel data;
@@ -41,7 +45,7 @@ class DetailSitetouristiquesView extends GetView {
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                      "https://destinationafrique.io/wp-content/uploads/2020/12/CAVA-Abidjan-1024x682.jpeg"),
+                     siteUrl+data.imageUrl),
                   fit: BoxFit.cover),
             ),
           ),
@@ -59,9 +63,9 @@ class DetailSitetouristiquesView extends GetView {
                     style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
-                  Text(data.description!, style: TextStyle(fontSize: 15.0),),
+                  Text(data.description!, style: TextStyle(fontSize: 16.0),),
                   SizedBox(height: 35),
                   TextField(
                     controller: TextEditingController(text: '${data.typeQuartierVtLieu}'),
@@ -92,12 +96,42 @@ class DetailSitetouristiquesView extends GetView {
                       border: OutlineInputBorder(),
                     ),
                   ),
+                  Expanded(
+                      flex: 16,
+                      child: _ui()
+                  )
                 ],
               ),
             ),
           )
         ],
       ),
+    );
+  }
+  _ui() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Obx(() {
+          if (controller.isDataProcessing.value == true) {
+            return LoadingWidget();
+          } else {
+            if (controller.visiteTouristiquesList.length == 0) {
+              return NoDataWidget();
+            } else {
+              return Expanded(
+                  child: ListView.builder(
+                      itemCount: controller.visiteTouristiquesList.length,
+                      itemBuilder: (context, index) {
+                        var visiteTouristique = controller.visiteTouristiquesList[index];
+                        return SiteTouristiqueCardWidget(visiteTouristique: visiteTouristique);
+                      }
+                  )
+              );
+            }
+          }
+        })
+      ],
     );
   }
 }

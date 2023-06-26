@@ -47,7 +47,6 @@ class HomeView extends GetView<HomeController> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
 
-
   @override
   Widget build(BuildContext context) {
     return Obx(() => mainCtrl.isSettingProcessing.value == true
@@ -117,7 +116,7 @@ class HomeView extends GetView<HomeController> {
                               enableInfiniteScroll: true,
                               autoPlay: true,
                               autoPlayInterval: Duration(seconds: 3),
-                              autoPlayAnimationDuration: Duration(milliseconds: 1500),
+                              autoPlayAnimationDuration: Duration(milliseconds: 3500),
                               autoPlayCurve: Curves.fastOutSlowIn,
                               enlargeCenterPage: true,
                             ),

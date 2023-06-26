@@ -154,9 +154,11 @@ final ButtonStyle buttonStyle = ButtonStyle(
         titlePadding: EdgeInsets.all(0.0)
     );
   }
+
   Future<void> _makePhoneCall(String phoneNumber) async {
     await launch(phoneNumber);
   }
+
   Future<void> _makeCopieNumber(String phoneNumber) async {
     FlutterClipboard.copy(phoneNumber).then(( result ) {
        showSnackBar('', "Contact Copié dans le presse-papier", Colors.black);
