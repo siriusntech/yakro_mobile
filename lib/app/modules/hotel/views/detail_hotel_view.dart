@@ -155,6 +155,16 @@ class DetailHotelView extends GetView {
                               border: OutlineInputBorder(),
                             ),
                           ),
+                          TextField(
+                            controller:
+                            TextEditingController(text: data.lien_map),
+                            enabled: false,
+                            decoration: InputDecoration(
+                              labelText: 'lien de map',
+                              prefixIcon: Icon(Icons.map),
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
                         ],
                       ),
                     ),

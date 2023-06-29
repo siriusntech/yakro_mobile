@@ -45,7 +45,7 @@ class DetailSitetouristiquesView extends GetView {
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                     siteUrl+data.imageUrl),
+                    data.imageUrl),
                   fit: BoxFit.cover),
             ),
           ),
@@ -96,10 +96,10 @@ class DetailSitetouristiquesView extends GetView {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  Expanded(
-                      flex: 16,
-                      child: _ui()
-                  )
+                  // Expanded(
+                  //     flex: 16,
+                  //     child: _ui()
+                  // )
                 ],
               ),
             ),

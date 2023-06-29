@@ -53,42 +53,6 @@ class HotelView extends GetView<HotelController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Obx(() => Row(
-                            children: [
-                              for(var type in controller.commerceTypesList)
-                                Card(
-                                  elevation: 0.0,
-                                  child: InkWell(
-                                    onTap: () {
-                                      if(controller.selectedType.value == '' || controller.selectedType.value != type.nom.toString()){
-                                        controller.setSelectedType(type.nom.toString());
-                                        controller.getCommercesByType(type.nom.toString());
-                                      }else{
-                                        controller.setSelectedType('');
-                                        controller.refreshData();
-                                      }
-                                    },
-                                    child: Chip(
-                                      elevation: 0.0,
-                                      backgroundColor: type.nom.toString() == controller.selectedType.value ? AppColors.vert_color : AppColors.chip_color,
-                                      label: TextWidget(text: type.nom.toString().toLowerCase(), color: AppColors.vert_color_fonce,
-                                        fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
-                                      ),
-                                    ),
-                                  ),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                                  color: Colors.transparent,
-                                )
-                            ],
-                          )),
-                        ],
-                      ),
-                    ),
                     ListTile(
                       onTap: () {
                         Get.to(DetailHotelView(

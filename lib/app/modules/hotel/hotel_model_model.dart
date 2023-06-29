@@ -44,6 +44,13 @@ class DataHotelModel {
   String? contact;
   String? imageUrl;
   List<Media>? medias;
+  String? lien_map;
+  String? site_internet;
+  String? adresse_email;
+  String? facebook;
+  String? linkedIn;
+  String? youtube;
+  String? instagram;
 
   DataHotelModel({
     this.id,
@@ -57,6 +64,13 @@ class DataHotelModel {
     this.contact,
     this.imageUrl,
     this.medias,
+    this.lien_map,
+    this.site_internet,
+    this.adresse_email,
+    this.facebook,
+    this.linkedIn,
+    this.youtube,
+    this.instagram
   });
 
   factory DataHotelModel.fromJson(Map<String, dynamic> json) => DataHotelModel(
@@ -71,6 +85,13 @@ class DataHotelModel {
     contact: json["contact"],
     imageUrl: json["imageUrl"],
     medias: List<Media>.from(json["medias"].map((x) => Media.fromJson(x))),
+      lien_map:json["lien_map"],
+      site_internet:json["site_internet"],
+      adresse_email:json["adresse_email"],
+      facebook:json["facebook"],
+      linkedIn:json["linkedIn"],
+      youtube:json["youtube"],
+      instagram:json["instagram"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -85,6 +106,13 @@ class DataHotelModel {
     "contact": contact,
     "imageUrl": imageUrl,
     "medias": List<dynamic>.from(medias!.map((x) => x.toJson())),
+    "lien_map":lien_map,
+    "site_internet":site_internet,
+    "adresse_email":adresse_email,
+    "facebook":facebook,
+    "linkedIn":linkedIn,
+    "youtube":youtube,
+    "instagram":instagram
   };
 }
 

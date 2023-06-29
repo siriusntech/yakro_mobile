@@ -73,7 +73,7 @@ class SitetouristiquesView extends GetView<SitetouristiquesController> {
                         borderRadius: BorderRadius.circular(5),
                         image: DecorationImage(
                             image: NetworkImage(
-                                siteUrl+visiteTouristiqueData.imageUrl
+                                visiteTouristiqueData.imageUrl
                             ),
                             fit: BoxFit.cover)),
                   ),
