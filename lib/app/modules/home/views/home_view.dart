@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'package:jaime_cocody/app/Utils/app_routes.dart';
 import 'package:jaime_cocody/app/Utils/default_image.dart';
 import 'package:jaime_cocody/app/data/repository/main_services.dart';
+import 'package:jaime_cocody/app/models/media.dart';
 import 'package:jaime_cocody/app/routes/app_pages.dart';
 import 'package:jaime_cocody/app/widgets/notification_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,9 +49,9 @@ class HomeView extends GetView<HomeController> {
 
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
-
   @override
   Widget build(BuildContext context) {
+
     return Obx(() => mainCtrl.isSettingProcessing.value == true
         ? Loading()
         : Scaffold(
@@ -103,29 +106,32 @@ class HomeView extends GetView<HomeController> {
                 ),
                 child: Column(
                   children: [
-              Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                width: 390,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          CarouselSlider(
-                            options: CarouselOptions(
-                              enableInfiniteScroll: true,
-                              autoPlay: true,
-                              autoPlayInterval: Duration(seconds: 3),
-                              autoPlayAnimationDuration: Duration(milliseconds: 3500),
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              enlargeCenterPage: true,
-                            ),
-                            items: generateSlider(),
+                    Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        width: 390,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              CarouselSlider(
+                                options: CarouselOptions(
+                                  enableInfiniteScroll: true,
+                                  autoPlay: true,
+                                  autoPlayInterval: Duration(seconds: 3),
+                                  autoPlayAnimationDuration:
+                                      Duration(milliseconds: 3500),
+                                  autoPlayCurve: Curves.fastOutSlowIn,
+                                  enlargeCenterPage: true,
+                                ),
+                                items: generateSlider(
+                                    controller.sliderList.map((e) {
+                                  return e.imageUrl;
+                                }).toList()),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    )
-              ),
+                        )),
                     SizedBox(
                       height: 5,
                     ),
@@ -178,8 +184,8 @@ class HomeView extends GetView<HomeController> {
                       child: controller.isDataRefreshing == true
                           ? LoadingWidget()
                           : Padding(
-                            padding: const EdgeInsets.only(top:5.0),
-                            child: ListView(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: ListView(
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -192,8 +198,10 @@ class HomeView extends GetView<HomeController> {
                                         title: 'Cultures',
                                         icon: MENU_HISTORIQUE,
                                         enabled: true,
-                                        itemCount: controller.selectedItemsCounts
-                                            .value.un_read_sujet_count,
+                                        itemCount: controller
+                                            .selectedItemsCounts
+                                            .value
+                                            .un_read_sujet_count,
                                         action: () async {
                                           // controller.addHistoriqueVisiteCount();
                                           Get.toNamed(AppRoutes.HISTORIQUE);
@@ -201,11 +209,11 @@ class HomeView extends GetView<HomeController> {
                                           if (await MainServices
                                                   .checkUserIsExclude() ==
                                               false) {
-                                            controller.addVisiteCount('culture');
+                                            controller
+                                                .addVisiteCount('culture');
                                           }
                                         },
-                                      )
-                                    ),
+                                      )),
                                       Flexible(
                                           child: MenuWidget(
                                               width: (Get.width / 2) - 20,
@@ -221,7 +229,7 @@ class HomeView extends GetView<HomeController> {
                                                 //   controller.addVisiteCount('annuaire');
                                                 // }
                                               })),
-                                               Flexible(
+                                      Flexible(
                                           child: MenuWidget(
                                               width: (Get.width / 2) - 20,
                                               height: 120,
@@ -236,17 +244,17 @@ class HomeView extends GetView<HomeController> {
                                                 if (await MainServices
                                                         .checkUserIsExclude() ==
                                                     false) {
-                                                  controller.addVisiteCount('annuaire');
+                                                  controller.addVisiteCount(
+                                                      'annuaire');
                                                 }
                                               })),
-
                                     ],
                                   ),
                                   SizedBox(height: 20),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                         Flexible(
+                                      Flexible(
                                           child: MenuWidget(
                                               width: (Get.width / 2) - 20,
                                               height: 120,
@@ -255,7 +263,8 @@ class HomeView extends GetView<HomeController> {
                                               icon: MENU_PHARMACIE,
                                               enabled: true,
                                               action: () async {
-                                                Get.toNamed(AppRoutes.PHARMACIE);
+                                                Get.toNamed(
+                                                    AppRoutes.PHARMACIE);
                                                 pharm_ctrl.refreshData();
                                                 if (await MainServices
                                                         .checkUserIsExclude() ==
@@ -264,7 +273,7 @@ class HomeView extends GetView<HomeController> {
                                                       'pharmacie');
                                                 }
                                               })),
-                                        Flexible(
+                                      Flexible(
                                           child: MenuWidget(
                                               width: (Get.width / 2) - 20,
                                               height: 120,
@@ -273,7 +282,8 @@ class HomeView extends GetView<HomeController> {
                                               icon: VT,
                                               enabled: true,
                                               action: () async {
-                                                Get.toNamed(Routes.SITETOURISTIQUES);
+                                                Get.toNamed(
+                                                    Routes.SITETOURISTIQUES);
                                                 // annuaire_ctrl.refreshData();
                                                 // if(await MainServices.checkUserIsExclude() == false){
                                                 //   controller.addVisiteCount('annuaire');
@@ -298,42 +308,36 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                 ],
                               ),
-                          ),
+                            ),
                     )
                   ],
                 )),
             // drawer: MainDrawer()
-          )
-    );
+          ));
   }
-  List<Widget> generateSlider() {
-    List<Widget> imageSliders = controller.sliderList.map((item) {
-      return Builder(
-        builder: (BuildContext context) {
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.symmetric(horizontal: 5.0),
-            decoration: BoxDecoration(
+}
+
+List<Widget> generateSlider(List item) {
+  List<Widget> imageSliders = item.map((item) {
+    return Builder(
+      builder: (BuildContext context) {
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.symmetric(horizontal: 5.0),
+          decoration: BoxDecoration(
               // color: AppColors.vert_color,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(25.0)),
-              child: CachedNetworkImage(
-                imageUrl: item.imageUrl,
-                fit: BoxFit.cover,
-                width: Get.width,
               ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(25.0)),
+            child: CachedNetworkImage(
+              imageUrl: item,
+              fit: BoxFit.cover,
+              width: Get.width,
             ),
-          );
-        },
-      );
-    }).toList();
-    return imageSliders;
-  }
-
-
-
-
-
-
+          ),
+        );
+      },
+    );
+  }).toList();
+  return imageSliders;
 }
