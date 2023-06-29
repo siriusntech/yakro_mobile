@@ -67,7 +67,7 @@ class DetailHotelView extends GetView {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                        siteUrl+data.imageUrl!),
+                        data.imageUrl!),
                     fit: BoxFit.cover,
                   ),
                 ),
