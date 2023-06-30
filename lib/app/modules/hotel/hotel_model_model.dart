@@ -21,7 +21,7 @@ class HotelModel {
 
   factory HotelModel.fromJson(Map<String, dynamic> json) => HotelModel(
     success: json["success"],
-    data: List<DataHotelModel>.from(json["data"].map((x) => DataHotelModel.fromJson(x))),
+    data: List<DataHotelModel>.from(json["data"].map!((x) => DataHotelModel.fromJson(x))),
     message: json["message"],
   );
 

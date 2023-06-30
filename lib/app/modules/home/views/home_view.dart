@@ -118,7 +118,7 @@ class HomeView extends GetView<HomeController> {
                                 options: CarouselOptions(
                                   enableInfiniteScroll: true,
                                   autoPlay: true,
-                                  autoPlayInterval: Duration(seconds: 3),
+                                  autoPlayInterval: Duration(seconds: 7),
                                   autoPlayAnimationDuration:
                                       Duration(milliseconds: 3500),
                                   autoPlayCurve: Curves.fastOutSlowIn,

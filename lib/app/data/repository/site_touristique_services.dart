@@ -83,13 +83,13 @@ class VisiteTouristiqueServices {
 
   static getHotelById(String id) async {
     var headers = await AuthService.getLoggedHeaders();
-    VisiteTouristique hotel = VisiteTouristique();
+    List<VisiteTouristique> hotel =  <VisiteTouristique>[];
     try {
       final apiUrl = settingsCtrl.baseUrl + '/hotelsIndex';
       var url = Uri.parse(apiUrl + '/${int.parse(id)}');
       final response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
-        hotel = VisiteTouristique.fromJson(json.decode(response.body));
+        hotel = VisiteTouristique.fromJson(json.decode(response.body)) as List<VisiteTouristique>;
         return Success(response: hotel);
       }
       return Failure(

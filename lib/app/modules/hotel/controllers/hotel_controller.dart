@@ -1,14 +1,13 @@
-import 'dart:convert';
+
 import 'dart:developer';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/data/repository/data/api_status.dart';
 import 'package:jaime_cocody/app/data/repository/hotel_services.dart';
-import 'package:jaime_cocody/app/modules/hotel/hotel_model_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../Utils/app_constantes.dart';
+import '../../../models/hotelAll.dart';
+import '../../../models/typeHotel.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/text_widget.dart';
 
@@ -17,20 +16,23 @@ class HotelController extends GetxController {
   // var hotelList = <HotelModel>[].obs;
 
   // var hotelList = List<HotelModel>.empty(growable: true).obs;
-  var selectedHotels = HotelModel().obs;
+  // var selectedHotels = HotelModel().obs;
+  var selectedHotels = <HotelModel>[].obs;
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
   final count = 0.obs;
 
-  final hotelList =
-      <DataHotelModel>[].obs; // Utilisez une RxList pour observer les changements
+  // final hotelList = <DataHotelModel>[] .obs; // Utilisez une RxList pour observer les changements
+  final hotelListAllFiltragePrix = <HotelModel>[].obs;
+  final hotelAllTypeHotel = <TypeHotelByHotels>[].obs;
+  final type_hotel_selected= "".obs;
 
   final ButtonStyle buttonStyle = ButtonStyle(
       side: MaterialStateProperty.all(BorderSide(color: Colors.red)),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))
-  );
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))));
 
-  Future<Null> showAlerte(phoneNumber) async{
+  Future<Null> showAlerte(phoneNumber) async {
     Get.defaultDialog(
         title: "",
         content: Container(
@@ -39,31 +41,52 @@ class HotelController extends GetxController {
           child: Column(
             children: [
               TextButton(
-                onPressed: (){
+                onPressed: () {
                   Get.back();
                   _makePhoneCall('tel:$phoneNumber');
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(ICON_TELEPHONE, width: 20, height: 20,),
-                    SizedBox(width: 3,),
-                    TextWidget(text: 'Appeler', fontSize: 16, fontWeight: FontWeight.bold,alignement: TextAlign.center,)
+                    Image.asset(
+                      ICON_TELEPHONE,
+                      width: 20,
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 3,
+                    ),
+                    TextWidget(
+                      text: 'Appeler',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      alignement: TextAlign.center,
+                    )
                   ],
                 ),
                 style: buttonStyle,
               ),
               TextButton(
-                onPressed: (){
+                onPressed: () {
                   Get.back();
                   _makeCopieNumber(phoneNumber);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(ICON_COPIE, width: 20, height: 20,),
-                    SizedBox(width: 3,),
-                    TextWidget(text: 'Copier', fontSize: 16, fontWeight: FontWeight.bold, alignement: TextAlign.center)
+                    Image.asset(
+                      ICON_COPIE,
+                      width: 20,
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 3,
+                    ),
+                    TextWidget(
+                        text: 'Copier',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        alignement: TextAlign.center)
                   ],
                 ),
                 style: buttonStyle,
@@ -72,14 +95,15 @@ class HotelController extends GetxController {
           ),
         ),
         contentPadding: EdgeInsets.all(0.0),
-        titlePadding: EdgeInsets.all(0.0)
-    );
+        titlePadding: EdgeInsets.all(0.0));
   }
+
   Future<void> _makePhoneCall(String phoneNumber) async {
     await launch(phoneNumber);
   }
+
   Future<void> _makeCopieNumber(String phoneNumber) async {
-    FlutterClipboard.copy(phoneNumber).then(( result ) {
+    FlutterClipboard.copy(phoneNumber).then((result) {
       showSnackBar('', "Contact Copié dans le presse-papier", Colors.black);
     });
   }
@@ -87,8 +111,9 @@ class HotelController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getHotels();
-
+    // getHotels();
+    getHotelsFiltragePrix();
+    getButtonTypeHotel();
   }
 
   @override
@@ -104,28 +129,30 @@ class HotelController extends GetxController {
   void increment() => count.value++;
 
 
-  getHotels() async {
-      isDataProcessing(true);
-      final response = await HotelServices.getHotels();
-      if (response is Success) {
-        isDataProcessing(false);
-        hotelList.addAll(response.response as List<DataHotelModel>);
-        isLoading.value = false;
-      }
-      if (response is Failure) {
-        isDataProcessing(false);
-        print("Erreur " + response.errorResponse.toString());
-        isLoading.value = false;
-      }
-      isDataProcessing(false);
-      // print("Exception  " + ex.toString());
+  Future<void> getHotelsFiltragePrix() async {
+    isDataProcessing(true);
+    final response = await HotelServices.getHotelsFiltragePrix(type_hotel_selected.value);
+      hotelListAllFiltragePrix.value = response;
       isLoading.value = false;
+    isDataProcessing(false);
+    // print("Exception  " + ex.toString());
+    isLoading.value = false;
   }
+
+  Future<void> getButtonTypeHotel() async {
+    isDataProcessing(true);
+    final response = await HotelServices.getButtonTypeHotel();
+    hotelAllTypeHotel.value = response;
+    inspect(response);
+    isDataProcessing(false);
+    isLoading.value = false;
+  }
+
   // REFRESH PAGE
-  refreshData() async{
-    hotelList.clear();
-    await getHotels();
+  refreshData() async {
+    // hotelList.clear();
+    // await getHotels();
+    await getHotelsFiltragePrix();
+    await getButtonTypeHotel();
   }
-
-
 }

@@ -6,20 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/data/repository/data/Env.dart';
 import '../../../controllers/main_controller.dart';
+import '../../../models/hotelAll.dart';
 import '../../../widgets/text_widget.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/hotel_controller.dart';
-import '../hotel_model_model.dart';
 
 class DetailHotelView extends GetView {
-  final DataHotelModel data;
+  final HotelModel data;
   const DetailHotelView({Key? key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     HotelController hotelController = Get.put(HotelController());
     final MainController settingsCtrl = Get.find();
-   List listMedia =  data.medias!.map((element) {
-     return element.url!;
+   List listMedia =  data.hotelsMedias.map((element) {
+     return element?.url;
     }).toList();
 
     return Scaffold(
@@ -71,7 +71,7 @@ class DetailHotelView extends GetView {
                       options: CarouselOptions(
                         enableInfiniteScroll: true,
                         autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
+                        autoPlayInterval: Duration(seconds: 5),
                         autoPlayAnimationDuration: Duration(milliseconds: 3500),
                         autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: true,
@@ -100,10 +100,10 @@ class DetailHotelView extends GetView {
                               fontSize: 16.0,
                             ),
                           ),
-                          SizedBox(height: 35),
+                          SizedBox(height: 20),
                           TextField(
                             controller: TextEditingController(
-                                text: '${data.typeQuartierId} CFA'),
+                                text: '${data.typeQuartierHotel?.lieu.toString()}'),
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Lieu',
@@ -111,10 +111,10 @@ class DetailHotelView extends GetView {
                               border: OutlineInputBorder(),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
                           TextField(
                             controller: TextEditingController(
-                                text: '${data.typeHotelId}'),
+                                text: '${data.typeHotel?.lieu.toString()}'),
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Type d`\'hotel',
@@ -122,7 +122,7 @@ class DetailHotelView extends GetView {
                               border: OutlineInputBorder(),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
                           TextField(
                             controller:
                                 TextEditingController(text: '${data.prix} CFA'),
@@ -133,7 +133,7 @@ class DetailHotelView extends GetView {
                               border: OutlineInputBorder(),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
                           TextField(
                             controller:
                                 TextEditingController(text: data.numeroHotel),
@@ -144,7 +144,7 @@ class DetailHotelView extends GetView {
                               border: OutlineInputBorder(),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
                           TextField(
                             controller:
                                 TextEditingController(text: data.contact),
@@ -157,13 +157,46 @@ class DetailHotelView extends GetView {
                           ),
                           TextField(
                             controller:
-                            TextEditingController(text: data.lien_map),
+                            TextEditingController(text: data.lienMap),
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'lien de map',
                               prefixIcon: Icon(Icons.map),
                               border: OutlineInputBorder(),
                             ),
+                          ),
+                           SizedBox(height: 10),
+                           TextField(
+                            controller:
+                            TextEditingController(text: data.linkedIn),
+                            enabled: false,
+                            decoration: InputDecoration(
+                              labelText: 'LinkedIn',
+                              prefixIcon: Icon(Icons.line_style),
+                              border: OutlineInputBorder(),
+                            ),          
+                          ),
+                           SizedBox(height: 10),
+                           TextField(
+                            controller:
+                            TextEditingController(text: data.instagram),
+                            enabled: false,
+                            decoration: InputDecoration(
+                              labelText: 'Instagram',
+                              prefixIcon: Icon(Icons.track_changes),
+                              border: OutlineInputBorder(),
+                            ),          
+                          ),
+                           SizedBox(height: 10),
+                           TextField(
+                            controller:
+                            TextEditingController(text: data.instagram),
+                            enabled: false,
+                            decoration: InputDecoration(
+                              labelText: 'Site Internet',
+                              prefixIcon: Icon(Icons.web),
+                              border: OutlineInputBorder(),
+                            ),          
                           ),
                         ],
                       ),

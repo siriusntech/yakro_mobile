@@ -1,11 +1,13 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/data/repository/data/Env.dart';
+import 'package:jaime_cocody/app/modules/sitetouristiques/controllers/sitetouristiques_controller.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../models/site_touristique.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
+import '../../home/views/home_view.dart';
 import '../widgets/visiteTouristique_card_widget.dart';
 
 class DetailSitetouristiquesView extends GetView {
@@ -13,7 +15,11 @@ class DetailSitetouristiquesView extends GetView {
   const DetailSitetouristiquesView({Key? key, required this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    SitetouristiquesController sitetouristiquesController = Get.put(SitetouristiquesController());
     final MainController settingsCtrl = Get.find();
+     List listMedia =  data.medias.map((element) {
+     return element?.url;
+    }).toList();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -36,76 +42,138 @@ class DetailSitetouristiquesView extends GetView {
           )
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 300,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                    data.imageUrl),
-                  fit: BoxFit.cover),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data.nomVt!,
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(data.description!, style: TextStyle(fontSize: 16.0),),
-                  SizedBox(height: 35),
-                  TextField(
-                    controller: TextEditingController(text: '${data.typeQuartierVtLieu}'),
-                    enabled: false,
-                    decoration: InputDecoration(
-                      labelText: 'Lieu',
-                      prefixIcon: Icon(Icons.map_sharp),
-                      border: OutlineInputBorder(),
+      body:Obx(() {
+          return sitetouristiquesController.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                SizedBox(height: 3),
+               CarouselSlider(
+                      options: CarouselOptions(
+                        enableInfiniteScroll: true,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        autoPlayAnimationDuration: Duration(milliseconds: 3500),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                      ),
+                      items: generateSlider(listMedia),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  TextField(
-                    controller: TextEditingController(text: '${data.prix} CFA'),
-                    enabled: false,
-                    decoration: InputDecoration(
-                      labelText: 'Prix',
-                      prefixIcon: Icon(Icons.price_change),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  TextField(
-                    controller: TextEditingController(text: data.numeroVisitesTouristique),
-                    enabled: false,
-                    decoration: InputDecoration(
-                      labelText: 'Numéro',
-                      prefixIcon: Icon(Icons.phone),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  // Expanded(
-                  //     flex: 16,
-                  //     child: _ui()
-                  // )
-                ],
+              SizedBox(
+                height: 10,
               ),
-            ),
-          )
-        ],
-      ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.nomVt!,
+                      style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(data.description!, style: TextStyle(fontSize: 16.0),),
+                    SizedBox(height: 35),
+                    TextField(
+                      controller: TextEditingController(text: '${data.typeQuartierVtLieu}'),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Lieu',
+                        prefixIcon: Icon(Icons.map_sharp),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    TextField(
+                      controller: TextEditingController(text: '${data.prix} CFA'),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Prix',
+                        prefixIcon: Icon(Icons.price_change),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    TextField(
+                      controller: TextEditingController(text: data.numeroVisitesTouristique),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Numéro',
+                        prefixIcon: Icon(Icons.phone),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                      SizedBox(height: 20),
+                    TextField(
+                      controller: TextEditingController(text: data.contact),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Contact',
+                        prefixIcon: Icon(Icons.phone),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                     SizedBox(height: 20),
+                    TextField(
+                      controller: TextEditingController(text: data.siteInternet),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Site Internet',
+                        prefixIcon: Icon(Icons.web),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                     SizedBox(height: 20),
+                      TextField(
+                      controller: TextEditingController(text: data.adresseEmail),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Adresse Email',
+                        prefixIcon: Icon(Icons.mail),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                      TextField(
+                      controller: TextEditingController(text: data.facebook),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Facebook',
+                        prefixIcon: Icon(Icons.social_distance),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                     SizedBox(height: 20),
+                    TextField(
+                      controller: TextEditingController(text: data.lienMap),
+                      enabled: false,
+                      decoration: InputDecoration(
+                        labelText: 'Lien de Map',
+                        prefixIcon: Icon(Icons.map),
+                        
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                   
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      }
+  ),
+   
+   
+   
+   
+   
     );
   }
   _ui() {
