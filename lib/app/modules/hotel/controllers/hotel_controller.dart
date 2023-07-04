@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +6,13 @@ import 'package:jaime_cocody/app/data/repository/hotel_services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../models/hotelAll.dart';
-import '../../../models/typeHotel.dart';
-import '../../../widgets/alerte_widgets.dart';
+import '../../../models/typeHotel.dart'; 
 import '../../../widgets/text_widget.dart';
 
 class HotelController extends GetxController {
   var isLoading = true.obs;
+
+  var currentRangeValues = RangeValues(0,100000).obs;
   // var hotelList = <HotelModel>[].obs;
 
   // var hotelList = List<HotelModel>.empty(growable: true).obs;
@@ -25,7 +25,7 @@ class HotelController extends GetxController {
   // final hotelList = <DataHotelModel>[] .obs; // Utilisez une RxList pour observer les changements
   final hotelListAllFiltragePrix = <HotelModel>[].obs;
   final hotelAllTypeHotel = <TypeHotelByHotels>[].obs;
-  final type_hotel_selected= "".obs;
+  final type_hotel_selected = "".obs;
 
   final ButtonStyle buttonStyle = ButtonStyle(
       side: MaterialStateProperty.all(BorderSide(color: Colors.red)),
@@ -43,7 +43,7 @@ class HotelController extends GetxController {
               TextButton(
                 onPressed: () {
                   Get.back();
-                  _makePhoneCall('tel:$phoneNumber');
+                  makePhoneCall('tel:$phoneNumber');
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +69,7 @@ class HotelController extends GetxController {
               TextButton(
                 onPressed: () {
                   Get.back();
-                  _makeCopieNumber(phoneNumber);
+                  makeCopieNumber(phoneNumber);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -98,15 +98,35 @@ class HotelController extends GetxController {
         titlePadding: EdgeInsets.all(0.0));
   }
 
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    await launch(phoneNumber);
+  Future<void> makePhoneCall(String phoneNumber) async {
+    // final Uri launchUri = Uri(
+    //   scheme: 'tel',
+    //   path: phoneNumber,
+    // );
+    // await launch(launchUri.toString());
+    await launchUrl(Uri.parse(phoneNumber));
   }
 
-  Future<void> _makeCopieNumber(String phoneNumber) async {
+  Future<void> makeCopieNumber(String phoneNumber) async {
     FlutterClipboard.copy(phoneNumber).then((result) {
-      showSnackBar('', "Contact Copié dans le presse-papier", Colors.black);
+      Get.snackbar('', "Contact Copié dans le presse-papier",
+          snackPosition: SnackPosition.BOTTOM);
     });
   }
+
+
+  // SHOW SNACKBAR
+  showSnackBar(String title, String message, Color bgColor) {
+    Get.snackbar(title, message,
+        backgroundColor: bgColor,
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white);
+  }
+
+void updateCurrentRangeValues(double start, double end) {
+  currentRangeValues.value = RangeValues(start, end);
+}
+
 
   @override
   void onInit() {
@@ -128,12 +148,14 @@ class HotelController extends GetxController {
 
   void increment() => count.value++;
 
-
   Future<void> getHotelsFiltragePrix() async {
     isDataProcessing(true);
-    final response = await HotelServices.getHotelsFiltragePrix(type_hotel_selected.value);
-      hotelListAllFiltragePrix.value = response;
-      isLoading.value = false;
+    final response = await HotelServices.getHotelsFiltragePrix(
+        type_hotel_selected.value,
+        currentRangeValues.value.start.toInt().toString(),
+        currentRangeValues.value.end.toInt().toString());
+    hotelListAllFiltragePrix.value = response;
+    isLoading.value = false;
     isDataProcessing(false);
     // print("Exception  " + ex.toString());
     isLoading.value = false;

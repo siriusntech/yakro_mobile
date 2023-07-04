@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/modules/sitetouristiques/controllers/sitetouristiques_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../models/site_touristique.dart';
 import '../../../widgets/loading_widget.dart';
@@ -73,7 +74,7 @@ class DetailSitetouristiquesView extends GetView {
                   children: [
                     Text(
                       data.nomVt!,
-                      style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 20.0,
@@ -100,27 +101,51 @@ class DetailSitetouristiquesView extends GetView {
                       ),
                     ),
                     SizedBox(height: 20),
-                    TextField(
+                          InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              sitetouristiquesController.showAlerte(data.numeroVisitesTouristique.toString());
+                            },
+                            child:   TextField(
                       controller: TextEditingController(text: data.numeroVisitesTouristique),
                       enabled: false,
                       decoration: InputDecoration(
-                        labelText: 'Numéro',
+                        labelText: 'contact1',
                         prefixIcon: Icon(Icons.phone),
                         border: OutlineInputBorder(),
                       ),
-                    ),
+                    )
+                          ),
                       SizedBox(height: 20),
-                    TextField(
+                          InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              sitetouristiquesController.showAlerte(data.contact.toString());
+
+                            },
+                      child: TextField(
                       controller: TextEditingController(text: data.contact),
                       enabled: false,
                       decoration: InputDecoration(
-                        labelText: 'Contact',
+                        labelText: 'Contact2',
                         prefixIcon: Icon(Icons.phone),
                         border: OutlineInputBorder(),
                       ),
-                    ),
+                    )
+                ),
                      SizedBox(height: 20),
-                    TextField(
+                              InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                                launchUrl(Uri.parse(data.siteInternet.toString()));
+                            },
+                      child: TextField(
                       controller: TextEditingController(text: data.siteInternet),
                       enabled: false,
                       decoration: InputDecoration(
@@ -128,9 +153,17 @@ class DetailSitetouristiquesView extends GetView {
                         prefixIcon: Icon(Icons.web),
                         border: OutlineInputBorder(),
                       ),
-                    ),
+                    )
+                ),
                      SizedBox(height: 20),
-                      TextField(
+                        InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              launchUrl(Uri.parse(data.adresseEmail.toString()));
+                            },
+                            child:   TextField(
                       controller: TextEditingController(text: data.adresseEmail),
                       enabled: false,
                       decoration: InputDecoration(
@@ -138,9 +171,17 @@ class DetailSitetouristiquesView extends GetView {
                         prefixIcon: Icon(Icons.mail),
                         border: OutlineInputBorder(),
                       ),
-                    ),
+                    )
+                ),
                     SizedBox(height: 20),
-                      TextField(
+                        InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              launchUrl(Uri.parse(data.facebook.toString()));
+                            },
+                            child:   TextField(
                       controller: TextEditingController(text: data.facebook),
                       enabled: false,
                       decoration: InputDecoration(
@@ -148,19 +189,26 @@ class DetailSitetouristiquesView extends GetView {
                         prefixIcon: Icon(Icons.social_distance),
                         border: OutlineInputBorder(),
                       ),
-                    ),
+                    )
+                ),
                      SizedBox(height: 20),
-                    TextField(
+                       InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              launchUrl(Uri.parse(data.lienMap.toString()));
+                            },
+                            child: TextField(
                       controller: TextEditingController(text: data.lienMap),
                       enabled: false,
                       decoration: InputDecoration(
                         labelText: 'Lien de Map',
                         prefixIcon: Icon(Icons.map),
-                        
                         border: OutlineInputBorder(),
-                      ),
+                        ),
+                      )
                     ),
-                   
                   ],
                 ),
               )

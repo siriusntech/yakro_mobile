@@ -4,13 +4,14 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/data/repository/data/Env.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../../controllers/main_controller.dart';
 import '../../../models/hotelAll.dart';
 import '../../../widgets/text_widget.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/hotel_controller.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class DetailHotelView extends GetView {
   final HotelModel data;
   const DetailHotelView({Key? key, required this.data}) : super(key: key);
@@ -89,7 +90,7 @@ class DetailHotelView extends GetView {
                           Text(
                             data.nomHotel!,
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -107,7 +108,7 @@ class DetailHotelView extends GetView {
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Lieu',
-                              prefixIcon: Icon(Icons.map_sharp),
+                              prefixIcon: Icon(FontAwesomeIcons.map),
                               border: OutlineInputBorder(),
                             ),
                           ),
@@ -118,7 +119,7 @@ class DetailHotelView extends GetView {
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Type d`\'hotel',
-                              prefixIcon: Icon(Icons.type_specimen_rounded),
+                              prefixIcon: Icon(FontAwesomeIcons.hotel),
                               border: OutlineInputBorder(),
                             ),
                           ),
@@ -129,42 +130,69 @@ class DetailHotelView extends GetView {
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Prix',
-                              prefixIcon: Icon(Icons.price_change),
+                              prefixIcon: Icon(FontAwesomeIcons.moneyBillWave),
                               border: OutlineInputBorder(),
                             ),
                           ),
                           SizedBox(height: 10),
-                          TextField(
-                            controller:
-                                TextEditingController(text: data.numeroHotel),
-                            enabled: false,
-                            decoration: InputDecoration(
-                              labelText: 'Numéro 1',
-                              prefixIcon: Icon(Icons.phone),
-                              border: OutlineInputBorder(),
+
+                          InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              hotelController.showAlerte(data.numeroHotel.toString());
+
+                            },
+                            child: TextField(
+                              controller: TextEditingController(text: data.numeroHotel),
+                              enabled: false,
+                              decoration: InputDecoration(
+                                labelText: 'Numéro 1',
+                                prefixIcon: Icon(FontAwesomeIcons.phone),
+                                border: OutlineInputBorder(),
+                              ),
                             ),
                           ),
                           SizedBox(height: 10),
-                          TextField(
-                            controller:
-                                TextEditingController(text: data.contact),
-                            enabled: false,
-                            decoration: InputDecoration(
-                              labelText: 'Numéro 2',
-                              prefixIcon: Icon(Icons.phone),
-                              border: OutlineInputBorder(),
+                          InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              hotelController.showAlerte(data.contact.toString());
+
+                            },
+                            child: TextField(
+                              controller: TextEditingController(text: data.contact),
+                              enabled: false,
+                              decoration: InputDecoration(
+                                labelText: 'Numéro 2',
+                                prefixIcon: Icon(FontAwesomeIcons.mobile),
+                                border: OutlineInputBorder(),
+                              ),
                             ),
                           ),
-                          TextField(
-                            controller:
-                            TextEditingController(text: data.lienMap),
-                            enabled: false,
-                            decoration: InputDecoration(
-                              labelText: 'lien de map',
-                              prefixIcon: Icon(Icons.map),
-                              border: OutlineInputBorder(),
+                          SizedBox(height: 10),
+                          InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              launchUrl(Uri.parse(data.lienMap.toString()));
+
+                            },
+                            child: TextField(
+                              controller:  TextEditingController(text: data.lienMap),
+                              enabled: false,
+                              decoration: InputDecoration(
+                                labelText: 'Lien de map',
+                                prefixIcon: Icon(FontAwesomeIcons.mapLocation),
+                                border: OutlineInputBorder(),
+                              ),
                             ),
                           ),
+
                            SizedBox(height: 10),
                            TextField(
                             controller:
@@ -172,9 +200,9 @@ class DetailHotelView extends GetView {
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'LinkedIn',
-                              prefixIcon: Icon(Icons.line_style),
+                              prefixIcon: Icon(FontAwesomeIcons.linkedinIn),
                               border: OutlineInputBorder(),
-                            ),          
+                            ),
                           ),
                            SizedBox(height: 10),
                            TextField(
@@ -183,21 +211,51 @@ class DetailHotelView extends GetView {
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Instagram',
-                              prefixIcon: Icon(Icons.track_changes),
+                              prefixIcon: Icon(FontAwesomeIcons.instagram),
                               border: OutlineInputBorder(),
                             ),          
                           ),
                            SizedBox(height: 10),
-                           TextField(
-                            controller:
-                            TextEditingController(text: data.instagram),
-                            enabled: false,
-                            decoration: InputDecoration(
-                              labelText: 'Site Internet',
-                              prefixIcon: Icon(Icons.web),
-                              border: OutlineInputBorder(),
-                            ),          
+                          InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              launchUrl(Uri.parse(data.siteInternet.toString()));
+                            },
+                            child:  TextField(
+
+                              controller:
+                              TextEditingController(text: data.siteInternet),
+                              enabled: false,
+                              decoration: InputDecoration(
+                                labelText: 'Site Internet',
+                                prefixIcon: Icon(FontAwesomeIcons.internetExplorer),
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
                           ),
+
+                      SizedBox(height: 10),
+                          InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              launchUrl(Uri.parse(data.facebook.toString()));
+                            },
+                            child:TextField(
+                                controller:
+                                TextEditingController(text: data.facebook),
+                                enabled: false,
+                                decoration: InputDecoration(
+                                  labelText: 'Facebook',
+                                  prefixIcon: Icon(FontAwesomeIcons.facebook),
+                                  border: OutlineInputBorder(),
+                                )
+                            )
+                          ),
+
                         ],
                       ),
                     ),

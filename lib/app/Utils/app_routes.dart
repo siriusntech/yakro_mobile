@@ -43,4 +43,5 @@ class AppRoutes {
   static const RESTAURANT = '/restaurant';
   static const MAQUIS = '/maquis';
   static const HOTEL = 'hotels';
+  static const SHOW_RESTAURANT = '/show_restaurant';
 }

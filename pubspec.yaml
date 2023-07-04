@@ -54,6 +54,7 @@ dependencies:
   fluttertoast: ^8.2.2
   flutter_staggered_animations: ^1.1.1
   carousel_pro: ^1.0.0
+  font_awesome_flutter: ^10.4.0
 
 dev_dependencies: 
   flutter_lints: ^1.0.0

@@ -60,6 +60,7 @@ import '../modules/pharmacie/views/pharmacie_show_view.dart';
 import '../modules/pharmacie/views/pharmacie_view.dart';
 import '../modules/restaurant/bindings/restaurant_binding.dart';
 import '../modules/restaurant/views/restaurant_view.dart';
+import '../modules/restaurant/views/show_restaurant_view.dart';
 import '../modules/sitetouristiques/bindings/sitetouristiques_binding.dart';
 import '../modules/sitetouristiques/views/sitetouristiques_view.dart';
 import '../modules/slider/bindings/slider_binding.dart';
@@ -325,6 +326,11 @@ class AppPages {
       name: _Paths.SLIDER,
       page: () => const SliderView(),
       binding: SliderBinding(),
+    ),
+      GetPage(
+      name: _Paths.SHOW_RESTAURANT,
+      page: () => const ShowRestaurantView(),
+      binding: RestaurantBinding(),
     ),
   ];
 }

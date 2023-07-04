@@ -49,35 +49,111 @@ class HotelView extends GetView<HotelController> {
           } else {
             return Column(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  margin: const EdgeInsets.all(5.0),
-                  child: SingleChildScrollView(
-                      child: Row(children: [
-                        
-                  
-                    ...controller.hotelAllTypeHotel
-                        .map((typeHotels) => FilterChip(
-                              label: SizedBox( width:75,
-                              child: Text(typeHotels.lieu!.toString())),
-                              onSelected: (onSelected) {
-                                hotelController.type_hotel_selected.value =
-                                    typeHotels.lieu!;
-                                    hotelController.getHotelsFiltragePrix();
+                SizedBox(height: 5.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            SizedBox(height: 15.0),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: FilterChip(
+                                label: Text("Tout"),
+                                onSelected: (onSelected) {
+                                  hotelController.type_hotel_selected.value =
+                                  "";
+                                  hotelController.getHotelsFiltragePrix();
+                                },
+                                selected:
+                                hotelController.type_hotel_selected.value ==
+                                    "",
+                              ),
+                            ),
+                            ...controller.hotelAllTypeHotel.map((typeHotels) =>
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: FilterChip(
+                                    label: Text(typeHotels.lieu!.toString()),
+                                    onSelected: (onSelected) {
+                                      hotelController.type_hotel_selected
+                                          .value = typeHotels.lieu!;
+                                      hotelController.getHotelsFiltragePrix();
+                                    },
+                                    selected: hotelController
+                                        .type_hotel_selected.value ==
+                                        typeHotels.lieu!,
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(
+                              builder: (BuildContext context, setState) {
+                                return Container(
+                                  height: 150,
+                                  color: Colors.white,
+                                  child: Column(
+                                    children: [
+                                      Text('Choisissez Votre Prix',style:TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold)),
+                                      Expanded(
+                                        child: RangeSlider(
+                                          values: hotelController.currentRangeValues.value,
+                                          min: 0,
+                                          max: 100000,
+                                          divisions: 50000,
+                                          labels: RangeLabels(
+                                            hotelController.currentRangeValues.value.start
+                                                .round()
+                                                .toString() ,
+                                            hotelController.currentRangeValues.value.end
+                                                .round()
+                                                .toString(),
+                                          ),
+                                           onChanged: (RangeValues values) {
+                                            setState(() {
+                                              hotelController.currentRangeValues.value = values;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          hotelController.getHotelsFiltragePrix();
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Valider'),
+                                      ),
+                                    ],
+                                  ),
+                                );
                               },
-                              selected:
-                                  hotelController.type_hotel_selected.value ==
-                                      typeHotels.lieu!,
-                            ))
-                  ])),
+                            );
+                          },
+                        );
+                      },
+                      icon: Icon(Icons.add),
+                    ),
+                  ],
                 ),
                 Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.all(10),
                     itemCount: hotelController.hotelListAllFiltragePrix.length,
                     itemBuilder: (context, index) {
-                      final hotelData = hotelController.hotelListAllFiltragePrix[index];
-                      final firstMediaUrl = hotelData.hotelsMedias.isNotEmpty ? hotelData.hotelsMedias[0]?.url : '';
+                      final hotelData =
+                      hotelController.hotelListAllFiltragePrix[index];
+                      final firstMediaUrl = hotelData.hotelsMedias.isNotEmpty
+                          ? hotelData.hotelsMedias[0]?.url
+                          : '';
 
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -85,9 +161,11 @@ class HotelView extends GetView<HotelController> {
                         children: [
                           ListTile(
                             onTap: () {
-                              Get.to(DetailHotelView(
-                                data: hotelData,
-                              ));
+                              Get.to(
+                                DetailHotelView(
+                                  data: hotelData,
+                                ),
+                              );
                             },
                             title: TextWidget(
                               text: hotelData.nomHotel!,
@@ -105,10 +183,12 @@ class HotelView extends GetView<HotelController> {
                               height: 70,
                               width: 70,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                   image: DecorationImage(
-                                       image: NetworkImage(firstMediaUrl.toString()),
-                                      fit: BoxFit.cover)),
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                  image: NetworkImage(firstMediaUrl.toString()),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
                         ],

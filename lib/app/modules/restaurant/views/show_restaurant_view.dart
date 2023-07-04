@@ -1,36 +1,46 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/zoom/controllers/zoom_controller.dart';
-import 'package:jaime_cocody/app/modules/zoom/views/zoom_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_icons.dart';
 import '../../../Utils/default_image.dart';
 import '../../../controllers/main_controller.dart';
-
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/text_widget.dart';
-import '../controllers/commerce_controller.dart';
+import '../../zoom/controllers/zoom_controller.dart';
+import '../../zoom/views/zoom_view.dart';
+import '../controllers/restaurant_controller.dart';
 
-class CommerceShowView extends GetView<CommerceController> {
-
-  final ZoomController zoomCtrl = Get.put(ZoomController());
-  final MainController settingsCtrl = Get.find();
+class ShowRestaurantView extends GetView<RestaurantController>{
+  const ShowRestaurantView({Key? key}) : super(key: key);
+ 
   @override
   Widget build(BuildContext context) {
+     final ZoomController zoomCtrl = Get.put(ZoomController());
+     final MainController settingsCtrl = Get.find();
     return Scaffold(
-      appBar: AppBar(
+      appBar:AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title: Text("Commerces et autres",
-          style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-          ),
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title:TextWidget(text: 'Restaurants et autres',fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
         ),
+        actions: [
+          IconButton(
+              onPressed: () async{
+                await controller.refreshData();
+              },
+              icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
+          )
+        ],
       ),
       body: Center(
         child: Padding(

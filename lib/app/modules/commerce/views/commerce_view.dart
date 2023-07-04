@@ -25,14 +25,20 @@ class CommerceView extends GetView<CommerceController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title:TextWidget(text: 'Commerces et autres',fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title: TextWidget(text: 'Commerces et autres', fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
+        ),
         actions: [
           IconButton(
-              onPressed: () async{
-                await controller.refreshData();
-              },
-              icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
+            onPressed: () async {
+              await controller.refreshData();
+            },
+            icon: Icon(Icons.refresh, color: Colors.white, size: 30),
           )
         ],
       ),
