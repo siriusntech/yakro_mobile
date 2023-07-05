@@ -64,7 +64,7 @@ class HotelView extends GetView<HotelController> {
                                 label: Text("Tout"),
                                 onSelected: (onSelected) {
                                   controller.currentRangeValues.value =
-                                          RangeValues(1, 100000);
+                                          RangeValues(0, 200000);
                                   hotelController.type_hotel_selected.value =
                                       0;
                                   hotelController.getHotelsFiltragePrix();
@@ -81,7 +81,7 @@ class HotelView extends GetView<HotelController> {
                                     label: Text(typeHotels.lieu!.toString()),
                                     onSelected: (onSelected) {
                                       controller.currentRangeValues.value =
-                                          RangeValues(1, 100000);
+                                          RangeValues(0, 200000);
                                       hotelController.type_hotel_selected
                                           .value = typeHotels.id!;
                                       hotelController.getHotelsFiltragePrix();
@@ -116,7 +116,7 @@ class HotelView extends GetView<HotelController> {
                                           values: hotelController
                                               .currentRangeValues.value,
                                           min: 0,
-                                          max: 100000,
+                                          max: 200000,
                                           divisions: 50000,
                                           labels: RangeLabels(
                                             hotelController

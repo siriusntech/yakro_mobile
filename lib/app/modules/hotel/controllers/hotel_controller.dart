@@ -12,7 +12,7 @@ import '../../../widgets/text_widget.dart';
 class HotelController extends GetxController {
   var isLoading = true.obs;
 
-  var currentRangeValues = RangeValues(1,100000).obs;
+  var currentRangeValues = RangeValues(0,200000).obs;
   // var hotelList = <HotelModel>[].obs;
 
   // var hotelList = List<HotelModel>.empty(growable: true).obs;
