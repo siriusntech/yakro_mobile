@@ -51,7 +51,6 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-
     return Obx(() => mainCtrl.isSettingProcessing.value == true
         ? Loading()
         : Scaffold(

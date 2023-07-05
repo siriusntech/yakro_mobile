@@ -12,7 +12,7 @@ import '../../../widgets/text_widget.dart';
 class HotelController extends GetxController {
   var isLoading = true.obs;
 
-  var currentRangeValues = RangeValues(0,100000).obs;
+  var currentRangeValues = RangeValues(1,100000).obs;
   // var hotelList = <HotelModel>[].obs;
 
   // var hotelList = List<HotelModel>.empty(growable: true).obs;
@@ -25,7 +25,7 @@ class HotelController extends GetxController {
   // final hotelList = <DataHotelModel>[] .obs; // Utilisez une RxList pour observer les changements
   final hotelListAllFiltragePrix = <HotelModel>[].obs;
   final hotelAllTypeHotel = <TypeHotelByHotels>[].obs;
-  final type_hotel_selected = "".obs;
+  final type_hotel_selected = 0.obs;
 
   final ButtonStyle buttonStyle = ButtonStyle(
       side: MaterialStateProperty.all(BorderSide(color: Colors.red)),

@@ -63,13 +63,15 @@ class HotelView extends GetView<HotelController> {
                               child: FilterChip(
                                 label: Text("Tout"),
                                 onSelected: (onSelected) {
+                                  controller.currentRangeValues.value =
+                                          RangeValues(1, 100000);
                                   hotelController.type_hotel_selected.value =
-                                  "";
+                                      0;
                                   hotelController.getHotelsFiltragePrix();
                                 },
                                 selected:
-                                hotelController.type_hotel_selected.value ==
-                                    "",
+                                    hotelController.type_hotel_selected.value ==
+                                        0,
                               ),
                             ),
                             ...controller.hotelAllTypeHotel.map((typeHotels) =>
@@ -78,13 +80,15 @@ class HotelView extends GetView<HotelController> {
                                   child: FilterChip(
                                     label: Text(typeHotels.lieu!.toString()),
                                     onSelected: (onSelected) {
+                                      controller.currentRangeValues.value =
+                                          RangeValues(1, 100000);
                                       hotelController.type_hotel_selected
-                                          .value = typeHotels.lieu!;
+                                          .value = typeHotels.id!;
                                       hotelController.getHotelsFiltragePrix();
                                     },
                                     selected: hotelController
-                                        .type_hotel_selected.value ==
-                                        typeHotels.lieu!,
+                                            .type_hotel_selected.value ==
+                                        typeHotels.id!,
                                   ),
                                 ))
                           ],
@@ -103,31 +107,39 @@ class HotelView extends GetView<HotelController> {
                                   color: Colors.white,
                                   child: Column(
                                     children: [
-                                      Text('Choisissez Votre Prix',style:TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold)),
+                                      Text('Choisissez Votre Prix',
+                                          style: TextStyle(
+                                              fontSize: 26.0,
+                                              fontWeight: FontWeight.bold)),
                                       Expanded(
                                         child: RangeSlider(
-                                          values: hotelController.currentRangeValues.value,
+                                          values: hotelController
+                                              .currentRangeValues.value,
                                           min: 0,
                                           max: 100000,
                                           divisions: 50000,
                                           labels: RangeLabels(
-                                            hotelController.currentRangeValues.value.start
+                                            hotelController
+                                                .currentRangeValues.value.start
                                                 .round()
-                                                .toString() ,
-                                            hotelController.currentRangeValues.value.end
+                                                .toString(),
+                                            hotelController
+                                                .currentRangeValues.value.end
                                                 .round()
                                                 .toString(),
                                           ),
-                                           onChanged: (RangeValues values) {
+                                          onChanged: (RangeValues values) {
                                             setState(() {
-                                              hotelController.currentRangeValues.value = values;
+                                              hotelController.currentRangeValues
+                                                  .value = values;
                                             });
                                           },
                                         ),
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
-                                          hotelController.getHotelsFiltragePrix();
+                                          hotelController
+                                              .getHotelsFiltragePrix();
                                           Navigator.pop(context);
                                         },
                                         child: Text('Valider'),
@@ -150,7 +162,7 @@ class HotelView extends GetView<HotelController> {
                     itemCount: hotelController.hotelListAllFiltragePrix.length,
                     itemBuilder: (context, index) {
                       final hotelData =
-                      hotelController.hotelListAllFiltragePrix[index];
+                          hotelController.hotelListAllFiltragePrix[index];
                       final firstMediaUrl = hotelData.hotelsMedias.isNotEmpty
                           ? hotelData.hotelsMedias[0]?.url
                           : '';

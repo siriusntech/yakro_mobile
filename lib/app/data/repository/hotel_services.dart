@@ -46,11 +46,15 @@ class HotelServices {
   static Future<List<HotelModel>> getHotelsFiltragePrix(
       var type_hotel, var prix1, var prix2) async {
     var headers = await AuthService.getLoggedHeaders();
-    final apiUrl = '${settingsCtrl.baseUrl}filtrage_hotel${type_hotel.isNotEmpty ? "?type_hotel=$type_hotel" : ""}${type_hotel.isNotEmpty ? "&prix1=$prix1" : "?prix1=$prix1"}${prix2.isNotEmpty ? "&prix2=$prix2" : ""}';
+    final apiUrl =
+        '${settingsCtrl.baseUrl}filtrage_hotel${"?type_hotel=$type_hotel"}${"&prix1=$prix1"}${prix2.isNotEmpty ? "&prix2=$prix2" : ""}';
     var url = Uri.parse(apiUrl);
-    print("****************"+apiUrl);
+    print("****************" + apiUrl);
     print('getHotelsFiltragePrix url:   ' + url.toString());
-    var response = await http.get(url, headers: headers, );
+    var response = await http.get(
+      url,
+      headers: headers,
+    );
     print('getHotelsFiltragePrix response status code ' +
         response.statusCode.toString());
     print('getHotelsFiltragePrix response body ' + response.body.toString());
@@ -66,15 +70,15 @@ class HotelServices {
 //   static Future<List<HotelModel>> getHotelsFiltragePrix(
 //     var type_hotel, var prix1, var prix2) async {
 //   var headers = await AuthService.getLoggedHeaders();
-  
+
 //   int? parsedPrix1 = prix1.isNotEmpty ? int.tryParse(prix1) : null;
 //   int? parsedPrix2 = prix2.isNotEmpty ? int.tryParse(prix2) : null;
 
 //   print('test1: $parsedPrix1');
 //   print('test2: $parsedPrix2');
-    
+
 //   final apiUrl = '${settingsCtrl.baseUrl}filtrage_hotel${type_hotel.isNotEmpty ? "?type_hotel=$type_hotel" : ""}${parsedPrix1 != null ? "?prix1=$parsedPrix1" : ""}${parsedPrix2 != null ? "&prix2=$parsedPrix2" : ""}';
-  
+
 //   var url = Uri.parse(apiUrl);
 //   print("****************" + apiUrl);
 //   print('getHotelsFiltragePrix url:   ' + url.toString());
@@ -90,7 +94,6 @@ class HotelServices {
 //     return [];
 //   }
 // }
-
 
   /*static Future<List<HotelModel>> getHotelsFiltragePrix(
       String type_hotel, String prix1, String prix2) async {
@@ -127,7 +130,6 @@ class HotelServices {
       return [];
     }
   }*/
-
 
   static Future<List<TypeHotelByHotels>> getButtonTypeHotel() async {
     var headers = await AuthService.getLoggedHeaders();
