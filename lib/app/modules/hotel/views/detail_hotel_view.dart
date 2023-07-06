@@ -70,7 +70,6 @@ class DetailHotelView extends GetView {
                   children: [
                     CarouselSlider(
                       options: CarouselOptions(
-                        
                         enableInfiniteScroll: true,
                         autoPlayInterval: Duration(seconds: 5),
                         autoPlayAnimationDuration: Duration(milliseconds: 3500),
