@@ -20,7 +20,7 @@ class DetailHotelView extends GetView {
     HotelController hotelController = Get.put(HotelController());
     final MainController settingsCtrl = Get.find();
    List listMedia =  data.medias!.map((element) {
-     return element?.url;
+     return element.url;
     }).toList();
 
     return Scaffold(

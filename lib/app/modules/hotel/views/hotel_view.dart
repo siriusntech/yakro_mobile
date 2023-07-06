@@ -151,7 +151,7 @@ class HotelView extends GetView<HotelController> {
           ElevatedButton(
             onPressed: () {
               hotelController.getHotelsFiltragePrix();
-              Navigator.pop(context);
+              
             },
             child: Text('Valider'),
           ),
