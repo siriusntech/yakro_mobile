@@ -19,7 +19,7 @@ class DetailHotelView extends GetView {
   Widget build(BuildContext context) {
     HotelController hotelController = Get.put(HotelController());
     final MainController settingsCtrl = Get.find();
-   List listMedia =  data.hotelsMedias.map((element) {
+   List listMedia =  data.medias!.map((element) {
      return element?.url;
     }).toList();
 
@@ -104,7 +104,7 @@ class DetailHotelView extends GetView {
                           SizedBox(height: 20),
                           TextField(
                             controller: TextEditingController(
-                                text: '${data.typeQuartierHotel?.lieu.toString()}'),
+                                text: '${data.typeQuartierId?.toString()}'),
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Lieu',
@@ -115,7 +115,7 @@ class DetailHotelView extends GetView {
                           SizedBox(height: 10),
                           TextField(
                             controller: TextEditingController(
-                                text: '${data.typeHotel?.lieu.toString()}'),
+                                text: '${data.typeHotelId?.toString()}'),
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Type d`\'hotel',

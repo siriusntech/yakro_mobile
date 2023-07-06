@@ -163,10 +163,9 @@ class HotelView extends GetView<HotelController> {
                     itemBuilder: (context, index) {
                       final hotelData =
                           hotelController.hotelListAllFiltragePrix[index];
-                      final firstMediaUrl = hotelData.hotelsMedias.isNotEmpty
-                          ? hotelData.hotelsMedias[0]?.url
+                      final firstMediaUrl = hotelData.medias!.isNotEmpty
+                          ? hotelData.medias![0].url
                           : '';
-
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
