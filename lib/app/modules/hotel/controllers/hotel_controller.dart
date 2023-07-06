@@ -19,6 +19,7 @@ class HotelController extends GetxController {
   // var selectedHotels = HotelModel().obs;
   var selectedHotels = <HotelModel>[].obs;
   var isDataProcessing = false.obs;
+  var isDataProcessingTypeHotel = false.obs;
   var selectedType = ''.obs;
   final count = 0.obs;
 
@@ -162,11 +163,11 @@ void updateCurrentRangeValues(double start, double end) {
   }
 
   Future<void> getButtonTypeHotel() async {
-    isDataProcessing(true);
+    isDataProcessingTypeHotel(true);
     final response = await HotelServices.getButtonTypeHotel();
     hotelAllTypeHotel.value = response;
     inspect(response);
-    isDataProcessing(false);
+    isDataProcessingTypeHotel(false);
     isLoading.value = false;
   }
 

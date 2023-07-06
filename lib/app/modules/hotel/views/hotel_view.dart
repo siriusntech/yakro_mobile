@@ -40,178 +40,176 @@ class HotelView extends GetView<HotelController> {
           )
         ],
       ),
-      body: Obx(() {
-        if (controller.isDataProcessing.value == true) {
-          return LoadingWidget();
-        } else {
-          if (controller.hotelListAllFiltragePrix.length == 0) {
-            return NoDataWidget();
-          } else {
-            return Column(
-              children: [
-                SizedBox(height: 5.0),
-                Row(
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            SizedBox(height: 15.0),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: FilterChip(
-                                label: Text("Tout"),
-                                onSelected: (onSelected) {
-                                  controller.currentRangeValues.value =
-                                          RangeValues(0, 200000);
-                                  hotelController.type_hotel_selected.value =
-                                      0;
-                                  hotelController.getHotelsFiltragePrix();
-                                },
-                                selected:
-                                    hotelController.type_hotel_selected.value ==
-                                        0,
+      body: Column(
+        children: [
+          SizedBox(height: 5.0),
+          Obx(() => controller.isDataProcessingTypeHotel.value
+              ? LoadingWidget()
+              : controller.hotelAllTypeHotel.isEmpty
+                  ? NoDataWidget()
+                  : Row(
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              SizedBox(height: 15.0),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: FilterChip(
+                                  label: Text("Tout"),
+                                  onSelected: (onSelected) {
+                                    controller.currentRangeValues.value =
+                                        RangeValues(0, 200000);
+                                    hotelController.type_hotel_selected.value =
+                                        0;
+                                    hotelController.getHotelsFiltragePrix();
+                                  },
+                                  selected: hotelController
+                                          .type_hotel_selected.value ==
+                                      0,
+                                ),
                               ),
-                            ),
-                            ...controller.hotelAllTypeHotel.map((typeHotels) =>
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: FilterChip(
-                                    label: Text(typeHotels.lieu!.toString()),
-                                    onSelected: (onSelected) {
-                                      controller.currentRangeValues.value =
-                                          RangeValues(0, 200000);
-                                      hotelController.type_hotel_selected
-                                          .value = typeHotels.id!;
-                                      hotelController.getHotelsFiltragePrix();
-                                    },
-                                    selected: hotelController
-                                            .type_hotel_selected.value ==
-                                        typeHotels.id!,
-                                  ),
-                                ))
-                          ],
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return StatefulBuilder(
-                              builder: (BuildContext context, setState) {
-                                return Container(
-                                  height: 150,
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      Text('Choisissez Votre Prix',
-                                          style: TextStyle(
-                                              fontSize: 26.0,
-                                              fontWeight: FontWeight.bold)),
-                                      Expanded(
-                                        child: RangeSlider(
-                                          values: hotelController
-                                              .currentRangeValues.value,
-                                          min: 0,
-                                          max: 200000,
-                                          divisions: 50000,
-                                          labels: RangeLabels(
+                              ...controller.hotelAllTypeHotel
+                                  .map((typeHotels) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: FilterChip(
+                                          label:
+                                              Text(typeHotels.lieu!.toString()),
+                                          onSelected: (onSelected) {
+                                            controller.currentRangeValues
+                                                .value = RangeValues(0, 200000);
+                                            hotelController.type_hotel_selected
+                                                .value = typeHotels.id!;
                                             hotelController
-                                                .currentRangeValues.value.start
-                                                .round()
-                                                .toString(),
-                                            hotelController
-                                                .currentRangeValues.value.end
-                                                .round()
-                                                .toString(),
-                                          ),
-                                          onChanged: (RangeValues values) {
-                                            setState(() {
-                                              hotelController.currentRangeValues
-                                                  .value = values;
-                                            });
+                                                .getHotelsFiltragePrix();
                                           },
+                                          selected: hotelController
+                                                  .type_hotel_selected.value ==
+                                              typeHotels.id!,
                                         ),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          hotelController
-                                              .getHotelsFiltragePrix();
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('Valider'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        );
-                      },
-                      icon: Icon(Icons.add),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    padding: EdgeInsets.all(10),
-                    itemCount: hotelController.hotelListAllFiltragePrix.length,
-                    itemBuilder: (context, index) {
-                      final hotelData =
-                          hotelController.hotelListAllFiltragePrix[index];
-                      final firstMediaUrl = hotelData.medias!.isNotEmpty
-                          ? hotelData.medias![0].url
-                          : '';
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            onTap: () {
-                              Get.to(
-                                DetailHotelView(
-                                  data: hotelData,
+                                      ))
+                            ],
+                          ),
+                        ),
+                        // IconButton(
+                        //   onPressed: () {
+                        //     showModalBottomSheet(
+                        //       context: context,
+                        //       builder: (BuildContext context) {
+                        //         return StatefulBuilder(
+                        //           builder: (BuildContext context, setState) {
+                        //             return Container(
+                        //               height: 150,
+                        //               color: Colors.white,
+                        //               child: Column(
+                        //                 children: [
+                        //                   Text('Choisissez Votre Prix',
+                        //                       style: TextStyle(
+                        //                           fontSize: 26.0,
+                        //                           fontWeight: FontWeight.bold)),
+                        // ElevatedButton(
+                        //   onPressed: () {
+                        //     hotelController
+                        //         .getHotelsFiltragePrix();
+                        //     Navigator.pop(context);
+                        //   },
+                        //   child: Text('Valider'),
+                        // ),
+                        //                 ],
+                        //               ),
+                        //             );
+                        //           },
+                        //         );
+                        //       },
+                        //     );
+                        //   },
+                        //   icon: Icon(Icons.add),
+                        // ),
+                      ],
+                    )),
+          RangeSlider(
+            values: hotelController.currentRangeValues.value,
+            min: 0,
+            max: 200000,
+            divisions: 50000,
+            labels: RangeLabels(
+              hotelController.currentRangeValues.value.start.round().toString(),
+              hotelController.currentRangeValues.value.end.round().toString(),
+            ),
+            onChanged: (RangeValues values) {
+              // setState(() {
+              hotelController.currentRangeValues.value = values;
+              // });
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              hotelController.getHotelsFiltragePrix();
+              Navigator.pop(context);
+            },
+            child: Text('Valider'),
+          ),
+          Obx(() => controller.isDataProcessing.value
+              ? LoadingWidget()
+              : controller.hotelListAllFiltragePrix.isEmpty
+                  ? NoDataWidget()
+                  : Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.all(10),
+                        itemCount:
+                            hotelController.hotelListAllFiltragePrix.length,
+                        itemBuilder: (context, index) {
+                          final hotelData =
+                              hotelController.hotelListAllFiltragePrix[index];
+                          final firstMediaUrl = hotelData.medias!.isNotEmpty
+                              ? hotelData.medias![0].url
+                              : '';
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                onTap: () {
+                                  Get.to(
+                                    DetailHotelView(
+                                      data: hotelData,
+                                    ),
+                                  );
+                                },
+                                title: TextWidget(
+                                  text: hotelData.nomHotel!,
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  alignement: TextAlign.center,
                                 ),
-                              );
-                            },
-                            title: TextWidget(
-                              text: hotelData.nomHotel!,
-                              color: Colors.black,
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold,
-                              alignement: TextAlign.center,
-                            ),
-                            trailing: Icon(Icons.arrow_right),
-                            subtitle: Text(
-                              hotelData.description!,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            leading: Container(
-                              height: 70,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                  image: NetworkImage(firstMediaUrl.toString()),
-                                  fit: BoxFit.cover,
+                                trailing: Icon(Icons.arrow_right),
+                                subtitle: Text(
+                                  hotelData.description!,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                leading: Container(
+                                  height: 70,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          firstMediaUrl.toString()),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ],
-            );
-          }
-        }
-      }),
+                            ],
+                          );
+                        },
+                      ),
+                    )),
+        ],
+      ),
     );
   }
 }
