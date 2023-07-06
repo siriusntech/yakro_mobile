@@ -129,21 +129,25 @@ class HotelView extends GetView<HotelController> {
                         // ),
                       ],
                     )),
-          RangeSlider(
-            values: hotelController.currentRangeValues.value,
-            min: 0,
-            max: 200000,
-            divisions: 50000,
-            labels: RangeLabels(
-              hotelController.currentRangeValues.value.start.round().toString(),
-              hotelController.currentRangeValues.value.end.round().toString(),
-            ),
-            onChanged: (RangeValues values) {
-              // setState(() {
-              hotelController.currentRangeValues.value = values;
-              // });
-            },
-          ),
+          Obx(() => RangeSlider(
+                values: hotelController.currentRangeValues.value,
+                min: 0,
+                max: 200000,
+                divisions: 50000,
+                labels: RangeLabels(
+                  hotelController.currentRangeValues.value.start
+                      .round()
+                      .toString(),
+                  hotelController.currentRangeValues.value.end
+                      .round()
+                      .toString(),
+                ),
+                onChanged: (RangeValues values) {
+                  // setState(() {
+                  hotelController.currentRangeValues.value = values;
+                  // });
+                },
+              )),
           ElevatedButton(
             onPressed: () {
               hotelController.getHotelsFiltragePrix();
