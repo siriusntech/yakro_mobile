@@ -4,21 +4,18 @@
 
 import 'dart:convert';
 
-HotelModel hotelModelFromJson(String str) => HotelModel.fromJson(json.decode(str));
+List<HotelModel> hotelModelFromJson(String str) => List<HotelModel>.from(json.decode(str).map((x) => HotelModel.fromJson(x)));
 
-String hotelModelToJson(HotelModel data) => json.encode(data.toJson());
+String hotelModelToJson(List<HotelModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class HotelModel {
     int? id;
     String? nomHotel;
-    String? typeQuartierId;
-    String? typeHotelId;
     int? prix;
     String? description;
+    dynamic avis;
     String? numeroHotel;
     String? contact;
-    String? imageUrl;
-    List<Media>? medias;
     String? lienMap;
     String? siteInternet;
     String? adresseEmail;
@@ -26,18 +23,22 @@ class HotelModel {
     String? linkedIn;
     String? youtube;
     String? instagram;
+    String? typeQuartierHotelsId;
+    String? typeHotelId;
+    String? userId;
+    dynamic deletedAt;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+    List<HotelsMedia?>? hotelsMedias;
 
     HotelModel({
         this.id,
         this.nomHotel,
-        this.typeQuartierId,
-        this.typeHotelId,
         this.prix,
         this.description,
+        this.avis,
         this.numeroHotel,
         this.contact,
-        this.imageUrl,
-        this.medias,
         this.lienMap,
         this.siteInternet,
         this.adresseEmail,
@@ -45,19 +46,23 @@ class HotelModel {
         this.linkedIn,
         this.youtube,
         this.instagram,
+        this.typeQuartierHotelsId,
+        this.typeHotelId,
+        this.userId,
+        this.deletedAt,
+        this.createdAt,
+        this.updatedAt,
+        this.hotelsMedias,
     });
 
     factory HotelModel.fromJson(Map<String, dynamic> json) => HotelModel(
         id: json["id"],
         nomHotel: json["nom_hotel"],
-        typeQuartierId: json["type_quartier_id"],
-        typeHotelId: json["type_hotel_id"],
         prix: json["prix"],
         description: json["description"],
+        avis: json["avis"],
         numeroHotel: json["numero_hotel"],
         contact: json["contact"],
-        imageUrl: json["imageUrl"],
-        medias: json["medias"] == null ? [] : List<Media>.from(json["medias"]!.map((x) => Media.fromJson(x))),
         lienMap: json["lien_map"],
         siteInternet: json["site_internet"],
         adresseEmail: json["adresse_email"],
@@ -65,19 +70,23 @@ class HotelModel {
         linkedIn: json["linkedIn"],
         youtube: json["youtube"],
         instagram: json["instagram"],
+        typeQuartierHotelsId: json["type_quartier_hotels_id"],
+        typeHotelId: json["type_hotel_id"],
+        userId: json["user_id"],
+        deletedAt: json["deleted_at"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        hotelsMedias: List<HotelsMedia>.from(json["hotels_medias"].map((x) => HotelsMedia.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "nom_hotel": nomHotel,
-        "type_quartier_id": typeQuartierId,
-        "type_hotel_id": typeHotelId,
         "prix": prix,
         "description": description,
+        "avis": avis,
         "numero_hotel": numeroHotel,
         "contact": contact,
-        "imageUrl": imageUrl,
-        "medias": medias == null ? [] : List<dynamic>.from(medias!.map((x) => x.toJson())),
         "lien_map": lienMap,
         "site_internet": siteInternet,
         "adresse_email": adresseEmail,
@@ -85,29 +94,32 @@ class HotelModel {
         "linkedIn": linkedIn,
         "youtube": youtube,
         "instagram": instagram,
+        "type_quartier_hotels_id": typeQuartierHotelsId,
+        "type_hotel_id": typeHotelId,
+        "user_id": userId,
+        "deleted_at": deletedAt,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "hotels_medias": List<dynamic>.from(hotelsMedias!.map((x) => x?.toJson())),
     };
 }
 
-class Media {
-    int? id;
+class HotelsMedia {
+    String? hotelId;
     String? url;
-    String? type;
 
-    Media({
-        this.id,
+    HotelsMedia({
+        this.hotelId,
         this.url,
-        this.type,
     });
 
-    factory Media.fromJson(Map<String, dynamic> json) => Media(
-        id: json["id"],
+    factory HotelsMedia.fromJson(Map<String, dynamic> json) => HotelsMedia(
+        hotelId: json["hotel_id"],
         url: json["url"],
-        type: json["type"],
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
+        "hotel_id": hotelId,
         "url": url,
-        "type": type,
     };
 }

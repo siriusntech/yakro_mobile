@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
-import '../../commerce/widgets/commerce_card_widget.dart';
 import '../controllers/restaurant_controller.dart';
+import '../widgets/restaurant_card_widget.dart';
+import 'show_restaurant_view.dart';
 
 class RestaurantView extends GetView<RestaurantController> {
   const RestaurantView({Key? key}) : super(key: key);
@@ -71,10 +70,10 @@ class RestaurantView extends GetView<RestaurantController> {
                                 borderRadius: BorderRadius.circular(15)
                             ),
                             hintText: "Ex: Restaurants, Bars et Maquis",
-                            contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                            contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 10),
                             // contentPadding: EdgeInsets.all(8)
                           ),
-                          style: TextStyle(color: AppColors.appbarTextColor, fontSize: 14, fontWeight: FontWeight.bold,),
+                          style: TextStyle(color: AppColors.appbarTextColor, fontSize: 15, fontWeight: FontWeight.bold,),
                           onChanged: (val){
                             if(val.length > 0){
                               controller.getCommercesByName(val);
@@ -108,7 +107,7 @@ class RestaurantView extends GetView<RestaurantController> {
                                   }
                                 },
                                 child: Chip(
-                                  elevation: 0.0,
+                                  elevation: 5.0,
                                   backgroundColor: type.nom.toString() == controller.selectedType.value ? AppColors.vert_color : AppColors.chip_color,
                                   label: TextWidget(text: type.nom.toString().toLowerCase(), color: AppColors.vert_color_fonce,
                                     fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
@@ -123,7 +122,6 @@ class RestaurantView extends GetView<RestaurantController> {
                       ],
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -146,13 +144,20 @@ class RestaurantView extends GetView<RestaurantController> {
                                 itemCount: controller.commerceList.length,
                                 itemBuilder: (context, index) {
                                   var commerce = controller.commerceList[index];
-                                  return CommerceCardWidget(
+                                  return RestaurantCardWidget(
                                     commerce: commerce,
                                     action: (){
                                       controller.setSelectedCommerce(commerce);
                                       Get.toNamed(AppRoutes.SHOW_RESTAURANT);
+                                      // Get.toNamed(AppRoutes.SHOW_RESTAURANT, arguments: {'data': commerce});
+                                    //    Get.to(
+                                    //   ShowRestaurantView(
+                                    //  data: commerce,
+                                    // ),
+                                  // );
                                     },
                                   );
+                                  
                                 }
                             )
                         );

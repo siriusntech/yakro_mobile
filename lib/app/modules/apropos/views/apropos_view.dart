@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
-
-import '../../../Utils/app_constantes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
@@ -14,12 +11,35 @@ class AproposView extends GetView<AproposController> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+ 
+          return Scaffold(
       appBar: AppBar(
-        title: TextWidget(text:'Apropos de nous', fontSize: 20, fontWeight: FontWeight.bold,),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title:TextWidget(text:'A propos de nous', fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+            },
+            icon: Icon(
+              Icons.refresh,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Obx((){

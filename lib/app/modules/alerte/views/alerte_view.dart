@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'package:jaime_cocody/app/widgets/button_widget.dart';
 
 import '../../../Utils/app_constantes.dart';
@@ -88,14 +89,29 @@ class AlerteView extends GetView<AlerteController> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title: Text("Signaler un incident",
-          style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title:TextWidget(text:'Signaler un incident', fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: 30,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+            },
+            icon: Icon(
+              Icons.refresh,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        ],
       ),
       body: ListView(
         children: [
@@ -164,17 +180,17 @@ class AlerteView extends GetView<AlerteController> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
             decoration: BoxDecoration(
-                color: appbarColorFromCode
+                color: AppColors.vert_color_fonce
             ),
             child: Row(
               children: [
                 TextWidget(text: "Autres Alertes",
-                  fontSize: 16.0, color: Colors.white, fontWeight: FontWeight.w600,
+                  fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.w600,
                 ),
                 SizedBox(width: 5,),
                 TextButtonWidget(
                   text_widget: TextWidget(text: "Voir tout",
-                   fontSize: 16.0, color: Colors.white, fontWeight: FontWeight.bold,
+                   fontSize: 18.0, color: Colors.white, fontWeight: FontWeight.bold,
                   ),
                   action: (){
                     Get.toNamed(AppRoutes.ALL_ALERTES);
@@ -341,7 +357,7 @@ class AlerteView extends GetView<AlerteController> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: settingsCtrl.mainColor,
+        backgroundColor: settingsCtrl.vert_color_fonce,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

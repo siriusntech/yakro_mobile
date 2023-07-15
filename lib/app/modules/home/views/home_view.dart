@@ -1,15 +1,10 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_colors.dart';
 import 'package:jaime_cocody/app/Utils/app_routes.dart';
 import 'package:jaime_cocody/app/Utils/default_image.dart';
 import 'package:jaime_cocody/app/data/repository/main_services.dart';
-import 'package:jaime_cocody/app/models/media.dart';
 import 'package:jaime_cocody/app/routes/app_pages.dart';
 import 'package:jaime_cocody/app/widgets/notification_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -305,6 +300,94 @@ class HomeView extends GetView<HomeController> {
                                               }))
                                     ],
                                   ),
+                                     SizedBox(height: 20),
+
+Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  color: mainCtrl.menuColor,
+                                  title: 'Bons plans', icon: MENU_BON_PLAN,
+                                  enabled: true, itemCount: controller.unReadDiffusionCount.value,
+                                  action: () async{
+                                    // controller.addDiffusionVisiteCount();
+                                    Get.toNamed(AppRoutes.DIFFUSION);
+                                    bon_plan_ctrl.refreshData();
+                                    if(await MainServices.checkUserIsExclude() == false){
+                                      controller.addVisiteCount('bon_plan');
+                                    }
+                                  }
+                              )
+                          ),
+                          Flexible(
+                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                color: mainCtrl.menuColor,
+                                title: 'Actualités',icon: MENU_ACTUALITE, enabled: true,
+                                itemCount: controller.selectedItemsCounts.value.un_read_actualite_count,
+                                action: () async{
+                                  Get.toNamed(AppRoutes.ACTUALITE);
+                                  actualite_ctrl.refreshData();
+                                  if(await MainServices.checkUserIsExclude() == false){
+                                    controller.addVisiteCount('actualite');
+                                  }
+                                },
+                              )
+                          ),
+                            Flexible(
+                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  color: mainCtrl.menuColor,
+                                  title: 'Signaler un problème',icon: MENU_ALERTE,
+                                  enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count,
+                                  action: () async{
+                                    // controller.addAlerteVisiteCount();
+                                    Get.toNamed(AppRoutes.ALERTE);
+                                    alerte_ctrl.refreshData();
+                                    if(await MainServices.checkUserIsExclude() == false){
+                                      controller.addVisiteCount('alerte');
+                                    }
+                                  }
+                              )
+                          ),
+                        ],
+                      ),
+                        Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  color: mainCtrl.menuColor,
+                                  title: 'Covoiturage', icon: MENU_COVOITURAGE,
+                                  enabled: true,
+                                  action: () async{
+                                    // Get.toNamed(AppRoutes.TRAJET);
+                                    // annuaire_ctrl.refreshData();
+                                    // if(await MainServices.checkUserIsExclude() == false){
+                                    //   controller.addVisiteCount('annuaire');
+                                    // }
+                                  }
+                              )
+                          ),
+                           Flexible(
+                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  color: mainCtrl.menuColor,
+                                  title: 'Jobs / Annonces',icon: MENU_JOB,
+                                  enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
+                                  action: () async{
+                                    // controller.addJobVisiteCount();
+                                    Get.toNamed(AppRoutes.JOB);
+                                    job_ctrl.refreshData();
+                                    if(await MainServices.checkUserIsExclude() == false){
+                                      controller.addVisiteCount('job');
+                                    }
+                                  }
+                              )
+                          ),
+
+                        ],
+                      ),
+
+
                                 ],
                               ),
                             ),
@@ -327,7 +410,7 @@ List<Widget> generateSlider(List item) {
               // color: AppColors.vert_color,
               ),
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
+            borderRadius: BorderRadius.all(Radius.circular(18.0)),
             child: CachedNetworkImage(
               imageUrl: item,
               fit: BoxFit.cover,

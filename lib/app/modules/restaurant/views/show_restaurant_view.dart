@@ -1,25 +1,35 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_cocody/app/Utils/default_image.dart';
+import 'package:jaime_cocody/app/models/restaurant_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_icons.dart';
-import '../../../Utils/default_image.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/text_widget.dart';
+import '../../home/views/home_view.dart';
 import '../../zoom/controllers/zoom_controller.dart';
 import '../../zoom/views/zoom_view.dart';
 import '../controllers/restaurant_controller.dart';
 
 class ShowRestaurantView extends GetView<RestaurantController>{
-  const ShowRestaurantView({Key? key}) : super(key: key);
- 
+
+
+ const ShowRestaurantView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
      final ZoomController zoomCtrl = Get.put(ZoomController());
      final MainController settingsCtrl = Get.find();
+
+      //  final Map<String, dynamic> arguments = Get.arguments as Map<String, dynamic>;
+        // final data = arguments['data'] as Restaurant;
+    //     List listMedia =  data.medias!.map((element) {
+    //  return element.url;
+    // }).toList();
+
     return Scaffold(
       appBar:AppBar(
         automaticallyImplyLeading: false,
@@ -219,20 +229,30 @@ class ShowRestaurantView extends GetView<RestaurantController>{
                 ),
               ),
               SizedBox(height: 10.0,),
-              Container(
-                width: double.infinity,
-                height: 250,
-                child: GestureDetector(
-                  child: ImageWidget(isNetWork: true, url:
-                  controller.selectedCommerce.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
-                    default_image: DefaultImage.COMMERCE,
-                  ),
-                  onTap: (){
-                    zoomCtrl.setImageUrl(controller.selectedCommerce.value.imageUrl.toString());
-                    Get.to(ZoomView(), fullscreenDialog: true);
-                  },
-                ),
-              ),
+              // Container(
+              //   width: double.infinity,
+              //   height: 250,
+              //   child: GestureDetector(
+              //     child: ImageWidget(isNetWork: true, url:
+              //     controller.selectedCommerce.value.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
+              //       default_image: DefaultImage.COMMERCE,
+              //     ),
+              //     onTap: (){
+              //       zoomCtrl.setImageUrl(controller.selectedCommerce.value.imageUrl.toString());
+              //       Get.to(ZoomView(), fullscreenDialog: true);
+              //     },
+              //   ),
+              // ), 
+              // CarouselSlider(
+              //         options: CarouselOptions(
+              //           enableInfiniteScroll: true,
+              //           autoPlayInterval: Duration(seconds: 5),
+              //           autoPlayAnimationDuration: Duration(milliseconds: 3500),
+              //           autoPlayCurve: Curves.fastOutSlowIn,
+              //           enlargeCenterPage: true,
+              //         ),
+              //         items: generateSlider(listMedia),
+              //       ),
               SizedBox(height: 15.0,),
               Text(controller.selectedCommerce.value.description.toString(),
                 style: TextStyle(
@@ -262,7 +282,8 @@ class ShowRestaurantView extends GetView<RestaurantController>{
           ),
         ),
       ),
-    );;
+    );
   }
+
 
 }

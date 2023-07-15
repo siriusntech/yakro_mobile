@@ -2,22 +2,20 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/restaurants_services.dart';
-import '../../../data/repository/type_annuaire_services.dart';
+import '../../../models/restaurant_model.dart';
 import '../../../models/type_annuaire_model.dart';
 import '../../../widgets/text_widget.dart';
-import '../../commerce/commerce_model.dart';
 import '../../commerce/commerce_type_model.dart';
 import '../../home/controllers/home_controller.dart';
 
 class RestaurantController extends GetxController {
-  var commerceList = List<Commerce>.empty(growable: true).obs;
+  var commerceList = List<Restaurant>.empty(growable: true).obs;
   var commerceTypesList = List<CommerceType>.empty(growable: true).obs;
   var typeAnnuaireList = List<TypeAnnuaireModel>.empty(growable: true).obs;
-  var selectedCommerce = Commerce().obs;
+  var selectedCommerce = Restaurant().obs;
   var page = 1;
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
@@ -44,10 +42,10 @@ class RestaurantController extends GetxController {
   getCommerces(var page) async{
     try{
       isDataProcessing(true);
-      final response = await CommerceServices.getCommerces();
+      final response = await RestaurantServices.getCommerces();
       if(response is Success){
         isDataProcessing(false);
-        commerceList.addAll(response.response as List<Commerce>);
+        commerceList.addAll(response.response as List<Restaurant>);
       }
       if(response is Failure){
         isDataProcessing(false);
@@ -62,11 +60,11 @@ class RestaurantController extends GetxController {
   getCommercesByType(var type) async{
     try{
       isDataProcessing(true);
-      final response = await CommerceServices.getCommercesByType(type);
+      final response = await RestaurantServices.getCommercesByType(type);
       if(response is Success){
         commerceList.clear();
         isDataProcessing(false);
-        commerceList.addAll(response.response as List<Commerce>);
+        commerceList.addAll(response.response as List<Restaurant>);
       }
       if(response is Failure){
         isDataProcessing(false);
@@ -81,11 +79,11 @@ class RestaurantController extends GetxController {
   getCommercesByName(var name) async{
     try{
       isDataProcessing(true);
-      final response = await CommerceServices.getCommercesByNom(name);
+      final response = await RestaurantServices.getCommercesByNom(name);
       if(response is Success){
         commerceList.clear();
         isDataProcessing(false);
-        commerceList.addAll(response.response as List<Commerce>);
+        commerceList.addAll(response.response as List<Restaurant>);
       }
       if(response is Failure){
         isDataProcessing(false);
@@ -97,7 +95,7 @@ class RestaurantController extends GetxController {
     }
   }
   // SET SELECTED COMMERCE
-  void setSelectedCommerce(Commerce commerce){
+  void setSelectedCommerce(Restaurant commerce){
     selectedCommerce.value = commerce;
   }
   // SET SELECTED TYPE
@@ -123,7 +121,7 @@ class RestaurantController extends GetxController {
   getCommerceTypes() async{
     try{
       isDataProcessing(true);
-      final response = await CommerceServices.getCommercetypes();
+      final response = await RestaurantServices.getCommercetypes();
       if(response is Success){
         isDataProcessing(false);
         commerceTypesList.addAll(response.response as List<CommerceType>);
@@ -208,7 +206,7 @@ class RestaurantController extends GetxController {
   // MAKE ALL AS READS
   makeCommercesAsRead() async{
     try{
-      final response = await CommerceServices.makeCommercesAsRead();
+      final response = await RestaurantServices.makeCommercesAsRead();
       if(response is Success){
         // refresh();
       }

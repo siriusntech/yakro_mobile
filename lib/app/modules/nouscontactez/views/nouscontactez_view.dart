@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:jaime_cocody/app/widgets/text_widget.dart';
@@ -15,11 +16,34 @@ class NouscontactezView extends GetView<NouscontactezController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: TextWidget(text: 'Nous contactez', fontSize: 20, fontWeight: FontWeight.bold,),
+     
+            appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title:TextWidget(text:'Nous contactez', fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+            },
+            icon: Icon(
+              Icons.refresh,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Padding(
@@ -68,7 +92,7 @@ class NouscontactezView extends GetView<NouscontactezController> {
                   Divider(),
                   Flexible(
                       child: ListTile(
-                        leading: Icon(Icons.phone),
+                        leading: Icon(FontAwesomeIcons.internetExplorer),
                         title: TextWidget(text: "Site Internet:", fontWeight: FontWeight.bold, fontSize: 18,),
                         subtitle: InkWell(
                           onTap: (){

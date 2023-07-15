@@ -113,7 +113,6 @@ class HotelView extends GetView<HotelController> {
                         //   onPressed: () {
                         //     hotelController
                         //         .getHotelsFiltragePrix();
-                        //     Navigator.pop(context);
                         //   },
                         //   child: Text('Valider'),
                         // ),
@@ -121,7 +120,7 @@ class HotelView extends GetView<HotelController> {
                         //               ),
                         //             );
                         //           },
-                        //         );
+                        //f         );
                         //       },
                         //     );
                         //   },
@@ -129,6 +128,11 @@ class HotelView extends GetView<HotelController> {
                         // ),
                       ],
                     )),
+                    SizedBox(height: 15.0,),
+                    Text('Choisissez Votre Prix',
+                                              style: TextStyle(
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.bold)),
           Obx(() => RangeSlider(
                 values: hotelController.currentRangeValues.value,
                 min: 0,
@@ -167,8 +171,8 @@ class HotelView extends GetView<HotelController> {
                         itemBuilder: (context, index) {
                           final hotelData =
                               hotelController.hotelListAllFiltragePrix[index];
-                          final firstMediaUrl = hotelData.medias!.isNotEmpty
-                              ? hotelData.medias![0].url
+                          final firstMediaUrl = hotelData.hotelsMedias!.isNotEmpty
+                              ? hotelData.hotelsMedias![0]!.url
                               : '';
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.start,

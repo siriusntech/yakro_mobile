@@ -18,13 +18,17 @@ class DiffusionView extends GetView<DiffusionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title: TextWidget(text: "Les bons plans",fontSize: 18.0,
-            color: Colors.white, fontWeight: FontWeight.bold
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title:TextWidget(text: 'Les Bons Plans de Ta Ville',fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
         ),
         actions: [
           IconButton(
@@ -118,8 +122,8 @@ class DiffusionView extends GetView<DiffusionController> {
           ),
         )
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: settingsCtrl.mainColor,
+     floatingActionButton: FloatingActionButton(
+        backgroundColor: settingsCtrl.vert_color_fonce,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

@@ -165,9 +165,9 @@ class CommerceCardWidget extends StatelessWidget {
               SizedBox(height: 5,),
               Container(
                 width: double.infinity,
-                height: 250,
+                height: 210,
                 child: ImageWidget(isNetWork: true, url:
-                commerce.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
+                commerce.imageUrl, width: 200, height: 200, fit: BoxFit.contain,
                   default_image: DefaultImage.COMMERCE,
                 ),
               ),
@@ -183,7 +183,7 @@ class CommerceCardWidget extends StatelessWidget {
                   children: [
                     Icon(Icons.map, color: Colors.red,),
                     TextWidget(text:"Itinéraire",
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.red,
                     ),

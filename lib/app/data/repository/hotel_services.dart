@@ -49,15 +49,18 @@ class HotelServices {
     final apiUrl =
         '${settingsCtrl.baseUrl}filtrage_hotel${"?type_hotel=$type_hotel"}${"&prix1=$prix1"}${prix2.isNotEmpty ? "&prix2=$prix2" : ""}';
     var url = Uri.parse(apiUrl);
-    print("****************" + apiUrl);
-    print('getHotelsFiltragePrix url:   ' + url.toString());
+
+    print('getHotelsFiltragePrix url: ' + url.toString());
+    print('getHotelsFiltragePrix url: ' + url.toString());
+    print('getHotelsFiltragePrix prix1: ' + prix1);
+    print('getHotelsFiltragePrix prix2: ' + prix2);
     var response = await http.get(
       url,
       headers: headers,
     );
     print('getHotelsFiltragePrix response status code ' +
         response.statusCode.toString());
-    print('getHotelsFiltragePrix response body ' + response.body.toString());
+    print('getHotelsFiltragePrix response body prix ' + response.body.toString());
 
     if (response.statusCode == 200) {
       List data = json.decode(response.body);

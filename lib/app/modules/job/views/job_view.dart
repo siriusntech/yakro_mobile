@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 import 'package:jaime_cocody/app/Utils/app_routes.dart';
 import 'package:jaime_cocody/app/modules/job/widgets/job_card_widget.dart';
 import 'package:jaime_cocody/app/widgets/no_data_widget.dart';
-
 import '../../../Utils/app_colors.dart';
-import '../../../Utils/app_constantes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/text_widget.dart';
@@ -20,18 +18,28 @@ class JobView extends GetView<JobController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
+            appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title:TextWidget(text: 'Jobs / Annonces',fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white,),
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title: TextWidget(
+            text: 'Jobs / Annonces',
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
+        ),
         actions: [
           IconButton(
-              onPressed: () async{
-                await controller.refreshData();
-              },
-              icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
+            onPressed: () async {
+              await controller.refreshData();
+            },
+            icon: Icon(Icons.refresh, color: Colors.white, size: 30),
           )
         ],
       ),
@@ -157,7 +165,7 @@ class JobView extends GetView<JobController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: settingsCtrl.mainColor,
+        backgroundColor: AppColors.vert_colorFonce,
         onPressed: (){
           Get.toNamed(AppRoutes.HOME);
         },

@@ -40,8 +40,8 @@ const String AUCUNE_DONNEE = 'assets/images/';
 const String REPONSE_INCONNUE = 'assets/images/';
 
 // MENU
-const String MENU_ACTUALITE = 'assets/images/menu-actualite.png';
-const String MENU_ALERTE = 'assets/images/menu-alerte.png';
+const String MENU_ACTUALITE = 'assets/images/images_actualites.jpg';
+const String MENU_ALERTE = 'assets/images/images_incident.png';
 const String MENU_AGENDA = 'assets/images/menu-agenda.png';
 const String MENU_COMMERCE = 'assets/images/menu-commerce.png';
 const String MENU_MESSAGE = 'assets/images/menu-message.png';
@@ -50,12 +50,14 @@ const String MENU_DISCUSSION = 'assets/images/menu-discussion.png';
 const String MENU_HISTORIQUE = 'assets/images/tam-tam.png';
 const String MENU_INFORMATION = 'assets/images/menu-information.png';
 const String MENU_PHARMACIE = 'assets/images/menu-pharmacie.png';
-const String MENU_JOB = 'assets/images/menu-job.png';
-const String MENU_BON_PLAN = 'assets/images/menu-bon-plan.png';
+const String MENU_JOB = 'assets/images/job_annonces.jpg';
+const String MENU_BON_PLAN = 'assets/images/bonPlan.png';
+// const String MENU_BON_PLAN = 'assets/images/menu-bon-plan.png';
 const String BAR_MAQUIS = 'assets/images/bar.jpg';
 const String HOTEL = 'assets/images/hotel.jpg';
 const String RESTAURANT = 'assets/images/restaurant.jpg';
 const String VT = 'assets/images/vt.jpg';
+const String MENU_COVOITURAGE = 'assets/images/menu-covoiturage.png';
 
 //SLIDES
 const String SLIDE_STORE = 'assets/images/presentation/store.png';

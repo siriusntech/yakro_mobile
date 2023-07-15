@@ -19,8 +19,8 @@ class DetailHotelView extends GetView {
   Widget build(BuildContext context) {
     HotelController hotelController = Get.put(HotelController());
     final MainController settingsCtrl = Get.find();
-   List listMedia =  data.medias!.map((element) {
-     return element.url;
+   List listMedia =  data.hotelsMedias!.map((element) {
+     return element!.url;
     }).toList();
 
     return Scaffold(
@@ -103,7 +103,7 @@ class DetailHotelView extends GetView {
                           SizedBox(height: 20),
                           TextField(
                             controller: TextEditingController(
-                                text: '${data.typeQuartierId?.toString()}'),
+                                text: '${data.typeQuartierHotelsId!.toString()}'),
                             enabled: false,
                             decoration: InputDecoration(
                               labelText: 'Lieu',
@@ -193,7 +193,14 @@ class DetailHotelView extends GetView {
                           ),
 
                            SizedBox(height: 10),
-                           TextField(
+                              InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              launchUrl(Uri.parse(data.linkedIn.toString()));
+                            },
+                            child:   TextField(
                             controller:
                             TextEditingController(text: data.linkedIn),
                             enabled: false,
@@ -203,8 +210,17 @@ class DetailHotelView extends GetView {
                               border: OutlineInputBorder(),
                             ),
                           ),
+                          ),
+                          
                            SizedBox(height: 10),
-                           TextField(
+                           InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              launchUrl(Uri.parse(data.instagram.toString()));
+                            },
+                            child: TextField(
                             controller:
                             TextEditingController(text: data.instagram),
                             enabled: false,
@@ -213,6 +229,7 @@ class DetailHotelView extends GetView {
                               prefixIcon: Icon(FontAwesomeIcons.instagram),
                               border: OutlineInputBorder(),
                             ),          
+                          ),
                           ),
                            SizedBox(height: 10),
                           InkWell(
@@ -223,7 +240,6 @@ class DetailHotelView extends GetView {
                               launchUrl(Uri.parse(data.siteInternet.toString()));
                             },
                             child:  TextField(
-
                               controller:
                               TextEditingController(text: data.siteInternet),
                               enabled: false,

@@ -17,23 +17,25 @@ class DiffusionShowView extends GetView<DiffusionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+     appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title: Text("Les bons plans",
-          style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-          ),
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title:TextWidget(text: 'Restaurants et autres',fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
         ),
         actions: [
           IconButton(
-              onPressed: (){
-
+              onPressed: () async{
+                await controller.refreshData();
               },
-              icon: Icon(Icons.delete, color: Colors.red,)
-          ),
+              icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
+          )
         ],
       ),
       body: Center(

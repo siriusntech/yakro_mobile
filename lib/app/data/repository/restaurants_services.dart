@@ -3,17 +3,16 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../controllers/main_controller.dart';
 import '../../data/repository/auth_service.dart';
 import '../../data/repository/data/Env.dart';
 import '../../data/repository/data/api_status.dart';
-import '../../modules/commerce/commerce_model.dart';
+import '../../models/restaurant_model.dart';
 import 'package:get/get.dart';
 
 import '../../modules/commerce/commerce_type_model.dart';
 
-class CommerceServices {
+class RestaurantServices {
 
   static MainController settingsCtrl = Get.put(MainController());
 
@@ -28,7 +27,7 @@ class CommerceServices {
       var response = await http.get(url, headers: headers);
        print(response.statusCode.toString());
       if(response.statusCode == 200){
-        return Success(response: commerceFromJson(response.body));
+        return Success(response: RestaurantFromJson(response.body));
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
     }
@@ -56,7 +55,7 @@ class CommerceServices {
       var response = await http.get(url, headers: headers);
 
       if(response.statusCode == 200){
-        return Success(response: commerceFromJson(response.body));
+        return Success(response: RestaurantFromJson(response.body));
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
     }
@@ -82,7 +81,7 @@ class CommerceServices {
       var response =  await http.get(url, headers: headers);
 
       if(response.statusCode == 200){
-        return Success(response: commerceFromJson(response.body));
+        return Success(response: RestaurantFromJson(response.body));
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
     }
@@ -105,7 +104,7 @@ class CommerceServices {
       var url = Uri.parse(settingsCtrl.baseUrl+"commerces_by_nom/$nom");
       var response =  await http.get(url, headers: headers);
       if(response.statusCode == 200){
-        return Success(response: commerceFromJson(response.body));
+        return Success(response: RestaurantFromJson(response.body));
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
     }
@@ -128,10 +127,10 @@ class CommerceServices {
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(apiUrl+'/$id');
       final response = await http.get(url, headers: headers);
-      Commerce _commerce = Commerce();
+      Restaurant _commerce = Restaurant();
 
       if(response.statusCode == 200){
-        _commerce = Commerce.fromJson(json.decode(response.body));
+        _commerce = Restaurant.fromJson(json.decode(response.body));
         return _commerce;
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jaime_cocody/app/Utils/app_colors.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/data/Env.dart';
@@ -25,7 +26,7 @@ class AnnuaireCardWidget extends StatelessWidget {
           child: Container(
               margin: EdgeInsets.only(bottom: 2.0),
               width: double.infinity,
-              height: 120,
+              height: 170,
               child: Card(
                 color: Colors.white,
                 child: Row(
@@ -36,7 +37,7 @@ class AnnuaireCardWidget extends StatelessWidget {
                         height: 50,
                         width: 50,
                         child: CircleAvatar(
-                          backgroundColor: Colors.amber,
+                          backgroundColor: AppColors.vert_colorFonce,
                           radius: 50,
                           backgroundImage: annuaire.imageUrl.toString().contains('picsum') ?
                           NetworkImage(annuaire.imageUrl.toString()) : NetworkImage(siteUrl+annuaire.imageUrl.toString()
@@ -99,6 +100,29 @@ class AnnuaireCardWidget extends StatelessWidget {
                                   SizedBox(width: 3,),
                                   Flexible(
                                       child: Text(annuaire.contact.toString(),
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.blue
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                            ),
+                                SizedBox(height:20.0,),
+                                InkWell(
+                              onTap: (){
+                                controller.showAlerte(annuaire.contact2.toString());
+                              },
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                      child: Image.asset(ICON_TELEPHONE, width: 20, height: 20,),
+                                  ),
+                                  SizedBox(width: 3,),
+                                  Flexible(
+                                      child: Text(annuaire.contact2.toString(),
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,

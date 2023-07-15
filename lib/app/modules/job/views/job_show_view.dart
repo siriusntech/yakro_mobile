@@ -19,16 +19,26 @@ class JobShowView extends GetView<JobController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title: Text(controller.selectedJob.value.intitule!.toUpperCase(),
-          style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-          ),
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title: Text(controller.selectedJob.value.intitule!.toUpperCase()),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white, size: 30),
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await controller.refreshData();
+            },
+            icon: Icon(Icons.refresh, color: Colors.white, size: 30),
+          )
+        ],
       ),
       body: Center(
         child: Padding(

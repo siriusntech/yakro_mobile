@@ -11,9 +11,10 @@ class Annuaire{
    String? prenom;
    String? poste;
    String? contact;
+   String? contact2;
    String? imageUrl;
 
-   Annuaire({this.id, this.nom, this.prenom, this.poste, this.contact, this.imageUrl});
+   Annuaire({this.id, this.nom, this.prenom, this.poste, this.contact, this.imageUrl, this.contact2});
 
    factory Annuaire.fromJson(Map<dynamic, dynamic> json) => Annuaire(
        id: json["id"] ?? null,
@@ -21,6 +22,7 @@ class Annuaire{
        prenom: json["prenom"] ?? '',
        poste: json["poste"] ?? null,
        contact: json["contact"] ?? null,
+       contact2: json["contact2"] ?? null,
        imageUrl: json["imageUrl"] ?? null,
    );
 
@@ -30,6 +32,7 @@ class Annuaire{
       "prenom": prenom,
       "poste": poste,
       "contact": contact,
+      "contact2": contact2,
       "imageUrl": imageUrl,
    };
 }
