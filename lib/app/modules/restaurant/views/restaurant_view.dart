@@ -22,7 +22,12 @@ class RestaurantView extends GetView<RestaurantController> {
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: settingsCtrl.vert_color_fonce,
-        title:TextWidget(text: 'Restaurants et autres',fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,),
+        title: TextWidget(
+          text: 'Restaurants et autres',
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -31,15 +36,18 @@ class RestaurantView extends GetView<RestaurantController> {
         ),
         actions: [
           IconButton(
-              onPressed: () async{
+              onPressed: () async {
                 await controller.refreshData();
               },
-              icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
-          )
+              icon: Icon(
+                Icons.refresh,
+                color: Colors.white,
+                size: 30,
+              ))
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: () async{
+        onRefresh: () async {
           await controller.refreshData();
         },
         child: Column(
@@ -54,30 +62,39 @@ class RestaurantView extends GetView<RestaurantController> {
                       width: 300,
                       height: 65,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15)
-                      ),
+                          borderRadius: BorderRadius.circular(15)),
                       child: Card(
-                        color:AppColors.vert_color,
+                        color: AppColors.vert_color,
                         elevation: 0,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
                         child: TextField(
                           controller: controller.searchTextController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                            prefixIcon: Icon(Icons.search, color: Colors.black26, size: 30,),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(width: 1, color: Colors.grey),
-                                borderRadius: BorderRadius.circular(15)
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.black26,
+                              size: 30,
                             ),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.grey),
+                                borderRadius: BorderRadius.circular(15)),
                             hintText: "Ex: Restaurants, Bars et Maquis",
                             contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 10),
                             // contentPadding: EdgeInsets.all(8)
                           ),
-                          style: TextStyle(color: AppColors.appbarTextColor, fontSize: 15, fontWeight: FontWeight.bold,),
-                          onChanged: (val){
-                            if(val.length > 0){
+                          style: TextStyle(
+                            color: AppColors.appbarTextColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          onChanged: (val) {
+                            if (val.length > 0) {
                               controller.getCommercesByName(val);
-                            }else{
+                            } else {
                               controller.refreshData();
                             }
                           },
@@ -92,33 +109,48 @@ class RestaurantView extends GetView<RestaurantController> {
                       scrollDirection: Axis.horizontal,
                       children: [
                         Obx(() => Row(
-                          children: [
-                            for(var type in controller.commerceTypesList)
-                              Card(
-                              elevation: 0.0,
-                              child: InkWell(
-                                onTap: () {
-                                  if(controller.selectedType.value == '' || controller.selectedType.value != type.nom.toString()){
-                                    controller.setSelectedType(type.nom.toString());
-                                    controller.getCommercesByType(type.nom.toString());
-                                  }else{
-                                    controller.setSelectedType('');
-                                    controller.refreshData();
-                                  }
-                                },
-                                child: Chip(
-                                  elevation: 5.0,
-                                  backgroundColor: type.nom.toString() == controller.selectedType.value ? AppColors.vert_color : AppColors.chip_color,
-                                  label: TextWidget(text: type.nom.toString().toLowerCase(), color: AppColors.vert_color_fonce,
-                                    fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
-                                  ),
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                              color: Colors.transparent,
-                            )
-                          ],
-                        )),
+                              children: [
+                                for (var type in controller.commerceTypesList)
+                                  Card(
+                                    elevation: 0.0,
+                                    child: InkWell(
+                                      onTap: () {
+                                        if (controller.selectedType.value ==
+                                                '' ||
+                                            controller.selectedType.value !=
+                                                type.nom.toString()) {
+                                          controller.setSelectedType(
+                                              type.nom.toString());
+                                          controller.getCommercesByType(
+                                              type.nom.toString());
+                                        } else {
+                                          controller.setSelectedType('');
+                                          controller.refreshData();
+                                        }
+                                      },
+                                      child: Chip(
+                                        elevation: 5.0,
+                                        backgroundColor: type.nom.toString() ==
+                                                controller.selectedType.value
+                                            ? AppColors.vert_color
+                                            : AppColors.chip_color,
+                                        label: TextWidget(
+                                          text:
+                                              type.nom.toString().toLowerCase(),
+                                          color: AppColors.vert_color_fonce,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          scaleFactor: 1.2,
+                                        ),
+                                      ),
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    color: Colors.transparent,
+                                  )
+                              ],
+                            )),
                       ],
                     ),
                   ),
@@ -131,11 +163,11 @@ class RestaurantView extends GetView<RestaurantController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Obx((){
-                    if(controller.isDataProcessing.value == true){
+                  Obx(() {
+                    if (controller.isDataProcessing.value == true) {
                       return LoadingWidget();
                     } else {
-                      if(controller.commerceList.length == 0){
+                      if (controller.commerceList.length == 0) {
                         return NoDataWidget();
                       } else {
                         return Expanded(
@@ -146,21 +178,18 @@ class RestaurantView extends GetView<RestaurantController> {
                                   var commerce = controller.commerceList[index];
                                   return RestaurantCardWidget(
                                     commerce: commerce,
-                                    action: (){
+                                    action: () {
                                       controller.setSelectedCommerce(commerce);
                                       Get.toNamed(AppRoutes.SHOW_RESTAURANT);
                                       // Get.toNamed(AppRoutes.SHOW_RESTAURANT, arguments: {'data': commerce});
-                                    //    Get.to(
-                                    //   ShowRestaurantView(
-                                    //  data: commerce,
-                                    // ),
-                                  // );
+                                      //    Get.to(
+                                      //   ShowRestaurantView(
+                                      //  data: commerce,
+                                      // ),
+                                      // );
                                     },
                                   );
-                                  
-                                }
-                            )
-                        );
+                                }));
                       }
                     }
                   })
@@ -172,10 +201,14 @@ class RestaurantView extends GetView<RestaurantController> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: settingsCtrl.vert_color_fonce,
-        onPressed: (){
+        onPressed: () {
           Get.toNamed(AppRoutes.HOME);
         },
-        child: Icon(Icons.home, color: Colors.white, size: 40,),
+        child: Icon(
+          Icons.home,
+          color: Colors.white,
+          size: 40,
+        ),
       ),
     );
   }

@@ -24,6 +24,10 @@ class ShowRestaurantView extends GetView<RestaurantController>{
      final ZoomController zoomCtrl = Get.put(ZoomController());
      final MainController settingsCtrl = Get.find();
 
+     final listMedia = controller.selectedCommerce.value.medias!.map((element) {
+       return element.url;
+     }).toList();
+
       //  final Map<String, dynamic> arguments = Get.arguments as Map<String, dynamic>;
         // final data = arguments['data'] as Restaurant;
     //     List listMedia =  data.medias!.map((element) {
@@ -243,16 +247,16 @@ class ShowRestaurantView extends GetView<RestaurantController>{
               //     },
               //   ),
               // ), 
-              // CarouselSlider(
-              //         options: CarouselOptions(
-              //           enableInfiniteScroll: true,
-              //           autoPlayInterval: Duration(seconds: 5),
-              //           autoPlayAnimationDuration: Duration(milliseconds: 3500),
-              //           autoPlayCurve: Curves.fastOutSlowIn,
-              //           enlargeCenterPage: true,
-              //         ),
-              //         items: generateSlider(listMedia),
-              //       ),
+              CarouselSlider(
+                      options: CarouselOptions(
+                        enableInfiniteScroll: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        autoPlayAnimationDuration: Duration(milliseconds: 3500),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                      ),
+                      items: generateSlider(listMedia),
+                    ),
               SizedBox(height: 15.0,),
               Text(controller.selectedCommerce.value.description.toString(),
                 style: TextStyle(
