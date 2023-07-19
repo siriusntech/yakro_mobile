@@ -76,7 +76,7 @@ class Restaurant {
     data['linkedln'] = linkedln;
     data['instagram'] = instagram;
     data['youtube'] = youtube;
-    data['medias'] = List<dynamic>.from(medias!.map((x) => x?.toJson()));
+    data['medias'] = List<dynamic>.from(medias!.map((x) => x.toJson()));
     return data;
   }
 

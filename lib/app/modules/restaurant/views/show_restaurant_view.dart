@@ -243,16 +243,16 @@ class ShowRestaurantView extends GetView<RestaurantController>{
               //     },
               //   ),
               // ), 
-              // CarouselSlider(
-              //         options: CarouselOptions(
-              //           enableInfiniteScroll: true,
-              //           autoPlayInterval: Duration(seconds: 5),
-              //           autoPlayAnimationDuration: Duration(milliseconds: 3500),
-              //           autoPlayCurve: Curves.fastOutSlowIn,
-              //           enlargeCenterPage: true,
-              //         ),
-              //         items: generateSlider(listMedia),
-              //       ),
+              CarouselSlider(
+                      options: CarouselOptions(
+                        enableInfiniteScroll: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        autoPlayAnimationDuration: Duration(milliseconds: 3500),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                      ),
+                      items: generateSlider( controller.selectedCommerce.value.medias!),
+                    ),
               SizedBox(height: 15.0,),
               Text(controller.selectedCommerce.value.description.toString(),
                 style: TextStyle(

@@ -149,12 +149,6 @@ class RestaurantView extends GetView<RestaurantController> {
                                     action: (){
                                       controller.setSelectedCommerce(commerce);
                                       Get.toNamed(AppRoutes.SHOW_RESTAURANT);
-                                      // Get.toNamed(AppRoutes.SHOW_RESTAURANT, arguments: {'data': commerce});
-                                    //    Get.to(
-                                    //   ShowRestaurantView(
-                                    //  data: commerce,
-                                    // ),
-                                  // );
                                     },
                                   );
                                   
