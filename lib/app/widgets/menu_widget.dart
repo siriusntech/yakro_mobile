@@ -1,8 +1,8 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_constantes.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/Utils/app_constantes.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 
 // MY MENU
 class MenuWidget extends StatelessWidget {

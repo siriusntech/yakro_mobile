@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_routes.dart';
-import 'package:jaime_cocody/app/modules/job/widgets/job_card_widget.dart';
-import 'package:jaime_cocody/app/widgets/no_data_widget.dart';
+import 'package:jaime_yakro/app/Utils/app_routes.dart';
+import 'package:jaime_yakro/app/modules/job/widgets/job_card_widget.dart';
+import 'package:jaime_yakro/app/widgets/no_data_widget.dart';
 import '../../../Utils/app_colors.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';

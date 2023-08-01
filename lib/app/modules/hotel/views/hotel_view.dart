@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';

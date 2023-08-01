@@ -60,10 +60,10 @@ const String VT = 'assets/images/vt.jpg';
 const String MENU_COVOITURAGE = 'assets/images/menu-covoiturage.png';
 
 //SLIDES
-const String SLIDE_STORE = 'assets/images/presentation/store.png';
+const String SLIDE_STORE = 'assets/images/restaurant.jpg';
 const String SLIDE_CHAT = 'assets/images/presentation/chat.png';
 const String SLIDE_KNOWN = 'assets/images/presentation/known.png';
-const String SLIDE_NEWS = 'assets/images/presentation/news.png';
+const String SLIDE_NEWS = 'assets/images/images_actualites.jpg';
 const String SLIDE_ALERTE = 'assets/images/presentation/alerte.png';
 const String SLIDE_PHARMACIE = 'assets/images/presentation/pharmacie.png';
 

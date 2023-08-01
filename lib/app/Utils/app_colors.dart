@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/extensions.dart';
+import 'package:jaime_yakro/extensions.dart';
 
 class AppColors {
   static final Color appbarColor = Color(0xFF51624F);

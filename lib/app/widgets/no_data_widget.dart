@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 
 
 class NoDataWidget extends StatelessWidget {

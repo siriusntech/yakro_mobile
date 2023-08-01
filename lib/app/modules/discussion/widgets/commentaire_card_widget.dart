@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/app/modules/discussion/controllers/discussion_controller.dart';
-import 'package:jaime_cocody/app/modules/discussion/widgets/reponse_tooltip_widget.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/modules/discussion/controllers/discussion_controller.dart';
+import 'package:jaime_yakro/app/modules/discussion/widgets/reponse_tooltip_widget.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 import 'package:get/get.dart';
 import '../../../Utils/app_constantes.dart';
 import '../commentaire_model.dart';

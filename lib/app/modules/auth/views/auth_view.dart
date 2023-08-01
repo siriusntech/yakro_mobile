@@ -1,17 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_colors.dart';
-import 'package:jaime_cocody/app/widgets/alerte_widgets.dart';
-
+import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
+import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/auth_controller.dart';
 
@@ -120,7 +117,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     );
   }
-
   _stepTwoCard(BuildContext context) {
     return Obx(() => Container(
           padding: EdgeInsets.all(8),
@@ -376,7 +372,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
                 Column(
                   children: [
-                    SizedBox(height: 15),
+                    SizedBox(height: 10),
                     Container(
                       padding: EdgeInsets.all(10),
                       width: double.infinity,
@@ -396,9 +392,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       fontWeight: FontWeight.w600,
                     ),
                     Expanded(
-                      flex: 5,
+                      flex: -1,
                       child: Padding(
-                        padding: EdgeInsets.only(top: size.height * .1),
+                        padding: EdgeInsets.only(top: size.height * 0.02),
                         child: Text(
                           'J\'aime Yakro',
                           style: TextStyle(
@@ -412,7 +408,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ),
                     Expanded(
-                      flex: 18,
+                        flex: 1,
+                 
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -586,15 +583,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 splashColor: Colors.transparent,
                 onTap: () async {
                   HapticFeedback.lightImpact();
-                  Fluttertoast.showToast(
-                      msg: 'Vivez des moments inoubliables!');
                   final data = {
                     "contact": authController.txtContactController.text,
                     "pseudo": authController.txtPseudoController.text,
                     "cloud_messaging_token":
                         authController.cloud_messaging_token
                   };
-                  authController.register(data);
+                  // Pour l'enregistrement
+                    // authController.register(data);
+                   if (authController.isValid()) {
+                      authController.register(data);
+                       Fluttertoast.showToast(
+                      msg: 'Vivez des moments inoubliables!');
+                   }else{
+                     Fluttertoast.showToast(
+                      msg: 'Vueillez remplir tous les champs!');
+                   }
+               
                 },
                 child: Container(
                   height: size.width / 8,

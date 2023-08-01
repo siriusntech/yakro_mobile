@@ -22,7 +22,7 @@ class DiffusionShowView extends GetView<DiffusionController> {
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: settingsCtrl.vert_color_fonce,
-        title:TextWidget(text: 'Restaurants et autres',fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,),
+        title:TextWidget(text: 'Les informations en détails',fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white,),
         leading: IconButton(
           onPressed: () {
             Get.back();

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +12,7 @@ import '../diffusion_model.dart';
 class DiffusionController extends GetxController {
 
   var diffusionList = List<Diffusion>.empty(growable: true).obs;
+
   var selectedDiffusion = Diffusion().obs;
   var page = 1;
   var isDataProcessing = false.obs;
@@ -22,10 +25,14 @@ class DiffusionController extends GetxController {
     try{
       isDataProcessing(true);
       final response = await DiffusionServices.getDiffusions();
+    
       if(response is Success){
         isDataProcessing(false);
         diffusionList.addAll(response.response as List<Diffusion>);
       }
+
+      inspect('response diff depuis le controller: '+diffusionList.toString());
+    
       if(response is Failure){
         isDataProcessing(false);
         print("Erreur "+response.errorResponse.toString());

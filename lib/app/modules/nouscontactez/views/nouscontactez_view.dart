@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/widgets/image_widget%20_baseUrl.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../Utils/app_constantes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
@@ -60,7 +58,7 @@ class NouscontactezView extends GetView<NouscontactezController> {
                       child: Container(
                         width: double.infinity,
                         height: 150,
-                        child: ImageWidget(isNetWork: true, url: controller.entrepriseInfo.value.logo, fit: BoxFit.contain),
+                        child: ImageWidgetBaseUrl(isNetWork: true, url:controller.entrepriseInfo.value.logo.toString(), fit: BoxFit.contain),
                       )
                   ),
                   Flexible(
@@ -81,13 +79,21 @@ class NouscontactezView extends GetView<NouscontactezController> {
                       )
                   ),
                   Divider(),
-                  Flexible(
-                      child: ListTile(
-                        leading: Icon(Icons.phone),
-                        title: TextWidget(text: "Contact:", fontWeight: FontWeight.bold, fontSize: 18,),
-                        subtitle: TextWidget(text: controller.entrepriseInfo.value.contact,
-                        fontSize: 18),
-                      )
+                         InkWell(
+                            onTap: () {
+                              // Action à effectuer lorsque le TextField est tapé
+                              // Insérez votre code ici
+                              print('TextField tapé !');
+                              controller.showAlerte( controller.entrepriseInfo.value.contact.toString());
+                            },
+                            child: Flexible(
+                                child: ListTile(
+                                  leading: Icon(Icons.phone),
+                                  title: TextWidget(text: "Contact:", fontWeight: FontWeight.bold, fontSize: 18,),
+                                  subtitle: TextWidget(text: controller.entrepriseInfo.value.contact,
+                                  fontSize: 18),
+                         ),
+                      ),
                   ),
                   Divider(),
                   Flexible(

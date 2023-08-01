@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
-
 import 'package:http/http.dart' as http;
-import 'package:jaime_cocody/app/models/mise_a_jour_model.dart';
-import 'package:jaime_cocody/app/models/entreprise.dart';
+import 'package:jaime_yakro/app/models/mise_a_jour_model.dart';
+import 'package:jaime_yakro/app/models/entreprise.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../controllers/main_controller.dart';
 import 'auth_service.dart';
@@ -12,7 +10,6 @@ import 'data/Env.dart';
 import 'data/api_status.dart';
 import 'package:get/get.dart';
 
-import 'diffusion_services.dart';
 
 class MainServices {
 

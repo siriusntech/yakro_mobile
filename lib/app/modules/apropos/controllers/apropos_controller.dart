@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/data/repository/main_services.dart';
-import 'package:jaime_cocody/app/models/entreprise.dart';
+import 'package:jaime_yakro/app/data/repository/main_services.dart';
+import 'package:jaime_yakro/app/models/entreprise.dart';
 
 import '../../../data/repository/data/api_status.dart';
 import '../../../widgets/alerte_widgets.dart';

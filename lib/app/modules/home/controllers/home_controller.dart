@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:in_app_update/in_app_update.dart';
-import 'package:jaime_cocody/app/data/repository/consultation_services.dart';
-import 'package:jaime_cocody/app/data/repository/slider_services.dart';
-import 'package:jaime_cocody/app/models/consultation.dart';
-import 'package:jaime_cocody/app/models/slider.dart';
-import 'package:jaime_cocody/app/modules/auth/controllers/auth_controller.dart';
-import 'package:jaime_cocody/app/modules/commerce/commerce_model.dart';
+import 'package:jaime_yakro/app/data/repository/consultation_services.dart';
+import 'package:jaime_yakro/app/data/repository/slider_services.dart';
+import 'package:jaime_yakro/app/models/consultation.dart';
+import 'package:jaime_yakro/app/models/slider.dart';
+import 'package:jaime_yakro/app/modules/auth/controllers/auth_controller.dart';
+import 'package:jaime_yakro/app/modules/commerce/commerce_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../main.dart';
@@ -537,7 +537,7 @@ class HomeController extends GetxController {
     //   final newVersion = NewVersion(
     //     // iOSId: 'com.google.Vespa',
     //     // androidId: 'com.google.android.apps.cloudconsole',
-    //     androidId: 'com.siriusntech.jaime_cocody',
+    //     androidId: 'com.siriusntech.jaime_yakro',
     //   );
     //
     //   await advancedStatusCheck(newVersion);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/discussion/discussion_model.dart';
+import 'package:jaime_yakro/app/modules/discussion/discussion_model.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';

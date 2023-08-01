@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/app/Utils/app_colors.dart';
+import 'package:jaime_yakro/app/Utils/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jaime_cocody/app/Utils/app_routes.dart';
+import 'package:jaime_yakro/app/Utils/app_routes.dart';
 
 import '../../../data/repository/auth_service.dart';
 import '../../../data/repository/data/api_status.dart';
@@ -24,6 +24,8 @@ class AuthController extends GetxController {
   var  pseudo = ''.obs;
   var  email = ''.obs;
   var  contact = ''.obs;
+
+ 
 
   String cloud_messaging_token = "";
 
@@ -56,6 +58,12 @@ class AuthController extends GetxController {
   FocusNode code_2FocusNode = new FocusNode();
   FocusNode code_3FocusNode = new FocusNode();
   FocusNode code_4FocusNode = new FocusNode();
+
+
+ // Méthode pour valider le formulaire
+  bool isValid() {
+    return txtPseudoController.text.isNotEmpty && txtContactController.text.isNotEmpty;
+  }
 
   var step = 1.obs;
   var isProcessing = false.obs;

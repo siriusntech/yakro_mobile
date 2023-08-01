@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jaime_cocody/app/modules/alerte/alerte_model.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/modules/alerte/alerte_model.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 
 import '../../../Utils/app_routes.dart';
 import '../../../data/repository/alerte_services.dart';
@@ -29,7 +29,7 @@ class AlerteController extends GetxController {
   var selectedTypeAlerteModel = AlerteType().obs;
   var selectedAlerte = Alerte().obs;
   var selected_type_alerte = ''.obs;
-  var dropdown_selected_type_alerte = 'Autre'.obs;
+  var dropdown_selected_type_alerte = 'Autres'.obs;
 
   var isDataProcessing = false.obs;
   var isAllDataProcessing = false.obs;
@@ -527,6 +527,7 @@ class AlerteController extends GetxController {
 
   createDropDownList(){
     print(type_alertes_list.length.toString());
+    
     return type_alertes_list.length > 0 ? DropdownButton(
       hint: Text("Choisissez la nature de l'incident"),
       style: TextStyle(fontSize: 15.0, color: Colors.black,
@@ -549,7 +550,7 @@ class AlerteController extends GetxController {
       }).toList(),
       elevation: 0,
     ) : Container(child: TextWidget(text: 'Aucun type trouvé', fontWeight: FontWeight.bold, color: Colors.red,),);
-    // ignore: dead_code
+  
   }
 
   // REFRESH PAGE

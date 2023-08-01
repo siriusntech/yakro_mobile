@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/controllers/main_controller.dart';
-import 'package:jaime_cocody/app/modules/actualite/widgets/actualite_card_widget.dart';
+import 'package:jaime_yakro/app/controllers/main_controller.dart';
+import 'package:jaime_yakro/app/modules/actualite/widgets/actualite_card_widget.dart';
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../widgets/loading_widget.dart';

@@ -1,9 +1,9 @@
 // import 'package:flutter/material.dart';
 
 // import 'package:get/get.dart';
-// import 'package:jaime_cocody/app/Utils/app_routes.dart';
-// import 'package:jaime_cocody/app/modules/commerce/widgets/commerce_card_widget.dart';
-// import 'package:jaime_cocody/app/widgets/no_data_widget.dart';
+// import 'package:jaime_yakro/app/Utils/app_routes.dart';
+// import 'package:jaime_yakro/app/modules/commerce/widgets/commerce_card_widget.dart';
+// import 'package:jaime_yakro/app/widgets/no_data_widget.dart';
 
 // import '../../../Utils/app_colors.dart';
 // import '../../../Utils/app_constantes.dart';

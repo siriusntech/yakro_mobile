@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 
-import '../../../data/repository/data/Env.dart';
+
 import '../controllers/zoom_controller.dart';
 
 class ZoomView extends GetView<ZoomController> {
@@ -29,10 +29,10 @@ class ZoomView extends GetView<ZoomController> {
           // padding: EdgeInsets.all(10),
           child: controller.image_url.value.toString().contains("http") ?
           PhotoView(
-                  imageProvider: NetworkImage( controller.image_url.value,),
+                  imageProvider: NetworkImage( controller.image_url.value.toString(),),
             )
             : Image.asset(
-              controller.image_url.value,
+              controller.image_url.value.toString(),
               width: Get.width - 10,
               height: Get.height - 10,
           ),

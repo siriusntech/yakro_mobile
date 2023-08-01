@@ -6,7 +6,7 @@ import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
 import '../../../controllers/main_controller.dart';
-import '../../../data/repository/data/Env.dart';
+
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
@@ -103,9 +103,12 @@ class DiffusionView extends GetView<DiffusionController> {
                                           width: double.infinity,
                                           height: 250,
                                           child: ImageWidget(isNetWork: true, url:
-                                          _diffusion.imageUrl, width: 250, height: 250, fit: BoxFit.contain,
+                                          _diffusion.imageUrl.toString(),
+                                           width: 250, height: 250, fit: BoxFit.contain,
                                             default_image: DefaultImage.BON_PLAN,
                                           ),
+                                          // child: Image.network(_diffusion.imageUrl.toString()),
+
                                         ),
                                       ],
                                     ),

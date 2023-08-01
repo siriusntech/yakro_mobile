@@ -27,7 +27,7 @@ class RestaurantServices {
       var response = await http.get(url, headers: headers);
        print(response.statusCode.toString());
       if(response.statusCode == 200){
-          print('voir getRestaurant: '+response.body.toString());
+          print('voir getRestaurant: '+ response.body.toString());
         return Success(response: RestaurantFromJson(response.body));
       }
       return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');

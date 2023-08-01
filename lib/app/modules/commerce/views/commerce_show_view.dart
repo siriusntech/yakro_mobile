@@ -1,8 +1,8 @@
 // import 'package:flutter/material.dart';
 
 // import 'package:get/get.dart';
-// import 'package:jaime_cocody/app/modules/zoom/controllers/zoom_controller.dart';
-// import 'package:jaime_cocody/app/modules/zoom/views/zoom_view.dart';
+// import 'package:jaime_yakro/app/modules/zoom/controllers/zoom_controller.dart';
+// import 'package:jaime_yakro/app/modules/zoom/views/zoom_view.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
 // import '../../../Utils/app_constantes.dart';

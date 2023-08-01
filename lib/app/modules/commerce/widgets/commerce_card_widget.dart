@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/app/Utils/app_icons.dart';
-import 'package:jaime_cocody/app/widgets/image_widget.dart';
+import 'package:jaime_yakro/app/Utils/app_icons.dart';
+import 'package:jaime_yakro/app/widgets/image_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';

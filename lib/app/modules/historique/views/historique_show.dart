@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
-
+import 'package:jaime_yakro/app/widgets/image_widget%20_baseUrl.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../controllers/main_controller.dart';
-import '../../../data/repository/data/Env.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../zoom/controllers/zoom_controller.dart';
 import '../../zoom/views/zoom_view.dart';
 import '../controllers/historique_controller.dart';
-import '../widgets/historique_card_widget.dart';
+
 import '../widgets/info_card_widget.dart';
 
 class HistoriqueShow extends GetView<HistoriqueController> {
@@ -23,7 +21,7 @@ class HistoriqueShow extends GetView<HistoriqueController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(text: 'Cultures', fontSize: 20.0, fontWeight: FontWeight.bold,color:settingsCtrl.appbarTextColor ,),
+        title: TextWidget(text: 'Les details de la Culture', fontSize: 20.0, fontWeight: FontWeight.bold,color:settingsCtrl.appbarTextColor ,),
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: settingsCtrl.vert_color_fonce,
@@ -61,7 +59,7 @@ class HistoriqueShow extends GetView<HistoriqueController> {
                         width: double.infinity,
                         height: 200,
                         child: GestureDetector(
-                          child: ImageWidget(url: controller.selectedHistorique.value.medias![0].url!, isNetWork: true,fit: BoxFit.contain,),
+                          child: ImageWidgetBaseUrl(url: controller.selectedHistorique.value.medias![0].url!, isNetWork: true,fit: BoxFit.contain,),
                           onTap: (){
                             zoomCtrl.setImageUrl(controller.selectedHistorique.value.medias![0].url!.toString());
                             Get.to(ZoomView(), fullscreenDialog: true);

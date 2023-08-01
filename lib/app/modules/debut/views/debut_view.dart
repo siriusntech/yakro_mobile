@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_colors.dart';
-import 'package:jaime_cocody/app/Utils/app_constantes.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/Utils/app_colors.dart';
+import 'package:jaime_yakro/app/Utils/app_constantes.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 
 import '../../../Utils/app_routes.dart';
 import '../controllers/debut_controller.dart';
@@ -16,16 +16,16 @@ class DebutView extends GetView<DebutController> {
     final List<Widget> pages = [
       NewPage(image: SLIDE_NEWS, titre: 'Actualités',
           desc: "Suivez l'actualité de votre commune."),
-      NewPage(image: SLIDE_STORE, titre: 'Commerces et autres',
+      NewPage(image: SLIDE_STORE, titre: 'Restaurants et autres',
           desc: "Les restaurants, super marché et autres espaces de la commune."),
-      NewPage(image: SLIDE_KNOWN, titre: 'Bon à savoir',
-          desc: "Apprenez à connaitre votre commune."),
+      // NewPage(image: SLIDE_KNOWN, titre: 'Bon à savoir',
+      //     desc: "Apprenez à connaitre votre commune."),
       NewPage(image: SLIDE_ALERTE, titre: 'Alertes',
           desc: "Envoyez des alertes sur les incidents de la commune."),
-      NewPage(image: SLIDE_CHAT, titre: 'Discussions',
-          desc: "Echangez et donnez votre avis pour l'évolution de la commune."),
-      NewPage(image: SLIDE_PHARMACIE, titre: 'Pharmacies de garde',
-          desc: "La liste des pharmacies de garde de la commune."),
+      NewPage(image: VT, titre: 'Sites Touristiques',
+          desc: "La liste des sites Touristiques de la commune."),
+      NewPage(image: HOTEL, titre: 'Hotels',
+          desc: "La liste des des hotels de garde de la commune."),
     ];
      
     return Scaffold(
@@ -35,7 +35,7 @@ class DebutView extends GetView<DebutController> {
       // ),
       body: Center(
         child: Container(
-          padding: EdgeInsets.only(bottom: 15),
+          padding: EdgeInsets.only(bottom: 20),
           decoration: BoxDecoration(
             color: AppColors.vert_colorFonce
           ),
@@ -44,12 +44,12 @@ class DebutView extends GetView<DebutController> {
                Expanded(
                    flex: 7,
                    child: Container(
-                     width: 175,
+                     width: 140,
                      child: Image.asset(LOGO_BLANC, fit: BoxFit.contain,),
                    )
                ),
                Expanded(
-                   flex: 14,
+                   flex: 15,
                    child: Center(
                      child: Stack(
                        children: [
@@ -69,7 +69,7 @@ class DebutView extends GetView<DebutController> {
                            bottom: 10,
                            left: 0,
                            right: 0,
-                           height: 38,
+                           height: 50,
                            child: Container(
                              color: Colors.black12,
                              child: Row(
@@ -118,7 +118,7 @@ class DebutView extends GetView<DebutController> {
               //     )
               // ),
               Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: SizedBox(
                     width: 160,
                     height: 40,
@@ -148,7 +148,7 @@ class DebutView extends GetView<DebutController> {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(50),
     ),
-    minimumSize: Size(200, 40),
+    minimumSize: Size(200, 50),
   ),
   child: Text(
     'Commencer >>',
@@ -172,20 +172,20 @@ class DebutView extends GetView<DebutController> {
 
   NewPage({image, titre, desc}){
     return Padding(
-        padding: EdgeInsets.all(6),
+        padding: EdgeInsets.only(bottom:75),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 width: double.infinity,
-                height: 300,
+                height: 240,
                 child: Image.asset(image,
                   fit: BoxFit.fill,
                 ),
               ),
               SizedBox(height: 5,),
-              TextWidget(text: titre, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white, alignement: TextAlign.center,),
+              TextWidget(text: titre, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white, alignement: TextAlign.center),
               TextWidget(text: desc, fontSize: 18, color: Colors.white, alignement: TextAlign.center),
             ],
           ),

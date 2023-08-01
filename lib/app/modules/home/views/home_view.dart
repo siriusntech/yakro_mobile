@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_routes.dart';
-import 'package:jaime_cocody/app/Utils/default_image.dart';
-import 'package:jaime_cocody/app/data/repository/main_services.dart';
-import 'package:jaime_cocody/app/routes/app_pages.dart';
-import 'package:jaime_cocody/app/widgets/notification_widget.dart';
+import 'package:jaime_yakro/app/Utils/app_routes.dart';
+import 'package:jaime_yakro/app/Utils/default_image.dart';
+import 'package:jaime_yakro/app/data/repository/main_services.dart';
+import 'package:jaime_yakro/app/routes/app_pages.dart';
+import 'package:jaime_yakro/app/widgets/notification_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';
@@ -105,6 +105,7 @@ class HomeView extends GetView<HomeController> {
                           color: Colors.white,
                         ),
                         width: 390,
+                        height: 220,
                         child: Center(
                           child: Column(
                             children: [
@@ -114,7 +115,7 @@ class HomeView extends GetView<HomeController> {
                                   autoPlay: true,
                                   autoPlayInterval: Duration(seconds: 7),
                                   autoPlayAnimationDuration:
-                                      Duration(milliseconds: 3500),
+                                      Duration(milliseconds: 4000),
                                   autoPlayCurve: Curves.fastOutSlowIn,
                                   enlargeCenterPage: true,
                                 ),
@@ -165,7 +166,7 @@ class HomeView extends GetView<HomeController> {
                                             .miseAJourModel.value.lien !=
                                         ""
                                     ? controller.miseAJourModel.value.lien
-                                    : "https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody";
+                                    : "https://play.google.com/store/apps/details?id=com.siriusntech.jaime_yakro";
                                 launchUrl(Uri.parse(link!));
                                 // await controller.makeUpdate();
                                 controller.makeUpdate();
@@ -337,7 +338,7 @@ Row(
                             Flexible(
                               child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
                                   color: mainCtrl.menuColor,
-                                  title: 'Signaler un problème',icon: MENU_ALERTE,
+                                  title: 'Signaler un Problème',icon: MENU_ALERTE,
                                   enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count,
                                   action: () async{
                                     // controller.addAlerteVisiteCount();
@@ -351,41 +352,58 @@ Row(
                           ),
                         ],
                       ),
-                        Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                                  color: mainCtrl.menuColor,
-                                  title: 'Covoiturage', icon: MENU_COVOITURAGE,
-                                  enabled: true,
-                                  action: () async{
-                                    // Get.toNamed(AppRoutes.TRAJET);
-                                    // annuaire_ctrl.refreshData();
-                                    // if(await MainServices.checkUserIsExclude() == false){
-                                    //   controller.addVisiteCount('annuaire');
-                                    // }
-                                  }
-                              )
-                          ),
-                           Flexible(
-                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                                  color: mainCtrl.menuColor,
-                                  title: 'Jobs / Annonces',icon: MENU_JOB,
-                                  enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
-                                  action: () async{
-                                    // controller.addJobVisiteCount();
-                                    Get.toNamed(AppRoutes.JOB);
-                                    job_ctrl.refreshData();
-                                    if(await MainServices.checkUserIsExclude() == false){
-                                      controller.addVisiteCount('job');
-                                    }
-                                  }
-                              )
-                          ),
+                            SizedBox(height: 20),
+                      
+                      //   Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Flexible(
+                      //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                      //             color: mainCtrl.menuColor,
+                      //             title: 'Covoiturage', icon: MENU_COVOITURAGE,
+                      //             enabled: true,
+                      //             action: () async{
+                      //               // Get.toNamed(AppRoutes.TRAJET);
+                      //               // annuaire_ctrl.refreshData();
+                      //               // if(await MainServices.checkUserIsExclude() == false){
+                      //               //   controller.addVisiteCount('annuaire');
+                      //               // }
+                      //             }
+                      //         )
+                      //     ),
+                      //      Flexible(
+                      //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                      //             color: mainCtrl.menuColor,
+                      //             title: 'Jobs / Annonces',icon: MENU_JOB,
+                      //             enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
+                      //             action: () async{
+                      //               // controller.addJobVisiteCount();
+                      //               // Get.toNamed(AppRoutes.JOB);
+                      //               // job_ctrl.refreshData();
+                      //               // if(await MainServices.checkUserIsExclude() == false){
+                      //               //   controller.addVisiteCount('job');
+                      //               // }
+                      //             }
+                      //         )
+                      //     ),
+                      //        Flexible(
+                      //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                      //             color: mainCtrl.menuColor,
+                      //             title: 'Publicités',icon: SLIDE_KNOWN,
+                      //             enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
+                      //             action: () async{
+                      //               // controller.addJobVisiteCount();
+                      //               // Get.toNamed(AppRoutes.JOB);
+                      //               // job_ctrl.refreshData();
+                      //               // if(await MainServices.checkUserIsExclude() == false){
+                      //               //   controller.addVisiteCount('job');
+                      //               // }
+                      //             }
+                      //         )
+                      //     ),
 
-                        ],
-                      ),
+                      //   ],
+                      // ),
 
 
                                 ],

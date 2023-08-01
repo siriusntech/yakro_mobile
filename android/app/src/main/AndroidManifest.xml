@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.siriusntech.jaime_cocody" xmlns:tools="http://schemas.android.com/tools">
+    package="com.siriusntech.jaime_yakro">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--Camera permission-->
@@ -112,9 +112,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-       <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
+       <!-- <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
            android:name="com.facebook.FacebookContentProvider"
-           android:exported="true" />
+           android:exported="true" /> -->
     </application>
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
+    <!-- <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" /> -->
 </manifest>

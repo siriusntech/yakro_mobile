@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/annuaire/widgets/annuaire_card_widget.dart';
+import 'package:jaime_yakro/app/modules/annuaire/widgets/annuaire_card_widget.dart';
 
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_routes.dart';

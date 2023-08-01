@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/auth/views/auth_view.dart';
+import 'package:jaime_yakro/app/modules/auth/views/auth_view.dart';
 import '../../../routes/app_pages.dart';
 import '../../debut/views/debut_view.dart';
 import '../controllers/widget_splash_screen_controller.dart';
 import 'dart:async';
-import 'package:jaime_cocody/app/Utils/app_constantes.dart';
+import 'package:jaime_yakro/app/Utils/app_constantes.dart';
 
 class WidgetSplashScreenView extends GetView<WidgetSplashScreenController> {
   WidgetSplashScreenView({Key? key}) : super(key: key);

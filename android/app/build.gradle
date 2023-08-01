@@ -18,7 +18,7 @@ if (flutterVersionCode == null) {
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '1.0.0'
 }
 
 apply plugin: 'com.android.application'
@@ -41,6 +41,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    lintOptions {
+        disable 'InvalidPackage'
+        disable "Instantiatable"
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -51,22 +58,26 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.siriusntech.jaime_cocody"
+        applicationId "com.siriusntech.jaime_yakro"
         minSdkVersion 19
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 129
-        versionName "1.0.5"
+        versionCode 1
+        versionName "1.0.0"
         multiDexEnabled true
     }
     signingConfigs {
-        // release {
-        //     keyAlias keystoreProperties['keyAlias']
-        //     keyPassword keystoreProperties['keyPassword']
-        //     storeFile file(keystoreProperties['storeFile'])
-        //     storePassword keystoreProperties['storePassword']
-        // }
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile']) ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
     }
+    
     buildTypes {
+        release {
+           signingConfig signingConfigs.release
+       }
 //         release {
 //             // TODO: Add your own signing config for the release build.
 //             // Signing with the debug keys for now, so `flutter run --release` works.

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jaime_yakro/app/widgets/image_widget%20_baseUrl.dart';
 
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
@@ -9,7 +10,6 @@ import '../../../Utils/default_image.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/alerte_widgets.dart';
-import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../../../widgets/my_alerte_tooltip_widget.dart';
 import '../../../widgets/no_data_widget.dart';
@@ -88,8 +88,8 @@ class AlerteAllView extends GetView<AlerteController> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title: TextWidget(text: "Toutes les alertes",fontSize: 18.0,
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title: TextWidget(text: "Toutes les alertes",fontSize: 22.0,
             color: Colors.white, fontWeight: FontWeight.bold
         ),
         actions: [
@@ -97,8 +97,9 @@ class AlerteAllView extends GetView<AlerteController> {
               onPressed: () async{
                 await controller.refreshData();
               },
-              icon: Icon(Icons.refresh, color: Colors.white, size: 30,)
-          )
+              icon: Icon(Icons.refresh, color: Colors.white, size: 30)
+          ),
+
         ],
       ),
       body: Container(
@@ -132,7 +133,7 @@ class AlerteAllView extends GetView<AlerteController> {
                                 }
                               },
                               child: Chip(
-                                backgroundColor: type.nom == controller.selected_type_alerte.value ? Colors.amber : AppColors.chip_color,
+                                backgroundColor: type.nom == controller.selected_type_alerte.value ? AppColors.vert_color : AppColors.chip_color,
                                 label: TextWidget(text: type.nom.toString().toLowerCase(),
                                   fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                 ),
@@ -178,7 +179,7 @@ class AlerteAllView extends GetView<AlerteController> {
                                                 height: 50,
                                                 width: 50,
                                                 child: CircleAvatar(
-                                                  backgroundColor: Colors.amber,
+                                                  backgroundColor: AppColors.vert_color,
                                                   radius: 50,
                                                   backgroundImage: AssetImage(ICON_USER_AVATAR),
                                                 ),
@@ -249,7 +250,7 @@ class AlerteAllView extends GetView<AlerteController> {
                                         Container(
                                           width: double.infinity,
                                           height: 250,
-                                          child: alerte.fileType == 'image' ? ImageWidget(isNetWork: true, url:
+                                          child: alerte.fileType == 'image' ? ImageWidgetBaseUrl(isNetWork: true, url:
                                           alerte.fileUrl, width: 250, height: 250, fit: BoxFit.contain,
                                             default_image: DefaultImage.ALERTE,
                                           ) : VideoWidget(fileUrl: siteUrl+alerte.fileUrl.toString(),from: 'network',),

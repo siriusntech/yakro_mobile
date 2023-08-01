@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:jaime_cocody/app/models/conversation_model.dart';
-import 'package:jaime_cocody/app/models/reservation_model.dart';
+import 'package:jaime_yakro/app/models/conversation_model.dart';
+import 'package:jaime_yakro/app/models/reservation_model.dart';
 
 import '../modules/auth/user_model.dart';
 

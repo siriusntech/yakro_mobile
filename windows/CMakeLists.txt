@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(jaime_cocody LANGUAGES CXX)
+project(jaime_yakro LANGUAGES CXX)
 
-set(BINARY_NAME "jaime_cocody")
+set(BINARY_NAME "jaime_yakro")
 
 cmake_policy(SET CMP0063 NEW)
 

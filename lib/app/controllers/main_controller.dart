@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/extensions.dart';
+import 'package:jaime_yakro/extensions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/repository/auth_service.dart';
@@ -23,6 +23,7 @@ class MainController extends GetxController {
 
   // var baseUrl = "https://sdcocody.siriusntech.digital/api/mobile/";
   // var siteUrl = "https://sdcocody.siriusntech.digital";
+  var baseUrlsansSlash = 'https://sdyakro.siriusntech.digital';
   var baseUrl = 'https://sdyakro.siriusntech.digital/api/mobile/';
   var siteUrl = 'https://sdyakro.siriusntech.digital';
   setToCocody() async {
@@ -31,8 +32,6 @@ class MainController extends GetxController {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setString("app_name", "cocody");
     app_logo.value = "assets/images/logo/logo.png";
-    var baseUrl = "https://sdyakro.siriusntech.digital/api/mobile/";
-    var siteUrl = "https://sdyakro.siriusntech.digital";
     appbarColor = Color(0xFF51624F);
     ;
     appbarColorFromCode = '#fc9003'.toColor();

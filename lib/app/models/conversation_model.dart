@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:jaime_cocody/app/models/trajet_model.dart';
+import 'package:jaime_yakro/app/models/trajet_model.dart';
 
 import '../modules/auth/user_model.dart';
 

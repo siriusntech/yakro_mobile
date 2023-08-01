@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "267768850958",
-    "project_id": "jaime-cocody",
-    "storage_bucket": "jaime-cocody.appspot.com"
+    "project_number": "613208666204",
+    "project_id": "j-aime-yakro",
+    "storage_bucket": "j-aime-yakro.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:267768850958:android:a61e61dce03c28f211aa5f",
+        "mobilesdk_app_id": "1:613208666204:android:135114d6d2ad49f808f699",
         "android_client_info": {
-          "package_name": "com.siriusntech.jaime_cocody"
+          "package_name": "com.siriusntech.jaime_yakro"
         }
       },
       "oauth_client": [
         {
-          "client_id": "267768850958-cc2fmv21s4ipqqakclbhvk8lsu54t2jg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.siriusntech.jaime_cocody",
-            "certificate_hash": "290b3d2f70faa59c099e45f5be00784b4f779407"
-          }
-        },
-        {
-          "client_id": "267768850958-gg3iojo8m262fq03ubajif7o59r1lvfd.apps.googleusercontent.com",
+          "client_id": "613208666204-vs6tdqbcs2d1vh9mk6ta11eth2ipm4a6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBhEwDz1pxmfirM8b5qftgu5GWt1I8a4oQ"
+          "current_key": "AIzaSyA7-izHKU5amn1rYfzXjzjNp8sRhcKw2KI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "267768850958-gg3iojo8m262fq03ubajif7o59r1lvfd.apps.googleusercontent.com",
+              "client_id": "613208666204-vs6tdqbcs2d1vh9mk6ta11eth2ipm4a6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,11 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:get/get.dart';
-
-import '../../../Utils/app_constantes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
@@ -20,7 +16,7 @@ class AlerteEditView extends GetView<AlerteController> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
         title: Obx(() => TextWidget(text: controller.selected_type_alerte.value, color: Colors.white,
           fontSize: 15, alignement: TextAlign.center, fontWeight: FontWeight.bold, scaleFactor: 1.2,
         )),

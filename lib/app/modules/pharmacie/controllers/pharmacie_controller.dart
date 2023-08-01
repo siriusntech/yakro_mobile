@@ -1,7 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/models/zone_model.dart';
+import 'package:jaime_yakro/app/models/zone_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';

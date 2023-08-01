@@ -27,7 +27,7 @@ class HistoriqueServices {
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(apiUrl+'/$user_id');
       var response = await http.get(url, headers: headers);
-      // print('response hist: '+response.body.toString());
+   print('response historique: '+response.body.toString());
       if(response.statusCode == 200){
           return Success(response: historiqueFromJson(response.body));
       }

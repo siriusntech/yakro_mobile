@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/widgets/image_widget%20_baseUrl.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
@@ -50,10 +51,10 @@ class AproposView extends GetView<AproposController> {
               padding: EdgeInsets.all(8),
               children: [
                 Container(
-                  child: ImageWidget(isNetWork: true, url: controller.entrepriseInfo.value.logo, fit: BoxFit.contain),
+                  child: ImageWidgetBaseUrl(isNetWork: true, url: controller.entrepriseInfo.value.logo, fit: BoxFit.contain),
                 ),
                 TextWidget(text: controller.entrepriseInfo.value.presentation.toString().trim(),
-                fontSize: 20,)
+                fontSize: 20, alignement:TextAlign.justify)
               ],
             );
           }

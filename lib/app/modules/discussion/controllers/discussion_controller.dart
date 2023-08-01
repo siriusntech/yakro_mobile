@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pusher_client/pusher_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jaime_cocody/app/modules/discussion/widgets/commentaire_card_widget.dart';
+import 'package:jaime_yakro/app/modules/discussion/widgets/commentaire_card_widget.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/commentaire_services.dart';
 import '../../../data/repository/data/api_status.dart';

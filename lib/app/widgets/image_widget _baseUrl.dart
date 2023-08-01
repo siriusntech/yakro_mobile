@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import '../controllers/main_controller.dart';
+import 'package:flutter/material.dart';import '../controllers/main_controller.dart';
 import 'package:get/get.dart';
 
+import '../data/repository/data/Env.dart';
+
 // ignore: must_be_immutable
-class ImageWidget extends StatelessWidget {
+class ImageWidgetBaseUrl extends StatelessWidget {
 
   static MainController settingsCtrl = Get.put(MainController());
 
@@ -18,16 +19,15 @@ class ImageWidget extends StatelessWidget {
    final BoxFit? default_image_fit;
    bool isNetWork;
 
-   ImageWidget({this.url, this.width, this.height, this.fit, required this.isNetWork,
+   ImageWidgetBaseUrl({this.url, this.width, this.height, this.fit, required this.isNetWork,
      this.default_image, this.default_image_width, this.default_image_height, this.default_image_fit
    });
-
 
 
   @override
   Widget build(BuildContext context) {
     return isNetWork ? CachedNetworkImage(
-      imageUrl: url.toString(),
+      imageUrl: settingsCtrl.baseUrlsansSlash+url!.toString(),
       width: width,
       height: height,
       fit: fit,
@@ -38,7 +38,7 @@ class ImageWidget extends StatelessWidget {
         height: default_image_height,
         fit: default_image_fit,
       ),
-    ) : Image.asset(url!,
+    ) : Image.asset(settingsCtrl.baseUrlsansSlash+url!.toString(),
       width: width,
       height: height,
       fit: fit,
@@ -46,18 +46,18 @@ class ImageWidget extends StatelessWidget {
   }
 
 
-   // @override
-   // Widget build(BuildContext context) {
-   //   return isNetWork ? Image.network(siteUrl+url!,
-   //     width: width,
-   //     height: height,
-   //     fit: fit,
-   //   ) : Image.asset(url!,
-   //     width: width,
-   //     height: height,
-   //     fit: fit,
-   //   );
-   // }
+  //  @override
+  //  Widget build(BuildContext context) {
+  //    return isNetWork ? Image.network(siteUrl+url!,
+  //      width: width,
+  //      height: height,
+  //      fit: fit,
+  //    ) : Image.asset(url!,
+  //      width: width,
+  //      height: height,
+  //      fit: fit,
+  //    );
+  //  }
 
 
 

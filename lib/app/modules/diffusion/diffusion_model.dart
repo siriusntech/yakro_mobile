@@ -12,8 +12,8 @@ class Diffusion {
   String? message;
   String? date;
   String? imageUrl;
-
-  Diffusion({this.id, this.objet, this.message, this.date, this.imageUrl});
+ late List<BonPlan>? dataT;
+  Diffusion({this.id, this.objet, this.message, this.date, this.imageUrl, this.dataT});
 
   Diffusion.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -32,4 +32,50 @@ class Diffusion {
     data['imageUrl'] = imageUrl;
     return data;
   }
+  
+}
+
+
+class BonPlan {
+    String? imageUrl;
+    List<Media> medias;
+
+    BonPlan({
+        this.imageUrl,
+        required this.medias,
+    });
+
+    factory BonPlan.fromJson(Map<String, dynamic> json) => BonPlan(
+        imageUrl: json["imageUrl"],
+        medias: List<Media>.from(json["medias"].map((x) => Media.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "imageUrl": imageUrl,
+        "medias": List<dynamic>.from(medias.map((x) => x.toJson())),
+    };
+}
+
+class Media {
+    int? id;
+    String? url;
+    String? type;
+
+    Media({
+        this.id,
+        this.url,
+        this.type,
+    });
+
+    factory Media.fromJson(Map<String, dynamic> json) => Media(
+        id: json["id"],
+        url: json["url"],
+        type: json["type"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "url": url,
+        "type": type,
+    };
 }

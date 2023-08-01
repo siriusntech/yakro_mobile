@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -137,9 +134,7 @@ class DetailHotelView extends GetView {
 
                           InkWell(
                             onTap: () {
-                              // Action à effectuer lorsque le TextField est tapé
-                              // Insérez votre code ici
-                              print('TextField tapé !');
+                     
                               hotelController.showAlerte(data.numeroHotel.toString());
 
                             },
@@ -182,12 +177,19 @@ class DetailHotelView extends GetView {
 
                             },
                             child: TextField(
-                              controller:  TextEditingController(text: data.lienMap),
+                              controller:  TextEditingController(text:' '),
                               enabled: false,
                               decoration: InputDecoration(
                                 labelText: 'Lien de map',
                                 prefixIcon: Icon(FontAwesomeIcons.mapLocation),
                                 border: OutlineInputBorder(),
+                                prefixText: 'Itinéraire',
+                                prefixStyle: TextStyle(
+                                  color: Colors.red, // Couleur du texte
+                                  fontSize: 17.0, // Taille de la police
+                                  fontWeight: FontWeight.bold, // Style de la police en gras
+                                  // Vous pouvez ajouter d'autres propriétés de style ici si nécessaire
+                                ),
                               ),
                             ),
                           ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/app/Utils/app_icons.dart';
-import 'package:jaime_cocody/app/models/restaurant_model.dart';
-import 'package:jaime_cocody/app/modules/restaurant/controllers/restaurant_controller.dart';
-import 'package:jaime_cocody/app/widgets/image_widget.dart';
+import 'package:jaime_yakro/app/Utils/app_icons.dart';
+import 'package:jaime_yakro/app/models/restaurant_model.dart';
+import 'package:jaime_yakro/app/modules/restaurant/controllers/restaurant_controller.dart';
+import 'package:jaime_yakro/app/widgets/image_widget%20_baseUrl.dart';
+import 'package:jaime_yakro/app/widgets/image_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Utils/app_constantes.dart';

@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/app/Utils/app_colors.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/Utils/app_colors.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 
 import '../Utils/app_constantes.dart';
 
@@ -19,7 +19,7 @@ class NotificationWidget extends StatelessWidget {
       children: [
         IconButton(
             onPressed: action,
-            icon: Icon(icon, color: color != null ? color : AppColors.menuColor, size: 30,)
+            icon: Icon(icon, color: color != null ? color : AppColors.vert_color_fonce, size: 30,)
         ),
         count != null ? Positioned(
           left: 5,
@@ -27,7 +27,7 @@ class NotificationWidget extends StatelessWidget {
           child: Badge(
             elevation: 0.0,
             shape: BadgeShape.circle,
-            badgeColor: Colors.red,
+            badgeColor:  AppColors.rouge_doux_leger,
             badgeContent: TextWidget(text: count.toString(), alignement: TextAlign.center,
               fontWeight: FontWeight.bold,color: Colors.white,fontSize: 12,
             ),

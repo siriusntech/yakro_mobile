@@ -260,7 +260,7 @@ class AlerteServices {
     try {
       var url = Uri.parse(apiUrl);
       var response = await http.get(url, headers: headers);
-      // print('response: '+ response.body.toString());
+      //  print('response Alerte : '+ response.body.toString());
       if (response.statusCode == 200) {
         return Success(response: alerteTypeFromJson(response.body));
       }

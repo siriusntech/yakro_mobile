@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/modules/sitetouristiques/controllers/sitetouristiques_controller.dart';
+import 'package:jaime_yakro/app/modules/sitetouristiques/controllers/sitetouristiques_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../models/site_touristique.dart';
@@ -200,12 +200,19 @@ class DetailSitetouristiquesView extends GetView {
                               launchUrl(Uri.parse(data.lienMap.toString()));
                             },
                             child: TextField(
-                      controller: TextEditingController(text: data.lienMap),
+                      controller: TextEditingController(text:' '),
                       enabled: false,
                       decoration: InputDecoration(
                         labelText: 'Lien de Map',
                         prefixIcon: Icon(Icons.map),
                         border: OutlineInputBorder(),
+                           prefixText: 'Itinéraire',
+                                prefixStyle: TextStyle(
+                                  color: Colors.red, // Couleur du texte
+                                  fontSize: 17.0, // Taille de la police
+                                  fontWeight: FontWeight.bold, // Style de la police en gras
+                                  // Vous pouvez ajouter d'autres propriétés de style ici si nécessaire
+                                ),
                         ),
                       )
                     ),

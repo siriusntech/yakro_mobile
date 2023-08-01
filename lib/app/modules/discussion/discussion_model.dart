@@ -1,5 +1,5 @@
-import 'package:jaime_cocody/app/models/media.dart';
-import 'package:jaime_cocody/app/modules/discussion/commentaire_model.dart';
+import 'package:jaime_yakro/app/models/media.dart';
+import 'package:jaime_yakro/app/modules/discussion/commentaire_model.dart';
 
 import 'dart:convert';
 

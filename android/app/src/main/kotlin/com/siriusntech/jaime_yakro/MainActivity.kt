@@ -1,4 +1,4 @@
-package com.siriusntech.jaime_cocody
+package com.siriusntech.jaime_yakro
 
 import io.flutter.embedding.android.FlutterActivity
 

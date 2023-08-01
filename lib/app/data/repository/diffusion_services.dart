@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controllers/main_controller.dart';
@@ -28,7 +25,7 @@ class DiffusionServices {
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(apiUrl+'/$user_id');
       var response = await http.get(url, headers: headers);
-      // print('response diff: '+response.body.toString());
+      print('response diff: '+response.body.toString());
       if(response.statusCode == 200){
           return Success(response: diffusionFromJson(response.body));
       }

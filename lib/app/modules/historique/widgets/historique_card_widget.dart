@@ -1,10 +1,8 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:jaime_cocody/app/data/repository/data/Env.dart';
-import 'package:jaime_cocody/app/widgets/image_widget.dart';
-
 import '../../../Utils/default_image.dart';
+
+import '../../../widgets/image_widget _baseUrl.dart';
 import '../../../widgets/text_widget.dart';
 import '../historique_model.dart';
 
@@ -15,7 +13,6 @@ class HistoriqueCardWidget extends StatelessWidget {
 
   HistoriqueCardWidget({required this.historique, required this.action});
 
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: action,
@@ -29,10 +26,11 @@ class HistoriqueCardWidget extends StatelessWidget {
             ListTile(
               minLeadingWidth: 80,
               contentPadding: EdgeInsets.all(0.0),
-              leading: ImageWidget(isNetWork: true, url:
-                 historique.medias![0].url, width: 100, height: 80, fit: BoxFit.cover,
+              leading:
+               ImageWidgetBaseUrl(isNetWork: true, url: historique.medias![0].url.toString(), width: 100, height: 80, fit: BoxFit.cover,
                 default_image: DefaultImage.BON_A_SAVOIR,
-              ),
+              )
+              ,
               title: Container(
                 // height: 100,
                 padding: EdgeInsets.only(top: 5, bottom: 8),
@@ -42,8 +40,8 @@ class HistoriqueCardWidget extends StatelessWidget {
                     TextWidget(text: historique.titre, fontSize: 16, fontWeight: FontWeight.bold,),
                     SizedBox(height: 6,),
                     TextWidget(
-                      text: historique.description!.length > 125 ? historique.description!.substring(0, 125).toString()+' ...' : historique.description.toString()+' ...',
-                      fontSize: 16,
+                      text: historique.description!.length > 100 ? historique.description!.substring(0, 100).toString()+' ...' : historique.description.toString()+' ...',
+                      fontSize: 15,
                     )
                   ],
                 ),

@@ -1,5 +1,5 @@
-name: jaime_cocody
-version: 1.0.0+15
+name: jaime_yakro
+version: 1.0.0
 publish_to: none
 description: App commune.
 environment: 
@@ -55,6 +55,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   carousel_pro: ^1.0.0
   font_awesome_flutter: ^10.4.0
+  change_app_package_name: ^1.1.0
 
 dev_dependencies: 
   flutter_lints: ^1.0.0

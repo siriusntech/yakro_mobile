@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/app/modules/message/controllers/message_controller.dart';
-import 'package:jaime_cocody/app/modules/message/message_model.dart';
+import 'package:jaime_yakro/app/modules/message/controllers/message_controller.dart';
+import 'package:jaime_yakro/app/modules/message/message_model.dart';
 import 'package:get/get.dart';
 
 class MyMessageToolTipWidget extends StatelessWidget {

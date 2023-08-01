@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
 import '../../../Utils/app_colors.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
@@ -11,7 +10,6 @@ import '../../../data/repository/data/Env.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
-import '../../../widgets/my_alerte_tooltip_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
@@ -89,8 +87,8 @@ class AlerteMineView extends GetView<AlerteController> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
-        title: TextWidget(text: "Mes alertes",fontSize: 18.0,
+        backgroundColor: settingsCtrl.vert_color_fonce,
+        title: TextWidget(text: "Mes alertes",fontSize: 22.0,
             color: Colors.white, fontWeight: FontWeight.bold
         ),
         actions: [
@@ -134,7 +132,7 @@ class AlerteMineView extends GetView<AlerteController> {
                                 }
                               },
                               child: Chip(
-                                backgroundColor: type.nom == controller.selected_type_alerte.value ? Colors.amber : AppColors.chip_color,
+                                backgroundColor: type.nom == controller.selected_type_alerte.value ? AppColors.rouge_doux_leger : AppColors.chip_color,
                                 label: TextWidget(text: type.nom.toString().toLowerCase(),
                                   fontSize: 14, fontWeight: FontWeight.bold, scaleFactor: 1.2,
                                 ),
@@ -180,7 +178,7 @@ class AlerteMineView extends GetView<AlerteController> {
                                                 height: 50,
                                                 width: 50,
                                                 child: CircleAvatar(
-                                                  backgroundColor: Colors.amber,
+                                                  backgroundColor: AppColors.vert_color,
                                                   radius: 50,
                                                   backgroundImage: AssetImage(ICON_USER_AVATAR),
                                                 ),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_colors.dart';
-import 'package:jaime_cocody/app/widgets/button_widget.dart';
-
+import 'package:jaime_yakro/app/Utils/app_colors.dart';
+import 'package:jaime_yakro/app/widgets/button_widget.dart';
+import 'package:jaime_yakro/app/widgets/image_widget%20_baseUrl.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../Utils/default_image.dart';
@@ -12,7 +11,6 @@ import '../../../data/repository/data/Env.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
-import '../../../widgets/my_alerte_tooltip_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
@@ -236,7 +234,7 @@ class AlerteView extends GetView<AlerteController> {
                                               height: 50,
                                               width: 50,
                                               child: CircleAvatar(
-                                                backgroundColor: Colors.amber,
+                                                backgroundColor: AppColors.vert_colorFonce,
                                                 radius: 50,
                                                 backgroundImage: AssetImage(ICON_USER_AVATAR),
                                               ),
@@ -307,7 +305,7 @@ class AlerteView extends GetView<AlerteController> {
                                       Container(
                                         width: double.infinity,
                                         height: 250,
-                                        child: alerte.fileType == 'image' ? ImageWidget(isNetWork: true, url:
+                                        child: alerte.fileType == 'image' ? ImageWidgetBaseUrl(isNetWork: true, url:
                                         alerte.fileUrl, width: 250, height: 250, fit: BoxFit.contain,
                                           default_image: DefaultImage.ALERTE,
                                         ) : VideoWidget(fileUrl: siteUrl+alerte.fileUrl.toString(),from: 'network',),

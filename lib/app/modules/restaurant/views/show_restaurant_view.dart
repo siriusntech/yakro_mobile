@@ -2,8 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/default_image.dart';
-import 'package:jaime_cocody/app/models/restaurant_model.dart';
+import 'package:jaime_yakro/app/Utils/default_image.dart';
+import 'package:jaime_yakro/app/models/restaurant_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_icons.dart';
@@ -23,6 +23,10 @@ class ShowRestaurantView extends GetView<RestaurantController>{
   Widget build(BuildContext context) {
      final ZoomController zoomCtrl = Get.put(ZoomController());
      final MainController settingsCtrl = Get.find();
+
+     final listMedia = controller.selectedCommerce.value.medias!.map((element) {
+       return element.url;
+     }).toList();
 
       //  final Map<String, dynamic> arguments = Get.arguments as Map<String, dynamic>;
         // final data = arguments['data'] as Restaurant;
@@ -251,7 +255,7 @@ class ShowRestaurantView extends GetView<RestaurantController>{
                         autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: true,
                       ),
-                      items: generateSlider( controller.selectedCommerce.value.medias!),
+                      items: generateSlider(listMedia),
                     ),
               SizedBox(height: 15.0,),
               Text(controller.selectedCommerce.value.description.toString(),

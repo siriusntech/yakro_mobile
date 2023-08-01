@@ -1,8 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/widgets/button_widget.dart';
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/widgets/button_widget.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Utils/app_constantes.dart';
@@ -69,7 +69,7 @@ showNotificationBox(String title, String body, String action_url){
         action: () {
           Get.back();
           if(action_url == '/mise_a_jour'){
-             launch('https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody');
+             launch('https://play.google.com/store/apps/details?id=com.siriusntech.jaime_yakro');
           }else{
             Get.toNamed(action_url);
           }
@@ -84,7 +84,7 @@ showNotificationSnackBar(String title, String body, String action_url){
     title,
     body,
     icon: Image.asset(DefaultImage.LOGO),
-    titleText: TextWidget(text: title, fontSize: 15, fontWeight: FontWeight.bold,),
+    titleText: TextWidget(text: title, fontSize: 16, fontWeight: FontWeight.bold,),
     messageText: TextWidget(text: body, fontSize: 16),
     backgroundColor: Colors.white,
     borderColor: Colors.grey,
@@ -99,7 +99,7 @@ showNotificationSnackBar(String title, String body, String action_url){
     margin: EdgeInsets.only(top: 80),
     onTap: (val){
       if(action_url == '/mise_a_jour'){
-        launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=com.siriusntech.jaime_cocody'));
+        launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=com.siriusntech.jaime_yakro'));
       }else{
         Get.toNamed(action_url);
       }

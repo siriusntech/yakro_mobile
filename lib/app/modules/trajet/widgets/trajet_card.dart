@@ -1,5 +1,5 @@
 
-import 'package:jaime_cocody/app/widgets/text_widget.dart';
+import 'package:jaime_yakro/app/widgets/text_widget.dart';
 
 import '../../../Utils/app_icons.dart';
 import '../../../models/trajet_model.dart';

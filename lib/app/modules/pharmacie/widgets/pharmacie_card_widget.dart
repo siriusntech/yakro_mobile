@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/widgets/image_widget.dart';
+import 'package:jaime_yakro/app/widgets/image_widget.dart';
 
 import '../../../Utils/default_image.dart';
 import '../../../controllers/main_controller.dart';

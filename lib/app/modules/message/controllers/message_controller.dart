@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_routes.dart';
+import 'package:jaime_yakro/app/Utils/app_routes.dart';
 
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/message_services.dart';

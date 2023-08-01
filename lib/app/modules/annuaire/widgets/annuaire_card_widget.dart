@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jaime_cocody/app/Utils/app_colors.dart';
+import 'package:jaime_yakro/app/Utils/app_colors.dart';
 
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/data/Env.dart';

@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_routes.dart';
-
+import 'package:jaime_yakro/app/Utils/app_colors.dart';
+import 'package:jaime_yakro/app/widgets/image_widget%20_baseUrl.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/default_image.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../data/repository/data/Env.dart';
 import '../../../widgets/alerte_widgets.dart';
-import '../../../widgets/image_widget.dart';
-import '../../../widgets/my_alerte_tooltip_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../../../widgets/video_widget.dart';
 import '../../zoom/controllers/zoom_controller.dart';
@@ -88,10 +85,10 @@ class AlerteShowView extends GetView<AlerteController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
         title: Text("Incidents signalés",
           style: TextStyle(
-              fontSize: 18.0,
+              fontSize: 22.0,
               color: Colors.white,
               fontWeight: FontWeight.bold
           ),
@@ -114,7 +111,16 @@ class AlerteShowView extends GetView<AlerteController> {
               },
               icon: Icon(Icons.delete, color: Colors.red,)
           ),
-        ] : [],
+          
+        ] : [
+          
+           IconButton(
+              onPressed: () async{
+                await controller.refreshData();
+              },
+              icon: Icon(Icons.refresh, color: Colors.white, size: 30)
+          )
+        ],
       ),
       body: Center(
         child: Padding(
@@ -129,7 +135,7 @@ class AlerteShowView extends GetView<AlerteController> {
                       height: 50,
                       width: 50,
                       child: CircleAvatar(
-                        backgroundColor: Colors.amber,
+                        backgroundColor: AppColors.vert_color,
                         radius: 50,
                         backgroundImage: AssetImage(ICON_USER_AVATAR),
                       ),
@@ -202,12 +208,12 @@ class AlerteShowView extends GetView<AlerteController> {
                 height: 250,
                 child: controller.selectedAlerte.value.fileType == 'image' ?
                 GestureDetector(
-                  child: ImageWidget(isNetWork: true, url:
+                  child: ImageWidgetBaseUrl(isNetWork: true, url:
                   controller.selectedAlerte.value.fileUrl, width: 250, height: 250, fit: BoxFit.contain,
                     default_image: DefaultImage.ALERTE,
                   ),
                   onTap: (){
-                    zoomCtrl.setImageUrl(controller.selectedAlerte.value.fileUrl.toString());
+                    zoomCtrl.setImageBaseUrl(controller.selectedAlerte.value.fileUrl.toString());
                     Get.to(ZoomView(), fullscreenDialog: true);
                   },
                 ) : VideoWidget(fileUrl: siteUrl+controller.selectedAlerte.value.fileUrl.toString(),from: 'network',),

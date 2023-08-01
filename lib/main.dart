@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:jaime_cocody/app/Utils/app_colors.dart';
+import 'package:jaime_yakro/app/Utils/app_colors.dart';
 import 'app/Utils/app_constantes.dart';
 import 'app/routes/app_pages.dart';
 import 'app/widgets/alerte_widgets.dart';
 
 // late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void onSelectNotification(payload) {
-  print('payload ' + payload);
+  print('payload: ' + payload);
 }
 
 // LOCAL NOTIF
