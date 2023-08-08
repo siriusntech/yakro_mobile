@@ -63,7 +63,9 @@ class AlerteEditView extends GetView<AlerteController> {
                       TextWidget(text: "Quand ?*",fontWeight: FontWeight.bold, fontSize: 16.0,),
                       SizedBox(height: 8,),
                       GestureDetector(
-                        onTap: () =>  controller.selectDateTime(context),
+                        onTap: (){
+                          controller.selectDateTime(context);
+                        }, 
                         child: AbsorbPointer(
                           child: TextFormField(
                             controller: controller.txtDateController,

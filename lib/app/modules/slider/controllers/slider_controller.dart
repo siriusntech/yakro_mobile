@@ -1,20 +1,18 @@
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+
 import 'package:get/get.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/slider_services.dart';
 import '../../../models/slider.dart';
 class SliderController extends GetxController {
-  //TODO: Implement SliderController
 
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var selectedHotels = SliderModel().obs;
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
   final count = 0.obs;
 
   final sliderList =<SliderModel>[].obs;
-
+  var sliderRecup  = ''.obs;
   @override
   void onInit() {
     super.onInit();
@@ -23,12 +21,20 @@ class SliderController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+ 
   }
 
   @override
   void onClose() {
     super.onClose();
   }
+
+
+   getSliderRecup(recup) async{
+     sliderRecup.value = recup;
+    update();
+  }
+
 
   getSliders() async {
     isDataProcessing(true);

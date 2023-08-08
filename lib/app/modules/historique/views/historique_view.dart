@@ -49,9 +49,9 @@ class HistoriqueView extends GetView<HistoriqueController> {
             if(controller.isDataProcessing.value == true){
               return LoadingWidget();
             } else {
-              if(controller.historiqueList.length == 0){
-                return NoDataWidget();
-              } else {
+              // if(controller.historiqueList.length == 0){
+              //   return NoDataWidget();
+              // } else {
                 return ListView.builder(
                     padding: EdgeInsets.all(8.0),
                     itemCount: controller.historiqueList.length,
@@ -68,7 +68,7 @@ class HistoriqueView extends GetView<HistoriqueController> {
                       );
                     }
                 );
-              }
+              // }
            }
           }),
         ),

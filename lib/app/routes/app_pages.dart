@@ -324,7 +324,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SLIDER,
-      page: () => const SliderView(),
+      page: () =>  SliderView(),
       binding: SliderBinding(),
     ),
     

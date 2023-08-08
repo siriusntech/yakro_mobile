@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -632,21 +632,28 @@ class AlerteController extends GetxController {
     homeCtrl.getUnReadItemsCounts();
   }
 
+  theme(){
+      // DatePickerTheme(
+      //   headerColor: Colors.blue,
+      //   backgroundColor: Colors.black54,
+      //   itemStyle: TextStyle(
+      //       color: Colors.white,
+      //        fontWeight: FontWeight.bold,
+      //       fontSize: 18),
+      // doneStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+      //  cancelStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+      //  );
+  }
+
   selectDateTime(BuildContext context) async{
+  
+
+
     await DatePicker.showDateTimePicker(context,
       showTitleActions: true,
       minTime: DateTime(selectedDate.year, selectedDate.month-1, selectedDate.day-6),
       maxTime: DateTime(selectedDate.year+1, selectedDate.month+1, selectedDate.day+6),
-      theme: DatePickerTheme(
-        headerColor: Colors.blue,
-        backgroundColor: Colors.black54,
-        itemStyle: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 18),
-        doneStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-        cancelStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-      ),
+     theme:theme(),
       onChanged: (date) {
         // DateFormat format = DateFormat("yyyy-MM-dd hh:mm");
         // _dateController.text = format.format(date).toString();

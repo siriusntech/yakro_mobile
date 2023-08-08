@@ -34,6 +34,7 @@ import '../../diffusion/diffusion_model.dart';
 class HomeController extends GetxController {
     late Timer _timer;
   var unReadItemsCountsList = List<Consultation>.empty(growable: true).obs;
+  var indexCarousel = 0.obs;
 
   var selectedItemsCounts = Consultation().obs;
 
@@ -56,8 +57,8 @@ class HomeController extends GetxController {
   final MainController mainCtrl = Get.put(MainController());
 
    // var sliderList = List<dynamic>.empty(growable: true).obs;
-  // var sliderList = <SliderModel>[].obs;
-  var sliderList = RxList<dynamic>([]); // Utilisation de RxList pour sliderList
+  var sliderList = <SliderModel>[].obs;
+  // var sliderList = RxList<dynamic>([]); // Utilisation de RxList pour sliderList
   var isDataProcessing = false.obs;
   var isDataError =false.obs;
 

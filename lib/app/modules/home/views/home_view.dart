@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:jaime_yakro/app/Utils/app_routes.dart';
 import 'package:jaime_yakro/app/Utils/default_image.dart';
 import 'package:jaime_yakro/app/data/repository/main_services.dart';
+import 'package:jaime_yakro/app/modules/slider/controllers/slider_controller.dart';
 import 'package:jaime_yakro/app/routes/app_pages.dart';
 import 'package:jaime_yakro/app/widgets/notification_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,6 +23,7 @@ import '../../diffusion/controllers/diffusion_controller.dart';
 import '../../historique/controllers/historique_controller.dart';
 import '../../job/controllers/job_controller.dart';
 import '../../pharmacie/controllers/pharmacie_controller.dart';
+import '../../slider/views/slider_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -46,6 +48,8 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    late var infosImage;
+    SliderController sliderController = Get.put(SliderController());
     return Obx(() => mainCtrl.isSettingProcessing.value == true
         ? Loading()
         : Scaffold(
@@ -109,20 +113,35 @@ class HomeView extends GetView<HomeController> {
                         child: Center(
                           child: Column(
                             children: [
-                              CarouselSlider(
-                                options: CarouselOptions(
-                                  enableInfiniteScroll: true,
-                                  autoPlay: true,
-                                  autoPlayInterval: Duration(seconds: 7),
-                                  autoPlayAnimationDuration:
-                                      Duration(milliseconds: 4000),
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  enlargeCenterPage: true,
+                              InkWell(
+                                onTap: () {
+                                  Get.to(
+                                    SliderView(
+                                        data: controller.sliderList[
+                                            controller.indexCarousel.value]),
+                                  );
+                                  sliderController.getSliderRecup(infosImage);
+                                },
+                                child: CarouselSlider(
+                                  options: CarouselOptions(
+                                    enableInfiniteScroll: true,
+                                    autoPlay: true,
+                                    onPageChanged: (index, reason) {
+                                      controller.indexCarousel.value = index;
+                                    },
+                                    autoPlayInterval: Duration(seconds: 7),
+                                    autoPlayAnimationDuration:
+                                        Duration(milliseconds: 4000),
+                                    autoPlayCurve: Curves.fastOutSlowIn,
+                                    enlargeCenterPage: true,
+                                  ),
+                                  items: generateSlider(
+                                      controller.sliderList.map((e) {
+                                    print(' testObjet' + e.toString());
+                                    infosImage = e.toString();
+                                    return e.imageUrl;
+                                  }).toList()),
                                 ),
-                                items: generateSlider(
-                                    controller.sliderList.map((e) {
-                                  return e.imageUrl;
-                                }).toList()),
                               ),
                             ],
                           ),
@@ -301,111 +320,133 @@ class HomeView extends GetView<HomeController> {
                                               }))
                                     ],
                                   ),
-                                     SizedBox(height: 20),
+                                  SizedBox(height: 20),
 
-Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                                  color: mainCtrl.menuColor,
-                                  title: 'Bons plans', icon: MENU_BON_PLAN,
-                                  enabled: true, itemCount: controller.unReadDiffusionCount.value,
-                                  action: () async{
-                                    // controller.addDiffusionVisiteCount();
-                                    Get.toNamed(AppRoutes.DIFFUSION);
-                                    bon_plan_ctrl.refreshData();
-                                    if(await MainServices.checkUserIsExclude() == false){
-                                      controller.addVisiteCount('bon_plan');
-                                    }
-                                  }
-                              )
-                          ),
-                          Flexible(
-                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                                color: mainCtrl.menuColor,
-                                title: 'Actualités',icon: MENU_ACTUALITE, enabled: true,
-                                itemCount: controller.selectedItemsCounts.value.un_read_actualite_count,
-                                action: () async{
-                                  Get.toNamed(AppRoutes.ACTUALITE);
-                                  actualite_ctrl.refreshData();
-                                  if(await MainServices.checkUserIsExclude() == false){
-                                    controller.addVisiteCount('actualite');
-                                  }
-                                },
-                              )
-                          ),
-                            Flexible(
-                              child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                                  color: mainCtrl.menuColor,
-                                  title: 'Signaler un Problème',icon: MENU_ALERTE,
-                                  enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_alerte_count,
-                                  action: () async{
-                                    // controller.addAlerteVisiteCount();
-                                    Get.toNamed(AppRoutes.ALERTE);
-                                    alerte_ctrl.refreshData();
-                                    if(await MainServices.checkUserIsExclude() == false){
-                                      controller.addVisiteCount('alerte');
-                                    }
-                                  }
-                              )
-                          ),
-                        ],
-                      ),
-                            SizedBox(height: 20),
-                      
-                      //   Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Flexible(
-                      //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                      //             color: mainCtrl.menuColor,
-                      //             title: 'Covoiturage', icon: MENU_COVOITURAGE,
-                      //             enabled: true,
-                      //             action: () async{
-                      //               // Get.toNamed(AppRoutes.TRAJET);
-                      //               // annuaire_ctrl.refreshData();
-                      //               // if(await MainServices.checkUserIsExclude() == false){
-                      //               //   controller.addVisiteCount('annuaire');
-                      //               // }
-                      //             }
-                      //         )
-                      //     ),
-                      //      Flexible(
-                      //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                      //             color: mainCtrl.menuColor,
-                      //             title: 'Jobs / Annonces',icon: MENU_JOB,
-                      //             enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
-                      //             action: () async{
-                      //               // controller.addJobVisiteCount();
-                      //               // Get.toNamed(AppRoutes.JOB);
-                      //               // job_ctrl.refreshData();
-                      //               // if(await MainServices.checkUserIsExclude() == false){
-                      //               //   controller.addVisiteCount('job');
-                      //               // }
-                      //             }
-                      //         )
-                      //     ),
-                      //        Flexible(
-                      //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
-                      //             color: mainCtrl.menuColor,
-                      //             title: 'Publicités',icon: SLIDE_KNOWN,
-                      //             enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
-                      //             action: () async{
-                      //               // controller.addJobVisiteCount();
-                      //               // Get.toNamed(AppRoutes.JOB);
-                      //               // job_ctrl.refreshData();
-                      //               // if(await MainServices.checkUserIsExclude() == false){
-                      //               //   controller.addVisiteCount('job');
-                      //               // }
-                      //             }
-                      //         )
-                      //     ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                          child: MenuWidget(
+                                              width: (Get.width / 2) - 20,
+                                              height: 120,
+                                              color: mainCtrl.menuColor,
+                                              title: 'Bons plans',
+                                              icon: MENU_BON_PLAN,
+                                              enabled: true,
+                                              itemCount: controller
+                                                  .unReadDiffusionCount.value,
+                                              action: () async {
+                                                // controller.addDiffusionVisiteCount();
+                                                Get.toNamed(
+                                                    AppRoutes.DIFFUSION);
+                                                bon_plan_ctrl.refreshData();
+                                                if (await MainServices
+                                                        .checkUserIsExclude() ==
+                                                    false) {
+                                                  controller.addVisiteCount(
+                                                      'bon_plan');
+                                                }
+                                              })),
+                                      Flexible(
+                                          child: MenuWidget(
+                                        width: (Get.width / 2) - 20,
+                                        height: 120,
+                                        color: mainCtrl.menuColor,
+                                        title: 'Actualités',
+                                        icon: MENU_ACTUALITE,
+                                        enabled: true,
+                                        itemCount: controller
+                                            .selectedItemsCounts
+                                            .value
+                                            .un_read_actualite_count,
+                                        action: () async {
+                                          Get.toNamed(AppRoutes.ACTUALITE);
+                                          actualite_ctrl.refreshData();
+                                          if (await MainServices
+                                                  .checkUserIsExclude() ==
+                                              false) {
+                                            controller
+                                                .addVisiteCount('actualite');
+                                          }
+                                        },
+                                      )),
+                                      Flexible(
+                                          child: MenuWidget(
+                                              width: (Get.width / 2) - 20,
+                                              height: 120,
+                                              color: mainCtrl.menuColor,
+                                              title: 'Signaler un Problème',
+                                              icon: MENU_ALERTE,
+                                              enabled: true,
+                                              itemCount: controller
+                                                  .selectedItemsCounts
+                                                  .value
+                                                  .un_read_alerte_count,
+                                              action: () async {
+                                                // controller.addAlerteVisiteCount();
+                                                Get.toNamed(AppRoutes.ALERTE);
+                                                alerte_ctrl.refreshData();
+                                                if (await MainServices
+                                                        .checkUserIsExclude() ==
+                                                    false) {
+                                                  controller
+                                                      .addVisiteCount('alerte');
+                                                }
+                                              })),
+                                    ],
+                                  ),
+                                  SizedBox(height: 20),
 
-                      //   ],
-                      // ),
+                                  //   Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.center,
+                                  //   children: [
+                                  //     Flexible(
+                                  //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  //             color: mainCtrl.menuColor,
+                                  //             title: 'Covoiturage', icon: MENU_COVOITURAGE,
+                                  //             enabled: true,
+                                  //             action: () async{
+                                  //               // Get.toNamed(AppRoutes.TRAJET);
+                                  //               // annuaire_ctrl.refreshData();
+                                  //               // if(await MainServices.checkUserIsExclude() == false){
+                                  //               //   controller.addVisiteCount('annuaire');
+                                  //               // }
+                                  //             }
+                                  //         )
+                                  //     ),
+                                  //      Flexible(
+                                  //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  //             color: mainCtrl.menuColor,
+                                  //             title: 'Jobs / Annonces',icon: MENU_JOB,
+                                  //             enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
+                                  //             action: () async{
+                                  //               // controller.addJobVisiteCount();
+                                  //               // Get.toNamed(AppRoutes.JOB);
+                                  //               // job_ctrl.refreshData();
+                                  //               // if(await MainServices.checkUserIsExclude() == false){
+                                  //               //   controller.addVisiteCount('job');
+                                  //               // }
+                                  //             }
+                                  //         )
+                                  //     ),
+                                  //        Flexible(
+                                  //         child: MenuWidget(width: (Get.width / 2) - 20, height: 120,
+                                  //             color: mainCtrl.menuColor,
+                                  //             title: 'Publicités',icon: SLIDE_KNOWN,
+                                  //             enabled: true, itemCount: controller.selectedItemsCounts.value.un_read_job_count,
+                                  //             action: () async{
+                                  //               // controller.addJobVisiteCount();
+                                  //               // Get.toNamed(AppRoutes.JOB);
+                                  //               // job_ctrl.refreshData();
+                                  //               // if(await MainServices.checkUserIsExclude() == false){
+                                  //               //   controller.addVisiteCount('job');
+                                  //               // }
+                                  //             }
+                                  //         )
+                                  //     ),
 
-
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             ),

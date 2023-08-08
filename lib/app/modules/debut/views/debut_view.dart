@@ -25,7 +25,7 @@ class DebutView extends GetView<DebutController> {
       NewPage(image: VT, titre: 'Sites Touristiques',
           desc: "La liste des sites Touristiques de la commune."),
       NewPage(image: HOTEL, titre: 'Hotels',
-          desc: "La liste des des hotels de garde de la commune."),
+          desc: "La liste des des hotels de la commune."),
     ];
      
     return Scaffold(

@@ -60,7 +60,7 @@ class RestaurantView extends GetView<RestaurantController> {
                   Expanded(
                     child: Container(
                       width: 300,
-                      height: 65,
+                      height: 70,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15)),
                       child: Card(
@@ -76,13 +76,13 @@ class RestaurantView extends GetView<RestaurantController> {
                             prefixIcon: Icon(
                               Icons.search,
                               color: Colors.black26,
-                              size: 30,
+                              size: 35,
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(width: 1, color: Colors.grey),
                                 borderRadius: BorderRadius.circular(15)),
-                            hintText: "Ex: Restaurants, Bars et Maquis",
+                            hintText: "Ex: Viande de Brousse, Pénalty",
                             contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 10),
                             // contentPadding: EdgeInsets.all(8)
                           ),
@@ -140,7 +140,7 @@ class RestaurantView extends GetView<RestaurantController> {
                                           color: AppColors.vert_color_fonce,
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          scaleFactor: 1.2,
+                                          scaleFactor: 1.3,
                                         ),
                                       ),
                                     ),

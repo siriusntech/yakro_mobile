@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+
 import 'package:flutter/material.dart';
 import '../../../Utils/default_image.dart';
 
@@ -51,10 +51,8 @@ class HistoriqueCardWidget extends StatelessWidget {
                 top: 0.0,
                 left: 60,
                 child: Badge(
-                  shape: BadgeShape.square,
-                  badgeContent: Icon(Icons.newspaper, color: Colors.red, size: 20,),
-                  badgeColor: Colors.transparent,
-                  elevation: 0.0,
+                   label: Icon(Icons.newspaper, color: Colors.red, size: 20,),
+                   backgroundColor: Colors.transparent,
                 )
             ) : Container()
           ],

@@ -5,7 +5,6 @@ import 'package:jaime_yakro/app/widgets/image_widget%20_baseUrl.dart';
 import 'package:jaime_yakro/app/widgets/text_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../controllers/main_controller.dart';
-import '../../../widgets/image_widget.dart';
 import '../../../widgets/loading_widget.dart';
 import '../controllers/nouscontactez_controller.dart';
 
@@ -20,7 +19,7 @@ class NouscontactezView extends GetView<NouscontactezController> {
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: settingsCtrl.vert_color_fonce,
-        title:TextWidget(text:'Nous contactez', fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+        title:TextWidget(text:'Contactez-nous', fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
         leading: IconButton(
           onPressed: () {
             Get.back();

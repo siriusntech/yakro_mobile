@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+
 import 'package:flutter/material.dart';
 import 'package:jaime_yakro/app/Utils/app_colors.dart';
 import 'package:jaime_yakro/app/widgets/text_widget.dart';
@@ -25,10 +25,9 @@ class NotificationWidget extends StatelessWidget {
           left: 5,
           top: -3,
           child: Badge(
-            elevation: 0.0,
-            shape: BadgeShape.circle,
-            badgeColor:  AppColors.rouge_doux_leger,
-            badgeContent: TextWidget(text: count.toString(), alignement: TextAlign.center,
+   
+            backgroundColor:  AppColors.rouge_doux_leger,
+            label: TextWidget(text: count.toString(), alignement: TextAlign.center,
               fontWeight: FontWeight.bold,color: Colors.white,fontSize: 12,
             ),
           ),

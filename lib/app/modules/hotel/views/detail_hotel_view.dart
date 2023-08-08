@@ -276,6 +276,7 @@ class DetailHotelView extends GetView {
                         ],
                       ),
                     ),
+                 
                   ],
                 ),
               );

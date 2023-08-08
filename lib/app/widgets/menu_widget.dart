@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_yakro/app/Utils/app_constantes.dart';
@@ -69,9 +68,9 @@ class MenuWidget extends StatelessWidget {
               left: 0,
               right: -110,
               child: itemCount != null && itemCount! > 0 ? Badge(
-                elevation: 2,
-                badgeColor: Colors.white70,
-                badgeContent: SizedBox(
+                // elevation: 2,
+                backgroundColor: Colors.white70,
+                label: SizedBox(
                     width: 30, height: 30, //badge size
                     child: Center(  //aligh badge content to center
                       child:  TextWidget(text: itemCount.toString(),
