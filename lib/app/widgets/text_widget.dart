@@ -9,7 +9,8 @@ class TextWidget extends StatelessWidget {
     this.fontSize, this.fontWeight,
     this.alignement, this.scaleFactor,
     this.maxLine, this.overFlow,
-    this.fontStyle
+    this.fontStyle,
+    this.decoration,
   });
 
   String? text;
@@ -21,6 +22,7 @@ class TextWidget extends StatelessWidget {
   TextAlign? alignement;
   int? maxLine;
   TextOverflow? overFlow;
+  TextDecoration? decoration;
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +31,14 @@ class TextWidget extends StatelessWidget {
           color: color,
           fontSize: fontSize,
           fontWeight: fontWeight,
-          fontStyle: fontStyle
+          fontStyle: fontStyle,
+        decoration: decoration,
       ),
       textAlign: alignement,
       textScaleFactor: scaleFactor,
       maxLines: maxLine,
       overflow: overFlow,
+ 
     );
   }
 }
@@ -42,7 +46,7 @@ class TextWidget extends StatelessWidget {
 // ignore: must_be_immutable
 class SelectableTextWidget extends StatelessWidget {
 
-  SelectableTextWidget({this.text, this.color, this.fontSize, this.fontWeight, this.alignement, this.scaleFactor, this.maxLine});
+  SelectableTextWidget({this.text, this.color, this.fontSize, this.fontWeight, this.alignement, this.scaleFactor, this.maxLine, this.decoration,});
 
   String? text;
   Color? color;
@@ -51,6 +55,7 @@ class SelectableTextWidget extends StatelessWidget {
   FontWeight? fontWeight;
   TextAlign? alignement;
   int? maxLine;
+  TextDecoration? decoration;
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +65,11 @@ class SelectableTextWidget extends StatelessWidget {
       cursorColor: Colors.blue,
       cursorRadius: Radius.circular(5),
       scrollPhysics: ClampingScrollPhysics(),
-      style: TextStyle(color: color, fontSize: fontSize,fontWeight: fontWeight, overflow: TextOverflow.ellipsis),
+      style: TextStyle(color: color, fontSize: fontSize,fontWeight: fontWeight, overflow: TextOverflow.ellipsis,decoration:decoration,),
       textAlign: alignement,
       textScaleFactor: scaleFactor,
       maxLines: maxLine,
+  
     );
   }
 }

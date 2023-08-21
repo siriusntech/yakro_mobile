@@ -13,7 +13,6 @@ class NouscontactezView extends GetView<NouscontactezController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
             appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -52,48 +51,51 @@ class NouscontactezView extends GetView<NouscontactezController> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10,),
+                  SizedBox(height: 10),
                   Flexible(
+                    flex: 2,
                       child: Container(
                         width: double.infinity,
-                        height: 150,
                         child: ImageWidgetBaseUrl(isNetWork: true, url:controller.entrepriseInfo.value.logo.toString(), fit: BoxFit.contain),
                       )
                   ),
+                     SizedBox(height: 10),
+              
+                  SizedBox(height: 15),
+                   Divider(),
                   Flexible(
+                         flex: 2,
                       child: ListTile(
                         leading: Icon(Icons.place),
-                        title: TextWidget(text: "Adresse:", fontWeight: FontWeight.bold, fontSize: 18,),
+                        title: TextWidget(text: "Adresse:", fontWeight: FontWeight.bold, fontSize: 16),
                         subtitle: TextWidget(text: controller.entrepriseInfo.value.adresse,
-                        fontSize: 18,),
+                        fontSize: 16,),
                       )
                   ),
+                    SizedBox(height: 10),
                   Divider(),
                   Flexible(
                       child: ListTile(
                         leading: Icon(Icons.mail),
                         title: TextWidget(text: "Email:", fontWeight: FontWeight.bold, fontSize: 18,),
                         subtitle: TextWidget(text: controller.entrepriseInfo.value.email,
-                        fontSize: 18),
+                        fontSize: 16),
                       )
                   ),
                   Divider(),
-                         InkWell(
-                            onTap: () {
-                              // Action à effectuer lorsque le TextField est tapé
-                              // Insérez votre code ici
-                              print('TextField tapé !');
-                              controller.showAlerte( controller.entrepriseInfo.value.contact.toString());
+                       Flexible(
+                                  child: ListTile(
+                                    leading: Icon(Icons.phone),
+                                    title: TextWidget(text: "Contact:", fontWeight: FontWeight.bold, fontSize: 16),
+                                    subtitle: InkWell(
+                                    onTap: () {
+                                controller.showAlerte( controller.entrepriseInfo.value.contact);
                             },
-                            child: Flexible(
-                                child: ListTile(
-                                  leading: Icon(Icons.phone),
-                                  title: TextWidget(text: "Contact:", fontWeight: FontWeight.bold, fontSize: 18,),
-                                  subtitle: TextWidget(text: controller.entrepriseInfo.value.contact,
-                                  fontSize: 18),
+                              child: TextWidget(text: controller.entrepriseInfo.value.contact, fontSize: 18, color: Colors.blue,),
+                               ),
                          ),
                       ),
-                  ),
+               
                   Divider(),
                   Flexible(
                       child: ListTile(
@@ -101,7 +103,7 @@ class NouscontactezView extends GetView<NouscontactezController> {
                         title: TextWidget(text: "Site Internet:", fontWeight: FontWeight.bold, fontSize: 18,),
                         subtitle: InkWell(
                           onTap: (){
-                            launch("https://sirius.com/");
+                            launchUrl(Uri.parse("https://sirius.com/"));
                           },
                           child: TextWidget(text: "https://siriusntech.com", fontSize: 18, color: Colors.blue,),
                         ),

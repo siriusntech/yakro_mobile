@@ -14,6 +14,7 @@ class AppColors {
   static final Color menuColor = Colors.orange;
   static final Color chip_color = Color(0xFFeeeeee);
   static final Color vert_color = Color(0xFFA2B4AC);
+  static final Color vert_color_fonce_avance = Color.fromARGB(255, 26, 44, 44);
   static final Color vert_color_fonce = Color(0xFF51624F);
   static final Color rouge_doux = Color(0xFFEF5350);
   static final Color rouge_doux_leger = Color(0xFFE57373);

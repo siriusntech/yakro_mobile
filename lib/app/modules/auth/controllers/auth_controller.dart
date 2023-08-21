@@ -68,15 +68,48 @@ class AuthController extends GetxController {
   var step = 1.obs;
   var isProcessing = false.obs;
 
-  var condition_of_use = """J'aime Cocody est une application qui permet de mieux connaitre la commune à travers son histoire et être informé de toutes les actualités la concernant.
-  Elle permet aussi aux habitants d'échanger et donner leur avis sur tous ce qui concerne la commune à travers des discussions ou forums.
-  Vous pouvez aussi trouver tous les espaces importants de la commune tels que les pharmacies de garde, commerces, restaurants et autres.
-   Il est interdits d'utiliser les mots inappropriés comme les injures et propos haineux sous peine de voir son compte bloqué.
-  """;
+  var condition_of_use = """
+En utilisant l'application "J'aime Yakro", vous acceptez les conditions suivantes :
 
-  var politique = """La connexion se fait avec un pseudo(quelconque) et votre numéro de téléphone et en une seule fois, 
-  c'est à dire que la connexion est unique sans possibilité de modifier ses informations de connexion. 
-  Il n'y a pas d'espace pour accès à son profil dans l'application.""";
+-Vous vous engagez à respecter les règles de conduite et à éviter tout langage inapproprié, injurieux, haineux ou offensant dans l'application.
+
+-Vous comprenez que la connexion à l'application se fait avec un pseudo et un numéro de téléphone, et que ces informations ne peuvent pas être modifiées après la création du compte.
+
+-Vous reconnaissez qu'il n'y a pas d'espace pour accéder à un profil utilisateur dans l'application.
+
+Le non-respect de ces conditions d'utilisation peut entraîner le blocage de votre compte et une exclusion de l'utilisation de l'application.
+
+En utilisant "J'aime Yakro", vous acceptez également notre Politique de Confidentialité.
+
+Veuillez noter que ces documents peuvent faire l'objet de mises à jour. Pour toute question concernant notre Politique de Confidentialité ou nos Conditions d'Utilisation, n'hésitez pas à nous contacter à l'adresse fournie dans l'application.""";
+
+  var politique = """Bienvenue dans la Politique de Confidentialité de l'application "J'aime Yakro". Cette politique régit comment vos informations personnelles sont collectées, utilisées et partagées lorsque vous utilisez notre application mobile. Votre utilisation de l'application signifie que vous acceptez ces pratiques.
+
+Collecte d'Informations
+
+Lors de l'utilisation de "J'aime Yakro", nous pouvons collecter les informations que vous fournissez lors de la création de votre compte, telles que votre nom ou pseudo ainsi que votre numéro de téléphone.
+
+Utilisation des Informations
+
+Nous utilisons les informations que nous collectons pour :
+
+-Personnaliser votre expérience en vous fournissant des informations pertinentes sur la commune de Yakro.
+
+-Améliorer l'application en analysant les données d'utilisation et les retours des utilisateurs.
+
+-Communiquer avec vous concernant les mises à jour de l'application, les nouvelles fonctionnalités et les actualités liées à la commune de Yakro.
+
+Partage d'Informations
+
+Vos informations personnelles ne seront partagées avec des tiers que dans les cas suivants :
+
+Si vous choisissez de partager vos informations via les fonctionnalités de partage de l'application.
+Si cela est nécessaire pour se conformer à la loi, réglementation, procédure légale ou demande gouvernementale.
+Pour protéger les droits, la propriété ou la sécurité de "J'aime Yakro", de ses utilisateurs ou du public.
+
+Sécurité
+
+Nous prenons la sécurité de vos informations personnelles au sérieux. Des mesures de sécurité sont en place pour protéger vos données contre tout accès non autorisé, altération, divulgation ou destruction.""";
 
   var isChecked = false.obs;
 

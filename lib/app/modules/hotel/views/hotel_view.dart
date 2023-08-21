@@ -79,7 +79,7 @@ class HotelView extends GetView<HotelController> {
                                               Text(typeHotels.lieu!.toString()),
                                           onSelected: (onSelected) {
                                             controller.currentRangeValues
-                                                .value = RangeValues(0, 200000);
+                                                .value = RangeValues(0, 100000);
                                             hotelController.type_hotel_selected
                                                 .value = typeHotels.id!;
                                             hotelController
@@ -136,8 +136,8 @@ class HotelView extends GetView<HotelController> {
           Obx(() => RangeSlider(
                 values: hotelController.currentRangeValues.value,
                 min: 0,
-                max: 200000,
-                divisions: 50000,
+                max: 100000,
+                divisions: 3500,
                 labels: RangeLabels(
                   hotelController.currentRangeValues.value.start
                       .round()

@@ -122,6 +122,7 @@ class MainServices {
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(settingsCtrl.baseUrl+'add-visite-count/$module/$user_id');
       var response = await http.post(url, headers: headers);
+      
       if(response.statusCode == 200){
         return Success();
       }

@@ -17,22 +17,18 @@ class DebutView extends GetView<DebutController> {
       NewPage(image: SLIDE_NEWS, titre: 'Actualités',
           desc: "Suivez l'actualité de votre commune."),
       NewPage(image: SLIDE_STORE, titre: 'Restaurants et autres',
-          desc: "Les restaurants, super marché et autres espaces de la commune."),
+          desc: "Retrouvez les restaurants, bars, maquis et autres espaces de la commune."),
       // NewPage(image: SLIDE_KNOWN, titre: 'Bon à savoir',
       //     desc: "Apprenez à connaitre votre commune."),
       NewPage(image: SLIDE_ALERTE, titre: 'Alertes',
           desc: "Envoyez des alertes sur les incidents de la commune."),
       NewPage(image: VT, titre: 'Sites Touristiques',
-          desc: "La liste des sites Touristiques de la commune."),
+          desc: "Découvrez les sites touristiques de la commune"),
       NewPage(image: HOTEL, titre: 'Hotels',
-          desc: "La liste des des hotels de la commune."),
+          desc: "Localisez les hôtels de la commune."),
     ];
      
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('DebutView'),
-      //   centerTitle: true,
-      // ),
       body: Center(
         child: Container(
           padding: EdgeInsets.only(bottom: 20),

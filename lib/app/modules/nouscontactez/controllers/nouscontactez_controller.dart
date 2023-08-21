@@ -33,12 +33,7 @@ class NouscontactezController extends GetxController {
     }
   }
 
-  Future<void> makeCopieNumber(String phoneNumber) async {
-    FlutterClipboard.copy(phoneNumber).then((result) {
-      Get.snackbar('', "Contact Copié dans le presse-papier",
-          snackPosition: SnackPosition.BOTTOM);
-    });
-  }
+
 
   final ButtonStyle buttonStyle = ButtonStyle(
       side: MaterialStateProperty.all(BorderSide(color: Colors.red)),
@@ -109,6 +104,12 @@ class NouscontactezController extends GetxController {
         ),
         contentPadding: EdgeInsets.all(0.0),
         titlePadding: EdgeInsets.all(0.0));
+  }
+    Future<void> makeCopieNumber(String phoneNumber) async {
+    FlutterClipboard.copy(phoneNumber).then((result) {
+      Get.snackbar('', "Contact Copié dans le presse-papier",
+          snackPosition: SnackPosition.BOTTOM);
+    });
   }
 
   Future<void> makePhoneCall(String phoneNumber) async {

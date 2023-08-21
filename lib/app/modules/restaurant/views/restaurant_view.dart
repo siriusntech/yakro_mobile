@@ -8,7 +8,7 @@ import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/restaurant_controller.dart';
 import '../widgets/restaurant_card_widget.dart';
-import 'show_restaurant_view.dart';
+
 
 class RestaurantView extends GetView<RestaurantController> {
   const RestaurantView({Key? key}) : super(key: key);
@@ -82,7 +82,7 @@ class RestaurantView extends GetView<RestaurantController> {
                                 borderSide:
                                     BorderSide(width: 1, color: Colors.grey),
                                 borderRadius: BorderRadius.circular(15)),
-                            hintText: "Ex: Viande de Brousse, Pénalty",
+                            hintText: "Ex: Plats africains, viande de brousse",
                             contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 10),
                             // contentPadding: EdgeInsets.all(8)
                           ),

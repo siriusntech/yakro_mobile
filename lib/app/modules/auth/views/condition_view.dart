@@ -15,9 +15,9 @@ class ConditionView extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(text:"Conditions d'utilisation", fontSize: 20, fontWeight: FontWeight.bold,),
+        title: TextWidget(text:"Conditions d'utilisations", fontSize: 22, fontWeight: FontWeight.bold, color:Colors.white),
         centerTitle: true,
-        elevation: 0.0,
+        elevation: 1.0,
       ),
       body: Center(
         child: Padding(
@@ -31,22 +31,25 @@ class ConditionView extends GetView {
                   height: 180,
                   child: ImageWidget(isNetWork: false, url: LOGO_SIRIUS,fit: BoxFit.cover,),
                 ),
-                TextWidget(text: "Les conditions d'utilisations", color: Colors.red,
-                  fontSize: 25, alignement: TextAlign.center, fontWeight: FontWeight.bold
-                ),
-                SizedBox(height: 5,),
-                TextWidget(text: authCtrl.condition_of_use.toString().trim(),
-                  fontSize: 20, alignement: TextAlign.justify,
-                ),
-                Divider(),
+               SizedBox(height: 7.0),
                 TextWidget(text: "La politique de confidentialité", color: Colors.red,
-                    fontSize: 25, alignement: TextAlign.center, fontWeight: FontWeight.bold
+                    fontSize: 25.0, alignement: TextAlign.center, fontWeight: FontWeight.bold
                 ),
                 SizedBox(height: 5,),
                 TextWidget(text: authCtrl.politique.toString().trim(),
                   fontSize: 20, alignement: TextAlign.justify,
                 ),
-                TextWidget(text: ''),
+                    Divider(),
+                    SizedBox(height: 7),
+                 TextWidget(text: "Les conditions d'utilisations", color: Colors.red,
+                  fontSize: 25, alignement: TextAlign.center, fontWeight: FontWeight.bold
+                ),
+               
+                SizedBox(height: 7),
+                TextWidget(text: authCtrl.condition_of_use.toString().trim(),
+                  fontSize: 20, alignement: TextAlign.justify,
+                ),
+             
               ],
             ),
           ),

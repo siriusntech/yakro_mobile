@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:jaime_yakro/app/Utils/app_routes.dart';
 import 'package:jaime_yakro/app/Utils/default_image.dart';
 import 'package:jaime_yakro/app/data/repository/main_services.dart';
+import 'package:jaime_yakro/app/modules/hotel/controllers/hotel_controller.dart';
+import 'package:jaime_yakro/app/modules/restaurant/controllers/restaurant_controller.dart';
+import 'package:jaime_yakro/app/modules/sitetouristiques/controllers/sitetouristiques_controller.dart';
 import 'package:jaime_yakro/app/modules/slider/controllers/slider_controller.dart';
 import 'package:jaime_yakro/app/routes/app_pages.dart';
 import 'package:jaime_yakro/app/widgets/notification_widget.dart';
@@ -30,10 +33,13 @@ class HomeView extends GetView<HomeController> {
   final MainController mainCtrl = Get.put(MainController());
   final ActualiteController actualite_ctrl = Get.put(ActualiteController());
   final CommerceController commerce_ctrl = Get.put(CommerceController());
+  final RestaurantController restaurant_ctrl = Get.put(RestaurantController());
   final JobController job_ctrl = Get.put(JobController());
   final PharmacieController pharm_ctrl = Get.put(PharmacieController());
   final AlerteController alerte_ctrl = Get.put(AlerteController());
   final AnnuaireController annuaire_ctrl = Get.put(AnnuaireController());
+  final SitetouristiquesController vt_ctrl = Get.put(SitetouristiquesController());
+    final HotelController hotel_ctrl = Get.put(HotelController());
   final HistoriqueController culture_ctrl = Get.put(HistoriqueController());
   final DiffusionController bon_plan_ctrl = Get.put(DiffusionController());
 
@@ -217,7 +223,7 @@ class HomeView extends GetView<HomeController> {
                                             .value
                                             .un_read_sujet_count,
                                         action: () async {
-                                          // controller.addHistoriqueVisiteCount();
+                                      // controller.addHistoriqueVisiteCount();
                                           Get.toNamed(AppRoutes.HISTORIQUE);
                                           culture_ctrl.refreshData();
                                           if (await MainServices
@@ -238,10 +244,10 @@ class HomeView extends GetView<HomeController> {
                                               enabled: true,
                                               action: () async {
                                                 Get.toNamed(Routes.HOTEL);
-                                                // annuaire_ctrl.refreshData();
-                                                // if(await MainServices.checkUserIsExclude() == false){
-                                                //   controller.addVisiteCount('annuaire');
-                                                // }
+                                                hotel_ctrl.refreshData();
+                                                if(await MainServices.checkUserIsExclude() == false){
+                                                  controller.addVisiteCount('hotels');
+                                                }
                                               })),
                                       Flexible(
                                           child: MenuWidget(
@@ -298,12 +304,12 @@ class HomeView extends GetView<HomeController> {
                                               action: () async {
                                                 Get.toNamed(
                                                     Routes.SITETOURISTIQUES);
-                                                // annuaire_ctrl.refreshData();
-                                                // if(await MainServices.checkUserIsExclude() == false){
-                                                //   controller.addVisiteCount('annuaire');
-                                                // }
+                                                vt_ctrl.refreshData();
+                                                if(await MainServices.checkUserIsExclude() == false){
+                                                  controller.addVisiteCount('visites_touristiques');
+                                                }
                                               })),
-                                      Flexible(
+                                          Flexible(
                                           child: MenuWidget(
                                               width: (Get.width / 2) - 20,
                                               height: 120,
@@ -313,10 +319,10 @@ class HomeView extends GetView<HomeController> {
                                               enabled: true,
                                               action: () async {
                                                 Get.toNamed(Routes.RESTAURANT);
-                                                // annuaire_ctrl.refreshData();
-                                                // if(await MainServices.checkUserIsExclude() == false){
-                                                //   controller.addVisiteCount('annuaire');
-                                                // }
+                                                restaurant_ctrl.refreshData();
+                                                if(await MainServices.checkUserIsExclude() == false){
+                                                  controller.addVisiteCount('commerce');
+                                                }
                                               }))
                                     ],
                                   ),

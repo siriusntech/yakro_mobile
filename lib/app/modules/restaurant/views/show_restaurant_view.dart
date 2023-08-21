@@ -1,18 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:jaime_yakro/app/Utils/default_image.dart';
-import 'package:jaime_yakro/app/models/restaurant_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_icons.dart';
 import '../../../controllers/main_controller.dart';
-import '../../../widgets/image_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../../home/views/home_view.dart';
 import '../../zoom/controllers/zoom_controller.dart';
-import '../../zoom/views/zoom_view.dart';
 import '../controllers/restaurant_controller.dart';
 
 class ShowRestaurantView extends GetView<RestaurantController>{
