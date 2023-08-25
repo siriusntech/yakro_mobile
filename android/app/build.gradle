@@ -104,5 +104,4 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-    releaseImplementation 'com.example.my_flutter_module:flutter_release:1.0'
 }
