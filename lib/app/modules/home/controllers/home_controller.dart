@@ -6,8 +6,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:jaime_yakro/app/data/repository/consultation_services.dart';
+import 'package:jaime_yakro/app/data/repository/hotel_services.dart';
+import 'package:jaime_yakro/app/data/repository/notification_services.dart';
 import 'package:jaime_yakro/app/data/repository/slider_services.dart';
 import 'package:jaime_yakro/app/models/consultation.dart';
+import 'package:jaime_yakro/app/models/site_touristique.dart';
 import 'package:jaime_yakro/app/models/slider.dart';
 import 'package:jaime_yakro/app/modules/auth/controllers/auth_controller.dart';
 import 'package:jaime_yakro/app/modules/commerce/commerce_model.dart';
@@ -23,6 +26,7 @@ import '../../../data/repository/auth_service.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/diffusion_services.dart';
 import '../../../data/repository/main_services.dart';
+import '../../../data/repository/site_touristique_services.dart';
 import '../../../models/mise_a_jour_model.dart';
 import '../../../widgets/alerte_widgets.dart';
 import '../../actualite/actualite_model.dart';
@@ -30,6 +34,7 @@ import '../../agenda/agenda_model.dart';
 import '../../auth/user_model.dart';
 import '../../commerce/commerce_services.dart';
 import '../../diffusion/diffusion_model.dart';
+import '../../hotel/hotel_model_model.dart';
 
 class HomeController extends GetxController {
     late Timer _timer;
@@ -45,6 +50,8 @@ class HomeController extends GetxController {
   var unReadDiscussionCount = 0.obs;
   var unReadAlerteCount = 0.obs;
   var unReadSujetCount = 0.obs;
+  var unReadHotelCount = 0.obs;
+  var unReadSiteTouristiqueCount = 0.obs;
 
   var  auth_user = User();
 
@@ -149,7 +156,7 @@ class HomeController extends GetxController {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setInt('user_id', 0);
     storage.setInt('is_actif', 0);
-    // storage.setString('token', '');
+    storage.setString('cloud_messaging_token', '');
     // ignore: deprecated_member_use
     storage.commit();
   }
@@ -159,6 +166,11 @@ class HomeController extends GetxController {
       final response = await AuthService.getUser(user_id);
       if(response is Success){
         auth_user = response.response as User;
+        await checkUpdate(user_id);
+        if(auth_user.id == null || auth_user.id == 0 || auth_user.is_actif == 0 || auth_user.is_actif == null || auth_user.cloud_messaging_token==null || auth_user.cloud_messaging_token==0){
+          await resetUserInfo();
+          Get.offNamed(AppRoutes.AUTH);
+        }
       }
       if(response is Failure){
         print("Erreur get user info: "+response.errorResponse.toString());
@@ -183,9 +195,28 @@ class HomeController extends GetxController {
         selectedItemsCounts.value.un_read_commerce_count = 0;
         selectedItemsCounts.value.un_read_discussion_count = 0;
         selectedItemsCounts.value.un_read_sujet_count = 0;
+        selectedItemsCounts.value.un_read_hotel_count = 0;
+        selectedItemsCounts.value.un_read_siteTouristique_count = 0;
+      
       }
     }catch(ex){
        print("getUnReadItemsCounts Error "+ex.toString());
+    }
+  }
+
+    // GET UNREAD ACTUALITE COUNT
+  void getUnReadActualiteCount() async{
+    try{
+      final response = await ActualiteServices.getUnReadActualites();
+      if(response is Success){
+        final comList = response.response as List<Actualite>;
+        unReadActualiteCount.value = comList.length;
+      }
+      if(response is Failure){
+        unReadActualiteCount.value = 0;
+      }
+    }catch(ex){
+      unReadActualiteCount.value = 0;
     }
   }
 
@@ -235,21 +266,40 @@ class HomeController extends GetxController {
       unReadAgendaCount.value = 0;
     }
   }
+
   // GET UNREAD ACTUALITE COUNT
-  void getUnReadActualiteCount() async{
+  void getUnReadHotelCount() async{
     try{
-      final response = await ActualiteServices.getUnReadActualites();
+      final response = await HotelServices.getUnReadHotels();
       if(response is Success){
-        final comList = response.response as List<Actualite>;
-        unReadActualiteCount.value = comList.length;
+        final comList = response.response as List<HotelModel>;
+        unReadHotelCount.value = comList.length;
       }
       if(response is Failure){
-        unReadActualiteCount.value = 0;
+        unReadHotelCount.value = 0;
       }
     }catch(ex){
-      unReadActualiteCount.value = 0;
+      unReadHotelCount.value = 0;
+    }
+  }  
+
+    // GET UNREAD ACTUALITE COUNT
+  void getUnReadVisiteTouristiqueCount() async{
+    try{
+      final response = await VisiteTouristiqueServices.getUnReadVisiteTouristique();
+      if(response is Success){
+        final comList = response.response as List<VisiteTouristique>;
+        unReadSiteTouristiqueCount.value = comList.length;
+      }
+      if(response is Failure){
+        unReadSiteTouristiqueCount.value = 0;
+      }
+    }catch(ex){
+      unReadSiteTouristiqueCount.value = 0;
     }
   }
+
+
 
 
   var timer;
@@ -370,27 +420,27 @@ class HomeController extends GetxController {
         onDidReceiveBackgroundNotificationResponse: onSelectNotification,
         onDidReceiveNotificationResponse: onSelectNotification);
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channelDescription: channel.description,
-                color: mainColor,
-                // TODO add a proper drawable resource to android, for now using
-                // one that already exists in example app.
-                icon: "@mipmap/ic_launcher",
-              ),
-            ));
-      }
-    });
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   RemoteNotification? notification = message.notification;
+    //   AndroidNotification? android = message.notification?.android;
+    //   if (notification != null && android != null) {
+    //     flutterLocalNotificationsPlugin.show(
+    //         notification.hashCode,
+    //         notification.title,
+    //         notification.body,
+    //         NotificationDetails(
+    //           android: AndroidNotificationDetails(
+    //             channel.id,
+    //             channel.name,
+    //             channelDescription: channel.description,
+    //             color: mainColor,
+    //             // TODO add a proper drawable resource to android, for now using
+    //             // one that already exists in example app.
+    //             icon: "@mipmap/ic_launcher",
+    //           ),
+    //         ));
+    //   }
+    // });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
@@ -486,28 +536,24 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // MAKE APP NEW VERSION UPDATE AUTO
-    checkAppForUpdate();
-    getSlider();
+     //NOTIF WHEN APP OPENED
+      NotificationServices().showNotificationInBackground();
+      NotificationServices().showNotificationInAppOpened();
     // stopTimer();
     ever(sliderList, (_) => print("La valeur de sliderList a changé"));
-
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    // GetConnectionType();
-    // _streamSubscription = _connectivity.onConnectivityChanged.listen(_updateState);
+// MAKE APP NEW VERSION UPDATE AUTO
+   
+    getSlider();
     checkConnexion();
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      observeConnexion(result);
-    });
+      observeConnexion(result);}
+      );
 
 
     refreshData();
-
     onMessageListen();
     onMessageOpenedAppListen();
-
-    // checkUpdate();
-    // checkNewVersion();
+    checkAppForUpdate();
   }
 
 
@@ -591,6 +637,7 @@ class HomeController extends GetxController {
           print("in_app_update check update error "+e.toString());
         });
       }
+
       updateApp(){
         updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
             ? () {
@@ -602,6 +649,7 @@ class HomeController extends GetxController {
         } : null;
       }
   /* END CHECK UPDATE FOR PACKAGE in_app_update */
+
 
   // Share app
   void ShareAppLink() async{

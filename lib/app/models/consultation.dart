@@ -13,8 +13,10 @@ class Consultation{
    int? un_read_discussion_count;
    int? un_read_job_count;
    int? un_read_sujet_count;
+   int? un_read_hotel_count;
+   int? un_read_siteTouristique_count;
 
-   Consultation({this.un_read_actualite_count, this.un_read_alerte_count, this.un_read_agenda_count, this.un_read_commerce_count,
+   Consultation({this.un_read_hotel_count, this.un_read_siteTouristique_count, this.un_read_actualite_count, this.un_read_alerte_count, this.un_read_agenda_count, this.un_read_commerce_count,
                this.un_read_discussion_count, this.un_read_sujet_count, this.un_read_job_count});
 
    factory Consultation.fromJson(Map<dynamic, dynamic> json) => Consultation(
@@ -25,6 +27,8 @@ class Consultation{
        un_read_discussion_count: json["un_read_discussion_count"] ?? 0,
        un_read_sujet_count: json["un_read_sujet_count"] ?? 0,
        un_read_job_count: json["un_read_job_count"] ?? 0,
+       un_read_hotel_count: json["un_read_hotel_count"] ?? 0,
+       un_read_siteTouristique_count: json["un_read_siteTouristique_count"] ?? 0,
    );
 
    Map<String, dynamic> toJson() => {
@@ -35,5 +39,7 @@ class Consultation{
       "un_read_discussion_count": un_read_discussion_count,
       "un_read_sujet_count": un_read_sujet_count,
       "un_read_job_count": un_read_job_count,
+      "un_read_hotel_count":un_read_hotel_count,
+      "un_read_siteTouristique_count":un_read_siteTouristique_count
    };
 }

@@ -180,32 +180,6 @@ class HotelServices {
   //   }
   // }
 
-  // static Future<Object> getUnReadHotels() async {
-  //   var headers = await AuthService.getLoggedHeaders();
-  //   SharedPreferences storage = await SharedPreferences.getInstance();
-  //   var user_id = storage.getInt('user_id') ?? null;
-  //   try {
-  //     var url = Uri.parse(settingsCtrl.baseUrl + 'un_read_actualites/$user_id');
-  //     var response = await http.get(url, headers: headers);
-  //     // print('actualites response '+ response.body.toString());
-  //     if (response.statusCode == 200) {
-  //       return Success(
-  //           response: HotelModel.fromJson(json.decode(response.body)));
-  //     }
-  //     return Failure(
-  //         code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
-  //   } on HttpException {
-  //     return Failure(
-  //         code: NO_INTERNET, errorResponse: "Pas de connection internet");
-  //   } on SocketException {
-  //     return Failure(
-  //         code: NO_INTERNET, errorResponse: "Pas de connection internet");
-  //   } on FormatException {
-  //     return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
-  //   } catch (e) {
-  //     return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
-  //   }
-  // }
 
   // static getHotelById(String id) async {
   //   var headers = await AuthService.getLoggedHeaders();
@@ -289,7 +263,7 @@ class HotelServices {
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
       var url =
-          Uri.parse(settingsCtrl.baseUrl + 'make_actualites_as_read/$user_id');
+          Uri.parse(settingsCtrl.baseUrl + 'make_hotels_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       if (response.statusCode == 200) {
         return Success();
@@ -306,4 +280,33 @@ class HotelServices {
       return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
     }
   }
+
+    static Future<Object> getUnReadHotels() async {
+    var headers = await AuthService.getLoggedHeaders();
+    SharedPreferences storage = await SharedPreferences.getInstance();
+    var user_id = storage.getInt('user_id') ?? null;
+    try{
+      var url = Uri.parse(settingsCtrl.baseUrl+'un_read_hotels/$user_id');
+      var response = await http.get(url, headers: headers);
+      // print('actualites response '+ response.body.toString());
+      if(response.statusCode == 200){
+        return Success(response: HotelModel.fromJson(json.decode(response.body)));
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on SocketException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
+    }
+    catch(e){
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
+
+  }
+
 }

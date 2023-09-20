@@ -12,7 +12,6 @@ import 'package:jaime_yakro/app/modules/slider/controllers/slider_controller.dar
 import 'package:jaime_yakro/app/routes/app_pages.dart';
 import 'package:jaime_yakro/app/widgets/notification_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../Utils/app_constantes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../widgets/loading_widget.dart';
@@ -138,7 +137,7 @@ class HomeView extends GetView<HomeController> {
                                     autoPlayInterval: Duration(seconds: 7),
                                     autoPlayAnimationDuration:
                                         Duration(milliseconds: 4000),
-                                    autoPlayCurve: Curves.fastOutSlowIn,
+                                    autoPlayCurve: Curves.easeInOutSine,
                                     enlargeCenterPage: true,
                                   ),
                                   items: generateSlider(
@@ -211,29 +210,20 @@ class HomeView extends GetView<HomeController> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Flexible(
-                                          child: MenuWidget(
+                                        child: MenuWidget(
                                         width: (Get.width / 2) - 20,
                                         height: 120,
                                         color: mainCtrl.vert_color_fonce,
-                                        title: 'Cultures',
+                                        title: 'Commerces et autres',
                                         icon: MENU_HISTORIQUE,
                                         enabled: true,
                                         itemCount: controller
                                             .selectedItemsCounts
                                             .value
                                             .un_read_sujet_count,
-                                        action: () async {
-                                      // controller.addHistoriqueVisiteCount();
-                                          Get.toNamed(AppRoutes.HISTORIQUE);
-                                          culture_ctrl.refreshData();
-                                          if (await MainServices
-                                                  .checkUserIsExclude() ==
-                                              false) {
-                                            controller
-                                                .addVisiteCount('culture');
-                                          }
-                                        },
-                                      )),
+                                        action: () async {},
+                                      )
+                                    ),
                                       Flexible(
                                           child: MenuWidget(
                                               width: (Get.width / 2) - 20,
@@ -242,6 +232,10 @@ class HomeView extends GetView<HomeController> {
                                               title: 'Hotels',
                                               icon: HOTEL,
                                               enabled: true,
+                                              itemCount: controller
+                                            .selectedItemsCounts
+                                            .value
+                                            .un_read_hotel_count,
                                               action: () async {
                                                 Get.toNamed(Routes.HOTEL);
                                                 hotel_ctrl.refreshData();
@@ -254,7 +248,7 @@ class HomeView extends GetView<HomeController> {
                                               width: (Get.width / 2) - 20,
                                               height: 120,
                                               color: mainCtrl.vert_color_fonce,
-                                              title: 'Numéros utiles',
+                                              title: 'Annuaires',
                                               icon: MENU_INFORMATION,
                                               enabled: true,
                                               action: () async {
@@ -301,6 +295,10 @@ class HomeView extends GetView<HomeController> {
                                               title: 'Sites Touristiques',
                                               icon: VT,
                                               enabled: true,
+                                              itemCount: controller
+                                              .selectedItemsCounts
+                                              .value
+                                              .un_read_siteTouristique_count,
                                               action: () async {
                                                 Get.toNamed(
                                                     Routes.SITETOURISTIQUES);
@@ -339,10 +337,10 @@ class HomeView extends GetView<HomeController> {
                                               title: 'Bons plans',
                                               icon: MENU_BON_PLAN,
                                               enabled: true,
-                                              itemCount: controller
+                                              itemCount:controller
                                                   .unReadDiffusionCount.value,
                                               action: () async {
-                                                // controller.addDiffusionVisiteCount();
+                                              //  controller.addDiffusionVisiteCount();
                                                 Get.toNamed(
                                                     AppRoutes.DIFFUSION);
                                                 bon_plan_ctrl.refreshData();
@@ -392,8 +390,7 @@ class HomeView extends GetView<HomeController> {
                                                 // controller.addAlerteVisiteCount();
                                                 Get.toNamed(AppRoutes.ALERTE);
                                                 alerte_ctrl.refreshData();
-                                                if (await MainServices
-                                                        .checkUserIsExclude() ==
+                                                if (await MainServices.checkUserIsExclude() ==
                                                     false) {
                                                   controller
                                                       .addVisiteCount('alerte');

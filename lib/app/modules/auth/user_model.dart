@@ -16,9 +16,9 @@ class User {
   String? pseudo;
   String? email;
   String? contact;
+  String? cloud_messaging_token;
 
-  User(
-      {this.id,
+  User({this.id,
       this.code,
       this.is_actif,
       this.account_exist,
@@ -27,7 +27,8 @@ class User {
       this.prenom,
       this.pseudo,
       this.email,
-      this.contact});
+      this.contact, 
+      this.cloud_messaging_token });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? null;
@@ -40,6 +41,7 @@ class User {
     pseudo = json['pseudo'] ?? null;
     email = json['email'] ?? null;
     contact = json['contact'] ?? null;
+    cloud_messaging_token= json['cloud_messaging_token'] ?? null;
   }
 
   Map<String, dynamic> toJson() {
@@ -54,6 +56,7 @@ class User {
     data['pseudo'] = pseudo;
     data['email'] = email;
     data['contact'] = contact;
+    data['cloud_messaging_token'] = cloud_messaging_token;
     return data;
   }
 }

@@ -191,4 +191,57 @@ class ConsultationServices {
     }
   }
 
+  
+  static makeHotelsAsRead() async {
+    var headers = await AuthService.getLoggedHeaders();
+    try{
+      SharedPreferences storage = await SharedPreferences.getInstance();
+      var user_id = storage.getInt('user_id') ?? null;
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_hotel_as_read/$user_id');
+      var response = await http.post(url, headers: headers);
+      // print("response like "+response.body.toString());
+      // print("response like status "+response.statusCode.toString());
+      if(response.statusCode == 200){
+        return Success();
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
+    }
+    catch(e){
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
+  }
+  
+
+  static makeVisiteTouristiqueAsRead() async {
+    var headers = await AuthService.getLoggedHeaders();
+    try{
+      SharedPreferences storage = await SharedPreferences.getInstance();
+      var user_id = storage.getInt('user_id') ?? null;
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_vt_as_read/$user_id');
+      var response = await http.post(url, headers: headers);
+      // print("response like "+response.body.toString());
+      // print("response like status "+response.statusCode.toString());
+      if(response.statusCode == 200){
+        return Success();
+      }
+      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    }
+    on HttpException{
+      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    }
+    on FormatException{
+      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
+    }
+    catch(e){
+      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    }
+  }
+  
+  
 }
