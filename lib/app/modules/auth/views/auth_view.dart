@@ -12,41 +12,41 @@ import '../../../widgets/alerte_widgets.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/auth_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class AuthView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: settingsCtrl.appbarColorFromCode,
-        // backgroundColor: settingsCtrl.appbarColorFromCode,
-        resizeToAvoidBottomInset: false,
-        // appBar: AppBar(
-        //   title: Text(""),
-        //   backgroundColor: settingsCtrl.appbarColorFromCode,
-        //   elevation: 0.0,
-        //   automaticallyImplyLeading: false,
-        // ),
-        body: 
-         Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                AppColors.secondaryColorFromCode,
-                mainColorYakro,
-              ],
-            )),
-            child: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(FocusNode());
-              },
-              child: Stack(
-                // padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                children: [HomePage()],
-              ),
-            ),
+      // backgroundColor: settingsCtrl.appbarColorFromCode,
+      // backgroundColor: settingsCtrl.appbarColorFromCode,
+      resizeToAvoidBottomInset: false,
+      // appBar: AppBar(
+      //   title: Text(""),
+      //   backgroundColor: settingsCtrl.appbarColorFromCode,
+      //   elevation: 0.0,
+      //   automaticallyImplyLeading: false,
+      // ),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [
+            AppColors.secondaryColorFromCode,
+            mainColorYakro,
+          ],
+        )),
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Stack(
+            // padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+            children: [HomePage()],
           ),
-      );
+        ),
+      ),
+    );
   }
 }
 
@@ -119,6 +119,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     );
   }
+
   _stepTwoCard(BuildContext context) {
     return Obx(() => Container(
           padding: EdgeInsets.all(8),
@@ -333,109 +334,107 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       body: SingleChildScrollView(
         child: ScrollConfiguration(
           behavior: MyBehavior(),
-            child: SizedBox(
-              height: size.height,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: size.height * (animation2.value + .58),
-                    left: size.width * .21,
-                    child: CustomPaint(
-                      painter: MyPainter(50),
-                    ),
+          child: SizedBox(
+            height: size.height,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: size.height * (animation2.value + .58),
+                  left: size.width * .21,
+                  child: CustomPaint(
+                    painter: MyPainter(50),
                   ),
-                  Positioned(
-                    top: size.height * .98,
-                    left: size.width * .1,
-                    child: CustomPaint(
-                      painter: MyPainter(animation4.value - 30),
-                    ),
+                ),
+                Positioned(
+                  top: size.height * .98,
+                  left: size.width * .1,
+                  child: CustomPaint(
+                    painter: MyPainter(animation4.value - 30),
                   ),
-                  Positioned(
-                    top: size.height * .5,
-                    left: size.width * (animation2.value + .8),
-                    child: CustomPaint(
-                      painter: MyPainter(30),
-                    ),
+                ),
+                Positioned(
+                  top: size.height * .5,
+                  left: size.width * (animation2.value + .8),
+                  child: CustomPaint(
+                    painter: MyPainter(30),
                   ),
-                  Positioned(
-                    top: size.height * animation3.value,
-                    left: size.width * (animation1.value + .1),
-                    child: CustomPaint(
-                      painter: MyPainter(60),
-                    ),
+                ),
+                Positioned(
+                  top: size.height * animation3.value,
+                  left: size.width * (animation1.value + .1),
+                  child: CustomPaint(
+                    painter: MyPainter(60),
                   ),
-                  Positioned(
-                    top: size.height * .1,
-                    left: size.width * .8,
-                    child: CustomPaint(
-                      painter: MyPainter(animation4.value),
-                    ),
+                ),
+                Positioned(
+                  top: size.height * .1,
+                  left: size.width * .8,
+                  child: CustomPaint(
+                    painter: MyPainter(animation4.value),
                   ),
-                  Column(
-                    children: [
-                      SizedBox(height: 10),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        width: double.infinity,
-                        height: 130,
-                        child: Image(
-                          image: AssetImage(LOGO_BLANC),
-                          alignment: Alignment.topCenter,
-                        ),
+                ),
+                Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      width: double.infinity,
+                      height: 130,
+                      child: Image(
+                        image: AssetImage(LOGO_BLANC),
+                        alignment: Alignment.topCenter,
                       ),
-                      TextWidget(
-                        text:
-                            "Explorez les trésors de votre commune avec cette application mobile !",
-                        color: Colors.white,
-                        scaleFactor: 1.2,
-                        fontSize: 15,
-                        alignement: TextAlign.center,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      Expanded(
-                        flex: -1,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: size.height * 0.02),
-                          child: Text(
-                            'J\'aime Yakro',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(.7),
-                              fontSize: 27,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
-                              wordSpacing: 4,
-                            ),
+                    ),
+                    TextWidget(
+                      text:
+                          "Explorez les trésors de votre commune avec cette application mobile !",
+                      color: Colors.white,
+                      scaleFactor: 1.2,
+                      fontSize: 15,
+                      alignement: TextAlign.center,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    Expanded(
+                      flex: -1,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: size.height * 0.02),
+                        child: Text(
+                          'J\'aime Yakro',
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(.7),
+                            fontSize: 27,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                            wordSpacing: 4,
                           ),
                         ),
                       ),
-                      Expanded(
-                          flex: 1,
-                   
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            // Politique de confidentialité
-                            Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: Form(
-                                  key: authController.formkey,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  child: Obx(() => authController.step.value == 1
-                                      ? component()
-                                      : _stepTwoCard(context))),
-                            ),
-                            SizedBox(width: size.width / 20),
-                          ],
-                        ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          // Politique de confidentialité
+                          Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Form(
+                                key: authController.formkey,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                child: Obx(() => authController.step.value == 1
+                                    ? component()
+                                    : _stepTwoCard(context))),
+                          ),
+                          SizedBox(width: size.width / 20),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-        
+          ),
         ),
       ),
     );
@@ -534,43 +533,50 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: Column(
               children: [
                 SizedBox(height: 5.0),
-            ElevatedButton.icon(
-      onPressed: () {
-        // Action à effectuer lorsque le bouton est pressé
-        print('Bouton avec icône pressé !');
-        // Utilisation de Get pour naviguer vers la route spécifiée
-        // Assurez-vous que Get est configuré dans votre projet pour l'utiliser
-        Get.toNamed(AppRoutes.CONDITION);
-      },
-      icon: Icon(Icons.ads_click),
-      label: Text(
-        "Lire la politique de confidentialité et les conditions d'utilisations.",
-        style: TextStyle(
-          color: AppColors.rouge_doux,
-          fontSize: 17,
-          fontWeight: FontWeight.bold,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      style: ElevatedButton.styleFrom(
-        // primary: Colors.green.shade900, // Couleur de fond
-        primary: AppColors.vert_color_fonce_avance, // Couleur de fond
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0), // Bord arrondi
-        ),
-        padding: EdgeInsets.all(10.0), // Rembourrage interne
-        side: BorderSide(color: Colors.black), // Bordure
-        // Vous pouvez également ajouter d'autres styles ici si nécessaire
-      ),
-    ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    // Action à effectuer lorsque le bouton est pressé
+                    print('Bouton avec icône pressé !');
+                    // Utilisation de Get pour naviguer vers la route spécifiée
+                    // Assurez-vous que Get est configuré dans votre projet pour l'utiliser
+                    Get.toNamed(AppRoutes.CONDITION);
+                  },
+                  icon: Icon(Icons.ads_click),
+                  label: Text(
+                    "Lire la politique de confidentialité et les conditions d'utilisations.",
+                    style: TextStyle(
+                      color: AppColors.rouge_doux,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    // primary: Colors.green.shade900, // Couleur de fond
+                    primary:
+                        AppColors.vert_color_fonce_avance, // Couleur de fond
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0), // Bord arrondi
+                    ),
+                    padding: EdgeInsets.all(10.0), // Rembourrage interne
+                    side: BorderSide(color: Colors.black), // Bordure
+                    // Vous pouvez également ajouter d'autres styles ici si nécessaire
+                  ),
+                ),
                 SizedBox(height: 10.0),
-              InkWell(
-                          onTap: (){
-                            launchUrl(Uri.parse("https://siriusntech.com/app/jaime_yakro/#About"));
-                          },
-                          child: TextWidget(text: "Voir le sur website", fontSize: 18.0,fontWeight: FontWeight.bold, color:Colors.white38, decoration:TextDecoration.underline),
-                        ),
-                          SizedBox(height: 15.0),
+                InkWell(
+                  onTap: () {
+                    launchUrl(Uri.parse(
+                        "https://siriusntech.com/app/jaime_yakro/#About"));
+                  },
+                  child: TextWidget(
+                      text: "Voir le sur website",
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white38,
+                      decoration: TextDecoration.underline),
+                ),
+                SizedBox(height: 15.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -616,16 +622,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         authController.cloud_messaging_token
                   };
                   // Pour l'enregistrement
-                    // authController.register(data);
-                   if (authController.isValid()) {
-                      authController.register(data);
-                       Fluttertoast.showToast(
-                      msg: 'Vivez des moments inoubliables!');
-                   }else{
-                     Fluttertoast.showToast(
-                      msg: 'Vueillez remplir tous les champs!');
-                   }
-               
+                  // authController.register(data);
+
+                  if (authController.isValid()) {
+                    await authController.register(data);
+                    Fluttertoast.showToast(
+                        msg: 'Vivez des moments inoubliables!');
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: 'Vueillez remplir tous les champs!');
+                  }
                 },
                 child: Container(
                   height: size.width / 8,
@@ -646,6 +652,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ),
           ),
+          SizedBox(height: 15.0),
+          Obx(() => authController.load.value
+              ? CircularProgressIndicator(
+                  color: Colors.red,
+                )
+              : SizedBox())
         ],
       ),
     );

@@ -26,11 +26,11 @@ class MainController extends GetxController {
   var baseUrlsansSlash = 'https://sdyakro.siriusntech.digital';
   var baseUrl = 'https://sdyakro.siriusntech.digital/api/mobile/';
   var siteUrl = 'https://sdyakro.siriusntech.digital';
-  setToCocody() async {
+  setToYakro() async {
     Get.back();
     isSettingProcessing(true);
     SharedPreferences storage = await SharedPreferences.getInstance();
-    storage.setString("app_name", "cocody");
+    storage.setString("app_name", "yakro");
     app_logo.value = "assets/images/logo/logo.png";
     appbarColor = Color(0xFF51624F);
     ;
@@ -85,8 +85,8 @@ class MainController extends GetxController {
     var app_name = storage.getString("app_name");
 
     if (app_name != null && app_name != '') {
-      if (app_name == "cocody") {
-        await setToCocody();
+      if (app_name == "yakro") {
+        await setToYakro();
         // await MainServices.reloadAllData();
         // Get.offNamed(AppRoutes.HOME);
       } else if (app_name == "plateau") {
@@ -95,7 +95,7 @@ class MainController extends GetxController {
         // Get.offNamed(AppRoutes.HOME);
       }
     } else {
-      setToCocody();
+      setToYakro();
     }
   }
 

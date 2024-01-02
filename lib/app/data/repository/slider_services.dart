@@ -20,10 +20,10 @@ class SliderServices {
     try {
       final apiUrl = settingsCtrl.baseUrl + 'slider_api_index';
       var url = Uri.parse(apiUrl);
-      print('Slider Url: ' + url.toString());
+      // print('Slider Url: ' + url.toString());
       var response = await http.get(url, headers: headers);
-      print('Slider response status code: ' + response.statusCode.toString());
-      print('Slider response body: ' + response.body.toString());
+      // print('Slider response status code: ' + response.statusCode.toString());
+      // print('Slider response body: ' + response.body.toString());
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         List<SliderModel> sliders = [];

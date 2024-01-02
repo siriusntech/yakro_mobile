@@ -76,13 +76,14 @@ class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
 
+
 // MAIN
 Future<void> main() async {
+  
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -116,6 +117,9 @@ Future<void> main() async {
 
   NotificationServices().showNotificationInBackground();
   NotificationServices().showNotificationInAppOpened();
+  NotificationServices().showNotificationDetected();
+
+
 
   // Step 3
   SystemChrome.setPreferredOrientations([
@@ -143,6 +147,10 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  void onInit() {
+   NotificationServices().showNotificationDetected();
+  }
 
   @override
   Widget build(BuildContext context) {

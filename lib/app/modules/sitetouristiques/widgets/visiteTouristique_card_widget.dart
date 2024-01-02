@@ -40,8 +40,8 @@ class SiteTouristiqueCardWidget extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: AppColors.vert_color_fonce,
                           radius: 50,
-                          backgroundImage: visiteTouristique.imageUrl.toString().contains('picsum') ?
-                          NetworkImage(visiteTouristique.imageUrl.toString()) : NetworkImage(siteUrl+visiteTouristique.imageUrl.toString()
+                          backgroundImage: visiteTouristique.vtMedias[0].url.toString().contains('picsum') ?
+                          NetworkImage(visiteTouristique.vtMedias[0].url.toString()) : NetworkImage(siteUrl+visiteTouristique.vtMedias[0].url.toString()
                           ),
                         ),
                       ),
@@ -59,7 +59,7 @@ class SiteTouristiqueCardWidget extends StatelessWidget {
                                 Image.asset(ICON_NAME, width: 20, height: 20,),
                                 SizedBox(width: 3,),
                                 Flexible(
-                                    child: Text(visiteTouristique.nomVt.toString().toUpperCase()+" "+visiteTouristique.typeQuartierVtLieu.toString().toUpperCase(),
+                                    child: Text(visiteTouristique.nomVt.toString().toUpperCase()+" "+visiteTouristique.typeQuartierVtId.toString().toUpperCase(),
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 12.0,
@@ -78,7 +78,7 @@ class SiteTouristiqueCardWidget extends StatelessWidget {
                                 ),
                                 SizedBox(width: 3,),
                                 Flexible(
-                                    child: Text(visiteTouristique.prix!,
+                                    child: Text(visiteTouristique.prix! as String,
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14.0,

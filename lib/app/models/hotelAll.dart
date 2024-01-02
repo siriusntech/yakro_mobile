@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final hotelModel = hotelModelFromJson(jsonString);
-
 import 'dart:convert';
 
 List<HotelModel> hotelModelFromJson(String str) => List<HotelModel>.from(json.decode(str).map((x) => HotelModel.fromJson(x)));
@@ -25,10 +21,10 @@ class HotelModel {
     String? instagram;
     String? typeQuartierHotelsId;
     String? typeHotelId;
-    String? userId;
-    dynamic deletedAt;
-    DateTime? createdAt;
-    DateTime? updatedAt;
+    int? userId;
+    double? moyenneHotel;
+    List<dynamic>? commentairesHotel;
+    List<dynamic>? userIds;
     List<HotelsMedia?>? hotelsMedias;
 
     HotelModel({
@@ -49,9 +45,9 @@ class HotelModel {
         this.typeQuartierHotelsId,
         this.typeHotelId,
         this.userId,
-        this.deletedAt,
-        this.createdAt,
-        this.updatedAt,
+        this.moyenneHotel,
+        this.commentairesHotel,
+        this.userIds,
         this.hotelsMedias,
     });
 
@@ -73,9 +69,9 @@ class HotelModel {
         typeQuartierHotelsId: json["type_quartier_hotels_id"],
         typeHotelId: json["type_hotel_id"],
         userId: json["user_id"],
-        deletedAt: json["deleted_at"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        moyenneHotel: (json["moyenneHotel"] is double) ? json["moyenneHotel"] : double.tryParse(json["moyenneHotel"].toString()),
+        commentairesHotel:json["commentairesHotel"],
+        userIds:json["user_ids"],
         hotelsMedias: List<HotelsMedia>.from(json["hotels_medias"].map((x) => HotelsMedia.fromJson(x))),
     );
 
@@ -97,15 +93,15 @@ class HotelModel {
         "type_quartier_hotels_id": typeQuartierHotelsId,
         "type_hotel_id": typeHotelId,
         "user_id": userId,
-        "deleted_at": deletedAt,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
+        "moyenneHotel":moyenneHotel,
+        "commentairesHotel":commentairesHotel,
+        "userIds":userIds,
         "hotels_medias": List<dynamic>.from(hotelsMedias!.map((x) => x?.toJson())),
     };
 }
 
 class HotelsMedia {
-    String? hotelId;
+    int? hotelId;
     String? url;
 
     HotelsMedia({

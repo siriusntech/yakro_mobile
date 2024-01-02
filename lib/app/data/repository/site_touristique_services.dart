@@ -7,6 +7,7 @@ import 'package:jaime_yakro/app/data/repository/data/api_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import '../../controllers/main_controller.dart';
+import '../../models/CategorieVt.dart';
 import '../../models/site_touristique.dart';
 
 
@@ -16,16 +17,18 @@ class VisiteTouristiqueServices {
   static var client = http.Client();
 
 
-  static Future<Object> getVisitesTouristique() async {
+  static Future<Object> getVisitesTouristique(int? typeCategoryId) async {
     var headers = await AuthService.getLoggedHeaders();
     try {
-      final apiUrl = settingsCtrl.baseUrl + 'vt_Index';
+      final param = typeCategoryId != null && typeCategoryId != 0 ? '/$typeCategoryId' : '';
+      final apiUrl = settingsCtrl.baseUrl + 'vt_Index'+param;
       var url = Uri.parse(apiUrl);
        print('Visites url  '+url.toString());
       var response = await http.get(url, headers: headers);
        print('Visite Touristique Response status code '+ response.statusCode.toString());
        print('Visite Touristique Response body '+ response.body.toString());
       if (response.statusCode == 200) {
+        
         return Success(response: VisiteTouristique.fromJson(jsonDecode(response.body)).data);
       }
       return Failure(
@@ -39,7 +42,7 @@ class VisiteTouristiqueServices {
     } on FormatException {
       return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
     } catch (e) {
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+      return Failure(code: UNKNOWN_ERROR, errorResponse: e);
     }
   }
 
@@ -128,7 +131,7 @@ class VisiteTouristiqueServices {
   }
 
 
-  // }
+
 
   static Future<Object> makeVisiteTouristiqueAsRead() async {
     try {
@@ -181,7 +184,38 @@ class VisiteTouristiqueServices {
     }
   }
 
+  static Future<List<CategorieVT>> getButtonTypeVT() async {
+    var headers = await AuthService.getLoggedHeaders();
+    // try {
+    final apiUrl = settingsCtrl.baseUrl + 'filtrage_vt_type_categorie';
+    var url = Uri.parse(apiUrl);
+    print('filtrage_vt_type_categorie url: ' + url.toString());
+    var response = await http.get(url, headers: headers);
 
+    print('filtrage_vt_type_categorie response status code: ' +
+        response.statusCode.toString());
+    print('filtrage_vt_type_categorie response body: ' + response.body.toString());
+
+    if (response.statusCode == 200) {
+      List data = json.decode(response.body);
+      return data.map((items) => CategorieVT.fromJson(items)).toList();
+    } else {
+      return [];
+    }
+    // return Failure(
+    //     code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+    // } on HttpException {
+    // return Failure(
+    //     code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    // } on SocketException {
+    // return Failure(
+    //     code: NO_INTERNET, errorResponse: "Pas de connection internet");
+    // } on FormatException {
+    // return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalid');
+    // } catch (e) {
+    //  return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+    // }
+  }
 
 
 

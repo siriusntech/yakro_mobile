@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:jaime_yakro/app/data/repository/data/Env.dart';
 import 'package:jaime_yakro/app/modules/sitetouristiques/views/detail_sitetouristiques_view.dart';
 import '../../../controllers/main_controller.dart';
+import '../../../widgets/loading_widget.dart';
+import '../../../widgets/no_data_widget.dart';
 import '../../../widgets/text_widget.dart';
 import '../controllers/sitetouristiques_controller.dart';
 
@@ -40,49 +43,102 @@ class SitetouristiquesView extends GetView<SitetouristiquesController> {
             ? Center(
           child: CircularProgressIndicator(),
         )
-            : ListView.builder(
-          padding: EdgeInsets.all(10),
-          itemCount: visiteTouristiqueController.visiteTouristiquesList.length,
-          itemBuilder: (context, index) {
-            final visiteTouristiqueData = visiteTouristiqueController.visiteTouristiquesList[index];
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  onTap: () {
-                    Get.to(DetailSitetouristiquesView(
-                      data: visiteTouristiqueData,
-                    )
-                    );
-                  },
-                  title: TextWidget(
-                    text: visiteTouristiqueData.nomVt ?? 'aucune donnée',
-                    color: Colors.black,
-                    fontSize: 19, fontWeight: FontWeight.bold, alignement: TextAlign.center,
-                  ),
-                  trailing: Icon(Icons.arrow_right),
-                  subtitle: Text(
-                    visiteTouristiqueData.description!,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  leading: Container(
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                visiteTouristiqueData.imageUrl!
-                            ),
-                            fit: BoxFit.cover)),
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      }),
+            : Column(
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              SizedBox(height: 15.0),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: FilterChip(
+                                  label: Text("Tout"),
+                                  onSelected: (onSelected) {
+                                    visiteTouristiqueController.type_vt_selected.value = 0;
+                                    visiteTouristiqueController.getVisitesTouristiques();
+                                  },
+                                  selected: visiteTouristiqueController
+                                          .type_vt_selected.value == 0,
+                                ),
+                              ),
+                              ...controller.vTAllTypeVT
+                                  .map((typeByVt) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: FilterChip(
+                                          label:
+                                              Text(typeByVt.nomCategorie!.toString()),
+                                          onSelected: (onSelected) {
+                                            visiteTouristiqueController.type_vt_selected.value = typeByVt.id!;
+                                            print('je teste'+onSelected.toString());
+                                            visiteTouristiqueController.getVisitesTouristiques();
+                                          },
+                                          selected: visiteTouristiqueController
+                                                  .type_vt_selected.value ==
+                                              typeByVt.id!,
+                                        ),
+                                      )
+                                  )
+                            ],
+
+                          ),
+                        ),
+                        SizedBox(height:15.0),
+          Obx(() => controller.isDataProcessing.value
+                ? LoadingWidget()
+                : controller.visiteTouristiquesList.isEmpty
+                    ? NoDataWidget()
+                    : Expanded(
+                        child: ListView.builder(
+                          padding: EdgeInsets.all(10),
+                          itemCount: visiteTouristiqueController.visiteTouristiquesList.length,
+                          itemBuilder: (context, index) {
+                            final visiteTouristiqueData = visiteTouristiqueController.visiteTouristiquesList[index];
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ListTile(
+                                  onTap: (){
+                                    Get.to(DetailSitetouristiquesView(
+                                      data: visiteTouristiqueData,
+                                    )
+                                    );
+                                  },
+                                  title: TextWidget(
+                                    text: visiteTouristiqueData.nomVt!,
+                                    color: Colors.black,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    alignement: TextAlign.center,
+                                  ),
+                                  trailing: Icon(Icons.arrow_right),
+                                  subtitle: Text(
+                                    visiteTouristiqueData.description!,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  leading: Container(
+                                    height: 70,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      image: DecorationImage(
+                                        image:  NetworkImage(
+                                  visiteTouristiqueData.vtMedias[0].url ?? ''
+                              ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      )),   
+                      ],
+                    ); }),
     );
   }
 

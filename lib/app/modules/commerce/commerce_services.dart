@@ -20,7 +20,7 @@ class CommerceServices {
 
   static Future<Object> getCommerces() async {
     var headers = await AuthService.getLoggedHeaders();
-    final apiUrl = settingsCtrl.baseUrl+'commerces';
+    final apiUrl = settingsCtrl.baseUrl+'autres_commerces';
     var url = Uri.parse(apiUrl);
     // print(url);
     try{
@@ -50,7 +50,7 @@ class CommerceServices {
     var headers = await AuthService.getLoggedHeaders();
     SharedPreferences storage = await SharedPreferences.getInstance();
     var user_id = storage.getInt('user_id') ?? null;
-    var url = Uri.parse(settingsCtrl.baseUrl+'un_read_commerces/$user_id');
+    var url = Uri.parse(settingsCtrl.baseUrl+'un_read_autres_commerces/$user_id');
     try{
       var response = await http.get(url, headers: headers);
 
@@ -77,7 +77,7 @@ class CommerceServices {
   static getCommercesByType(type) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(settingsCtrl.baseUrl+"commerces_by_type/${type.toString()}");
+      var url = Uri.parse(settingsCtrl.baseUrl+"autres_commerces_by_type/${type.toString()}");
       var response =  await http.get(url, headers: headers);
 
       if(response.statusCode == 200){
@@ -101,7 +101,7 @@ class CommerceServices {
   static getCommercesByNom(nom) async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(settingsCtrl.baseUrl+"commerces_by_nom/$nom");
+      var url = Uri.parse(settingsCtrl.baseUrl+"autres_commerces_by_nom/$nom");
       var response =  await http.get(url, headers: headers);
       if(response.statusCode == 200){
         return Success(response: commerceFromJson(response.body));
@@ -123,7 +123,7 @@ class CommerceServices {
   }
   static getCommerceById(String id) async {
     try{
-      final apiUrl = settingsCtrl.baseUrl+'commerces';
+      final apiUrl = settingsCtrl.baseUrl+'autres_commerces';
       var headers = await AuthService.getLoggedHeaders();
       var url = Uri.parse(apiUrl+'/$id');
       final response = await http.get(url, headers: headers);
@@ -151,9 +151,9 @@ class CommerceServices {
   static getCommercetypes() async {
     try{
       var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(settingsCtrl.baseUrl+"commerces_types");
+      var url = Uri.parse(settingsCtrl.baseUrl+"autres_commerce_types");
       var response =  await http.get(url, headers: headers);
-      // print('response com type '+response.body.toString());
+       print('response com type '+response.body.toString());
       if(response.statusCode == 200){
         return Success(response: commerceTypeFromJson(response.body));
       }
@@ -178,7 +178,7 @@ class CommerceServices {
       var headers = await AuthService.getLoggedHeaders();
       SharedPreferences storage = await SharedPreferences.getInstance();
       var user_id = storage.getInt('user_id') ?? null;
-      var url = Uri.parse(settingsCtrl.baseUrl+'make_commerces_as_read/$user_id');
+      var url = Uri.parse(settingsCtrl.baseUrl+'make_autres_commerces_as_read/$user_id');
       var response = await http.post(url, headers: headers);
       if(response.statusCode == 200){
         return Success();

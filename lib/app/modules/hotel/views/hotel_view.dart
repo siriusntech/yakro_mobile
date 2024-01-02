@@ -6,7 +6,7 @@ import '../../../widgets/loading_widget.dart';
 import '../../../widgets/no_data_widget.dart';
 import '../controllers/hotel_controller.dart';
 import 'detail_hotel_view.dart';
-
+import 'package:intl/intl.dart';
 class HotelView extends GetView<HotelController> {
   const HotelView({Key? key}) : super(key: key);
 
@@ -60,7 +60,7 @@ class HotelView extends GetView<HotelController> {
                                   label: Text("Tout"),
                                   onSelected: (onSelected) {
                                     controller.currentRangeValues.value =
-                                        RangeValues(0, 200000);
+                                        RangeValues(0, 100000);
                                     hotelController.type_hotel_selected.value =
                                         0;
                                     hotelController.getHotelsFiltragePrix();
@@ -137,7 +137,7 @@ class HotelView extends GetView<HotelController> {
                 values: hotelController.currentRangeValues.value,
                 min: 0,
                 max: 100000,
-                divisions: 3500,
+                divisions: 4000,
                 labels: RangeLabels(
                   hotelController.currentRangeValues.value.start
                       .round()
@@ -174,6 +174,7 @@ class HotelView extends GetView<HotelController> {
                           final firstMediaUrl = hotelData.hotelsMedias!.isNotEmpty
                               ? hotelData.hotelsMedias![0]!.url
                               : '';
+                          hotelController.note.value = hotelData.id!;
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,13 +192,46 @@ class HotelView extends GetView<HotelController> {
                                   color: Colors.black,
                                   fontSize: 19,
                                   fontWeight: FontWeight.bold,
-                                  alignement: TextAlign.center,
+                                  alignement: TextAlign.left,
                                 ),
                                 trailing: Icon(Icons.arrow_right),
-                                subtitle: Text(
-                                  hotelData.description!,
-                                  overflow: TextOverflow.ellipsis,
+                                subtitle: Row(
+                                  children: <Widget>[
+                                    TextWidget(
+                                  text: '${NumberFormat.decimalPattern('fr_FR').format(hotelData.prix)} FCFA ',
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  alignement: TextAlign.left,
                                 ),
+                                SizedBox(width: 5.0),
+                                 Visibility(
+                                  visible:hotelData.moyenneHotel!=null ,
+                                  child: TextWidget(
+                                  text: ' - ',
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  alignement: TextAlign.left,
+                                  ) ,
+                                ),
+                                SizedBox(width: 5.0),
+                                 Visibility(
+                                  visible:hotelData.moyenneHotel!=null ,
+                                  child: TextWidget( 
+                                  text: '${hotelData.moyenneHotel}',
+                                  color: Colors.green,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w900,
+                                  alignement: TextAlign.left,
+                                  ) ,
+                                ),
+                               Visibility(
+                                  visible:hotelData.moyenneHotel!=null ,
+                                  child:  Icon(Icons.star_half_sharp, color:Colors.amber[800], size:25)
+                                 )     
+                                       
+                                ],),
                                 leading: Container(
                                   height: 70,
                                   width: 70,

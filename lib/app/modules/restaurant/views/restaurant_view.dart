@@ -83,8 +83,8 @@ class RestaurantView extends GetView<RestaurantController> {
                                     BorderSide(width: 1, color: Colors.grey),
                                 borderRadius: BorderRadius.circular(15)),
                             hintText: "Ex: Plats africains, viande de brousse",
-                            contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                            // contentPadding: EdgeInsets.all(8)
+                            contentPadding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+
                           ),
                           style: TextStyle(
                             color: AppColors.appbarTextColor,
@@ -138,7 +138,7 @@ class RestaurantView extends GetView<RestaurantController> {
                                           text:
                                               type.nom.toString().toLowerCase(),
                                           color: AppColors.vert_color_fonce,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold,
                                           scaleFactor: 1.3,
                                         ),

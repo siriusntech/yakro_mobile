@@ -31,14 +31,14 @@ class CommerceCardWidget extends StatelessWidget {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width - 50,
-                child: TextWidget(text: commerce.type.toString().toUpperCase(),
+                child: TextWidget(text: controller.selectedType.value.toString().toUpperCase(),
                   fontWeight: FontWeight.bold,
                   fontSize: 14,color: Colors.red,
                   maxLine: 50,
                 ),
               ),
               SizedBox(height: 5,),
-              Row(
+              Wrap(
                 children: [
                   Image.asset(ICON_STORE, width: 20, height: 20,),
                   SizedBox(width: 3,),
@@ -59,7 +59,7 @@ class CommerceCardWidget extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        TextWidget(text: 'Site Internet: ', fontWeight: FontWeight.w600, fontSize: 14),
+                        Image.asset(AppIcons.WEBSITE, width: 20, height: 20,),
                         SizedBox(width: 3,),
                         Container(
                           width: MediaQuery.of(context).size.width - 50,
@@ -80,8 +80,8 @@ class CommerceCardWidget extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        TextWidget(text: 'Adresse Email: ', fontWeight: FontWeight.w600, fontSize: 14),
-                        SizedBox(width: 3,),
+                       Image.asset(AppIcons.EMAIL, width: 20, height: 20,),
+                        SizedBox(width: 4,),
                         Container(
                           width: MediaQuery.of(context).size.width - 50,
                           child: TextWidget(text: commerce.email.toString(), fontWeight: FontWeight.w600,

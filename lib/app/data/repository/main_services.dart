@@ -1,10 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:jaime_yakro/app/data/repository/actualite_services.dart';
+import 'package:jaime_yakro/app/data/repository/alerte_services.dart';
+import 'package:jaime_yakro/app/data/repository/annuaire_services.dart';
+import 'package:jaime_yakro/app/data/repository/diffusion_services.dart';
+import 'package:jaime_yakro/app/data/repository/pharmacie_services.dart';
 import 'package:jaime_yakro/app/models/mise_a_jour_model.dart';
 import 'package:jaime_yakro/app/models/entreprise.dart';
+import 'package:jaime_yakro/app/modules/job/job_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../controllers/main_controller.dart';
+import '../../modules/commerce/commerce_services.dart';
 import 'auth_service.dart';
 import 'data/Env.dart';
 import 'data/api_status.dart';
@@ -101,14 +108,11 @@ class MainServices {
     // print(user_contact);
     const exclude_numbers = [
       '0171300914',
-      '0767489000',
       '0789073909',
-      '0779549937',
       '0506787411',
       '0777949870',
-      '0153765253',
       '0707106603',
-      '0767544122',
+     
     ];
     if(exclude_numbers.contains(user_contact)){
        return true;
@@ -117,27 +121,51 @@ class MainServices {
     }
   }
 
-  static Future<Object> addVisiteCount(module, user_id) async {
-    try{
-      var headers = await AuthService.getLoggedHeaders();
-      var url = Uri.parse(settingsCtrl.baseUrl+'add-visite-count/$module/$user_id');
-      var response = await http.post(url, headers: headers);
+  // static Future<Object> addVisiteCount(module, user_id) async {
+   
+  //   try{
+  //     var headers = await AuthService.getLoggedHeaders();
+  //     var url = Uri.parse(settingsCtrl.baseUrl+'add-visite-count/$module/$user_id');
+  //     var response = await http.post(url, headers: headers);
       
-      if(response.statusCode == 200){
-        return Success();
-      }
-      return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+  //     if(response.statusCode == 200){
+  //       return Success();
+  //     }
+  //     return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+  //   }
+  //   on HttpException{
+  //     return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
+  //   }
+  //   on FormatException{
+  //     return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
+  //   }
+  //   catch(e){
+  //     return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
+  //   }
+  // }
+
+  static Future<Object> addVisiteCount(module, user_id) async {
+  try {
+    print('je suis dans le addVisiteCount:'+ user_id.toString());
+    print('je suis dans le addVisiteCount:'+module.toString());
+    var headers = await AuthService.getLoggedHeaders();
+    var url = Uri.parse(settingsCtrl.baseUrl + 'add-visite-count/$module/$user_id');
+    var response = await http.post(url, headers: headers);
+
+    if (response.statusCode == 200) {
+      return Success();
     }
-    on HttpException{
-      return Failure(code: NO_INTERNET, errorResponse: "Pas de connection internet");
-    }
-    on FormatException{
-      return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
-    }
-    catch(e){
-      return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
-    }
+
+    return Failure(code: USER_INVALID_RESPONSE, errorResponse: 'Réponse invalide');
+  } on http.ClientException {
+    return Failure(code: NO_INTERNET, errorResponse: "Pas de connexion internet");
+  } on FormatException {
+    return Failure(code: INVALID_FORMAT, errorResponse: 'Format invalide');
+  } catch (e) {
+    return Failure(code: UNKNOWN_ERROR, errorResponse: 'Erreur inconnue');
   }
+}
+
 
   static Future<Object> setUserCloudMessagingToken(user_id, token) async {
     try{
@@ -160,14 +188,14 @@ class MainServices {
     }
   }
 
-  // static Future<void> reloadAllData() async {
-  //    ActualiteServices.getActualites();
-  //    AlerteServices.getAlertes();
-  //    AnnuaireServices.getAnnuaires();
-  //    JobServices.getJobs();
-  //    CommerceServices.getCommerces();
-  //    PharmacieServices.getPharmacies();
-  //    DiffusionServices.getDiffusions();
-  // }
+  static Future<void> reloadAllData() async {
+     ActualiteServices.getActualites();
+     AlerteServices.getAlertes();
+     AnnuaireServices.getAnnuaires();
+     JobServices.getJobs();
+     CommerceServices.getCommerces();
+     PharmacieServices.getPharmacies();
+     DiffusionServices.getDiffusions();
+  }
 
 }

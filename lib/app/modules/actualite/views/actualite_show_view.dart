@@ -21,7 +21,7 @@ class ActualiteShowView extends GetView<ActualiteController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: settingsCtrl.appbarColorFromCode,
+        backgroundColor: settingsCtrl.vert_color_fonce,
         title: Text("Actualités et Evènements",
           style: TextStyle(
               fontSize: 18.0,

@@ -5,21 +5,27 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/app_constantes.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../../../data/repository/restaurants_services.dart';
+import '../../../models/AffichageHotelRestaurant.dart';
 import '../../../models/restaurant_model.dart';
+import '../../../models/restaurant_type_model.dart';
 import '../../../models/type_annuaire_model.dart';
 import '../../../widgets/text_widget.dart';
-import '../../commerce/commerce_type_model.dart';
 import '../../home/controllers/home_controller.dart';
-
+import 'package:jaime_yakro/app/models/CommentaireNote.dart';
 class RestaurantController extends GetxController {
   var commerceList = List<Restaurant>.empty(growable: true).obs;
-  var commerceTypesList = List<CommerceType>.empty(growable: true).obs;
+  var commerceTypesList = List<RestaurantType>.empty(growable: true).obs;
   var typeAnnuaireList = List<TypeAnnuaireModel>.empty(growable: true).obs;
   var selectedCommerce = Restaurant().obs;
+  RxDouble rating = 0.0.obs;
+  final restaurantNoteCommentaire = <AffichageHotelRestaurant>[].obs;
+  final note = 0.obs;
+    final commentaire = TextEditingController().obs;
+  final restaurant_id = 0.obs;
   var page = 1;
   var isDataProcessing = false.obs;
   var selectedType = ''.obs;
-
+  var isLoading = true.obs;
   final HomeController homeCtrl = Get.find();
 
   late TextEditingController searchTextController;
@@ -59,8 +65,9 @@ class RestaurantController extends GetxController {
   // GET ALL COMMERCE BY TYPE
   getCommercesByType(var type) async{
     try{
+
       isDataProcessing(true);
-      final response = await RestaurantServices.getCommercesByType(type);
+     final response = await RestaurantServices.getCommercesByType(type);
       if(response is Success){
         commerceList.clear();
         isDataProcessing(false);
@@ -68,7 +75,7 @@ class RestaurantController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        print("Erreur "+response.errorResponse.toString());
+        print("Erreur getCommercesByType "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
@@ -87,7 +94,7 @@ class RestaurantController extends GetxController {
       }
       if(response is Failure){
         isDataProcessing(false);
-        print("Erreur "+response.errorResponse.toString());
+        print("Erreur getCommercesByName "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
@@ -124,11 +131,11 @@ class RestaurantController extends GetxController {
       final response = await RestaurantServices.getCommercetypes();
       if(response is Success){
         isDataProcessing(false);
-        commerceTypesList.addAll(response.response as List<CommerceType>);
+        commerceTypesList.addAll(response.response as List<RestaurantType>);
       }
       if(response is Failure){
         isDataProcessing(false);
-        print("Erreur "+response.errorResponse.toString());
+        print("Erreur getCommerceTypes "+response.errorResponse.toString());
       }
     }catch(ex){
       isDataProcessing(false);
@@ -218,6 +225,37 @@ class RestaurantController extends GetxController {
       // isDataProcessing(false);
       // print("Exception  "+ex.toString());
     }
+  }
+
+    Future<void> examen(CommentaireNote noteModel) async {
+    isDataProcessing(true);
+    await RestaurantServices.examen(noteModel);
+    commentaire.value.clear();
+    rating.value = 0;
+    isDataProcessing(false);
+    isLoading.value = false;
+  }
+
+  Future<void> afficheNoteCommtaire( int restaurant_id) async {
+    isDataProcessing(true);
+    try {
+        //  print('je veux hotel_id*******: '+hotel_id.toString());
+      // Appel à RestaurantServices.afficheNoteCommentaire(hotel_id)
+      List< AffichageHotelRestaurant> result = await RestaurantServices.afficheNoteCommentaire(restaurant_id);
+    
+      // ignore: unnecessary_null_comparison
+      if (result != null) {
+        // Si tout s'est bien passé, mettez à jour hotelNoteCommentaire.value
+        restaurantNoteCommentaire.value = result;
+      } else {
+        // Gérer les erreurs ici, par exemple, afficher un message d'erreur.
+      }
+    } catch (e) {
+      // Gérer les erreurs d'exception ici, par exemple, afficher un message d'erreur.
+    }
+
+    isDataProcessing(false);
+    isLoading.value = false;
   }
 
 

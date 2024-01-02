@@ -3,16 +3,22 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jaime_yakro/app/data/repository/hotel_services.dart';
+import 'package:jaime_yakro/app/models/CommentaireNote.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../Utils/app_constantes.dart';
+
+import '../../../models/AffichageHotelRestaurant.dart';
 import '../../../models/hotelAll.dart';
-import '../../../models/typeHotel.dart'; 
+import '../../../models/typeHotel.dart';
 import '../../../widgets/text_widget.dart';
 
 class HotelController extends GetxController {
   var isLoading = true.obs;
 
-  var currentRangeValues = RangeValues(0,100000).obs;
+  RxDouble rating = 0.0.obs;
+  var textFieldValue = ''.obs;
+
+  var currentRangeValues = RangeValues(0, 100000).obs;
   // var hotelList = <HotelModel>[].obs;
 
   // var hotelList = List<HotelModel>.empty(growable: true).obs;
@@ -22,10 +28,15 @@ class HotelController extends GetxController {
   var isDataProcessingTypeHotel = false.obs;
   var selectedType = ''.obs;
   final count = 0.obs;
+  final note = 0.obs;
+
+
+  final commentaire = TextEditingController().obs;
 
   // final hotelList = <DataHotelModel>[] .obs; // Utilisez une RxList pour observer les changements
   final hotelListAllFiltragePrix = <HotelModel>[].obs;
   final hotelAllTypeHotel = <TypeHotelByHotels>[].obs;
+  final hotelNoteCommentaire = <AffichageHotelRestaurant>[].obs;
   final type_hotel_selected = 0.obs;
 
   final ButtonStyle buttonStyle = ButtonStyle(
@@ -115,7 +126,6 @@ class HotelController extends GetxController {
     });
   }
 
-
   // SHOW SNACKBAR
   showSnackBar(String title, String message, Color bgColor) {
     Get.snackbar(title, message,
@@ -124,15 +134,21 @@ class HotelController extends GetxController {
         colorText: Colors.white);
   }
 
-void updateCurrentRangeValues(double start, double end) {
-  currentRangeValues.value = RangeValues(start, end);
-}
+  void updateCurrentRangeValues(double start, double end) {
+    currentRangeValues.value = RangeValues(start, end);
+  }
 
+  void updateRating(newRating) {
+    rating.value = newRating;
+  }
+
+  void updateTextFieldValue(String text) {
+    textFieldValue.value = text;
+  }
 
   @override
   void onInit() {
     super.onInit();
-    // getHotels();
     getHotelsFiltragePrix();
     getButtonTypeHotel();
   }
@@ -168,6 +184,40 @@ void updateCurrentRangeValues(double start, double end) {
     hotelAllTypeHotel.value = response;
     inspect(response);
     isDataProcessingTypeHotel(false);
+    isLoading.value = false;
+  }
+
+  Future<void> examen(CommentaireNote noteModel) async {
+    isDataProcessing(true);
+    await HotelServices.examen(noteModel);
+    commentaire.value.clear();
+    rating.value = 0;
+    isDataProcessingTypeHotel(false);
+    isLoading.value = false;
+  }
+
+  Future<void> afficheNoteCommtaire(int hotel_id) async {
+    isDataProcessing(true);
+    hotelNoteCommentaire.clear();
+    try {
+        //  print('je veux hotel_id*******: '+hotel_id.toString());
+      // Appel à HotelServices.afficheNoteCommentaire(hotel_id)
+      List<AffichageHotelRestaurant> result = await HotelServices.afficheNoteCommentaire(hotel_id);
+    
+      // ignore: unnecessary_null_comparison
+      if (result != null) {
+        // Si tout s'est bien passé, mettez à jour hotelNoteCommentaire.value
+        print('je veux *******: '+result.toString());
+        inspect(result);
+        hotelNoteCommentaire.value = result;
+      } else {
+        // Gérer les erreurs ici, par exemple, afficher un message d'erreur.
+      }
+    } catch (e) {
+      // Gérer les erreurs d'exception ici, par exemple, afficher un message d'erreur.
+    }
+
+    isDataProcessing(false);
     isLoading.value = false;
   }
 

@@ -1,0 +1,1 @@
+ keytool -genkey -v -keystore C:\wamp64\www\sirius_sanPedro_mobile\android\app\san_pedro-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias sanPedro

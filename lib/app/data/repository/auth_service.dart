@@ -42,8 +42,8 @@ class AuthService {
       final headers = await getLoggedHeaders();
 
       var response = await http.get(endPoint, headers: headers);
-      // print('get user info response body '+ response.body.toString());
-      // print('get user info response code '+ response.statusCode.toString());
+      print('get user info response body ' + response.body.toString());
+      print('get user info response code ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         var info = jsonDecode(response.body)['data'];
         // print("info after decode: "+ info.toString());
@@ -99,10 +99,10 @@ class AuthService {
   static confirm(data) async {
     try {
       // print(data);
-      var url = Uri.parse(baseUrl+'confirm');
+      var url = Uri.parse(baseUrl + 'confirm');
       var body = json.encode(data);
-      print('url: '+url.toString());
-      print('body: ' +body); 
+      print('url: ' + url.toString());
+      print('body: ' + body);
       Map<String, String> headers = {
         'Content-type': 'application/json; charset=UTF-8'
       };

@@ -13,18 +13,16 @@ class SliderModel {
   String? titre;
   String? description;
   String? imageUrl;
-  dynamic? deletedAt;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? url;
+
 
   SliderModel({
     this.id,
     this.titre,
     this.description,
     this.imageUrl,
-    this.deletedAt,
-    this.createdAt,
-    this.updatedAt,
+    this.url,
+
   });
 
   factory SliderModel.fromJson(Map<String, dynamic> json) => SliderModel(
@@ -32,9 +30,7 @@ class SliderModel {
     titre: json["titre"],
     description: json["description"],
     imageUrl: json["image_url"],
-    deletedAt: json["deleted_at"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    url: json["url"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -42,8 +38,6 @@ class SliderModel {
     "titre": titre,
     "description": description,
     "image_url": imageUrl,
-    "deleted_at": deletedAt,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
+    "url": url,
   };
 }

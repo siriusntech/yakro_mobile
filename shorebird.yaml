@@ -5,7 +5,9 @@
 # This is the unique identifier assigned to your app.
 # Your app_id is not a secret and is just used to identify your app
 # when requesting patches from Shorebird's servers.
-app_id: 5c98f3c1-e913-435b-8331-5a088a8e83d8
+app_id: 600c120f-9d66-4424-b4be-1544d7f8091c
+flavors:
+  ._Runner: cf7cb836-c880-4a5d-8616-7c7d1fee707f
 
 # auto_update controls if Shorebird should automatically update in the background on launch.
 # If auto_update: false, you will need to use package:shorebird_code_push to trigger updates.

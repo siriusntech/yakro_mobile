@@ -16,8 +16,8 @@ import 'package:jaime_yakro/app/modules/auth/controllers/auth_controller.dart';
 import 'package:jaime_yakro/app/modules/commerce/commerce_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../main.dart';
-import '../../../Utils/app_constantes.dart';
 import '../../../Utils/app_routes.dart';
 import '../../../controllers/main_controller.dart';
 import '../../../data/repository/actualite_services.dart';
@@ -37,7 +37,7 @@ import '../../diffusion/diffusion_model.dart';
 import '../../hotel/hotel_model_model.dart';
 
 class HomeController extends GetxController {
-    late Timer _timer;
+  late Timer _timer;
   var unReadItemsCountsList = List<Consultation>.empty(growable: true).obs;
   var indexCarousel = 0.obs;
 
@@ -53,7 +53,7 @@ class HomeController extends GetxController {
   var unReadHotelCount = 0.obs;
   var unReadSiteTouristiqueCount = 0.obs;
 
-  var  auth_user = User();
+  var auth_user = User();
 
   var user_id = null;
 
@@ -63,56 +63,17 @@ class HomeController extends GetxController {
 
   final MainController mainCtrl = Get.put(MainController());
 
-   // var sliderList = List<dynamic>.empty(growable: true).obs;
+  // var sliderList = List<dynamic>.empty(growable: true).obs;
   var sliderList = <SliderModel>[].obs;
   // var sliderList = RxList<dynamic>([]); // Utilisation de RxList pour sliderList
   var isDataProcessing = false.obs;
-  var isDataError =false.obs;
-
-  // final ActualiteController actualite_ctrl = Get.put(ActualiteController());
-  // final CommerceController commerce_ctrl = Get.put(CommerceController());
-  // final JobController job_ctrl = Get.put(JobController());
-  // final PharmacieController pharm_ctrl = Get.put(PharmacieController());
-  // final AlerteController alerte_ctrl = Get.put(AlerteController());
-  // final AnnuaireController annuaire_ctrl = Get.put(AnnuaireController());
-  // final HistoriqueController culture_ctrl = Get.put(HistoriqueController());
-  // final DiffusionController bon_plan_ctrl = Get.put(DiffusionController());
-
-
-
-
-  //Service Slider
-/*  void getSlider() {
-    try {
-      const duration = Duration(seconds: 30); // Durée de l'intervalle, par exemple 30 secondes
-      isDataProcessing(true);
-
-      SliderServices.getSliders().then((response) {
-        print(response);
-        if (response is List<SliderModel>) {
-          sliderList.clear();
-          // sliderList.addAll(response);
-          sliderList.assignAll(response); // Utilisation de assignAll() pour mettre à jour la liste
-          isDataProcessing(false);
-          isDataError(false);
-        } else {
-          isDataProcessing(false);
-          isDataError(true);
-        }
-      }, onError: (err) {
-        isDataProcessing(false);
-        isDataError(true);
-      });
-
-    } catch (exception) {
-      isDataProcessing(false);
-      isDataError(true);
-    }
-  }*/
+  var isDataError = false.obs;
+  final lienUrlIn = "https://sdyakro.siriusntech.digital/view-suggestion";
 
   void getSlider() {
     try {
-      const duration = Duration(seconds: 120); // Durée de l'intervalle, par exemple 30 secondes
+      const duration = Duration(
+          seconds: 120); // Durée de l'intervalle, par exemple 30 secondes
       isDataProcessing(true);
 
       void fetchData() {
@@ -120,7 +81,9 @@ class HomeController extends GetxController {
           print(response);
           if (response is List<SliderModel>) {
             sliderList.clear();
-            sliderList.assignAll(response); // Utilisation de assignAll() pour mettre à jour la liste
+            sliderList.assignAll(response);
+            sliderList
+                .shuffle(); // Utilisation de assignAll() pour mettre à jour la liste
             isDataProcessing(false);
             isDataError(false);
           } else {
@@ -145,14 +108,16 @@ class HomeController extends GetxController {
   }
 
   void stopTimer() {
-    _timer?.cancel(); // Arrêt du timer lorsque vous n'avez plus besoin de le rafraîchir
+    _timer
+        ?.cancel(); // Arrêt du timer lorsque vous n'avez plus besoin de le rafraîchir
   }
 
-
-
+  launchUrlIn() {
+    return launchUrl(Uri.parse(lienUrlIn.toString()));
+  }
 
   // SET USER ACCOUNT INFO
-  resetUserInfo() async{
+  resetUserInfo() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setInt('user_id', 0);
     storage.setInt('is_actif', 0);
@@ -161,34 +126,40 @@ class HomeController extends GetxController {
     storage.commit();
   }
 
-  getAuthUserInfo(user_id) async{
-    try{
+  getAuthUserInfo(user_id) async {
+    try {
       final response = await AuthService.getUser(user_id);
-      if(response is Success){
+      if (response is Success) {
         auth_user = response.response as User;
         await checkUpdate(user_id);
-        if(auth_user.id == null || auth_user.id == 0 || auth_user.is_actif == 0 || auth_user.is_actif == null || auth_user.cloud_messaging_token==null || auth_user.cloud_messaging_token==0){
+        if (auth_user.id == null ||
+            auth_user.id == 0 ||
+            auth_user.is_actif == 0 ||
+            auth_user.is_actif == null ||
+            auth_user.cloud_messaging_token == null ||
+            auth_user.cloud_messaging_token == 0) {
           await resetUserInfo();
           Get.offNamed(AppRoutes.AUTH);
         }
       }
-      if(response is Failure){
-        print("Erreur get user info: "+response.errorResponse.toString());
+      if (response is Failure) {
+        print("Erreur get user info: " + response.errorResponse.toString());
       }
-    }catch(ex){
-      print("Exception get user info: "+ex.toString());
+    } catch (ex) {
+      print("Exception get user info: " + ex.toString());
     }
   }
 
   // GET UNREAD ITEMS COUNTS
-  getUnReadItemsCounts() async{
-    try{
+  getUnReadItemsCounts() async {
+    try {
+      print('Je suis dans le getUnReadItemsCounts');
       final response = await ConsultationServices.getAllUnreadsCounts();
-      if(response is Success){
+      if (response is Success) {
         selectedItemsCounts.value = Consultation();
         selectedItemsCounts.value = response.response as Consultation;
       }
-      if(response is Failure){
+      if (response is Failure) {
         selectedItemsCounts.value.un_read_agenda_count = 0;
         selectedItemsCounts.value.un_read_alerte_count = 0;
         selectedItemsCounts.value.un_read_actualite_count = 0;
@@ -197,127 +168,128 @@ class HomeController extends GetxController {
         selectedItemsCounts.value.un_read_sujet_count = 0;
         selectedItemsCounts.value.un_read_hotel_count = 0;
         selectedItemsCounts.value.un_read_siteTouristique_count = 0;
-      
       }
-    }catch(ex){
-       print("getUnReadItemsCounts Error "+ex.toString());
+    } catch (ex) {
+      print("getUnReadItemsCounts Error " + ex.toString());
     }
   }
 
-    // GET UNREAD ACTUALITE COUNT
-  void getUnReadActualiteCount() async{
-    try{
+  // GET UNREAD ACTUALITE COUNT
+  getUnReadActualiteCount() async {
+    try {
       final response = await ActualiteServices.getUnReadActualites();
-      if(response is Success){
+      if (response is Success) {
         final comList = response.response as List<Actualite>;
         unReadActualiteCount.value = comList.length;
       }
-      if(response is Failure){
+      if (response is Failure) {
         unReadActualiteCount.value = 0;
       }
-    }catch(ex){
+    } catch (ex) {
       unReadActualiteCount.value = 0;
     }
   }
 
   // GET UNREAD COMMERCE COUNT
-  void getUnReadCommerceCount() async{
-      try{
-        final response = await CommerceServices.getUnReadCommerces();
-        if(response is Success){
-          final comList = response.response as List<Commerce>;
-          unReadCommerceCount.value = comList.length;
-        }
-        if(response is Failure){
-          unReadCommerceCount.value = 0;
-        }
-      }catch(ex){
+  void getUnReadCommerceCount() async {
+    try {
+      final response = await CommerceServices.getUnReadCommerces();
+      if (response is Success) {
+        final comList = response.response as List<Commerce>;
+        unReadCommerceCount.value = comList.length;
+      }
+      if (response is Failure) {
         unReadCommerceCount.value = 0;
       }
+    } catch (ex) {
+      unReadCommerceCount.value = 0;
+    }
   }
+
   // GET UNREAD DIFFUSION COUNT
-  getUnReadDiffusionCount() async{
-    try{
+  getUnReadDiffusionCount() async {
+    try {
       final response = await DiffusionServices.getUnReadDiffusions();
-      if(response is Success){
+      if (response is Success) {
         unReadDiffusionCount.value = 0;
         final comList = response.response as List<Diffusion>;
         unReadDiffusionCount.value = comList.length;
       }
-      if(response is Failure){
+      if (response is Failure) {
         unReadDiffusionCount.value = 0;
       }
-    }catch(ex){
+    } catch (ex) {
       unReadDiffusionCount.value = 0;
     }
   }
+
   // GET UNREAD AGENDA COUNT
-  void getUnReadAgendaCount() async{
-    try{
+  void getUnReadAgendaCount() async {
+    try {
       final response = await AgendaServices.getUnReadAgendas();
-      if(response is Success){
+      if (response is Success) {
         final comList = response.response as List<Agenda>;
         unReadAgendaCount.value = comList.length;
       }
-      if(response is Failure){
+      if (response is Failure) {
         unReadAgendaCount.value = 0;
       }
-    }catch(ex){
+    } catch (ex) {
       unReadAgendaCount.value = 0;
     }
   }
 
   // GET UNREAD ACTUALITE COUNT
-  void getUnReadHotelCount() async{
-    try{
+  getUnReadHotelCount() async {
+    try {
       final response = await HotelServices.getUnReadHotels();
-      if(response is Success){
+      if (response is Success) {
         final comList = response.response as List<HotelModel>;
         unReadHotelCount.value = comList.length;
       }
-      if(response is Failure){
+      if (response is Failure) {
         unReadHotelCount.value = 0;
       }
-    }catch(ex){
+    } catch (ex) {
       unReadHotelCount.value = 0;
     }
-  }  
+  }
 
-    // GET UNREAD ACTUALITE COUNT
-  void getUnReadVisiteTouristiqueCount() async{
-    try{
-      final response = await VisiteTouristiqueServices.getUnReadVisiteTouristique();
-      if(response is Success){
+  // GET UNREAD ACTUALITE COUNT
+  getUnReadVisiteTouristiqueCount() async {
+    try {
+      final response =
+          await VisiteTouristiqueServices.getUnReadVisiteTouristique();
+      if (response is Success) {
         final comList = response.response as List<VisiteTouristique>;
         unReadSiteTouristiqueCount.value = comList.length;
       }
-      if(response is Failure){
+      if (response is Failure) {
         unReadSiteTouristiqueCount.value = 0;
       }
-    }catch(ex){
+    } catch (ex) {
       unReadSiteTouristiqueCount.value = 0;
     }
   }
 
-
-
-
   var timer;
 
-  getUnReadItemsCountsInRealTime()  async{
+  getUnReadItemsCountsInRealTime() async {
     timer = Timer.periodic(Duration(seconds: 5), (timer) async {
-      // print('hello');
-     await getUnReadItemsCounts();
-     await getUnReadDiffusionCount();
+      print('hello');
+      await getUnReadItemsCounts();
+      await getUnReadDiffusionCount();
+      await getUnReadVisiteTouristiqueCount();
+      await getUnReadHotelCount();
     });
   }
 
-
   // FIREBASE CLOUD MESSAGE AVANT PLAN
-  void onMessageListen(){
+  void onMessageListen() {
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
       playSound();
-      showNotificationSnackBar(event.notification!.title!, event.notification!.body!, event.data['click_action']);
+      showNotificationSnackBar(event.notification!.title!,
+          event.notification!.body!, event.data['click_action']);
       // Future.delayed(Duration(seconds: 20), (){
       //   showLocalNotification();
       // });
@@ -325,18 +297,19 @@ class HomeController extends GetxController {
   }
 
   // FIREBASE CLOUD MESSAGE ARRIERE PLAN
-  void onMessageOpenedAppListen(){
+  void onMessageOpenedAppListen() {
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       playSound();
       // print("msg "+message.toString());
-      showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
+      showNotificationSnackBar(message.notification!.title!,
+          message.notification!.body!, message.data['click_action']);
     });
     // Future.delayed(Duration(seconds: 20), (){
     //     showLocalNotification();
     // });
   }
 
-   refreshData() async {
+  refreshData() async {
     await mainCtrl.checkAppName();
 
     SharedPreferences storage = await SharedPreferences.getInstance();
@@ -347,6 +320,9 @@ class HomeController extends GetxController {
     await mainCtrl.isCocody.value == true ? checkIfAccountis_actif() : null;
 
     await getUnReadItemsCounts();
+    await getUnReadHotelCount();
+    await getUnReadActualiteCount();
+    await getUnReadVisiteTouristiqueCount();
     await getUnReadDiffusionCount();
     await isDataRefreshing(false);
     await checkUpdate(user_id);
@@ -368,7 +344,7 @@ class HomeController extends GetxController {
   var connectivityResult;
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
-  checkConnexion() async{
+  checkConnexion() async {
     connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
       // I am connected to a mobile network.
@@ -376,12 +352,13 @@ class HomeController extends GetxController {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a wifi network.
       print('Connected');
-    }else{
-      showSnackBar("Erreur de connexion", "Aucune connexion internet", Colors.red);
+    } else {
+      showSnackBar(
+          "Erreur de connexion", "Aucune connexion internet", Colors.red);
     }
   }
 
-  observeConnexion(ConnectivityResult result){
+  observeConnexion(ConnectivityResult result) {
     connectivityResult = result;
     if (connectivityResult == ConnectivityResult.mobile) {
       // I am connected to a mobile network.
@@ -389,21 +366,26 @@ class HomeController extends GetxController {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a wifi network.
       print('obs Connected');
-    }else{
-      showSnackBar("Erreur de connexion", "Aucune connexion internet", Colors.red);
+    } else {
+      showSnackBar(
+          "Erreur de connexion", "Aucune connexion internet", Colors.red);
     }
   }
 
   // CHECK USER ACCOUNT
-  checkIfAccountis_actif() async{
+  checkIfAccountis_actif() async {
     await auth_ctrl.loadAuthInfo();
     connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       // print('check account user id '+ auth_ctrl.getUserId.toString());
       await checkUpdate(auth_ctrl.getUserId);
       await getAuthUserInfo(auth_ctrl.getUserId);
 
-      if(auth_user.id == null || auth_user.id == 0 || auth_user.is_actif == 0 || auth_user.is_actif == null){
+      if (auth_user.id == null ||
+          auth_user.id == 0 ||
+          auth_user.is_actif == 0 ||
+          auth_user.is_actif == null) {
         await resetUserInfo();
         Get.offNamed(AppRoutes.AUTH);
       }
@@ -411,11 +393,13 @@ class HomeController extends GetxController {
   }
 
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-   // LOCAL NOTIF
-  void showLocalNotification(){
+  // LOCAL NOTIF
+  void showLocalNotification() {
     playSound();
-    var initialzationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-    var initializationSettings = InitializationSettings(android: initialzationSettingsAndroid);
+    var initialzationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettings =
+        InitializationSettings(android: initialzationSettingsAndroid);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveBackgroundNotificationResponse: onSelectNotification,
         onDidReceiveNotificationResponse: onSelectNotification);
@@ -446,116 +430,111 @@ class HomeController extends GetxController {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
-        showNotificationSnackBar(message.notification!.title!, message.notification!.body!, message.data['click_action']);
+        showNotificationSnackBar(message.notification!.title!,
+            message.notification!.body!, message.data['click_action']);
       }
     });
-
   }
-
 
   var miseAJourModel = MiseAJourModel().obs;
 
   var showUpdateWidget = true.obs;
 
-  closeUpdateWidget(){
+  closeUpdateWidget() {
     showUpdateWidget(false);
   }
 
   // CHECK UPDATE
-  checkUpdate(user_id) async{
+  checkUpdate(user_id) async {
     // print(user_id);
-    try{
+    try {
       final response = await MainServices.checkUpdate(user_id);
-      if(response is Success){
+      if (response is Success) {
         miseAJourModel = MiseAJourModel().obs;
         miseAJourModel.value = response.response as MiseAJourModel;
         // print(miseAJourModel.value.toString());
       }
-      if(response is Failure){
+      if (response is Failure) {
         // print("error de mis a jour "+response.toString());
       }
-    }catch(ex){
-
-    }
+    } catch (ex) {}
   }
+
   // MAKE UPDATE
-  makeUpdate() async{
-    try{
+  makeUpdate() async {
+    try {
       final response = await MainServices.makeUpdate(auth_ctrl.getUserId);
-      if(response is Success){
+      if (response is Success) {
         miseAJourModel = MiseAJourModel().obs;
         miseAJourModel.value = response.response as MiseAJourModel;
         showUpdateWidget(false);
       }
-      if(response is Failure){
-
-      }
-    }catch(ex){
-
-    }
+      if (response is Failure) {}
+    } catch (ex) {}
   }
 
   var tokenTimer;
-  checkCloudMessagingTokenInTime() async{
+  checkCloudMessagingTokenInTime() async {
     tokenTimer = Timer.periodic(Duration(seconds: 8), (timer) async {
       await checkCloudMessagingToken();
     });
   }
 
-  checkCloudMessagingToken()async{
+  checkCloudMessagingToken() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     var cloud_messaging_token = storage.getString('cloud_messaging_token');
-    if(cloud_messaging_token == null || cloud_messaging_token == ''){
-        await setCloudMessagingToken();
+    if (cloud_messaging_token == null || cloud_messaging_token == '') {
+      await setCloudMessagingToken();
     }
   }
+
   // FIREBASE CLOUD MESSAGING CONFIGURATION
   String token = '';
   getToken() async {
     token = (await FirebaseMessaging.instance.getToken())!;
   }
 
-  setCloudMessagingToken() async{
+  setCloudMessagingToken() async {
     await getToken();
-    try{
-      final response = await MainServices.setUserCloudMessagingToken(user_id, token);
-      if(response is Success){
+    try {
+      final response =
+          await MainServices.setUserCloudMessagingToken(user_id, token);
+      if (response is Success) {
         // refresh();
       }
-      if(response is Failure){
+      if (response is Failure) {
         // isDataProcessing(false);
         // print("Erreur "+response.errorResponse.toString());
       }
-    }catch(ex){
+    } catch (ex) {
       // isDataProcessing(false);
       // print("Exception  "+ex.toString());
     }
   }
 
-
   @override
   void onInit() {
     super.onInit();
-     //NOTIF WHEN APP OPENED
-      NotificationServices().showNotificationInBackground();
-      NotificationServices().showNotificationInAppOpened();
+    //NOTIF WHEN APP OPENED
+    NotificationServices().showNotificationInBackground();
+    NotificationServices().showNotificationInAppOpened();
+    NotificationServices().showNotificationDetected();
     // stopTimer();
-    ever(sliderList, (_) => print("La valeur de sliderList a changé"));
 // MAKE APP NEW VERSION UPDATE AUTO
-   
+
     getSlider();
     checkConnexion();
-    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      observeConnexion(result);}
-      );
-
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      observeConnexion(result);
+    });
 
     refreshData();
     onMessageListen();
     onMessageOpenedAppListen();
-    checkAppForUpdate();
+    // checkAppForUpdate();
   }
-
 
   @override
   void onReady() {
@@ -576,101 +555,51 @@ class HomeController extends GetxController {
     // checkUpdate();
   }
 
-
-  /* CHECK UPDATE FOR PACKAGE NEW VERSION */
-    // // CHECK UPDATE
-    // checkNewVersion() async{
-    //   // Instantiate NewVersion manager object (Using GCP Console app as example)
-    //   final newVersion = NewVersion(
-    //     // iOSId: 'com.google.Vespa',
-    //     // androidId: 'com.google.android.apps.cloudconsole',
-    //     androidId: 'com.siriusntech.jaime_yakro',
-    //   );
-    //
-    //   await advancedStatusCheck(newVersion);
-    //
-    //   // // You can let the plugin handle fetching the status and showing a dialog,
-    //   // // or you can fetch the status and display your own dialog, or no dialog.
-    //   // const simpleBehavior = true;
-    //   //
-    //   // if (simpleBehavior) {
-    //   //   basicStatusCheck(newVersion);
-    //   // } else {
-    //   //   advancedStatusCheck(newVersion);
-    //   // }
-    // }
-    //
-    // basicStatusCheck(NewVersion newVersion) {
-    //   newVersion.showAlertIfNecessary(context: Get.context!);
-    // }
-    //
-    // advancedStatusCheck(NewVersion newVersion) async {
-    //   final status = await newVersion.getVersionStatus();
-    //   if (status != null) {
-    //     newVersion.showUpdateDialog(
-    //       context: Get.context!,
-    //       versionStatus: status,
-    //       dialogTitle: 'Mise à jour',
-    //       dialogText: 'Nouvelles fonctionnalités disponible',
-    //       updateButtonText: 'Effectuer la mise à jour',
-    //       allowDismissal: false,
-    //       dismissButtonText: 'Annuler',
-    //       dismissAction: () => functionToRunAfterDialogDismissed(),
-    //     );
-    //   }
-    // }
-    //
-    // functionToRunAfterDialogDismissed(){
-    //   Get.back();
-    // }
-  /* END CHECK UPDATE FOR PACKAGE NEW VERSION */
-
   /* CHECK UPDATE FOR PACKAGE in_app_update */
-      AppUpdateInfo? updateInfo;
+  AppUpdateInfo? updateInfo;
 
-      // Platform messages are asynchronous, so we initialize in an async method.
-      Future<void> checkAppForUpdate() async {
-        InAppUpdate.checkForUpdate().then((info) {
-          updateInfo = info;
-          updateApp();
-        }).catchError((e) {
-          print("in_app_update check update error "+e.toString());
-        });
-      }
+  // Platform messages are asynchronous, so we initialize in an async method.
+  // Future<void> checkAppForUpdate() async {
+  //   InAppUpdate.checkForUpdate().then((info) {
+  //     updateInfo = info;
+  //     updateApp();
+  //   }).catchError((e) {
+  //     print("in_app_update check update error " + e.toString());
+  //   });
+  // }
 
-      updateApp(){
-        updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
-            ? () {
-            InAppUpdate.startFlexibleUpdate().then((_) {
-
-          }).catchError((e) {
-              print("in_app_update make update error "+e.toString());
-          });
-        } : null;
-      }
+  updateApp() {
+    updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
+        ? () {
+            InAppUpdate.startFlexibleUpdate().then((_) {}).catchError((e) {
+              print("in_app_update make update error " + e.toString());
+            });
+          }
+        : null;
+  }
   /* END CHECK UPDATE FOR PACKAGE in_app_update */
 
-
   // Share app
-  void ShareAppLink() async{
-    Share.share('https://siriusntech.com/app/jaime_yakro', subject: "Application J'aime Yakro");
+  void ShareAppLink() async {
+    Share.share('https://siriusntech.com/app/jaime_yakro',
+        subject: "Application J'aime Yakro");
   }
 
   // ADD VISITE
-  addVisiteCount(module) async{
-    try{
+  addVisiteCount(module) async {
+    try {
+
       final response = await MainServices.addVisiteCount(module, user_id);
-      if(response is Success){
-         refresh();
+      if (response is Success) {
+        refresh();
       }
-      if(response is Failure){
-        // isDataProcessing(false);
-        // print("Erreur "+response.errorResponse.toString());
+      if (response is Failure) {
+        isDataProcessing(false);
+        print("Erreur addVisiteCount " + response.errorResponse.toString());
       }
-    }catch(ex){
-      // isDataProcessing(false);
-      // print("Exception  "+ex.toString());
+    } catch (ex) {
+      isDataProcessing(false);
+      print("Exception addVisiteCount " + ex.toString());
     }
   }
-
 }

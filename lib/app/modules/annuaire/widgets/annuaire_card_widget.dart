@@ -111,28 +111,31 @@ class AnnuaireCardWidget extends StatelessWidget {
                               ),
                             ),
                                 SizedBox(height:20.0,),
-                                InkWell(
-                              onTap: (){
-                                controller.showAlerte(annuaire.contact2.toString());
-                              },
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                      child: Image.asset(ICON_TELEPHONE, width: 20, height: 20,),
-                                  ),
-                                  SizedBox(width: 3,),
-                                  Flexible(
-                                      child: Text(annuaire.contact2.toString(),
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.blue
-                                        ),
-                                      )
-                                  ),
-                                ],
-                              ),
-                            ),
+                                Visibility(
+                                  visible: annuaire.contact2 != null && annuaire.contact2 != "",
+                                  child: InkWell(
+                                                              onTap: (){
+                                  controller.showAlerte(annuaire.contact2.toString());
+                                                              },
+                                                              child: Row(
+                                  children: [
+                                    Flexible(
+                                        child: Image.asset(ICON_TELEPHONE, width: 20, height: 20,),
+                                    ),
+                                    SizedBox(width: 3,),
+                                    Flexible(
+                                        child: Text(annuaire.contact2.toString(),
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.blue
+                                          ),
+                                        )
+                                    ),
+                                  ],
+                                                              ),
+                                                            ),
+                                ),
                           ],
                         ),
                       ),

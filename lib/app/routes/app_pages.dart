@@ -117,16 +117,16 @@ class AppPages {
       page: () => AgendaView(),
       binding: AgendaBinding(),
     ),
-    // GetPage(
-    //   name: _Paths.COMMERCE,
-    //   page: () => CommerceView(),
-    //   binding: CommerceBinding(),
-    // ),
-    // GetPage(
-    //   name: _Paths.SHOW_COMMERCE,
-    //   page: () => CommerceShowView(),
-    //   binding: CommerceBinding(),
-    // ),
+    GetPage(
+      name: _Paths.COMMERCE,
+      page: () => CommerceView(),
+      binding: CommerceBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOW_COMMERCE,
+      page: () => CommerceShowView(),
+      binding: CommerceBinding(),
+    ),
     GetPage(
       name: _Paths.SHOW_AGENDA,
       page: () => AgendaShowView(),

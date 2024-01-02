@@ -1,31 +1,27 @@
-import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:jaime_yakro/app/Utils/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jaime_yakro/app/Utils/app_routes.dart';
-
 import '../../../data/repository/auth_service.dart';
 import '../../../data/repository/data/api_status.dart';
 import '../user_model.dart';
 import '../../../widgets/alerte_widgets.dart';
 
 class AuthController extends GetxController {
+  var user_id = 0.obs;
+  var code = 0.obs;
+  var is_actif = 0.obs;
 
-  var  user_id = 0.obs;
-  var  code = 0.obs;
-  var  is_actif = 0.obs;
+  var token = ''.obs;
+  var nom = ''.obs;
+  var prenom = ''.obs;
+  var pseudo = ''.obs;
+  var email = ''.obs;
+  var contact = ''.obs;
 
-  var  token = ''.obs;
-  var  nom = ''.obs;
-  var  prenom = ''.obs;
-  var  pseudo = ''.obs;
-  var  email = ''.obs;
-  var  contact = ''.obs;
-
- 
+  var load = false.obs;
 
   String cloud_messaging_token = "";
 
@@ -39,7 +35,7 @@ class AuthController extends GetxController {
   get getUseris_actif => is_actif.value;
   get getUserCode => code.value;
 
-  var  user = User().obs;
+  var user = User().obs;
   var usersList = List<User>.empty(growable: true).obs;
 
   final formkey = GlobalKey<FormState>();
@@ -59,10 +55,10 @@ class AuthController extends GetxController {
   FocusNode code_3FocusNode = new FocusNode();
   FocusNode code_4FocusNode = new FocusNode();
 
-
- // Méthode pour valider le formulaire
+  // Méthode pour valider le formulaire
   bool isValid() {
-    return txtPseudoController.text.isNotEmpty && txtContactController.text.isNotEmpty;
+    return txtPseudoController.text.isNotEmpty &&
+        txtContactController.text.isNotEmpty;
   }
 
   var step = 1.obs;
@@ -83,7 +79,8 @@ En utilisant "J'aime Yakro", vous acceptez également notre Politique de Confide
 
 Veuillez noter que ces documents peuvent faire l'objet de mises à jour. Pour toute question concernant notre Politique de Confidentialité ou nos Conditions d'Utilisation, n'hésitez pas à nous contacter à l'adresse fournie dans l'application.""";
 
-  var politique = """Bienvenue dans la Politique de Confidentialité de l'application "J'aime Yakro". Cette politique régit comment vos informations personnelles sont collectées, utilisées et partagées lorsque vous utilisez notre application mobile. Votre utilisation de l'application signifie que vous acceptez ces pratiques.
+  var politique =
+      """Bienvenue dans la Politique de Confidentialité de l'application "J'aime Yakro". Cette politique régit comment vos informations personnelles sont collectées, utilisées et partagées lorsque vous utilisez notre application mobile. Votre utilisation de l'application signifie que vous acceptez ces pratiques.
 
 Collecte d'Informations
 
@@ -114,58 +111,61 @@ Nous prenons la sécurité de vos informations personnelles au sérieux. Des mes
   var isChecked = false.obs;
 
   Color getColor() {
-    return isChecked.value == true ? AppColors.vert_color_fonce : AppColors.rouge_doux;
+    return isChecked.value == true
+        ? AppColors.vert_color_fonce
+        : AppColors.rouge_doux;
   }
 
-  accepteConditions(bool cond){
+  accepteConditions(bool cond) {
     isChecked.value = cond;
   }
 
-
-  onLoad() async{
+  onLoad() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.clear();
   }
 
-
-  checkPseudo() async{
+  checkPseudo() async {
     await getUsers();
     var userIndex = -1;
-    userIndex = usersList.indexWhere((element) => element.pseudo == txtPseudoController.text);
-    if(userIndex != -1){
+    userIndex = usersList
+        .indexWhere((element) => element.pseudo == txtPseudoController.text);
+    if (userIndex != -1) {
       final User user = usersList[userIndex];
-      if(user.contact != txtContactController.text){
+      if (user.contact != txtContactController.text) {
         // print(user.contact);
         // print(txtContactController.text);
         return true;
-      }else{
+      } else {
         return false;
       }
     } else {
       return false;
     }
   }
-  checkis_actif(pseudo) async{
+
+  checkis_actif(pseudo) async {
     await getUsers();
     var userIndex = -1;
     userIndex = usersList.indexWhere((element) => element.pseudo == pseudo);
-    if(userIndex != -1){ // IF PSEUDO EXISTE
+    if (userIndex != -1) {
+      // IF PSEUDO EXISTE
       final User user = usersList[userIndex];
-      if(user.contact == txtContactController.text){
-        if(user.is_actif == 1){
+      if (user.contact == txtContactController.text) {
+        if (user.is_actif == 1) {
           return true;
-        }else{
+        } else {
           return false;
         }
       }
-    }else{
+    } else {
       return true;
     }
   }
 
   setStep(stp) => step.value = stp;
 
-  initTextFields(BuildContext context){
+  initTextFields(BuildContext context) {
     txtCode_4.clear();
     txtCode_3.clear();
     txtCode_2.clear();
@@ -174,7 +174,7 @@ Nous prenons la sécurité de vos informations personnelles au sérieux. Des mes
     FocusScope.of(context).requestFocus(code_1FocusNode);
   }
 
-  resetUserInfo() async{
+  resetUserInfo() async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setInt('user_id', 0);
     storage.setInt('code', 0);
@@ -217,117 +217,133 @@ Nous prenons la sécurité de vos informations personnelles au sérieux. Des mes
     setContact(storage.getString('contact'));
   }
 
-
-  setUsersList(List<User> p_users){
+  setUsersList(List<User> p_users) {
     usersList.addAll(p_users);
   }
-  setUserId(int? p_id){
+
+  setUserId(int? p_id) {
     user_id.value = p_id != null ? p_id : 0;
     // print('id '+user_id.value.toString());
   }
-  setCode(int? p_code){
+
+  setCode(int? p_code) {
     code.value = p_code != null ? p_code : 0;
   }
-  setis_actif(int? p_actif) async{
+
+  setis_actif(int? p_actif) async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setInt('is_actif', p_actif != null ? p_actif : 0);
     is_actif.value = p_actif != null ? p_actif : 0;
     // print('is actif '+is_actif.value.toString());
   }
-  setToken(String? p_token){
+
+  setToken(String? p_token) {
     token.value = p_token != null ? p_token : '';
   }
-  setNom(String? p_nom) async{
+
+  setNom(String? p_nom) async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setString('nom', p_nom != null ? p_nom : '');
     nom.value = p_nom != null ? p_nom : '';
   }
-  setPrenom(String? p_prenom) async{
+
+  setPrenom(String? p_prenom) async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setString('prenom', p_prenom != null ? p_prenom : '');
     prenom.value = p_prenom != null ? p_prenom : '';
   }
-  setPseudo(String? p_pseudo){
+
+  setPseudo(String? p_pseudo) {
     pseudo.value = p_pseudo != null ? p_pseudo : '';
   }
-  setEmail(String? p_email) async{
+
+  setEmail(String? p_email) async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setString('email', p_email != null ? p_email : '');
     email.value = p_email != null ? p_email : '';
   }
-  setContact(String? p_contact) async{
+
+  setContact(String? p_contact) async {
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setString('contact', p_contact != null ? p_contact : '');
     contact.value = p_contact != null ? p_contact : '';
   }
-  setUser(User puser){
+
+  setUser(User puser) {
     user.value = puser;
   }
-  setCloudMessagingToken(String? token)async{
+
+  setCloudMessagingToken(String? token) async {
     cloud_messaging_token = token.toString();
     SharedPreferences storage = await SharedPreferences.getInstance();
     storage.setString('cloud_messaging_token', cloud_messaging_token);
     storage.commit();
   }
-  verifyAccount(){
 
-  }
+  verifyAccount() {}
   getUsers() async {
-    try{
+    try {
       await loadAuthInfo();
       var response = await AuthService.getUsers();
-      if(response is Success){
+      if (response is Success) {
         // print('Success');
         usersList.clear();
         setUsersList(response.response as List<User>);
       }
-      if(response is Failure){
-        print("Erreur "+response.errorResponse.toString());
+      if (response is Failure) {
+        print("Erreur " + response.errorResponse.toString());
       }
-    }catch(ex){
-      print("Exception  "+ex.toString());
+    } catch (ex) {
+      print("Exception  " + ex.toString());
     }
   }
-  getUserInfo() async {
-    try{
-      var response = await AuthService.getUser(getUserId);
-      if(response is Success){
-        setUser(response.response as User);
 
+  getUserInfo() async {
+    try {
+      var response = await AuthService.getUser(getUserId);
+      if (response is Success) {
+        setUser(response.response as User);
         setUserId(user.value.id);
         setPseudo(user.value.pseudo);
         setContact(user.value.contact);
         setCode(user.value.code);
         setis_actif(user.value.is_actif);
       }
-      if(response is Failure){
+      if (response is Failure) {
         // print("Erreur "+response.errorResponse.toString());
       }
-    }catch(ex){
+    } catch (ex) {
       // print("Exception  "+ex.toString());
     }
   }
-  register(Map data) async{
-    if(isChecked.value == false){
-      showAlerte('Information importante', "Veuillez lire et accepter la politique de confidentialité et les conditions d'utilisations.");
+
+  register(Map data) async {
+    load.value = true;
+    if (isChecked.value == false) {
+      showAlerte('Information importante',
+          "Veuillez lire et accepter la politique de confidentialité et les conditions d'utilisations.");
       return;
     }
     isProcessing(true);
-    try{
+    try {
       var _pseudoExist = await checkPseudo();
       var _is_actif = await checkis_actif(txtPseudoController.text);
-      if(_pseudoExist == true){
+      if (_pseudoExist == true) {
         isProcessing(false);
-         showAlerte('Alerte', 'Désolé ce pseudo existe déjà');
-         return;
+        showAlerte('Alerte', 'Désolé ce pseudo existe déjà');
+        load.value = false;
+        return;
       }
-      if(_is_actif == false){
+      if (_is_actif == false) {
         isProcessing(false);
-        showAlerte('Compte désactivé', "Désolé votre compte est temporairement désactivé.");
+        showAlerte('Compte désactivé',
+            "Désolé votre compte est temporairement désactivé.");
+        load.value = false;
+
         return;
       }
       var response = await AuthService.register(data);
-      if(response is Success){
+      if (response is Success) {
         isProcessing(false);
         setUser(response.response as User);
         setPseudo(user.value.pseudo);
@@ -335,30 +351,38 @@ Nous prenons la sécurité de vos informations personnelles au sérieux. Des mes
         setContact(user.value.contact);
         setCode(user.value.code);
         setis_actif(user.value.is_actif);
-        if(user.value.account_exist == 1){
+        if (user.value.account_exist == 1) {
           iniAuthInfo();
+          load.value = false;
           Get.offNamed(AppRoutes.HOME);
         } else {
+          load.value = false;
+
           setStep(2);
         }
       }
-      if(response is Failure){
+      if (response is Failure) {
         isProcessing(false);
-        showSnackBar("Echec d'authentification", response.errorResponse.toString(), Colors.red);
+        showSnackBar("Echec d'authentification",
+            response.errorResponse.toString(), Colors.red);
+        load.value = false;
+
         // print("Erreur "+response.errorResponse.toString());
       }
-    }catch(ex){
+    } catch (ex) {
       isProcessing(false);
+      load.value = false;
       // print("Exception  "+ex.toString());
       showSnackBar("Echec d'authentification", ex.toString(), Colors.red);
     }
   }
-  confirm(Map data) async{
+
+  confirm(Map data) async {
     // showAlerte('Information', 'Confirmation');
     isProcessing(true);
-    try{
+    try {
       var response = await AuthService.confirm(data);
-      if(response is Success){
+      if (response is Success) {
         isProcessing(false);
         setUser(response.response as User);
 
@@ -372,12 +396,13 @@ Nous prenons la sécurité de vos informations personnelles au sérieux. Des mes
         iniAuthInfo();
         Get.offNamed(AppRoutes.HOME);
       }
-      if(response is Failure){
+      if (response is Failure) {
         isProcessing(false);
         // print("Erreur "+response.errorResponse.toString());
-        showSnackBar("Echec de confirmation", response.errorResponse.toString(), Colors.red);
+        showSnackBar("Echec de confirmation", response.errorResponse.toString(),
+            Colors.red);
       }
-    }catch(ex){
+    } catch (ex) {
       isProcessing(false);
       // print("Exception  "+ex.toString());
       showSnackBar("Echec d'authentification", ex.toString(), Colors.red);
@@ -387,7 +412,7 @@ Nous prenons la sécurité de vos informations personnelles au sérieux. Des mes
   // FIREBASE CLOUD MESSAGING CONFIGURATION
   late FirebaseMessaging messaging;
 
-  initCloudMessaging() async{
+  initCloudMessaging() async {
     messaging = FirebaseMessaging.instance;
 
     NotificationSettings settings = await messaging.requestPermission(
@@ -402,12 +427,11 @@ Nous prenons la sécurité de vos informations personnelles au sérieux. Des mes
 
     // print('User granted permission: ${settings.authorizationStatus}');
 
-    messaging.getToken().then((value) async{
+    messaging.getToken().then((value) async {
       await setCloudMessagingToken(value.toString());
       // print('Cloud Messaging Token: '+value.toString());
     });
   }
-
 
   @override
   void onInit() {
@@ -422,24 +446,26 @@ Nous prenons la sécurité de vos informations personnelles au sérieux. Des mes
   }
 
   @override
-  void onClose() {
+  void onClose() {}
 
-  }
-
-  String? validContact(value){
-    if (value == null || value.isEmpty) return 'Numéro de téléphone obligatoire svp';
-    if (value.length != 10) return 'Numéro de téléphone doit etre de 10 chiffre svp';
+  String? validContact(value) {
+    if (value == null || value.isEmpty)
+      return 'Numéro de téléphone obligatoire svp';
+    if (value.length != 10)
+      return 'Numéro de téléphone doit etre de 10 chiffre svp';
     return null;
   }
-  String? validPseudo(value){
+
+  String? validPseudo(value) {
     if (value == null || value.isEmpty) return 'Entrer un nom utilisateur svp';
     if (value.length == 1) return 'Nom utilisateur trop court';
     return null;
   }
-  void checkForm(){
+
+  void checkForm() {
     final isValid = formkey.currentState!.validate();
-    if(isValid){
-      return ;
+    if (isValid) {
+      return;
     }
     formkey.currentState!.save();
   }

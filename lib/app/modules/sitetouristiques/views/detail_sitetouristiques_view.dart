@@ -18,8 +18,8 @@ class DetailSitetouristiquesView extends GetView {
   Widget build(BuildContext context) {
     SitetouristiquesController sitetouristiquesController = Get.put(SitetouristiquesController());
     final MainController settingsCtrl = Get.find();
-     List listMedia =  data.medias.map((element) {
-     return element?.url;
+     List listMedia =  data.vtMedias.map((element) {
+     return element.url;
     }).toList();
     return Scaffold(
       appBar: AppBar(
@@ -82,7 +82,7 @@ class DetailSitetouristiquesView extends GetView {
                     Text(data.description!, style: TextStyle(fontSize: 16.0),),
                     SizedBox(height: 35),
                     TextField(
-                      controller: TextEditingController(text: '${data.typeQuartierVtLieu}'),
+                      controller: TextEditingController(text: '${data.typeQuartierVtId}'),
                       enabled: false,
                       decoration: InputDecoration(
                         labelText: 'Lieu',

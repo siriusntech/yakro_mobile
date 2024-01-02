@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-
 
 import '../../../Utils/app_constantes.dart';
 import '../../../controllers/main_controller.dart';
@@ -46,6 +44,7 @@ class _SplashViewState extends State<SplashView> {
                     height: 230,
                     child: Image.asset(LOGO_BLANC, fit: BoxFit.contain),
                   ),
+                  Text("je teste"),
                 ],
               ),
             ),

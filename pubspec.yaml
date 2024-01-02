@@ -1,5 +1,5 @@
 name: jaime_yakro
-version: 1.0.5
+version: 1.0.11
 publish_to: none
 description: App commune.
 environment: 
@@ -25,13 +25,13 @@ dependencies:
   video_player: ^2.4.2
   connectivity_plus: ^2.3.0
   top_snackbar_flutter: ^1.1.1
-  cached_network_image: ^3.0.0
+  cached_network_image: ^3.3.0
   photo_view: ^0.14.0
   image_picker_android: 0.8.4+13
   pusher_client: ^2.0.0
   path_provider: ^2.0.11
-  firebase_messaging: ^14.2.0
-  firebase_core: ^2.4.0
+  firebase_messaging: ^14.7.9
+  firebase_core: ^2.24.2
   firebase_analytics: ^10.0.8
   flutter_local_notifications: ^13.0.0
   assets_audio_player: ^3.0.6
@@ -54,6 +54,8 @@ dependencies:
   change_app_package_name: ^1.1.0
   file_picker: ^5.0.1
   flutter_datetime_picker_plus: ^2.0.1
+  flutter_rating_bar: ^4.0.1
+  cloud_firestore: ^4.13.6
 
 dev_dependencies: 
   flutter_lints: ^1.0.0
@@ -150,6 +152,7 @@ flutter:
     - assets/images/images_incident.png
     - assets/images/job_annonces.jpg
     - assets/images/publicites.jpeg
+    - assets/images/www.png
     - shorebird.yaml
 
   # An image asset can refer to one or more resolution-specific "variants", see

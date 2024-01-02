@@ -7,19 +7,19 @@ String commerceTypeToJson(List<CommerceType> data) => json.encode(List<dynamic>.
 
 class CommerceType {
   int? id;
-  String? nom;
+  String? nom_type;
 
-  CommerceType({this.id, this.nom});
+  CommerceType({this.id, this.nom_type});
 
   CommerceType.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    nom = json['nom'];
+    nom_type = json['nom_type'];
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['id'] = id;
-    data['nom'] = nom;
+    data['nom_type'] = nom_type;
     return data;
   }
 }

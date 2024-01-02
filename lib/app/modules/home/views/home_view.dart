@@ -37,8 +37,9 @@ class HomeView extends GetView<HomeController> {
   final PharmacieController pharm_ctrl = Get.put(PharmacieController());
   final AlerteController alerte_ctrl = Get.put(AlerteController());
   final AnnuaireController annuaire_ctrl = Get.put(AnnuaireController());
-  final SitetouristiquesController vt_ctrl = Get.put(SitetouristiquesController());
-    final HotelController hotel_ctrl = Get.put(HotelController());
+  final SitetouristiquesController vt_ctrl =
+      Get.put(SitetouristiquesController());
+  final HotelController hotel_ctrl = Get.put(HotelController());
   final HistoriqueController culture_ctrl = Get.put(HistoriqueController());
   final DiffusionController bon_plan_ctrl = Get.put(DiffusionController());
 
@@ -53,8 +54,6 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    late var infosImage;
-    SliderController sliderController = Get.put(SliderController());
     return Obx(() => mainCtrl.isSettingProcessing.value == true
         ? Loading()
         : Scaffold(
@@ -75,6 +74,13 @@ class HomeView extends GetView<HomeController> {
                   color: mainCtrl.vert_color_fonce,
                   action: () async {
                     await controller.refreshHome();
+                  },
+                ),
+                NotificationWidget(
+                  icon: Icons.mic,
+                  color: mainCtrl.vert_color_fonce,
+                  action: () async {
+                    await controller.launchUrlIn();
                   },
                 ),
                 NotificationWidget(
@@ -125,7 +131,7 @@ class HomeView extends GetView<HomeController> {
                                         data: controller.sliderList[
                                             controller.indexCarousel.value]),
                                   );
-                                  sliderController.getSliderRecup(infosImage);
+                                  
                                 },
                                 child: CarouselSlider(
                                   options: CarouselOptions(
@@ -140,12 +146,12 @@ class HomeView extends GetView<HomeController> {
                                     autoPlayCurve: Curves.easeInOutSine,
                                     enlargeCenterPage: true,
                                   ),
-                                  items: generateSlider(
-                                      controller.sliderList.map((e) {
-                                    print(' testObjet' + e.toString());
-                                    infosImage = e.toString();
-                                    return e.imageUrl;
-                                  }).toList()),
+                                  items: [
+                                    ...controller.sliderList.map(
+                                      (element) => itemCarousel(
+                                          element.imageUrl!, context),
+                                    )
+                                  ],
                                 ),
                               ),
                             ],
@@ -210,21 +216,6 @@ class HomeView extends GetView<HomeController> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Flexible(
-                                        child: MenuWidget(
-                                        width: (Get.width / 2) - 20,
-                                        height: 120,
-                                        color: mainCtrl.vert_color_fonce,
-                                        title: 'Commerces et autres',
-                                        icon: MENU_HISTORIQUE,
-                                        enabled: true,
-                                        itemCount: controller
-                                            .selectedItemsCounts
-                                            .value
-                                            .un_read_sujet_count,
-                                        action: () async {},
-                                      )
-                                    ),
-                                      Flexible(
                                           child: MenuWidget(
                                               width: (Get.width / 2) - 20,
                                               height: 120,
@@ -233,14 +224,36 @@ class HomeView extends GetView<HomeController> {
                                               icon: HOTEL,
                                               enabled: true,
                                               itemCount: controller
-                                            .selectedItemsCounts
-                                            .value
-                                            .un_read_hotel_count,
+                                                  .selectedItemsCounts
+                                                  .value
+                                                  .un_read_hotel_count,
                                               action: () async {
+                                                    controller.addVisiteCount('hotels');
+                                                   hotel_ctrl.refreshData();
                                                 Get.toNamed(Routes.HOTEL);
-                                                hotel_ctrl.refreshData();
-                                                if(await MainServices.checkUserIsExclude() == false){
-                                                  controller.addVisiteCount('hotels');
+
+                                                
+                                              })),
+                                      Flexible(
+                                          child: MenuWidget(
+                                              width: (Get.width / 2) - 20,
+                                              height: 120,
+                                              color: mainCtrl.menuColor,
+                                              title: 'Bons plans',
+                                              icon: MENU_BON_PLAN,
+                                              enabled: true,
+                                              itemCount: controller
+                                                  .unReadDiffusionCount.value,
+                                              action: () async {
+                                                //  controller.addDiffusionVisiteCount();
+                                                Get.toNamed(
+                                                    AppRoutes.DIFFUSION);
+                                                bon_plan_ctrl.refreshData();
+                                                if (await MainServices
+                                                        .checkUserIsExclude() ==
+                                                    false) {
+                                                  controller.addVisiteCount(
+                                                      'bon_plan');
                                                 }
                                               })),
                                       Flexible(
@@ -248,20 +261,21 @@ class HomeView extends GetView<HomeController> {
                                               width: (Get.width / 2) - 20,
                                               height: 120,
                                               color: mainCtrl.vert_color_fonce,
-                                              title: 'Annuaires',
-                                              icon: MENU_INFORMATION,
+                                              title: 'Restaurants et Maquis',
+                                              icon: RESTAURANT,
                                               enabled: true,
+                                              itemCount: controller
+                                                  .unReadCommerceCount.value,
                                               action: () async {
-                                                // controller.addAnnuaireVisiteCount();
-                                                Get.toNamed(AppRoutes.ANNUAIRE);
-                                                annuaire_ctrl.refreshData();
+                                                Get.toNamed(Routes.RESTAURANT);
+                                                restaurant_ctrl.refreshData();
                                                 if (await MainServices
                                                         .checkUserIsExclude() ==
                                                     false) {
                                                   controller.addVisiteCount(
-                                                      'annuaire');
+                                                      'commerce');
                                                 }
-                                              })),
+                                              }))
                                     ],
                                   ),
                                   SizedBox(height: 20),
@@ -289,6 +303,29 @@ class HomeView extends GetView<HomeController> {
                                               })),
                                       Flexible(
                                           child: MenuWidget(
+                                        width: (Get.width / 2) - 20,
+                                        height: 120,
+                                        color: mainCtrl.vert_color_fonce,
+                                        title: 'Commerces et autres',
+                                        icon: MENU_COMMERCE,
+                                        enabled: true,
+                                        itemCount: controller
+                                            .selectedItemsCounts
+                                            .value
+                                            .un_read_commerce_count,
+                                        action: () async {
+                                          Get.toNamed(Routes.COMMERCE);
+                                          commerce_ctrl.refreshData();
+                                          if (await MainServices
+                                                  .checkUserIsExclude() ==
+                                              false) {
+                                            controller.addVisiteCount(
+                                                'autresCommerce');
+                                          }
+                                        },
+                                      )),
+                                      Flexible(
+                                          child: MenuWidget(
                                               width: (Get.width / 2) - 20,
                                               height: 120,
                                               color: mainCtrl.vert_color_fonce,
@@ -296,32 +333,20 @@ class HomeView extends GetView<HomeController> {
                                               icon: VT,
                                               enabled: true,
                                               itemCount: controller
-                                              .selectedItemsCounts
-                                              .value
-                                              .un_read_siteTouristique_count,
+                                                  .selectedItemsCounts
+                                                  .value
+                                                  .un_read_siteTouristique_count,
                                               action: () async {
                                                 Get.toNamed(
                                                     Routes.SITETOURISTIQUES);
                                                 vt_ctrl.refreshData();
-                                                if(await MainServices.checkUserIsExclude() == false){
-                                                  controller.addVisiteCount('visites_touristiques');
+                                                if (await MainServices
+                                                        .checkUserIsExclude() ==
+                                                    false) {
+                                                  controller.addVisiteCount(
+                                                      'visites_touristiques');
                                                 }
                                               })),
-                                          Flexible(
-                                          child: MenuWidget(
-                                              width: (Get.width / 2) - 20,
-                                              height: 120,
-                                              color: mainCtrl.vert_color_fonce,
-                                              title: 'Restaurants et Maquis',
-                                              icon: RESTAURANT,
-                                              enabled: true,
-                                              action: () async {
-                                                Get.toNamed(Routes.RESTAURANT);
-                                                restaurant_ctrl.refreshData();
-                                                if(await MainServices.checkUserIsExclude() == false){
-                                                  controller.addVisiteCount('commerce');
-                                                }
-                                              }))
                                     ],
                                   ),
                                   SizedBox(height: 20),
@@ -329,28 +354,6 @@ class HomeView extends GetView<HomeController> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Flexible(
-                                          child: MenuWidget(
-                                              width: (Get.width / 2) - 20,
-                                              height: 120,
-                                              color: mainCtrl.menuColor,
-                                              title: 'Bons plans',
-                                              icon: MENU_BON_PLAN,
-                                              enabled: true,
-                                              itemCount:controller
-                                                  .unReadDiffusionCount.value,
-                                              action: () async {
-                                              //  controller.addDiffusionVisiteCount();
-                                                Get.toNamed(
-                                                    AppRoutes.DIFFUSION);
-                                                bon_plan_ctrl.refreshData();
-                                                if (await MainServices
-                                                        .checkUserIsExclude() ==
-                                                    false) {
-                                                  controller.addVisiteCount(
-                                                      'bon_plan');
-                                                }
-                                              })),
                                       Flexible(
                                           child: MenuWidget(
                                         width: (Get.width / 2) - 20,
@@ -390,10 +393,34 @@ class HomeView extends GetView<HomeController> {
                                                 // controller.addAlerteVisiteCount();
                                                 Get.toNamed(AppRoutes.ALERTE);
                                                 alerte_ctrl.refreshData();
-                                                if (await MainServices.checkUserIsExclude() ==
+                                                if (await MainServices
+                                                        .checkUserIsExclude() ==
                                                     false) {
                                                   controller
                                                       .addVisiteCount('alerte');
+                                                }
+                                              })),
+                                      Flexible(
+                                          child: MenuWidget(
+                                              width: (Get.width / 2) - 20,
+                                              height: 120,
+                                              color: mainCtrl.vert_color_fonce,
+                                              title: 'Annuaires',
+                                              icon: MENU_INFORMATION,
+                                              enabled: true,
+                                              itemCount: controller
+                                                  .selectedItemsCounts
+                                                  .value
+                                                  .un_read_agenda_count,
+                                              action: () async {
+                                                controller.addVisiteCount('annuaire');
+                                                Get.toNamed(AppRoutes.ANNUAIRE);
+                                                annuaire_ctrl.refreshData();
+                                                if (await MainServices
+                                                        .checkUserIsExclude() ==
+                                                    false) {
+                                                  controller.addVisiteCount(
+                                                      'annuaire');
                                                 }
                                               })),
                                     ],
@@ -484,4 +511,22 @@ List<Widget> generateSlider(List item) {
     );
   }).toList();
   return imageSliders;
+}
+
+Widget itemCarousel(String imageUrl, BuildContext context) {
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    margin: EdgeInsets.symmetric(horizontal: 5.0),
+    decoration: BoxDecoration(
+        // color: AppColors.vert_color,
+        ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(18.0)),
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        width: Get.width,
+      ),
+    ),
+  );
 }
