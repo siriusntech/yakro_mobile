@@ -1,0 +1,14 @@
+export 'controllers/reduction_screen_controller.dart';
+export 'bindings/reduction_screen_binding.dart';
+export 'views/reduction_screen.dart';
+export 'views/Component/reduction_component.dart';
+export 'views/scanner_screen.dart';
+export 'bindings/reservation_screen_binding.dart';
+export 'controllers/reservation_screen_controller.dart';
+export 'views/reservation_screen.dart';
+export 'controllers/type_chambre_hotel_screen_controller.dart';
+export 'bindings/type_chambre_hotel_screen_binging.dart';
+export 'views/type_chambre_hotel_screen.dart';
+export 'bindings/scanner_screen_binding.dart';
+export 'controllers/scanner_screen_controller.dart';
+export 'views/Component/scanner_component.dart';

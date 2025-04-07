@@ -1,0 +1,9 @@
+export 'bindings/register_coursier_binding.dart';
+export 'controllers/register_coursier_controller.dart';
+export 'views/register_coursier_screen.dart';
+export 'bindings/login_coursier_binding.dart';
+export 'controllers/login_coursier_controller.dart';
+export 'views/login_coursier_screen.dart';
+export 'bindings/profil_coursier_binding.dart';
+export 'controllers/profil_coursier_controller.dart';
+export 'views/profil_coursier_screen.dart';

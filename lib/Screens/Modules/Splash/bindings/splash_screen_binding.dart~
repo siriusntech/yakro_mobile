@@ -1,0 +1,12 @@
+import 'package:get/get.dart';
+
+import '../../../../Providers/path_providers.dart';
+import '../path_splash.dart';
+
+class SplashScreenBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<SplashScreenController>(() => SplashScreenController());
+    Get.lazyPut<SliderApiController>(() => SliderApiController());
+  }
+}

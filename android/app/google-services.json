@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "613208666204",
+    "project_id": "j-aime-yakro",
+    "storage_bucket": "j-aime-yakro.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613208666204:android:135114d6d2ad49f808f699",
+        "android_client_info": {
+          "package_name": "com.siriusntech.jaime_yakro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613208666204-vs6tdqbcs2d1vh9mk6ta11eth2ipm4a6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7-izHKU5amn1rYfzXjzjNp8sRhcKw2KI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613208666204-vs6tdqbcs2d1vh9mk6ta11eth2ipm4a6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "613208666204-2jfmgsqqc4igt73kp6imac0n8n15b4ld.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.siriusntech.jaimeyakro"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

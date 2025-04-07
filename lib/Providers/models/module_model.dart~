@@ -1,0 +1,45 @@
+// To parse this JSON data, do
+//
+//     final eleveModel = eleveModelFromJson(jsonString);
+
+import 'dart:convert';
+
+List<ModuleModel> moduleModelFromJson(String str) => List<ModuleModel>.from(json.decode(str).map((x) => ModuleModel.fromJson(x)));
+
+String moduleModelToJson(List<ModuleModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class ModuleModel {
+  int? id;
+  String? libelle;
+  String? description;
+  int? active;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  ModuleModel({
+    this.id,
+    this.libelle,
+    this.description,
+    this.active,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory ModuleModel.fromJson(Map<String, dynamic> json) => ModuleModel(
+    id: json["id"],
+    libelle: json["libelle"],
+    description: json["description"],
+    active: json["active"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "libelle": libelle,
+    "description": description,
+    "active": active,
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
+  };
+}
