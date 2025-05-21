@@ -28,7 +28,8 @@ class _CardHotelElementState extends State<CardHotelElement> {
     final HotelScreenController controllerHotelScreeen =
         Get.put(HotelScreenController());
     final HotelController controllerHotel = Get.put(HotelController());
-    final ReservationScreenController controllerReservation = Get.put(ReservationScreenController());
+    final ReservationScreenController controllerReservation =
+        Get.put(ReservationScreenController());
     return InkWell(
       onTap: widget.onTap,
       child: Container(
@@ -75,39 +76,46 @@ class _CardHotelElementState extends State<CardHotelElement> {
                                 .toggleFavorite(widget.hotelModel),
                           )),
                     )),
-                widget.hotelModel.reduction==null || widget.hotelModel.reduction==0?Container(): Positioned(
-                    left: 10,
-                    top: 10,
-                    child: InkWell(
-                      onTap: (){
-                        controllerHotelScreeen.hotelSingleScreenController.setHotelModel(widget.hotelModel);
-                        controllerReservation.setAuthModel(controllerHotelScreeen.authController.authModel.value);
-                        controllerReservation.setModuledata({
-                          "Module": "hotel_code",
-                          "IdModule": widget.hotelModel.code,
-                        });
-                        controllerReservation.onInit();
-                        Get.toNamed(AppRoutes.typeChambreHotelScreen);
-                      },
-                      child: Container(
-                        height: 35,
-                        // width: 140,
-                        padding: const EdgeInsets.all(5),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: ConstColors.alertDanger
-                                .withOpacity(0.7),
-                            borderRadius:
-                            BorderRadius.circular(AppConfig.cardRadius)),
-                        child: Text("Profitez de - ${widget.hotelModel.reduction!.ceil()}%",
-                            style: TextStyle(
-                                fontFamily: GoogleFonts.nunito().fontFamily,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Colors.white
-                            )),
-                      ),
-                    ))
+                Obx(() => controllerHotelScreeen
+                                .mainController.hotelReductionEnable.value ==
+                            true &&
+                        widget.hotelModel.reduction!.ceil() != 0
+                    ? Positioned(
+                        left: 10,
+                        top: 10,
+                        child: InkWell(
+                          onTap: () {
+                            controllerHotelScreeen.hotelSingleScreenController
+                                .setHotelModel(widget.hotelModel);
+                            controllerReservation.setAuthModel(
+                                controllerHotelScreeen
+                                    .authController.authModel.value);
+                            controllerReservation.setModuledata({
+                              "Module": "hotel_code",
+                              "IdModule": widget.hotelModel.code,
+                            });
+                            controllerReservation.onInit();
+                            Get.toNamed(AppRoutes.typeChambreHotelScreen);
+                          },
+                          child: Container(
+                            height: 35,
+                            // width: 140,
+                            padding: const EdgeInsets.all(5),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: ConstColors.alertDanger.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(
+                                    AppConfig.cardRadius)),
+                            child: Text(
+                                "Profitez ${controllerHotelScreeen.mainController.hotelReductionEnable.value.toString()} de - ${widget.hotelModel.reduction!.ceil()}%",
+                                style: TextStyle(
+                                    fontFamily: GoogleFonts.nunito().fontFamily,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Colors.white)),
+                          ),
+                        ))
+                    : Container())
               ],
             ),
             Container(

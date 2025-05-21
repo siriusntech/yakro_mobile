@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:jaime_yakro/Config/app_config.dart';
+// import 'package:jaime_yakro/Config/app_config.dart';
 
 SliderModel sliderModelFromJson(String str) =>
     SliderModel.fromJson(json.decode(str));
@@ -36,7 +36,7 @@ class SliderModel {
         id: int.parse(json["id"].toString()),
         titre: json["titre"],
         description: json["description"],
-        imageUrl:  json["image_url"],//'${AppConfig.baseUrl}/' +
+        imageUrl: json["image_url"], //'${AppConfig.baseUrl}/' +
         url: json["url"],
         deletedAt: json["deleted_at"],
         createdAt: DateTime.parse(json["created_at"]),

@@ -55,12 +55,12 @@ class CoursierConciergerieService extends GetConnect {
 
   Future<Response<CoursierConciergeModel>> loginCoursierConcierge(
       Map<String, dynamic> data) async {
-    // print('======POST LOGIN COURSIER CONCIERGE=======');
     return post(
       '/conciergerie/coursier/login',
       data,
       headers: mainController.getLoggedHeaders(),
       decoder: (data) {
+        // print(data);
         if (data['success'] == false) {
           Get.snackbar('Echec', data['message'],
               backgroundColor: ConstColors.alertWarnig,
@@ -84,12 +84,15 @@ class CoursierConciergerieService extends GetConnect {
           'device_model': mainController.deviceModel.value
         },
         headers: mainController.getLoggedHeaders(), decoder: (data) {
-      print(data);
-      return data['data'] == null ? null : CoursierConciergeModel.fromJson(data['data']);
+      // print(data);
+      return data['data'] == null
+          ? null
+          : CoursierConciergeModel.fromJson(data['data']);
     });
   }
 
-  Future<Response<Map<String, dynamic>>> createCoursierConciergeDocument(data) async {
+  Future<Response<Map<String, dynamic>>> createCoursierConciergeDocument(
+      data) async {
     int statusCode = 200;
     data.forEach((key, value) async {
       File file = File(value.path);

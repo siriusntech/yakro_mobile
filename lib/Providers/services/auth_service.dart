@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:jaime_yakro/Config/app_config.dart';
 import 'package:jaime_yakro/Providers/path_providers.dart';
-import 'package:jaime_yakro/Screens/Widgets/path_widget.dart';
-import 'package:quickalert/models/quickalert_type.dart';
+// import 'package:jaime_yakro/Screens/Widgets/path_widget.dart';
+// import 'package:quickalert/models/quickalert_type.dart';
 
 class AuthService extends GetConnect {
   final MainController mainController = Get.put(MainController());
@@ -65,18 +65,22 @@ class AuthService extends GetConnect {
       });
 
   //refresh fcm Token
-  Future <Response<Map<String, dynamic>>> refreshFcmToken({String? fcmToken, String? deviceId, String? deviceModel}) async =>post('/refresh_fcm_token', {
-    'fcm_token': fcmToken,
-    'device_id': deviceId,
-    'device_model': deviceModel
-  }, headers: mainController.getLoggedHeaders(), decoder: (auth) {
-   // print(deviceModel);
-   // print(deviceId);
-   //  print('============REFRESH FCM TOKEN==============3');
-   //  print(auth);
-    return auth;
-  });
-
+  Future<Response<Map<String, dynamic>>> refreshFcmToken(
+          {String? fcmToken, String? deviceId, String? deviceModel}) async =>
+      post(
+          '/refresh_fcm_token',
+          {
+            'fcm_token': fcmToken,
+            'device_id': deviceId,
+            'device_model': deviceModel
+          },
+          headers: mainController.getLoggedHeaders(), decoder: (auth) {
+        // print(deviceModel);
+        // print(deviceId);
+        //  print('============REFRESH FCM TOKEN==============3');
+        //  print(auth);
+        return auth;
+      });
 }
 
 

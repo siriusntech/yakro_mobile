@@ -19,6 +19,7 @@ class MainController extends GetxController {
   final RxBool bonPlanEnable = false.obs;
   final RxBool tourismeEnable = false.obs;
   final RxBool coursierConciergeConnected = false.obs;
+  final RxBool hotelReductionEnable = false.obs;
   final Rx<Rx<Map>> headers = Rx({}).obs;
   RxBool connectivity = false.obs;
 
@@ -60,11 +61,19 @@ class MainController extends GetxController {
     _sharedPreferences.setString('deviceModel', deviceModel.toString());
   }
 
-  void saveSharedPreferenceFcmToken({required String fcmToken}){
+  void saveSharedPreferenceFcmToken({required String fcmToken}) {
     _sharedPreferences.setString('fcmToken', fcmToken);
   }
 
-  void saveSharedPreferenceModules({required bool hotelEnable, required bool boutiqueEnable, required bool restaurantEnable, required bool conciergerieEnable, required bool pharmacieEnable, required bool bonPlanEnable, required bool tourismeEnable}){
+  void saveSharedPreferenceModules(
+      {required bool hotelEnable,
+      required bool boutiqueEnable,
+      required bool restaurantEnable,
+      required bool conciergerieEnable,
+      required bool pharmacieEnable,
+      required bool bonPlanEnable,
+      required bool tourismeEnable,
+      required bool hotelReductionEnable}) {
     _sharedPreferences.setBool('hotelEnable', hotelEnable);
     _sharedPreferences.setBool('boutiqueEnable', boutiqueEnable);
     _sharedPreferences.setBool('restaurantEnable', restaurantEnable);
@@ -72,6 +81,7 @@ class MainController extends GetxController {
     _sharedPreferences.setBool('pharmacieEnable', pharmacieEnable);
     _sharedPreferences.setBool('bonPlanEnable', bonPlanEnable);
     _sharedPreferences.setBool('tourismeEnable', tourismeEnable);
+    _sharedPreferences.setBool('hotelReductionEnable', hotelReductionEnable);
   }
 
   //get SharedPreference deviceId
@@ -130,22 +140,37 @@ class MainController extends GetxController {
     _sharedPreferences = await SharedPreferences.getInstance();
     hotelEnable.value = _sharedPreferences.getBool('hotelEnable') ?? false;
     // print("hotelEnable : ${hotelEnable.value}");
-    boutiqueEnable.value = _sharedPreferences.getBool('boutiqueEnable') ?? false;
+    boutiqueEnable.value =
+        _sharedPreferences.getBool('boutiqueEnable') ?? false;
     // print("boutiqueEnable : ${boutiqueEnable.value}");
-    restaurantEnable.value = _sharedPreferences.getBool('restaurantEnable') ?? false;
+    restaurantEnable.value =
+        _sharedPreferences.getBool('restaurantEnable') ?? false;
     // print("restaurantEnable : ${restaurantEnable.value}");
-    conciergeEnable.value = _sharedPreferences.getBool('conciergeEnable') ?? false;
+    conciergeEnable.value =
+        _sharedPreferences.getBool('conciergeEnable') ?? false;
     // print("conciergeEnable : ${conciergeEnable.value}");
-    pharmacieEnable.value = _sharedPreferences.getBool('pharmacieEnable') ?? false;
+    pharmacieEnable.value =
+        _sharedPreferences.getBool('pharmacieEnable') ?? false;
     // print("pharmacieEnable : ${pharmacieEnable.value}");
     bonPlanEnable.value = _sharedPreferences.getBool('bonPlanEnable') ?? false;
     // print("bonPlanEnable : ${bonPlanEnable.value}");
-    tourismeEnable.value = _sharedPreferences.getBool('tourismeEnable') ?? false;
+    tourismeEnable.value =
+        _sharedPreferences.getBool('tourismeEnable') ?? false;
     // print("tourismeEnable : ${tourismeEnable.value}");
+    hotelReductionEnable.value =
+        _sharedPreferences.getBool('hotelReductionEnable') ?? false;
     update();
   }
 
-  void setModuleEnabled({required bool hotelEnable, required bool boutiqueEnable, required bool restaurantEnable, required bool conciergerieEnable, required bool pharmacieEnable, required bool bonPlanEnable, required bool tourismeEnable}){
+  void setModuleEnabled(
+      {required bool hotelEnable,
+      required bool boutiqueEnable,
+      required bool restaurantEnable,
+      required bool conciergerieEnable,
+      required bool pharmacieEnable,
+      required bool bonPlanEnable,
+      required bool tourismeEnable,
+      required bool hotelReductionEnable}) {
     this.hotelEnable.value = hotelEnable;
     this.boutiqueEnable.value = boutiqueEnable;
     this.restaurantEnable.value = restaurantEnable;
@@ -153,6 +178,7 @@ class MainController extends GetxController {
     this.pharmacieEnable.value = pharmacieEnable;
     this.bonPlanEnable.value = bonPlanEnable;
     this.tourismeEnable.value = tourismeEnable;
+    this.hotelReductionEnable.value = hotelReductionEnable;
     update();
   }
 
@@ -212,4 +238,6 @@ class MainController extends GetxController {
   bool getConciergeEnable() => conciergeEnable.value;
   bool getPharmacieEnable() => pharmacieEnable.value;
   bool getBonPlanEnable() => bonPlanEnable.value;
+  bool getTourismeEnable() => tourismeEnable.value;
+  bool getHotelReductionEnable() => hotelReductionEnable.value;
 }

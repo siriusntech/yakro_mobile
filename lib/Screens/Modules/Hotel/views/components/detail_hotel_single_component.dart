@@ -262,18 +262,35 @@ class _DetailHotelSingleComponentState
                           ],
                         ),
                       ),
-                      widget.hotelModel!.reduction != null ? Container(
-                          height: 60,
-                          width: 200,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius:
-                            BorderRadius.circular(AppConfig.cardRadius),
-                            color: ConstColors.alertDanger,),
-                          child: TextButton(onPressed: (){
-                            Get.toNamed(AppRoutes.typeChambreHotelScreen);
-                          }, child: Text("Profitez de -${widget.hotelModel!.reduction!.ceil()}%", style: TextStyle(fontFamily: GoogleFonts.nunito().fontFamily, fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),)
-                      ): Container()
+                      // widget.hotelModel!.reduction != null ||
+                      Obx(() => controllerHotelScreeen.mainController
+                                      .hotelReductionEnable.value ==
+                                  true &&
+                              widget.hotelModel!.reduction!.ceil() != 0
+                          ? Container(
+                              height: 60,
+                              width: 200,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(AppConfig.cardRadius),
+                                color: ConstColors.alertDanger,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  Get.toNamed(AppRoutes.typeChambreHotelScreen);
+                                },
+                                child: Text(
+                                  "Profitez de -${widget.hotelModel!.reduction!.ceil()}%",
+                                  style: TextStyle(
+                                      fontFamily:
+                                          GoogleFonts.nunito().fontFamily,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.white),
+                                ),
+                              ))
+                          : Container())
                     ],
                   ),
                 ),
@@ -368,7 +385,6 @@ class _DetailHotelSingleComponentState
                             ),
                             InkWell(
                               onTap: () {
-
                                 widget.hotelModel!.contact == null
                                     ? ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
@@ -378,12 +394,12 @@ class _DetailHotelSingleComponentState
                                         ),
                                         backgroundColor: Colors.red,
                                       ))
-                                    :
-                                Helpers.launchInAppBrowser(Uri(
-                                  scheme: "https",
-                                  host: 'wa.me',
-                                  path: "+225${widget.hotelModel!.contact}/",
-                                ));
+                                    : Helpers.launchInAppBrowser(Uri(
+                                        scheme: "https",
+                                        host: 'wa.me',
+                                        path:
+                                            "+225${widget.hotelModel!.contact}/",
+                                      ));
                               },
                               child: Container(
                                 height: 40,

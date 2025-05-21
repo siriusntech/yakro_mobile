@@ -61,7 +61,7 @@ class SiteTourismeSingleScreenController extends GetxController {
         );
       }
     } catch (e) {
-      print(e);
+      (e);
     }
   }
 

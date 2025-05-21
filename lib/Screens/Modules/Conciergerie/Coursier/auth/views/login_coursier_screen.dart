@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaime_yakro/Screens/Modules/Conciergerie/Coursier/auth/path_auth_coursier.dart';
 
-import '../../../../../../routes/path_route.dart';
+// import '../../../../../../routes/path_route.dart';
 
 class LoginCoursierScreen extends StatefulWidget {
   const LoginCoursierScreen({super.key});
@@ -15,7 +15,8 @@ class LoginCoursierScreen extends StatefulWidget {
 
 class _LoginCoursierScreenState extends State<LoginCoursierScreen> {
   final LoginCoursierController controller = Get.put(LoginCoursierController());
-  final ProfilCoursierController controllerProfilCoursier = Get.put(ProfilCoursierController());
+  final ProfilCoursierController controllerProfilCoursier =
+      Get.put(ProfilCoursierController());
   @override
   Widget build(BuildContext context) {
     // double height = MediaQuery.of(context).size.height;
@@ -202,135 +203,140 @@ class _LoginCoursierScreenState extends State<LoginCoursierScreen> {
                 TextButton(
                   onPressed: () {
                     Get.dialog(Obx(() => AlertDialog(
-                      title: Text(
-                        'Changer votre mot de passe',
-                        style: TextStyle(
-                            fontFamily: GoogleFonts.nunito().fontFamily,
-                            fontSize: 20),
-                      ),
-                      content: controllerProfilCoursier.resetPassword.value
-                          ? SpinKitDoubleBounce(
-                        color: controller.colorPrimary.value,
-                      )
-                          : Container(
-                          height: height / 4,
-                          child: Column(
-                              children: [
-                                TextField(
-                                  controller: controllerProfilCoursier
-                                      .verifTelephoneController.value,
-                                  decoration: InputDecoration(
-                                      label: Text(
-                                        'Saisir un de vos numeros de telephone',
-                                        style: TextStyle(
-                                            fontFamily: GoogleFonts.nunito()
-                                                .fontFamily),
-                                      ),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: controller
-                                                  .colorPrimary.value))),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                controllerProfilCoursier.showInputOtp.value
-                                    ? TextField(
-                                  controller:
-                                  controllerProfilCoursier.newOtpController.value,
-                                  maxLength: 6,
-                                  decoration: InputDecoration(
-                                      label: Text(
-                                        'Saisir votre code OTP',
-                                        style: TextStyle(
-                                            fontFamily:
-                                            GoogleFonts.nunito()
-                                                .fontFamily),
-                                      ),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: controller
-                                                  .colorPrimary
-                                                  .value))),
-                                )
-                                    : const Text(""),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                controllerProfilCoursier.showInputNewPassword.value
-                                    ? TextField(
-                                  controller: controllerProfilCoursier
-                                      .newPasswordController.value,
-                                  decoration: InputDecoration(
-                                      label: Text(
-                                        'Nouveau mot de passe',
-                                        style: TextStyle(
-                                            fontFamily:
-                                            GoogleFonts.nunito()
-                                                .fontFamily),
-                                      ),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: controller
-                                                  .colorPrimary
-                                                  .value))),
-                                )
-                                    : const Text(""),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ])),
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            child: Text(
-                              'Annuler',
-                              style: TextStyle(
-                                  fontFamily: GoogleFonts.nunito().fontFamily,
-                                  color: controller.colorPrimary.value),
-                            )),
-                        controllerProfilCoursier.showInputOtp.value
-                            ? TextButton(
-                            onPressed: () async {
-                              await controllerProfilCoursier.verifyOtp();
-                            },
-                            child: Text(
-                              'Verifiez OTP',
-                              style: TextStyle(
-                                  fontFamily:
-                                  GoogleFonts.nunito().fontFamily,
-                                  color: controller.colorPrimary.value),
-                            ))
-                            : controllerProfilCoursier.showInputNewPassword.value
-                            ? TextButton(
-                            onPressed: () async {
-                              await controllerProfilCoursier.changePassword();
-                            },
-                            child: Text(
-                              'Changer mot de passe',
-                              style: TextStyle(
-                                  fontFamily:
-                                  GoogleFonts.nunito().fontFamily,
-                                  color:
-                                  controller.colorPrimary.value),
-                            ))
-                            : TextButton(
-                          onPressed: () async {
-                            await controllerProfilCoursier.sendOtp();
-                          },
-                          child: Text(
-                            'Verifiez Numero',
+                          title: Text(
+                            'Changer votre mot de passe',
                             style: TextStyle(
-                                fontFamily:
-                                GoogleFonts.nunito().fontFamily,
-                                color:
-                                controller.colorPrimary.value),
+                                fontFamily: GoogleFonts.nunito().fontFamily,
+                                fontSize: 20),
                           ),
-                        )
-                      ],
-                    )));
+                          content: controllerProfilCoursier.resetPassword.value
+                              ? SpinKitDoubleBounce(
+                                  color: controller.colorPrimary.value,
+                                )
+                              : Container(
+                                  height: height / 4,
+                                  child: Column(children: [
+                                    TextField(
+                                      controller: controllerProfilCoursier
+                                          .verifTelephoneController.value,
+                                      decoration: InputDecoration(
+                                          label: Text(
+                                            'Saisir un de vos numeros de telephone',
+                                            style: TextStyle(
+                                                fontFamily: GoogleFonts.nunito()
+                                                    .fontFamily),
+                                          ),
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: controller
+                                                      .colorPrimary.value))),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    controllerProfilCoursier.showInputOtp.value
+                                        ? TextField(
+                                            controller: controllerProfilCoursier
+                                                .newOtpController.value,
+                                            maxLength: 6,
+                                            decoration: InputDecoration(
+                                                label: Text(
+                                                  'Saisir votre code OTP',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          GoogleFonts.nunito()
+                                                              .fontFamily),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: controller
+                                                            .colorPrimary
+                                                            .value))),
+                                          )
+                                        : const Text(""),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    controllerProfilCoursier
+                                            .showInputNewPassword.value
+                                        ? TextField(
+                                            controller: controllerProfilCoursier
+                                                .newPasswordController.value,
+                                            decoration: InputDecoration(
+                                                label: Text(
+                                                  'Nouveau mot de passe',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          GoogleFonts.nunito()
+                                                              .fontFamily),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: controller
+                                                            .colorPrimary
+                                                            .value))),
+                                          )
+                                        : const Text(""),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ])),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: Text(
+                                  'Annuler',
+                                  style: TextStyle(
+                                      fontFamily:
+                                          GoogleFonts.nunito().fontFamily,
+                                      color: controller.colorPrimary.value),
+                                )),
+                            controllerProfilCoursier.showInputOtp.value
+                                ? TextButton(
+                                    onPressed: () async {
+                                      await controllerProfilCoursier
+                                          .verifyOtp();
+                                    },
+                                    child: Text(
+                                      'Verifiez OTP',
+                                      style: TextStyle(
+                                          fontFamily:
+                                              GoogleFonts.nunito().fontFamily,
+                                          color: controller.colorPrimary.value),
+                                    ))
+                                : controllerProfilCoursier
+                                        .showInputNewPassword.value
+                                    ? TextButton(
+                                        onPressed: () async {
+                                          await controllerProfilCoursier
+                                              .changePassword();
+                                        },
+                                        child: Text(
+                                          'Changer mot de passe',
+                                          style: TextStyle(
+                                              fontFamily: GoogleFonts.nunito()
+                                                  .fontFamily,
+                                              color: controller
+                                                  .colorPrimary.value),
+                                        ))
+                                    : TextButton(
+                                        onPressed: () async {
+                                          await controllerProfilCoursier
+                                              .sendOtp();
+                                        },
+                                        child: Text(
+                                          'Verifiez Numero',
+                                          style: TextStyle(
+                                              fontFamily: GoogleFonts.nunito()
+                                                  .fontFamily,
+                                              color: controller
+                                                  .colorPrimary.value),
+                                        ),
+                                      )
+                          ],
+                        )));
                   },
                   child: Text(
                     "Mot de passe oublié?",

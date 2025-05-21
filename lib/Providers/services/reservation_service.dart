@@ -6,7 +6,7 @@ import 'package:jaime_yakro/Providers/path_providers.dart';
 import 'package:jaime_yakro/Screens/Widgets/path_widget.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 
-class ReservationService extends GetConnect{
+class ReservationService extends GetConnect {
   final MainController mainController = Get.put(MainController());
 
   @override
@@ -18,38 +18,68 @@ class ReservationService extends GetConnect{
     super.onInit();
   }
 
-
-  Future <Response<ReservationModel>> storeReservation(Map<String, dynamic> data) async {
+  Future<Response<ReservationModel>> storeReservation(
+      Map<String, dynamic> data) async {
     // print(data);
-    return post('/reservations-client/store', data, headers: mainController.getLoggedHeaders(), decoder: (data){
-      if(data['success'] == true){
+    return post('/reservations-client/store', data,
+        headers: mainController.getLoggedHeaders(), decoder: (data) {
+      if (data['success'] == true) {
         Get.back();
         Get.back();
-        quickAlertDialog(Get.context!, QuickAlertType.success, color: ConstColors.vertColorFonce, message: "Reservation Effectué", title: "Success", onConfirmBtnTap: () => Get.back());
-      }else{
-        quickAlertDialog(Get.context!, QuickAlertType.error, color: ConstColors.alertDanger, message: "Reservation Echoué", title: "Erreur", onConfirmBtnTap: () => Get.back());
+        quickAlertDialog(Get.context!, QuickAlertType.success,
+            color: ConstColors.vertColorFonce,
+            message: "Réservation Effectuée",
+            title: "Success",
+            onConfirmBtnTap: () => Get.back());
+      } else {
+        quickAlertDialog(Get.context!, QuickAlertType.error,
+            color: ConstColors.alertDanger,
+            message: "Réservation Echouée",
+            title: "Erreur",
+            onConfirmBtnTap: () => Get.back());
       }
       return ReservationModel.fromJson(data['data']);
-    }).catchError((e){
-      print(e);
+    }).catchError((e) {
+      (e);
     });
   }
 
-  Future <Response<List<ReservationModel>>> getReservations() async {
-    return get(
-        '/reservations-client', headers: mainController.getLoggedHeaders(),
-        decoder: (data) =>
-        List<ReservationModel>.from(
+  Future<Response<ReservationModel>> cancelReservation(int id) async {
+    return post('/reservattion-client/cancel', {'id': id},
+        headers: mainController.getLoggedHeaders(), decoder: (data) {
+      if (data['success'] == true) {
+        Get.back();
+        Get.back();
+        getReservations();
+        quickAlertDialog(Get.context!, QuickAlertType.success,
+            color: ConstColors.vertColorFonce,
+            message: "Réservation Annulée",
+            title: "Success",
+            onConfirmBtnTap: () => Get.back());
+      } else {
+        quickAlertDialog(Get.context!, QuickAlertType.error,
+            color: ConstColors.alertDanger,
+            message: "Annulation Echouée",
+            title: "Erreur",
+            onConfirmBtnTap: () => Get.back());
+      }
+      return ReservationModel.fromJson(data['data']);
+    }).catchError((e) {
+      (e);
+    });
+  }
+
+  Future<Response<List<ReservationModel>>> getReservations() async {
+    return get('/reservations-client',
+        headers: mainController.getLoggedHeaders(),
+        decoder: (data) => List<ReservationModel>.from(
             data['data'].map((x) => ReservationModel.fromJson(x))));
   }
 
-  Future <Response<ReservationModel>> updateNoteSejour(Map<String, dynamic> data) async {
-    return post(
-        '/reservations-client/update-note-sejour', data, headers: mainController.getLoggedHeaders(),
-        decoder: (data) =>ReservationModel.fromJson(data['data']));
+  Future<Response<ReservationModel>> updateNoteSejour(
+      Map<String, dynamic> data) async {
+    return post('/reservations-client/update-note-sejour', data,
+        headers: mainController.getLoggedHeaders(),
+        decoder: (data) => ReservationModel.fromJson(data['data']));
   }
-
-
-
-
 }

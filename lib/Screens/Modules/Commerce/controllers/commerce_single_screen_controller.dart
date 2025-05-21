@@ -139,7 +139,7 @@ class CommerceSingleScreenController extends GetxController {
         );
       }
     } catch (e) {
-      print(e);
+      (e);
     }
   }
 

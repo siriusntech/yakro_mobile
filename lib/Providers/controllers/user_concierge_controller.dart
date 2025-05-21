@@ -43,7 +43,7 @@ class UserConciergeController extends GetxController {
       'device_id': mainController.deviceId.value,
       'device_model': mainController.deviceModel.value
     };
-    print(data);
+    // print(data);
     userConciergeLoading.value = true;
     try {
       final response = await _userConciergeService.createUserConcierge(data);

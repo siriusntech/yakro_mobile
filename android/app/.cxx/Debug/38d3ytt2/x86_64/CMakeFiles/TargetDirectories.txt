@@ -1,0 +1,2 @@
+F:/Dev/Sirius_Project/Mobile/jaime_yakro_android/jaime_yakro/android/app/.cxx/Debug/38d3ytt2/x86_64/CMakeFiles/edit_cache.dir
+F:/Dev/Sirius_Project/Mobile/jaime_yakro_android/jaime_yakro/android/app/.cxx/Debug/38d3ytt2/x86_64/CMakeFiles/rebuild_cache.dir

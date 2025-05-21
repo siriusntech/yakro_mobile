@@ -26,7 +26,7 @@ class CourseConciergerieService extends GetConnect {
         headers: mainController.getLoggedHeaders(), decoder: (data) {
       // Get.snackbar('Enregistrement', data['message'],
       //     backgroundColor: ConstColors.alertSuccess, colorText: Colors.white);
-       print(data);
+      //  print(data);
       return CourseConciergeModel.fromJson(data['data']);
     });
   }

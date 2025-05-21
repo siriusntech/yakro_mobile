@@ -326,7 +326,7 @@ class _ListeTachesCourseComponentState
                                                     title:
                                                         'Confirmez Cette Modification',
                                                     message:
-                                                        'Cette Modification sera appliqué',
+                                                        'Cette Modification sera appliquée',
                                                     onConfirmBtnTap: () {
                                                   // courseConciergerieScreenController.selectedStatus!.value = newValue;
                                                   Map<String, dynamic>

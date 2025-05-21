@@ -154,7 +154,7 @@ class RegisterCoursierController extends GetxController {
         coursierConciergeDocUploading.value = false;
       }
     } catch (e) {
-      print(e);
+      (e);
       Get.snackbar('Erreur', e.toString(),
           icon: const Icon(
             Icons.close,

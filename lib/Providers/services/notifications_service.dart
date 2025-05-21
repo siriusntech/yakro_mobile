@@ -161,7 +161,7 @@ class NotificationServices {
   }
 
   void handleMessage(BuildContext context, RemoteMessage message) {
-print(message.data);
+// print(message.data);
     if (message.data['type'] == '/hotels_index') {
       Get.toNamed(AppRoutes.hotelScreen);
     } else if (message.data['type'] == '/commerce') {

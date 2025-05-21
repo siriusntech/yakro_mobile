@@ -42,7 +42,7 @@ class BoutiqueService extends GetConnect {
       data,
       headers: mainController.getLoggedHeaders(),
       decoder: (data) {
-        print(data);
+        // print(data);
         return OrderBoutiqueModel.fromJson(data['data']);
       },
     );

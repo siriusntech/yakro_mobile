@@ -22,13 +22,16 @@ class HomeScreen extends GetView<HomeScreenController> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        leading:
-        IconButton(
-          icon: const Icon(Icons.menu, color: ConstColors.vertColorFonce,),
-          onPressed: (){
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            color: ConstColors.vertColorFonce,
+          ),
+          onPressed: () {
             // Get.toNamed(AppRoutes.reductionScreen);
             _scaffoldKey.currentState!.openDrawer();
-          },),
+          },
+        ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -158,110 +161,135 @@ class HomeScreen extends GetView<HomeScreenController> {
             decoration: const BoxDecoration(
               color: Colors.white,
             ),
-            child: Column(
-                children: [
-                  Container(
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                      color: ConstColors.vertColorFonce,
+            child: Column(children: [
+              Container(
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  color: ConstColors.vertColorFonce,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Profil',
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: GoogleFonts.taprom().fontFamily),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          'Profil',
-                          style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: GoogleFonts.taprom().fontFamily),
-                        ),
-                      ],
-                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView(children: [
+                  Obx(() => ListTile(
+                      leading: const Icon(Icons.qr_code_scanner_rounded),
+                      title: Text(
+                        'Scanner le QR Code',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.bold,
+                            fontFamily: GoogleFonts.nunito().fontFamily),
+                      ),
+                      onTap: controller
+                                  .mainController.hotelReductionEnable.value ==
+                              true
+                          ? () {
+                              Get.toNamed(AppRoutes.scannerScreen);
+                            }
+                          : () {
+                              quickAlertDialog(context, QuickAlertType.info,
+                                  color: const Color(0xFF0D5CCC),
+                                  message: 'Bientôt Disponible',
+                                  title: 'Réduction');
+                            })),
+                  const Divider(
+                    height: 1,
                   ),
-                  Expanded(
-                    child: ListView(
-                        children: [
-                          ListTile(
-                              leading: const Icon(Icons.qr_code_scanner_rounded),
-                              title: Text(
-                                'Scanner le QR Code',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    // fontWeight: FontWeight.bold,
-                                    fontFamily: GoogleFonts.nunito().fontFamily),
-                              ),
-                              onTap: () {
-                                Get.toNamed(AppRoutes.scannerScreen);
-                              }),
-                          const Divider(height: 1,),
-                          ListTile(
-                              leading: const Icon(Icons.list_alt_rounded),
-                              title: Text(
-                                'Historique des réservations',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    // fontWeight: FontWeight.bold,
-                                    fontFamily: GoogleFonts.nunito().fontFamily),
-                              ),
-                              onTap: () {
-                                Get.toNamed(AppRoutes.reductionScreen);
-                              }),
-                          const Divider(height: 1,),
-                          //Devenir Coursier
-                          Obx(()=> (controller.coursierConciergerieController
-                              .coursierConciergeModel.value!.nom !=
+                  Obx(() => ListTile(
+                      leading: const Icon(Icons.list_alt_rounded),
+                      title: Text(
+                        'Historique des réservations',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            // fontWeight: FontWeight.bold,
+                            fontFamily: GoogleFonts.nunito().fontFamily),
+                      ),
+                      onTap: controller
+                                  .mainController.hotelReductionEnable.value ==
+                              true
+                          ? () {
+                              Get.toNamed(AppRoutes.reductionScreen);
+                            }
+                          : () {
+                              quickAlertDialog(context, QuickAlertType.info,
+                                  color: const Color(0xFF0D5CCC),
+                                  message: 'Bientôt Disponible',
+                                  title: 'Réduction');
+                            })),
+                  const Divider(
+                    height: 1,
+                  ),
+                  //Devenir Coursier
+                  Obx(() => (controller.coursierConciergerieController
+                                  .coursierConciergeModel.value!.nom !=
                               null &&
-                              controller.coursierConciergerieController
+                          controller.coursierConciergerieController
                                   .connectedCoursierConcierge() ==
-                                  true)
-                              ? ListTile(
-                            leading: const Icon(Icons.person),
-                            title: Text(
-                              'Profil Coursier',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  // fontWeight: FontWeight.bold,
-                                  fontFamily: GoogleFonts.nunito().fontFamily),
-                            ),
-                            onTap:
-                            // controller.mainController.conciergeEnable.value==true?
-                                () {
-                              Get.toNamed(AppRoutes.homeCoursierScreen);
-                            }
-                            // : (){
-                            //   quickAlertDialog(context, QuickAlertType.info, color: const Color(0xff434242), message: 'Bientôt Disponible', title: 'Conciergerie');
-                            // },
-                          ): ListTile(
-                            leading: const Icon(Icons.person),
-                            title: Text(
-                              'Devenir Coursier',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  // fontWeight: FontWeight.bold,
-                                  fontFamily: GoogleFonts.nunito().fontFamily),
-                            ),
-                            onTap:
-                            // controller.mainController.conciergeEnable.value==true?
-                                () {
-                              Get.toNamed(AppRoutes.registerCoursierScreen);
-                            }
-                            // : (){
-                            //   quickAlertDialog(context, QuickAlertType.info, color: const Color(0xff434242), message: 'Bientôt Disponible', title: 'Conciergerie');
-                            // }
-                            ,)),
-
-                        ]
-                    ),
-                  )
-                ]
-            )
-        ),
+                              true)
+                      ? ListTile(
+                          leading: const Icon(Icons.person),
+                          title: Text(
+                            'Profil Coursier',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: GoogleFonts.nunito().fontFamily),
+                          ),
+                          onTap: controller
+                                      .mainController.conciergeEnable.value ==
+                                  true
+                              ? () {
+                                  Get.toNamed(AppRoutes.homeCoursierScreen);
+                                }
+                              : () {
+                                  quickAlertDialog(context, QuickAlertType.info,
+                                      color: const Color(0xff434242),
+                                      message: 'Bientôt Disponible',
+                                      title: "On s'en occupe");
+                                },
+                        )
+                      : ListTile(
+                          leading: const Icon(Icons.person),
+                          title: Text(
+                            'Devenir Coursier',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: GoogleFonts.nunito().fontFamily),
+                          ),
+                          onTap: controller
+                                      .mainController.conciergeEnable.value ==
+                                  true
+                              ? () {
+                                  Get.toNamed(AppRoutes.registerCoursierScreen);
+                                }
+                              : () {
+                                  quickAlertDialog(context, QuickAlertType.info,
+                                      color: const Color(0xff434242),
+                                      message: 'Bientôt Disponible',
+                                      title: "On s'en occupe");
+                                },
+                        )),
+                ]),
+              )
+            ])),
       ),
       body: const HomeComponent(),
     );

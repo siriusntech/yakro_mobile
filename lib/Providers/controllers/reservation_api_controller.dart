@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:jaime_yakro/Config/Theme/Constant/const_colors.dart';
+// import 'package:jaime_yakro/Config/Theme/Constant/const_colors.dart';
 import 'package:jaime_yakro/Providers/path_providers.dart';
-import 'package:jaime_yakro/Screens/Widgets/path_widget.dart';
-import 'package:quickalert/quickalert.dart';
+// import 'package:jaime_yakro/Screens/Widgets/path_widget.dart';
+// import 'package:quickalert/quickalert.dart';
 
 class ReservationApiController extends GetxController {
   final ReservationService _reservationService = ReservationService();
@@ -23,16 +23,28 @@ class ReservationApiController extends GetxController {
 
   Future<void> storeReservation(Map<String, dynamic> data) async {
     reservationLoading.value = true;
-    try{
+    try {
       final response = await _reservationService.storeReservation(data);
       reservationModel.value = response.body!;
       reservationLoading.value = false;
-    }catch(e){
+    } catch (e) {
       reservationLoading.value = false;
     }
   }
 
-  void setModuledata(Map<String, dynamic> data){
+  Future<void> cancelReservation(int id) async {
+    reservationLoading.value = true;
+    try {
+      final response = await _reservationService.cancelReservation(id);
+      reservationModel.value = response.body!;
+      reservationLoading.value = false;
+      getReservation();
+    } catch (e) {
+      reservationLoading.value = false;
+    }
+  }
+
+  void setModuledata(Map<String, dynamic> data) {
     this.data.value = data;
     update();
   }
@@ -44,12 +56,12 @@ class ReservationApiController extends GetxController {
 
   Future<void> getReservation() async {
     listeReservationLoading.value = true;
-    try{
+    try {
       final response = await _reservationService.getReservations();
-      print(response.body);
+      // print(response.body);
       listReservationModel.value = response.body!;
       listeReservationLoading.value = false;
-    }catch(e){
+    } catch (e) {
       listeReservationLoading.value = false;
     }
   }

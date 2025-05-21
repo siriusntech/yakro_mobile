@@ -177,7 +177,7 @@ class ProfilCoursierController extends GetxController {
             colorText: Colors.white);
       }
     } catch (e) {
-      print(e);
+      (e);
       Get.snackbar('Erreur', e.toString(),
           icon: const Icon(
             Icons.close,

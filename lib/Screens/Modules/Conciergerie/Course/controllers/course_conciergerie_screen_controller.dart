@@ -20,7 +20,7 @@ class CourseConciergerieScreenController extends GetxController {
 
   RxBool createCourseConciergerieLoading = false.obs;
   Rx<Color> colorPrimary = const Color(0xff434242).obs;
-  RxString title = 'Conciergerie'.obs;
+  RxString title = "On s'en occupe".obs;
   RxMap datas = {}.obs;
   RxString amountCourse = ''.obs;
   Rx<UserBoutiqueModel?> userConcierge = Rx<UserBoutiqueModel?>(null);
@@ -216,7 +216,7 @@ class CourseConciergerieScreenController extends GetxController {
         Get.back();
 
         quickAlertDialog(context, QuickAlertType.success,
-            message: 'Modification effectué avec succès',
+            message: 'Modification effectuée avec succès',
             title: 'Succès',
             color: const Color(0xff6CA0B6),
             onConfirmBtnTap: () => {Get.back()});
@@ -282,7 +282,7 @@ class CourseConciergerieScreenController extends GetxController {
         quickAlertDialog(context, QuickAlertType.success,
             message:
                 'Course acceptée, vous allez être redirigé vers la liste des taches',
-            title: 'Modification effectué',
+            title: 'Modification effectuée',
             color: const Color(0xff6CA0B6),
             onConfirmBtnTap: () => {
                   Get.back(),
